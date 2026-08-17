@@ -1,11 +1,51 @@
-<!DOCTYPE HTML>
-<html lang="es">
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Catálogo Pompy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Shop</title>
     <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <script src="script.js"><script>
-  </body>
+</head>
+<body>
+
+    <!-- Top Mobile Navigation -->
+    <header class="app-header">
+        <div class="logo">🗲 MobileShop</div>
+        <button class="cart-toggle-btn" id="cartToggleBtn">
+            🛒 <span id="cartCount">0</span>
+        </button>
+    </header>
+
+    <!-- Main Storefront Screen -->
+    <main class="app-container">
+        <section class="hero-banner">
+            <h2>Summer Flash Sale</h2>
+            <p>Up to 50% off right now!</p>
+        </section>
+        
+        <h3 class="section-title">Our Products</h3>
+        <div class="product-grid" id="productGrid"></div>
+    </main>
+
+    <!-- Slide-over Drawer Cart Panel -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3>Your Cart</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <div class="cart-drawer-body" id="cartItemsContainer">
+            <!-- Dynamic elements loaded via JavaScript -->
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cartTotalValue">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <script src="app.js"></script>
+</body>
 </html>
