@@ -2,44 +2,206 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Inventario - Pompy</title>
+    
+    <!-- Librería Tabulator (Estilo Excel moderno) -->
+    <link href="https://unpkg.com" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h1 { margin: 0; font-size: 24px; color: #1e293b; }
+        .btn-group { display: flex; gap: 10px; }
+        button {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-add { background-color: #10b981; color: white; }
+        .btn-add:hover { background-color: #059669; }
+        .btn-save { background-color: #3b82f6; color: white; }
+        .btn-save:hover { background-color: #2563eb; }
+        #status-bar {
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+        .status-loading { background-color: #e0f2fe; color: #0369a1; display: block !important; }
+        .status-success { background-color: #dcfce7; color: #15803d; display: block !important; }
+        .status-error { background-color: #fee2e2; color: #b91c1c; display: block !important; }
+        /* Ajustes para simular Excel */
+        .tabulator {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
-    <h1>Mi Panel de Administración</h1>
-    <button id="btnProbar">Probar Conexión CRUD</button>
-    <p id="resultado"></p>
+
+    <div class="header-container">
+        <h1>📊 Panel de Inventario (Excel Style)</h1>
+        <div class="btn-group">
+            <button class="btn-add" id="add-row">➕ Añadir Producto</button>
+            <button class="btn-save" id="save-github">💾 Guardar Cambios en GitHub</button>
+        </div>
+    </div>
+
+    <div id="status-bar">Cargando inventario...</div>
+
+    <!-- Contenedor donde Tabulator dibujará la tabla -->
+    <div id="excel-table"></div>
 
     <script>
-        document.getElementById('btnProbar').addEventListener('click', async () => {
-            const statusText = document.getElementById('resultado');
-            statusText.textContent = "Conectando con GitHub...";
+        let table;
+        let fileSha = null; // Almacenará el identificador único del archivo en GitHub para poder sobreescribirlo
+        const JSON_PATH = 'inventario.json';
+
+        // 1. CARGAR DATOS INICIALES DESDE GITHUB AL ENTRAR A LA PÁGINA
+        async function cargarInventario() {
+            mostrarEstado('Cargando inventario actual desde GitHub...', 'loading');
+            try {
+                // Consultamos la API interna para obtener el archivo actual y su SHA
+                const repo = 'brianmateocabrera/pompy'; // Tu repositorio
+                const res = await fetch(`https://github.com{repo}/contents/${JSON_PATH}`);
+                
+                if (res.status === 404) {
+                    // Si el archivo no existe aún, inicializamos la tabla vacía
+                    inicializarTabla([]);
+                    mostrarEstado('Inventario nuevo inicializado. Crea tu primer producto.', 'success');
+                    return;
+                }
+
+                const fileData = await res.json();
+                fileSha = fileData.sha; // Guardamos el SHA para futuras actualizaciones
+                
+                // Decodificamos el contenido Base64 que envía GitHub a JSON plano
+                const contenidoJson = JSON.parse(atob(fileData.content));
+                
+                inicializarTabla(contenidoJson);
+                mostrarEstado('Inventario sincronizado correctamente.', 'success');
+            } catch (error) {
+                mostrarEstado('Error al leer el inventario: ' + error.message, 'error');
+                inicializarTabla([]);
+            }
+        }
+
+        // 2. INICIALIZAR LA LIBRERÍA TABULATOR (CONFIGURACIÓN DE COLUMNAS EXCEL)
+        function inicializarTabla(data) {
+            table = new Tabulator("#excel-table", {
+                data: data,
+                layout: "fitColumns",
+                responsiveLayout: "hide",
+                history: true,
+                placeholder: "No hay productos en el inventario. Presiona 'Añadir Producto'",
+                columns: [
+                    {title: "ID", field: "id", width: 60, editor: "number", hozAlign: "center"},
+                    {title: "Nombre del Producto", field: "nombre", editor: "input", width: 200},
+                    {title: "Categoría", field: "categoria", editor: "input", width: 130},
+                    {title: "Precio ($)", field: "precio", editor: "number", hozAlign: "right", formatter:"money", formatterParams:{thousand:".", decimal:",", symbol:"$", precision:0}},
+                    {title: "Stock", field: "stock", editor: "number", hozAlign: "center", width: 90},
+                    {title: "URL Imagen", field: "imagen", editor: "input", width: 220},
+                    {title: "Descripción", field: "descripcion", editor: "textarea"},
+                    {
+                        title: "Acción", 
+                        formatter: function() { return "❌ Borrar"; }, 
+                        width: 90, 
+                        hozAlign: "center", 
+                        cellClick: function(e, cell) {
+                            if(confirm("¿Seguro que deseas eliminar este producto?")) {
+                                cell.getRow().delete();
+                            }
+                        }
+                    }
+                ]
+            });
+        }
+
+        // 3. BOTÓN: AÑADIR NUEVA FILA
+        document.getElementById("add-row").addEventListener("click", function() {
+            if (!table) return;
+            // Genera un ID automático autoincremental simple
+            const filas = table.getData();
+            const siguienteId = filas.length > 0 ? Math.max(...filas.map(f => parseInt(f.id || 0))) + 1 : 1;
+            
+            table.addRow({
+                id: siguienteId,
+                nombre: "Nuevo Producto",
+                categoria: "General",
+                precio: 0,
+                stock: 0,
+                imagen: "https://",
+                descripcion: ""
+            });
+        });
+
+        // 4. BOTÓN: GUARDAR TODO EL INVENTARIO EN GITHUB
+        document.getElementById("save-github").addEventListener("click", async function() {
+            if (!table) return;
+            
+            mostrarEstado('Procesando y subiendo cambios a tu repositorio...', 'loading');
+            const datosActuales = table.getData();
 
             try {
-                // Enviamos la petición a la Vercel Function que creamos en el Paso 2
                 const respuesta = await fetch('/api/crud', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        path: 'prueba.json', // El nombre del archivo que se creará en tu GitHub
-                        message: 'Mi primer archivo creado desde el navegador 🚀',
-                        content: '{"estado": "Conexión exitosa", "fecha": "' + new Date().toISOString() + '"}'
+                        path: JSON_PATH,
+                        message: 'Inventario actualizado desde el panel de control 📊',
+                        content: JSON.stringify(datosActuales, null, 2), // Guardamos el JSON ordenado y legible
+                        sha: fileSha || undefined // Pasamos el SHA para que GitHub sepa que es una edición
                     })
                 });
 
                 const resultadoJson = await respuesta.json();
 
                 if (resultadoJson.success) {
-                    statusText.textContent = "¡Éxito absoluto! Revisa tu repositorio de GitHub, verás el archivo 'prueba.json' creado.";
-                    statusText.style.color = "green";
+                    mostrarEstado('¡Inventario guardado en GitHub con éxito! Tu web pública se actualizará en breve.', 'success');
+                    // Actualizamos el SHA local con el nuevo SHA generado por GitHub tras la escritura
+                    fileSha = resultadoJson.data.content.sha;
                 } else {
-                    statusText.textContent = "Error en el servidor: " + resultadoJson.error;
-                    statusText.style.color = "red";
+                    mostrarEstado('Error al guardar: ' + resultadoJson.error, 'error');
                 }
             } catch (error) {
-                statusText.textContent = "Error de red: " + error.message;
-                statusText.style.color = "red";
+                mostrarEstado('Error de red: ' + error.message, 'error');
             }
         });
+
+        // Función auxiliar para controlar la barra de notificaciones
+        function mostrarEstado(mensaje, tipo) {
+            const bar = document.getElementById('status-bar');
+            bar.textContent = mensaje;
+            bar.className = ''; // Limpiar clases
+            if (tipo === 'loading') bar.classList.add('status-loading');
+            if (tipo === 'success') bar.classList.add('status-success');
+            if (tipo === 'error') bar.classList.add('status-error');
+        }
+
+        // Arrancar la carga de datos al abrir la pantalla
+        window.onload = cargarInventario;
     </script>
 </body>
 </html>
