@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control</title>
+</head>
+<body>
+    <h1>Mi Panel de Administración</h1>
+    <button id="btnProbar">Probar Conexión CRUD</button>
+    <p id="resultado"></p>
+
+    <script>
+        document.getElementById('btnProbar').addEventListener('click', async () => {
+            const statusText = document.getElementById('resultado');
+            statusText.textContent = "Conectando con GitHub...";
+
+            try {
+                // Enviamos la petición a la Vercel Function que creamos en el Paso 2
+                const respuesta = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        path: 'prueba.json', // El nombre del archivo que se creará en tu GitHub
+                        message: 'Mi primer archivo creado desde el navegador 🚀',
+                        content: '{"estado": "Conexión exitosa", "fecha": "' + new Date().toISOString() + '"}'
+                    })
+                });
+
+                const resultadoJson = await respuesta.json();
+
+                if (resultadoJson.success) {
+                    statusText.textContent = "¡Éxito absoluto! Revisa tu repositorio de GitHub, verás el archivo 'prueba.json' creado.";
+                    statusText.style.color = "green";
+                } else {
+                    statusText.textContent = "Error en el servidor: " + resultadoJson.error;
+                    statusText.style.color = "red";
+                }
+            } catch (error) {
+                statusText.textContent = "Error de red: " + error.message;
+                statusText.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>
