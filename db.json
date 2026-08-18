@@ -1,0 +1,96 @@
+{
+  "nombre_tienda": "Pompy Lencería y Sex-shop",
+  "ultima_actualizacion": "2026-08-18T04:00:00Z",
+  "productos": [
+    {
+      "id": "POMPY-001",
+      "nombre": "Masajeador Vibrador Wand USB Silicona 20 Modos Vibración",
+      "descripcion": "Vibrador tipo masajeador con 20 modos de vibración y ocho velocidades ajustables para mayor personalización. Resistente al agua y recargable vía USB.",
+      "precio": 24999.00,
+      "moneda": "ARS",
+      "inventario": 15,
+      "categoria": "Bienestar Sexual",
+      "subcategoria": "Vibradores Wand",
+      "imagen": "/images/masajeador-vibrador-wand-usb-silicona-20-modos-vibracion.webp",
+      "etiquetas": ["vibrador", "wand", "silicona", "recargable", "resistente al agua"],
+      "atributos": {
+        "modos_vibracion": 20,
+        "velocidades": 8,
+        "autonomia": "1 hora",
+        "material": "Silicona y ABS",
+        "diametro": "4.3 cm",
+        "longitud": "19 cm",
+        "tipo_carga": "USB"
+      },
+      "disponible": true
+    },
+    {
+      "id": "POMPY-002",
+      "nombre": "Mini Wand Vibrador Masajeador Clitoris Usb Recargable",
+      "descripcion": "Masajeador vibrador compacto con cuello flexible y motores especiales para trabajo pesado que brindan excelente potencia y vibraciones silenciosas.",
+      "precio": 21599.00,
+      "moneda": "ARS",
+      "inventario": 22,
+      "categoria": "Bienestar Sexual",
+      "subcategoria": "Mini Vibradores",
+      "imagen": "/images/mini-wand-vibrador-masajeador-clitoris-usb-recargable.webp",
+      "etiquetas": ["mini wand", "estimulador", "clitoris", "silencioso"],
+      "atributos": {
+        "modos_vibracion": 20,
+        "velocidades": 8,
+        "frecuencias": "28 frecuencias fuertes",
+        "material": "Silicona ABS de alta calidad",
+        "longitud": "19 cm",
+        "cuello_flexible": true,
+        "instrucciones_higiene": "Utilizar solo jabón neutro en barra blanco y agua tibia. No usar detergentes ni sanitizantes con alcohol o perfume.",
+        "instrucciones_carga": "Carga inicial de 1 hora en PC, cargador externo o Smart TV. No usar cargadores de celulares ni tabletas."
+      },
+      "disponible": true
+    },
+    {
+      "id": "POMPY-003",
+      "nombre": "Vibrador Consolador Punto G Vagina Clítoris 30x Usb Gel",
+      "descripcion": "Nuevo DUAL Vibrador Rabbit G-Spot con 30 modos de pulsación y vibración. Diseño ergonómico de conejito doble que estimula vulva y clítoris al mismo tiempo.",
+      "precio": 21500.00,
+      "moneda": "ARS",
+      "inventario": 10,
+      "categoria": "Bienestar Sexual",
+      "subcategoria": "Vibradores Rabbit",
+      "imagen": "/images/vibrador-consolador-punto-g-vagina-clitoris-30x-usb-gel.webp",
+      "etiquetas": ["punto g", "rabbit", "estimulacion dual", "impermeable"],
+      "atributos": {
+        "modos_vibracion": 30,
+        "autonomia": "Hasta 6 horas de uso continuo",
+        "tiempo_carga": "2 horas",
+        "material": "Silicona suave y flexible (Hipoalergénica) y ABS",
+        "diametro": "3.5 cm",
+        "longitud": "17 cm",
+        "apto_ducha": true
+      },
+      "disponible": true
+    },
+    {
+      "id": "POMPY-004",
+      "nombre": "Pack Gel Lubricante Intimo Anal Vaginal X2 Luxuria 250cc",
+      "descripcion": "Pack de dos unidades de gel lubricante íntimo a base de agua, ideal para uso vaginal y anal. Fórmula hipoalergénica y compatible con látex.",
+      "precio": 14062.00,
+      "moneda": "ARS",
+      "inventario": 35,
+      "categoria": "Cosmética Erótica",
+      "subcategoria": "Lubricantes",
+      "imagen": "/images/pack-gel-lubricante-intimo-anal-vaginal-x2-luxuria-250cc.webp",
+      "etiquetas": ["lubricante", "pack x2", "base agua", "hipoalergenico", "anal", "vaginal"],
+      "atributos": {
+        "unidades_por_pack": 2,
+        "volumen_unidad": "250 mL",
+        "peso_unidad": "250 g",
+        "sabor_aroma": "Neutro - Rosas",
+        "base_producto": "Agua",
+        "compatible_latex": true,
+        "hipoalergenico": true,
+        "efectos": ["anal", "dilatador", "lubricante", "vaginal"]
+      },
+      "disponible": true
+    }
+  ]
+}
