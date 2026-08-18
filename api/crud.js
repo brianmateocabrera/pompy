@@ -1,17 +1,17 @@
 import https from 'https';
 
 export default function handler(req, res) {
-  // Aseguramos que solo se acepten peticiones POST desde tu panel
+  // Aseguramos que solo se acepten peticiones POST desde tu administrador
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Método no permitido' });
   }
 
   const token = process.env.GITHUB_TOKEN;
-  const repo = process.env.GITHUB_REPO; // Debe ser: brianmateocabrera/pompy
+  const repo = process.env.GITHUB_REPO; // Tomará brianmateocabrera/pompy
   const { path, message, content, sha } = req.body;
 
-  // Creamos y limpiamos la URL completa usando el constructor oficial de Node.js
-  const githubUrl = new URL(`https://github.com{repo}/contents/${path}`);
+  // Armamos el camino exacto pegando los textos de forma tradicional
+  const exactPath = '/repos/' + repo + '/contents/' + path;
 
   const bodyData = JSON.stringify({
     message: message || "Actualizado desde el panel de administración",
@@ -20,11 +20,11 @@ export default function handler(req, res) {
   });
 
   const options = {
-    hostname: githubUrl.hostname,
-    path: githubUrl.pathname,
+    hostname: 'api.github.com', // El dominio limpio sin mezclas
+    path: exactPath,            // El camino correcto: /repos/brianmateocabrera/pompy/contents/prueba.json
     method: 'PUT',
     headers: {
-      'Authorization': `Bearer ${token}`,
+      'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json',
       'User-Agent': 'Vercel-Serverless-Function', 
       'Accept': 'application/vnd.github+json',
@@ -41,7 +41,6 @@ export default function handler(req, res) {
     });
 
     response.on('end', () => {
-      // Si la respuesta no es un JSON válido (por ejemplo, un error 404 plano)
       let parsedData = {};
       try {
         parsedData = JSON.parse(data);
@@ -54,7 +53,7 @@ export default function handler(req, res) {
       } else {
         return res.status(response.statusCode).json({ 
           success: false, 
-          error: parsedData.message || `Error ${response.statusCode} en GitHub` 
+          error: parsedData.message || 'Error ' + response.statusCode + ' en GitHub' 
         });
       }
     });
