@@ -1,0 +1,3 @@
+[
+  { "id": 1, "nombre": "Producto Ejemplo", "imagen": "https://placeholder.com", "precio": 1500, "stock": 10, "descripcion": "Breve descripción", "categoria": "Ropa" }
+]
