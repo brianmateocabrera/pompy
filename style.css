@@ -130,7 +130,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
+  /* Eliminamos el padding lateral para que las imágenes cubran todo el ancho del carrusel */
+  padding: 15px 0; 
   border: 2px solid #ff00a0;
   box-shadow:
     0 0 15px #ff00a0,
@@ -181,6 +182,7 @@ header {
   transform: translateX(-50%);
   display: flex;
   gap: 6px;
+  z-index: 5; /* Asegura que los puntos queden por encima de las imágenes */
 }
 
 .dot {
@@ -195,16 +197,32 @@ header {
   box-shadow: 0 0 8px #00f3ff;
 }
 
+/* --- Cambios principales para el Carrusel --- */
+
 .banner-image-wrap {
   width: 100%;
-  max-width: 1200px;
-  overflow: hidden;
+  height: 100%;
+  display: flex; /* Alinea las imágenes en fila horizontal */
+  overflow-x: auto; /* Permite el scroll horizontal */
+  scroll-snap-type: x mandatory; /* Fuerza a que la imagen "se encaje" al deslizar */
+  scroll-behavior: smooth; /* Hace que el movimiento sea suave */
+}
+
+/* Oculta la barra de navegación del scroll para mantener la estética */
+.banner-image-wrap::-webkit-scrollbar {
+  display: none;
+}
+.banner-image-wrap {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 .banner-image-wrap img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 /* Section Header */
