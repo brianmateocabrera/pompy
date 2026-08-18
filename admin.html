@@ -51,7 +51,6 @@
         .status-loading { background-color: #e0f2fe; color: #0369a1; display: block !important; }
         .status-success { background-color: #dcfce7; color: #15803d; display: block !important; }
         .status-error { background-color: #fee2e2; color: #b91c1c; display: block !important; }
-        /* Ajustes para simular Excel */
         .tabulator {
             border-radius: 8px;
             overflow: hidden;
@@ -70,45 +69,48 @@
     </div>
 
     <div id="status-bar">Cargando inventario...</div>
-
-    <!-- Contenedor donde Tabulator dibujará la tabla -->
     <div id="excel-table"></div>
 
     <script>
         let table;
-        let fileSha = null; // Almacenará el identificador único del archivo en GitHub para poder sobreescribirlo
+        let fileSha = null; 
         const JSON_PATH = 'inventario.json';
 
-        // 1. CARGAR DATOS INICIALES DESDE GITHUB AL ENTRAR A LA PÁGINA
+        // CARGAR DATOS A TRAVÉS DE TU VERCEL FUNCTION (Evita errores de CORS)
         async function cargarInventario() {
-            mostrarEstado('Cargando inventario actual desde GitHub...', 'loading');
+            mostrarEstado('Cargando inventario seguro desde tu backend de Vercel...', 'loading');
             try {
-                // Consultamos la API interna para obtener el archivo actual y su SHA
-                const repo = 'brianmateocabrera/pompy'; // Tu repositorio
-                const res = await fetch(`https://github.com{repo}/contents/${JSON_PATH}`);
-                
-                if (res.status === 404) {
-                    // Si el archivo no existe aún, inicializamos la tabla vacía
-                    inicializarTabla([]);
-                    mostrarEstado('Inventario nuevo inicializado. Crea tu primer producto.', 'success');
+                // Hacemos una petición especial al backend pasándole una bandera 'action: "GET"'
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'GET', path: JSON_PATH })
+                });
+
+                const resultado = await res.json();
+
+                if (!resultado.success) {
+                    // Si el error es que el archivo no existe (404), inicializamos vacío de forma segura
+                    if (resultado.status === 404) {
+                        inicializarTabla([]);
+                        mostrarEstado('Inventario listo. Crea tu primer producto y guárdalo.', 'success');
+                    } else {
+                        throw new Error(resultado.error || 'Error desconocido');
+                    }
                     return;
                 }
 
-                const fileData = await res.json();
-                fileSha = fileData.sha; // Guardamos el SHA para futuras actualizaciones
-                
-                // Decodificamos el contenido Base64 que envía GitHub a JSON plano
-                const contenidoJson = JSON.parse(atob(fileData.content));
-                
-                inicializarTabla(contenidoJson);
+                // Si encontramos el archivo, guardamos su SHA y cargamos el JSON descodificado
+                fileSha = resultado.sha;
+                inicializarTabla(resultado.data);
                 mostrarEstado('Inventario sincronizado correctamente.', 'success');
+
             } catch (error) {
-                mostrarEstado('Error al leer el inventario: ' + error.message, 'error');
-                inicializarTabla([]);
+                mostrarEstado('Error al sincronizar: ' + error.message, 'error');
+                inicializarTabla([]); // Forzamos la creación de la tabla para que los botones respondan
             }
         }
 
-        // 2. INICIALIZAR LA LIBRERÍA TABULATOR (CONFIGURACIÓN DE COLUMNAS EXCEL)
         function inicializarTabla(data) {
             table = new Tabulator("#excel-table", {
                 data: data,
@@ -139,10 +141,9 @@
             });
         }
 
-        // 3. BOTÓN: AÑADIR NUEVA FILA
+        // BOTÓN: AÑADIR FILA
         document.getElementById("add-row").addEventListener("click", function() {
             if (!table) return;
-            // Genera un ID automático autoincremental simple
             const filas = table.getData();
             const siguienteId = filas.length > 0 ? Math.max(...filas.map(f => parseInt(f.id || 0))) + 1 : 1;
             
@@ -157,11 +158,11 @@
             });
         });
 
-        // 4. BOTÓN: GUARDAR TODO EL INVENTARIO EN GITHUB
+        // BOTÓN: GUARDAR
         document.getElementById("save-github").addEventListener("click", async function() {
             if (!table) return;
             
-            mostrarEstado('Procesando y subiendo cambios a tu repositorio...', 'loading');
+            mostrarEstado('Subiendo cambios a tu repositorio...', 'loading');
             const datosActuales = table.getData();
 
             try {
@@ -169,19 +170,19 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        action: 'PUT', // Le decimos que esta vez guarde datos
                         path: JSON_PATH,
                         message: 'Inventario actualizado desde el panel de control 📊',
-                        content: JSON.stringify(datosActuales, null, 2), // Guardamos el JSON ordenado y legible
-                        sha: fileSha || undefined // Pasamos el SHA para que GitHub sepa que es una edición
+                        content: JSON.stringify(datosActuales, null, 2),
+                        sha: fileSha || undefined 
                     })
                 });
 
                 const resultadoJson = await respuesta.json();
 
                 if (resultadoJson.success) {
-                    mostrarEstado('¡Inventario guardado en GitHub con éxito! Tu web pública se actualizará en breve.', 'success');
-                    // Actualizamos el SHA local con el nuevo SHA generado por GitHub tras la escritura
-                    fileSha = resultadoJson.data.content.sha;
+                    mostrarEstado('¡Inventario guardado en GitHub con éxito!', 'success');
+                    fileSha = resultadoJson.sha; // Actualizamos el identificador de archivo
                 } else {
                     mostrarEstado('Error al guardar: ' + resultadoJson.error, 'error');
                 }
@@ -190,17 +191,15 @@
             }
         });
 
-        // Función auxiliar para controlar la barra de notificaciones
         function mostrarEstado(mensaje, tipo) {
             const bar = document.getElementById('status-bar');
             bar.textContent = mensaje;
-            bar.className = ''; // Limpiar clases
+            bar.className = ''; 
             if (tipo === 'loading') bar.classList.add('status-loading');
             if (tipo === 'success') bar.classList.add('status-success');
             if (tipo === 'error') bar.classList.add('status-error');
         }
 
-        // Arrancar la carga de datos al abrir la pantalla
         window.onload = cargarInventario;
     </script>
 </body>
