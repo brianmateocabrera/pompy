@@ -12,28 +12,30 @@
 </head>
 <body>
 
-  <div class="app-container">
+  <main class="app-container">
+    
     <header>
       <i class="fa-solid fa-bars menu-btn"></i>
+      <div class="category-icon">POMPY</div>
       <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" placeholder="Buscar...">
       </div>
-      <i class="fa-regular fa-bell notification-btn"></i>
+      <i class="fa-solid fa-magnifying-glass"></i>
     </header>
 
+    <section id="section-home">
+    
     <div class="banner-container"> 
   <div class="banner"> 
-    <div class="banner-text"> 
+    <!--div class="banner-text"> 
       <div class="banner-title neon-title">HOT SALE</div> 
-      <div class="banner-sub neon-title">HASTA -50%</div> 
-    </div> 
-    
-    <!-- Aquí reemplazamos los iconos por la imagen -->
-    <div class="banner-image-wrap">
-      <img src="/images/IMG-20260817-WA0015~2.jpg" alt="Hot Sale Banner"> 
+      <div class="banner-sub neon-title">HASTA -50%</div > 
+    </div--> 
+
+    <div class="banner-image-wrap"><!--convertir esto en un carrusel, usar la misma imagen de ejemplo 3 veces -->
+      <img src="/images/IMG-20260817-WA0015~2.jpg" alt="Inauguración Banner"> 
     </div>
-    
+
     <div class="banner-dots"> 
       <span class="dot"></span> 
       <span class="dot active"></span> 
@@ -45,7 +47,7 @@
 
     <div class="section-header">
       <span class="section-title neon-title">Nuestras Categorías</span>
-      <a href="#" class="view-all">View All</a>
+      <a href="#" class="view-all">Ver todas</a>
     </div>
 
     <div class="categories-grid">
@@ -84,14 +86,14 @@
     </div>
 
     <div class="section-header">
-      <span class="section-title cyan neon-title">Destacados del Mes</span>
+      <span class="section-title cyan neon-title">Destacados</span>
     </div>
 
     <div class="promo-container">
-      <div class="promo-text-card">
+      <!--div class="promo-text-card">
         <p class="promo-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porro, voluptates, maxime! Temporibus.</p>
         <a href="#" class="view-all">View All &gt;</a>
-      </div>
+    </div-->
       <div class="product-card">
         <div class="product-img">
           <i class="fa-solid fa-wand-magic-sparkles neon-icon-cyan"></i>
@@ -110,11 +112,20 @@
           <div class="product-price">$15.00</div>
         </div>
       </div>
+      <div class="product-card yellow-border">
+        <div class="product-img">
+          <i class="fa-solid fa-microphone neon-icon-yellow"></i>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Vibrador Microphone</div>
+          <div class="product-price">$10.00</div>
+        </div>
+      </div>
     </div>
 
     <div class="section-header">
-      <span class="section-title yellow neon-title">Nueva Colección</span>
-      <a href="#" class="view-all">View All</a>
+      <span class="section-title yellow neon-title">CATÁLOGO COMPLETO</span>
+      <a href="#" class="view-all">Ver todos</a>
     </div>
 
     <div class="product-grid">
@@ -155,15 +166,16 @@
         </div>
       </div>
     </div>
-
+</section>
+    
     <nav class="bottom-nav">
       <a href="#" class="nav-item active">
         <i class="fa-solid fa-house"></i>
-        <span>Home</span>
+        <span>Inicio</span>
       </a>
       <a href="#" class="nav-item">
         <i class="fa-regular fa-heart"></i>
-        <span>Favoritos</span>
+        <span>Catálogo</span>
       </a>
       <a href="#" class="nav-item">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -171,14 +183,14 @@
       </a>
       <a href="#" class="nav-item">
         <i class="fa-solid fa-receipt"></i>
-        <span>Pedidos</span>
+        <span>Contáctanos</span>
       </a>
       <a href="#" class="nav-item">
         <i class="fa-regular fa-user"></i>
-        <span>Cuenta</span>
+        <span>Info</span>
       </a>
     </nav>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
