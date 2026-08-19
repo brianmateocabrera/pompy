@@ -2,11 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Catálogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Catálogo Visual</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; background: #f4f4f4; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background: #f4f6f8; color: #333; }
+        h1 { text-align: center; margin-bottom: 30px; color: #111; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        
+        .card-img { width: 100%; height: 200px; object-fit: cover; background: #eaeaea; }
+        .card-info { padding: 15px; }
+        .card-title { font-size: 18px; margin: 0 0 10px 0; color: #222; }
+        .card-price { font-size: 20px; font-weight: bold; color: #0070f3; margin: 0 0 10px 0; }
+        .card-desc { font-size: 14px; color: #666; margin: 0; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -15,26 +25,36 @@
 
     <script>
         async function cargar() {
-            const res = await fetch('/api/crud', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
-            });
-            const json = await res.json();
-            const contenedor = document.getElementById('catalogo');
-            
-            if (!json.success || !json.data.length) {
-                contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-                return;
-            }
+            try {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
+                });
+                const json = await res.json();
+                const contenedor = document.getElementById('catalogo');
+                
+                if (!json.success || !json.data || !json.data.length) {
+                    contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No hay productos disponibles.</p>';
+                    return;
+                }
 
-            contenedor.innerHTML = json.data.map(p => `
-                <div class="card">
-                    <h3>${p.nombre}</h3>
-                    <p>Precio: $${p.precio}</p>
-                    <p>${p.descripcion || ''}</p>
-                </div>
-            `).join('');
+                contenedor.innerHTML = json.data.map(p => {
+                    const fallbackImg = 'https://unsplash.com';
+                    return `
+                        <div class="card">
+                            <img src="${p.imagen || fallbackImg}" class="card-img" alt="${p.nombre}">
+                            <div class="card-info">
+                                <h3 class="card-title">${p.nombre}</h3>
+                                <p class="card-price">$${p.precio}</p>
+                                <p class="card-desc">${p.descripcion || 'Sin descripción disponible.'}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                document.getElementById('catalogo').innerHTML = '<p>Error al cargar el catálogo.</p>';
+            }
         }
         cargar();
     </script>
