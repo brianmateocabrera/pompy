@@ -3,200 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Inventario - Pompy</title>
+    <title>Inventario Pompy</title>
     
-    <!-- Librerías cargadas de forma local y segura desde tu propio servidor -->
-    <link href="/tabulator.css" rel="stylesheet">
-    <script type="text/javascript" src="/tabulator.js"></script>
+    <!-- Enlaces externos confiables -->
+    <link href="https://unpkg.com" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com"></script>
 
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        h1 { margin: 0; font-size: 24px; color: #1e293b; }
-        .btn-group { display: flex; gap: 10px; }
-        button {
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-add { background-color: #10b981; color: white; }
-        .btn-add:hover { background-color: #059669; }
-        .btn-save { background-color: #3b82f6; color: white; }
-        .btn-save:hover { background-color: #2563eb; }
-        #status-bar {
-            padding: 10px 20px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            font-size: 14px;
-            display: none;
-        }
-        .status-loading { background-color: #e0f2fe; color: #0369a1; display: block !important; }
-        .status-success { background-color: #dcfce7; color: #15803d; display: block !important; }
-        .status-error { background-color: #fee2e2; color: #b91c1c; display: block !important; }
-        .tabulator {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        body { font-family: sans-serif; margin: 15px; background: #f4f4f9; }
+        .controls { margin-bottom: 15px; display: flex; gap: 10px; }
+        button { padding: 12px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; }
+        .btn-add { background: #28a745; color: white; }
+        .btn-save { background: #007bff; color: white; }
+        #status { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-size: 14px; background: #eee; }
+        #excel-table { background: white; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <h1>📊 Panel de Inventario (Excel Style)</h1>
-        <div class="btn-group">
-            <button class="btn-add" id="add-row">➕ Añadir Producto</button>
-            <button class="btn-save" id="save-github">💾 Guardar Cambios en GitHub</button>
-        </div>
+    <h2>📊 Gestión de Inventario</h2>
+    
+    <div id="status">Iniciando sistema...</div>
+
+    <div class="controls">
+        <button class="btn-add" onclick="agregarFila()">➕ Nuevo</button>
+        <button class="btn-save" onclick="guardar()">💾 Guardar en GitHub</button>
     </div>
 
-    <div id="status-bar">Cargando inventario...</div>
     <div id="excel-table"></div>
 
     <script>
         let table;
-        let fileSha = null; 
-        const JSON_PATH = 'inventario.json';
+        let fileSha = null;
 
-        async function cargarInventario() {
-            mostrarEstado('Cargando inventario seguro desde tu backend de Vercel...', 'loading');
-            try {
-                const res = await fetch('/api/crud', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'GET', path: JSON_PATH })
-                });
-
-                const resultado = await res.json();
-
-                if (!resultado.success) {
-                    if (resultado.status === 404) {
-                        inicializarTabla([]);
-                        mostrarEstado('Inventario listo. Crea tu primer producto y guárdalo.', 'success');
-                    } else {
-                        throw new Error(resultado.error || 'Error desconocido');
-                    }
-                    return;
-                }
-
-                fileSha = resultado.sha;
-                inicializarTabla(resultado.data);
-                mostrarEstado('Inventario sincronizado correctamente.', 'success');
-
-            } catch (error) {
-                mostrarEstado('Error al sincronizar: ' + error.message, 'error');
-                inicializarTabla([]); 
-            }
+        function log(msg, color = "black") {
+            const s = document.getElementById('status');
+            s.innerText = msg;
+            s.style.color = color;
         }
 
-        function inicializarTabla(data) {
-            // Si carga localmente, esta validación pasará de inmediato al primer milisegundo
+        // Función para inicializar la tabla
+        function initTable(data =) {
             if (typeof Tabulator === "undefined") {
-                mostrarEstado("Error: La librería Tabulator no cargó correctamente. Reintentando...", "error");
-                setTimeout(() => inicializarTabla(data), 1000);
+                log("Error: La librería Tabulator no cargó. Revisa tu conexión.", "red");
                 return;
             }
 
             table = new Tabulator("#excel-table", {
                 data: data,
                 layout: "fitColumns",
-                responsiveLayout: "hide",
-                history: true,
-                placeholder: "No hay productos en el inventario. Presiona 'Añadir Producto'",
                 columns: [
-                    {title: "ID", field: "id", width: 60, editor: "number", hozAlign: "center"},
-                    {title: "Nombre del Producto", field: "nombre", editor: "input", width: 200},
-                    {title: "Categoría", field: "categoria", editor: "input", width: 130},
-                    {title: "Precio ($)", field: "precio", editor: "number", hozAlign: "right", formatter:"money", formatterParams:{thousand:".", decimal:",", symbol:"$", precision:0}},
-                    {title: "Stock", field: "stock", editor: "number", hozAlign: "center", width: 90},
-                    {title: "URL Imagen", field: "imagen", editor: "input", width: 220},
-                    {title: "Descripción", field: "descripcion", editor: "textarea"},
-                    {
-                        title: "Acción", 
-                        formatter: function() { return "❌ Borrar"; }, 
-                        width: 90, 
-                        hozAlign: "center", 
-                        cellClick: function(e, cell) {
-                            if(confirm("¿Seguro que deseas eliminar este producto?")) {
-                                cell.getRow().delete();
-                            }
-                        }
-                    }
+                    {title: "ID", field: "id", width: editor: "number"},
+                    {title: "Nombre", field: "nombre", editor: "input"},
+                    {title: "Categoría", field: "categoria", editor: "input"},
+                    {title: "Precio", field: "precio", editor: "number"},
+                    {title: "Stock", field: "stock", editor: "number"},
+                    {title: "Imagen URL", field: "imagen", editor: "input"},
+                    {title: "Borrar", formatter: "buttonCross", width: cellClick: (e, c) => cgetRow()delete()}
                 ]
             });
+            log("Tabla lista. Puedes añadir productos.", "green");
         }
 
-        // BOTÓN: AÑADIR FILA
-        document.getElementById("add-row").addEventListener("click", function() {
-            if (!table) return;
-            const filas = table.getData();
-            const siguienteId = filas.length > 0 ? Math.max(...filas.map(f => parseInt(f.id || 0))) + 1 : 1;
-            
-            table.addRow({
-                id: siguienteId,
-                nombre: "Nuevo Producto",
-                categoria: "General",
-                precio: 0,
-                stock: 0,
-                imagen: "https://",
-                descripcion: ""
-            });
-        });
-
-        // BOTÓN: GUARDAR
-        document.getElementById("save-github").addEventListener("click", async function() {
-            if (!table) return;
-            
-            mostrarEstado('Subiendo cambios a tu repositorio...', 'loading');
-            const datosActuales = table.getData();
-
+        async function cargar() {
+            log("Conectando con el servidor...");
             try {
-                const respuesta = await fetch('/api/crud', {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'GET', path: 'inventario.json' })
+                });
+                
+                const resJson = await res.json();
+                
+                if (resJson.success) {
+                    fileSha = resJson.sha;
+                    initTable(resJson.data);
+                } else if (resJson.status === 404) {
+                    initTable();
+                    log("Inventario nuevo (archivo no encontrado).", "blue");
+                } else {
+                    log("Error de API: " + resJson.error, "red");
+                    initTable(); 
+                }
+            } catch (e) {
+                log("Error de red: " + e.message, "red");
+                initTable();
+            }
+        }
+
+        function agregarFila() {
+            if(!table) return log("La tabla no está lista", "red");
+            table.addRow({ id: Date.now(), nombre: "Nuevo", precio: 0, stock: 0 });
+        }
+
+        async function guardar() {
+            if(!table) return;
+            log("Guardando en GitHub...", "orange");
+            try {
+                const res = await fetch('/api/crud', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'PUT', 
-                        path: JSON_PATH,
-                        message: 'Inventario actualizado desde el panel de control 📊',
-                        content: JSON.stringify(datosActuales, null, 2),
-                        sha: fileSha || undefined 
+                        action: 'PUT',
+                        path: 'inventario.json',
+                        content: JSON.stringify(table.getData(), null, 2),
+                        sha: fileSha || undefined
                     })
                 });
-
-                const resultadoJson = await respuesta.json();
-
-                if (resultadoJson.success) {
-                    mostrarEstado('¡Inventario guardado en GitHub con éxito!', 'success');
-                    fileSha = resultadoJson.sha; 
+                const resJson = await res.json();
+                if(resJson.success) {
+                    fileSha = resJson.sha;
+                    log("¡Guardado con éxito!", "green");
                 } else {
-                    mostrarEstado('Error al guardar: ' + resultadoJson.error, 'error');
+                    log("Error al guardar: " + resJson.error, "red");
                 }
-            } catch (error) {
-                mostrarEstado('Error de red: ' + error.message, 'error');
+            } catch (e) {
+                log("Error de conexión: " + e.message, "red");
             }
-        });
+        }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            cargarInventario();
-        });
+        // Ejecutar al cargar la página
+        window.onload = cargar;
     </script>
 </body>
 </html>
