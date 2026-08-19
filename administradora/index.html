@@ -6,575 +6,152 @@
   <title>Admin Dashboard Mobile - E-commerce</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: #f5f5f5;
-      display: flex;
-      justify-content: center;
-    }
-
-    .app-container {
-      width: 100%;
-      max-width: 414px;
-      background-color: #fff;
-      min-height: 100vh;
-      padding-bottom: 70px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Menu Toggle (CSS Only) */
-    #menu-toggle {
-      display: none;
-    }
-
-    /* Side Menu Drawer */
-    .side-menu {
-      position: absolute;
-      top: 0;
-      left: -280px;
-      width: 280px;
-      height: 100%;
-      background-color: #fff;
-      z-index: 100;
-      transition: left 0.3s ease;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .side-menu-header {
-      background-color: #006b88;
-      color: #fff;
-      padding: 20px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #fff;
-      color: #006b88;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .close-btn {
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .side-menu-list {
-      list-style: none;
-      padding: 15px 0;
-    }
-
-    .side-menu-item a {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 12px 20px;
-      color: #333;
-      text-decoration: none;
-      font-size: 14px;
-      transition: background-color 0.2s;
-    }
-
-    .side-menu-item a:hover {
-      background-color: #f5f5f5;
-      color: #006b88;
-    }
-
-    .side-menu-item i {
-      width: 20px;
-      color: #006b88;
-    }
-
-    /* Backdrop Overlay */
-    .menu-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 90;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    /* CSS Activation Rules */
-    #menu-toggle:checked ~ .side-menu {
-      left: 0;
-    }
-
-    #menu-toggle:checked ~ .menu-overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Header */
-    header {
-      background-color: #006b88;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .menu-btn {
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .header-title {
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      flex: 1;
-    }
-
-    .notification-btn {
-      color: #fff;
-      font-size: 18px;
-      position: relative;
-      cursor: pointer;
-    }
-
-    /* Stats Section */
-    .stats-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 15px;
-    }
-
-    .stat-card {
-      background-color: #f9f9f9;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .stat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .stat-title {
-      font-size: 11px;
-      color: #757575;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .stat-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .icon-sales { background-color: #006b88; }
-    .icon-orders { background-color: #e65100; }
-    .icon-products { background-color: #2e7d32; }
-    .icon-users { background-color: #f57c00; }
-
-    .stat-value {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    /* Section Header */
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px 10px;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .btn-add {
-      background-color: #e65100;
-      color: #fff;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* Data List (Mobile-first Products) */
-    .admin-list {
-      padding: 0 15px 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .admin-item-card {
-      background-color: #fff;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .item-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .item-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .item-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .item-price {
-      font-size: 12px;
-      color: #e65100;
-      font-weight: bold;
-    }
-
-    .badge {
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 9px;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #f5f5f5; display: flex; justify-content: center; }
+    .app-container { width: 100%; max-width: 414px; background-color: #fff; min-height: 100vh; padding-bottom: 70px; box-shadow: 0 0 10px rgba(0,0,0,0.1); position: relative; overflow-x: hidden; }
+    #menu-toggle { display: none; }
+    .side-menu { position: absolute; top: 0; left: -280px; width: 280px; height: 100%; background-color: #fff; z-index: 100; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+    .side-menu-header { background-color: #006b88; color: #fff; padding: 20px 15px; display: flex; justify-content: space-between; align-items: center; }
+    .user-profile { display: flex; align-items: center; gap: 12px; }
+    .user-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #fff; color: #006b88; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .close-btn { color: #fff; font-size: 20px; cursor: pointer; }
+    .side-menu-list { list-style: none; padding: 15px 0; }
+    .side-menu-item a { display: flex; align-items: center; gap: 15px; padding: 12px 20px; color: #333; text-decoration: none; font-size: 14px; }
+    .side-menu-item i { width: 20px; color: #006b88; }
+    .menu-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 90; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+    #menu-toggle:checked ~ .side-menu { left: 0; }
+    #menu-toggle:checked ~ .menu-overlay { opacity: 1; visibility: visible; }
+    header { background-color: #006b88; padding: 10px 15px; display: flex; align-items: center; gap: 12px; }
+    .menu-btn { color: #fff; font-size: 20px; cursor: pointer; }
+    .header-title { color: #fff; font-size: 16px; font-weight: bold; flex: 1; }
+    .notification-btn { color: #fff; font-size: 18px; cursor: pointer; }
+    .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+    .stat-card { background-color: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .stat-header { display: flex; justify-content: space-between; align-items: center; }
+    .stat-title { font-size: 11px; color: #757575; font-weight: bold; text-transform: uppercase; }
+    .stat-icon { width: 28px; height: 28px; border-radius: 6px; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .icon-sales { background-color: #006b88; } .icon-orders { background-color: #e65100; } .icon-products { background-color: #2e7d32; } .icon-users { background-color: #f57c00; }
+    .stat-value { font-size: 18px; font-weight: bold; color: #333; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; }
+    .section-title { font-size: 16px; font-weight: bold; color: #333; }
+    .btn-add { background-color: #e65100; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .admin-list { padding: 0 15px 15px; display: flex; flex-direction: column; gap: 10px; }
+    .admin-item-card { background-color: #fff; border: 1px solid #eee; border-radius: 6px; padding: 12px; display: flex; align-items: center; justify-content: space-between; }
+    .item-info { display: flex; flex-direction: column; gap: 4px; }
+    .item-name { font-size: 13px; font-weight: bold; color: #333; }
+    .item-meta { display: flex; align-items: center; gap: 8px; }
+    .item-price { font-size: 12px; color: #e65100; font-weight: bold; }
+    .badge { padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; text-transform: uppercase; }
     .badge-success { background-color: #e8f5e9; color: #2e7d32; }
     .badge-warning { background-color: #fff3e0; color: #e65100; }
-
-    .item-actions {
-      display: flex;
-      gap: 12px;
-      color: #757575;
-      font-size: 14px;
-    }
-
+    .item-actions { display: flex; gap: 12px; font-size: 14px; }
     .action-edit { color: #006b88; cursor: pointer; }
     .action-delete { color: #d32f2f; cursor: pointer; }
+    .categories-admin-grid { display: flex; gap: 10px; padding: 0 15px 15px; overflow-x: auto; }
+    .category-admin-card { min-width: 100px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+    .category-admin-icon { width: 36px; height: 36px; background-color: #f57c00; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+    .category-admin-name { font-size: 11px; font-weight: bold; color: #333; }
+    .category-admin-count { font-size: 10px; color: #888; }
+    .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 414px; background-color: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-around; padding: 8px 0; z-index: 10; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #757575; text-decoration: none; font-size: 10px; gap: 4px; }
+    .nav-item.active { color: #006b88; }
 
-    /* Categories Horizontal Scroll */
-    .categories-admin-grid {
-      display: flex;
-      gap: 10px;
-      padding: 0 15px 15px;
-      overflow-x: auto;
-    }
-
-    .category-admin-card {
-      min-width: 100px;
-      background-color: #f9f9f9;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .category-admin-icon {
-      width: 36px;
-      height: 36px;
-      background-color: #f57c00;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 16px;
-    }
-
-    .category-admin-name {
-      font-size: 11px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .category-admin-count {
-      font-size: 10px;
-      color: #888;
-    }
-
-    /* Bottom Nav */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      max-width: 414px;
-      background-color: #fff;
-      border-top: 1px solid #eee;
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      z-index: 10;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #757575;
-      text-decoration: none;
-      font-size: 10px;
-      gap: 4px;
-    }
-
-    .nav-item i {
-      font-size: 18px;
-    }
-
-    .nav-item.active {
-      color: #006b88;
-    }
+    /* Modal emergente para editar/crear */
+    .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 200; }
+    .modal-backdrop.active { display: flex; }
+    .modal { background: #fff; padding: 20px; border-radius: 8px; width: 90%; max-width: 350px; display: flex; flex-direction: column; gap: 12px; }
+    .modal h3 { font-size: 16px; color: #333; }
+    .modal input, .modal select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+    .modal-buttons { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+    .btn-cancel { background: #ccc; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+    .btn-save { background: #006b88; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
 
   <div class="app-container">
     <input type="checkbox" id="menu-toggle">
-
     <label for="menu-toggle" class="menu-overlay"></label>
 
     <div class="side-menu">
       <div class="side-menu-header">
         <div class="user-profile">
-          <div class="user-avatar">JS</div>
+          <div class="user-avatar" id="usr-avatar">--</div>
           <div>
-            <div style="font-weight: bold; font-size: 14px;">Juan Pérez</div>
-            <div style="font-size: 11px; opacity: 0.8;">Admin Mode</div>
+            <div id="usr-name" style="font-weight: bold; font-size: 14px;">Cargando...</div>
+            <div id="usr-role" style="font-size: 11px; opacity: 0.8;">Admin Mode</div>
           </div>
         </div>
-        <label for="menu-toggle" class="close-btn">
-          <i class="fa-solid fa-xmark"></i>
-        </label>
+        <label for="menu-toggle" class="close-btn"><i class="fa-solid fa-xmark"></i></label>
       </div>
       <ul class="side-menu-list">
         <li class="side-menu-item"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
         <li class="side-menu-item"><a href="#"><i class="fa-solid fa-box-open"></i> Productos</a></li>
-        <li class="side-menu-item"><a href="#"><i class="fa-solid fa-list"></i> Categorías</a></li>
-        <li class="side-menu-item"><a href="#"><i class="fa-solid fa-cart-shopping"></i> Pedidos</a></li>
-        <li class="side-menu-item"><a href="#"><i class="fa-solid fa-ticket"></i> Cupones</a></li>
-        <li class="side-menu-item"><a href="#"><i class="fa-solid fa-users"></i> Usuarios</a></li>
-        <li class="side-menu-item"><a href="#"><i class="fa-solid fa-gear"></i> Configuración</a></li>
       </ul>
     </div>
 
     <header>
-      <label for="menu-toggle" class="menu-btn">
-        <i class="fa-solid fa-bars"></i>
-      </label>
+      <label for="menu-toggle" class="menu-btn"><i class="fa-solid fa-bars"></i></label>
       <div class="header-title">Admin Dashboard</div>
       <i class="fa-regular fa-bell notification-btn"></i>
     </header>
 
     <div class="stats-container">
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-title">Ventas</span>
-          <div class="stat-icon icon-sales"><i class="fa-solid fa-dollar-sign"></i></div>
-        </div>
-        <div class="stat-value">$1,250.00</div>
+        <div class="stat-header"><span class="stat-title">Ventas</span><div class="stat-icon icon-sales"><i class="fa-solid fa-dollar-sign"></i></div></div>
+        <div class="stat-value" id="st-ventas">$0.00</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-title">Pedidos</span>
-          <div class="stat-icon icon-orders"><i class="fa-solid fa-shopping-bag"></i></div>
-        </div>
-        <div class="stat-value">42</div>
+        <div class="stat-header"><span class="stat-title">Pedidos</span><div class="stat-icon icon-orders"><i class="fa-solid fa-shopping-bag"></i></div></div>
+        <div class="stat-value" id="st-pedidos">0</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-title">Productos</span>
-          <div class="stat-icon icon-products"><i class="fa-solid fa-box"></i></div>
-        </div>
-        <div class="stat-value">6</div>
+        <div class="stat-header"><span class="stat-title">Productos</span><div class="stat-icon icon-products"><i class="fa-solid fa-box"></i></div></div>
+        <div class="stat-value" id="st-productos">0</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-title">Clientes</span>
-          <div class="stat-icon icon-users"><i class="fa-solid fa-users"></i></div>
-        </div>
-        <div class="stat-value">128</div>
+        <div class="stat-header"><span class="stat-title">Clientes</span><div class="stat-icon icon-users"><i class="fa-solid fa-users"></i></div></div>
+        <div class="stat-value" id="st-clientes">0</div>
       </div>
     </div>
 
     <div class="section-header">
       <span class="section-title">Categorías</span>
-      <a href="#" class="btn-add" style="background-color: #006b88;"><i class="fa-solid fa-plus"></i> Nueva</a>
     </div>
 
-    <div class="categories-admin-grid">
-      <div class="category-admin-card">
-        <div class="category-admin-icon"><i class="fa-solid fa-crown"></i></div>
-        <span class="category-admin-name">Fashion</span>
-        <span class="category-admin-count">12 items</span>
-      </div>
-      <div class="category-admin-card">
-        <div class="category-admin-icon"><i class="fa-solid fa-pen-nib"></i></div>
-        <span class="category-admin-name">Food</span>
-        <span class="category-admin-count">5 items</span>
-      </div>
-      <div class="category-admin-card">
-        <div class="category-admin-icon"><i class="fa-solid fa-car"></i></div>
-        <span class="category-admin-name">Automotive</span>
-        <span class="category-admin-count">8 items</span>
-      </div>
-      <div class="category-admin-card">
-        <div class="category-admin-icon"><i class="fa-solid fa-plug"></i></div>
-        <span class="category-admin-name">Tech</span>
-        <span class="category-admin-count">24 items</span>
-      </div>
-    </div>
+    <div class="categories-admin-grid" id="cat-container"></div>
 
     <div class="section-header">
       <span class="section-title">Inventario</span>
-      <a href="#" class="btn-add"><i class="fa-solid fa-plus"></i> Agregar</a>
+      <button class="btn-add" id="btn-add-product"><i class="fa-solid fa-plus"></i> Agregar</button>
     </div>
 
-    <div class="admin-list">
-      <div class="admin-item-card">
-        <div class="item-info">
-          <div class="item-name">Original Sweater 100% Wool</div>
-          <div class="item-meta">
-            <span class="item-price">$10.00</span>
-            <span class="badge badge-success">Activo</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <i class="fa-solid fa-pen action-edit"></i>
-          <i class="fa-solid fa-trash action-delete"></i>
-        </div>
-      </div>
-
-      <div class="admin-item-card">
-        <div class="item-info">
-          <div class="item-name">Casual Dress Shirt Sleeves</div>
-          <div class="item-meta">
-            <span class="item-price">$30.00</span>
-            <span class="badge badge-success">Activo</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <i class="fa-solid fa-pen action-edit"></i>
-          <i class="fa-solid fa-trash action-delete"></i>
-        </div>
-      </div>
-
-      <div class="admin-item-card">
-        <div class="item-info">
-          <div class="item-name">Limited Edition Backpack</div>
-          <div class="item-meta">
-            <span class="item-price">$41.00</span>
-            <span class="badge badge-warning">Agotado</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <i class="fa-solid fa-pen action-edit"></i>
-          <i class="fa-solid fa-trash action-delete"></i>
-        </div>
-      </div>
-
-      <div class="admin-item-card">
-        <div class="item-info">
-          <div class="item-name">Winter Jacket</div>
-          <div class="item-meta">
-            <span class="item-price">$55.00</span>
-            <span class="badge badge-success">Activo</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <i class="fa-solid fa-pen action-edit"></i>
-          <i class="fa-solid fa-trash action-delete"></i>
-        </div>
-      </div>
-    </div>
+    <div class="admin-list" id="inv-container"></div>
 
     <nav class="bottom-nav">
-      <a href="#" class="nav-item active">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>Inicio</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-box-open"></i>
-        <span>Productos</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Pedidos</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-users"></i>
-        <span>Clientes</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-gear"></i>
-        <span>Ajustes</span>
-      </a>
+      <a href="#" class="nav-item active"><i class="fa-solid fa-chart-line"></i><span>Inicio</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-box-open"></i><span>Productos</span></a>
     </nav>
   </div>
 
-  <script>
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
-  </script>
+  <!-- Modal para Formulario -->
+  <div class="modal-backdrop" id="modal-product">
+    <div class="modal">
+      <h3 id="modal-title">Editar Producto</h3>
+      <input type="hidden" id="prod-id">
+      <input type="text" id="prod-name" placeholder="Nombre del producto">
+      <input type="number" id="prod-price" placeholder="Precio ($USD)" step="0.01">
+      <select id="prod-status">
+        <option value="Activo">Activo</option>
+        <option value="Agotado">Agotado</option>
+      </select>
+      <div class="modal-buttons">
+        <button class="btn-cancel" id="btn-modal-cancel">Cancelar</button>
+        <button class="btn-save" id="btn-modal-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
