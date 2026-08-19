@@ -2,53 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>POMPY Lencería & Sex-Shop</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&family=Monoton&display=swap" rel="stylesheet">
-  
+    <title>Mi Catálogo</title>
     <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-body {
-  background-color: #030108;
-  display: flex;
-  justify-content: center;
-}
-
-main {
-  width: 100%;
-  max-width: 414px;
-  background: #080312
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><rect width="100" height="100" fill="%23fff"/></svg>');
-  min-height: 100vh;
-  padding-bottom: 70px;
-  box-shadow: 0 0 30px rgba(255, 0, 128, 0.2);
-  position: relative;
-  color: #fff;
-}
-
-h1, h2{
-  font-family: "Tilt Neon", "Monoton", cursive, sans-serif;
-  text-transform: uppercase;
-}
+        body { font-family: sans-serif; margin: 20px; background: #f4f4f4; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <main> 
-    <h1>POMPY Lencería & Sex-Shop</h1>
-    <h2>Nuestros Productos</h2>
+    <h1>Catálogo de Productos</h1>
     <div id="catalogo" class="grid">Cargando productos...</div>
-    </main>
 
     <script>
         async function cargar() {
@@ -66,11 +29,11 @@ h1, h2{
             }
 
             contenedor.innerHTML = json.data.map(p => `
-                <article class="card">
-                    <header><h3>${p.nombre}</h3></header>
-                    <footer><p>${p.descripcion || ''}</p>
-                    <h4>Precio: $${p.precio}</h4></footer>
-                </article>
+                <div class="card">
+                    <h3>${p.nombre}</h3>
+                    <p>Precio: $${p.precio}</p>
+                    <p>${p.descripcion || ''}</p>
+                </div>
             `).join('');
         }
         cargar();
