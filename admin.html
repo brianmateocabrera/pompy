@@ -76,11 +76,10 @@
         let fileSha = null; 
         const JSON_PATH = 'inventario.json';
 
-        // CARGAR DATOS A TRAVÉS DE TU VERCEL FUNCTION (Evita errores de CORS)
+        // CARGAR DATOS A TRAVÉS DE TU VERCEL FUNCTION
         async function cargarInventario() {
             mostrarEstado('Cargando inventario seguro desde tu backend de Vercel...', 'loading');
             try {
-                // Hacemos una petición especial al backend pasándole una bandera 'action: "GET"'
                 const res = await fetch('/api/crud', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -90,7 +89,6 @@
                 const resultado = await res.json();
 
                 if (!resultado.success) {
-                    // Si el error es que el archivo no existe (404), inicializamos vacío de forma segura
                     if (resultado.status === 404) {
                         inicializarTabla([]);
                         mostrarEstado('Inventario listo. Crea tu primer producto y guárdalo.', 'success');
@@ -100,18 +98,24 @@
                     return;
                 }
 
-                // Si encontramos el archivo, guardamos su SHA y cargamos el JSON descodificado
                 fileSha = resultado.sha;
                 inicializarTabla(resultado.data);
                 mostrarEstado('Inventario sincronizado correctamente.', 'success');
 
             } catch (error) {
                 mostrarEstado('Error al sincronizar: ' + error.message, 'error');
-                inicializarTabla([]); // Forzamos la creación de la tabla para que los botones respondan
+                inicializarTabla([]); 
             }
         }
 
         function inicializarTabla(data) {
+            // Protección defensiva por si la librería tardó de más
+            if (typeof Tabulator === "undefined") {
+                mostrarEstado("Error: La librería Tabulator no cargó correctamente en el navegador. Reintentando en 1 segundo...", "error");
+                setTimeout(() => inicializarTabla(data), 1000);
+                return;
+            }
+
             table = new Tabulator("#excel-table", {
                 data: data,
                 layout: "fitColumns",
@@ -170,7 +174,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: 'PUT', // Le decimos que esta vez guarde datos
+                        action: 'PUT', 
                         path: JSON_PATH,
                         message: 'Inventario actualizado desde el panel de control 📊',
                         content: JSON.stringify(datosActuales, null, 2),
@@ -182,7 +186,7 @@
 
                 if (resultadoJson.success) {
                     mostrarEstado('¡Inventario guardado en GitHub con éxito!', 'success');
-                    fileSha = resultadoJson.sha; // Actualizamos el identificador de archivo
+                    fileSha = resultadoJson.sha; 
                 } else {
                     mostrarEstado('Error al guardar: ' + resultadoJson.error, 'error');
                 }
@@ -200,7 +204,10 @@
             if (tipo === 'error') bar.classList.add('status-error');
         }
 
-        window.onload = cargarInventario;
+        // Espera a que TODO el HTML y los scripts externos estén 100% descargados antes de ejecutar
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarInventario();
+        });
     </script>
 </body>
 </html>
