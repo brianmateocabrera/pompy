@@ -1,6 +1,6 @@
 const CONFIG = {
   apiEndpoint: '/api/crud',
-  filePath: 'data.json'
+  filePath: 'administradora/data.json'
 };
 
 // Estado Reactivo Local
