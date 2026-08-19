@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Inventario - Pompy</title>
     
-    <!-- Librería Tabulator (Estilo Excel moderno) -->
-    <link href="https://unpkg.com" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com"></script>
+    <!-- Librerías cargadas de forma local y segura desde tu propio servidor -->
+    <link href="/tabulator.css" rel="stylesheet">
+    <script type="text/javascript" src="/tabulator.js"></script>
 
     <style>
         body {
@@ -76,7 +76,6 @@
         let fileSha = null; 
         const JSON_PATH = 'inventario.json';
 
-        // CARGAR DATOS A TRAVÉS DE TU VERCEL FUNCTION
         async function cargarInventario() {
             mostrarEstado('Cargando inventario seguro desde tu backend de Vercel...', 'loading');
             try {
@@ -109,9 +108,9 @@
         }
 
         function inicializarTabla(data) {
-            // Protección defensiva por si la librería tardó de más
+            // Si carga localmente, esta validación pasará de inmediato al primer milisegundo
             if (typeof Tabulator === "undefined") {
-                mostrarEstado("Error: La librería Tabulator no cargó correctamente en el navegador. Reintentando en 1 segundo...", "error");
+                mostrarEstado("Error: La librería Tabulator no cargó correctamente. Reintentando...", "error");
                 setTimeout(() => inicializarTabla(data), 1000);
                 return;
             }
@@ -195,16 +194,6 @@
             }
         });
 
-        function mostrarEstado(mensaje, tipo) {
-            const bar = document.getElementById('status-bar');
-            bar.textContent = mensaje;
-            bar.className = ''; 
-            if (tipo === 'loading') bar.classList.add('status-loading');
-            if (tipo === 'success') bar.classList.add('status-success');
-            if (tipo === 'error') bar.classList.add('status-error');
-        }
-
-        // Espera a que TODO el HTML y los scripts externos estén 100% descargados antes de ejecutar
         document.addEventListener("DOMContentLoaded", () => {
             cargarInventario();
         });
