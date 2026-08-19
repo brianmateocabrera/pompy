@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Catálogo</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background: #f4f4f4; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Productos</h1>
+    <div id="catalogo" class="grid">Cargando productos...</div>
+
+    <script>
+        async function cargar() {
+            const res = await fetch('/api/crud', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
+            });
+            const json = await res.json();
+            const contenedor = document.getElementById('catalogo');
+            
+            if (!json.success || !json.data.length) {
+                contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+                return;
+            }
+
+            contenedor.innerHTML = json.data.map(p => `
+                <div class="card">
+                    <h3>${p.nombre}</h3>
+                    <p>Precio: $${p.precio}</p>
+                    <p>${p.descripcion || ''}</p>
+                </div>
+            `).join('');
+        }
+        cargar();
+    </script>
+</body>
+</html>
