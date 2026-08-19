@@ -3,5 +3,10 @@
     "nombre": "Producto1",
     "precio": "15000",
     "descripcion": "Producto de prueba número 1"
+  },
+  {
+    "nombre": "🍔",
+    "precio": "1500",
+    "descripcion": "Hamburguesa. Este producto es un icono de hamburguesa. Es decir que no se come, solamente es una prueba . "
   }
 ]
