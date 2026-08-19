@@ -1,112 +1,89 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Pompy</title>
-    <!-- Librerías desde CDN -->
-    <link href="https://unpkg.com" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com"></script>
-    <style>
-        body { font-family: sans-serif; margin: 10px; }
-        /* IMPORTANTE: La tabla DEBE tener altura para que Tabulator funcione */
-        #excel-table { height: 400px; border: 1px solid #ccc; margin-top: 10px; }
-        #status { padding: 10px; background: #f0f0f0; margin-bottom: 5px; font-size: 14px; }
-    </style>
-</head>
-<body>
-    <h2>📊 Inventario Pompy</h2>
-    <div id="status">Cargando sistema...</div>
-    <button onclick="nuevaFila()">➕ NUEVO</button>
-    <button id="btn-save" onclick="guardarTodo()">💾 GUARDAR</button>
-    
-    <div id="excel-table"></div>
+import https from 'https';
 
-    <script>
-        let table;
-        let fileSha = null;
+export default function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Método no permitido' });
+  }
 
-        function log(msg, error = false) {
-            const el = document.getElementById('status');
-            el.innerText = msg;
-            el.style.color = error ? "red" : "black";
+  const token = process.env.GITHUB_TOKEN;
+  const repo = process.env.GITHUB_REPO; 
+  const { path, message, content, sha, action } = req.body;
+
+  const exactPath = '/repos/' + repo + '/contents/' + path;
+
+  // CASO 1: LEER EL INVENTARIO (GET)
+  if (action === 'GET') {
+    const options = {
+      hostname: 'api.github.com',
+      path: exactPath,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'User-Agent': 'Vercel-Serverless-Function',
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    };
+
+    const request = https.request(options, (response) => {
+      let data = '';
+      response.on('data', (chunk) => { data += chunk; });
+      response.on('end', () => {
+        if (response.statusCode === 404) {
+          return res.status(200).json({ success: false, status: 404, message: 'Archivo no existe' });
         }
-
-        function initTable(data =) {
-            // Verificación de seguridad para la librería
-            if (typeof Tabulator === "undefined") {
-                log("Error: La librería no cargó. Reintentando...", true);
-                setTimeout(() => initTable(data), 1500);
-                return;
-            }
-
-            table = new Tabulator("#excel-table", {
-                data: data,
-                height: "400px", // Altura fija necesaria
-                layout: "fitColumns",
-                columns: [
-                    {title: "ID", field: "id", editor: "number", width: },
-                    {title: "Producto", field: "nombre", editor: "input"},
-                    {title: "Precio", field: "precio", editor: "number", hozAlign: "right"},
-                    {title: "Stock", field: "stock", editor: "number", hozAlign: "center"},
-                    {title: "Borrar", formatter: "buttonCross", cellClick: (e, c) => cgetRow()delete()}
-                ]
-            });
-            log("✅ Tabla lista.");
+        try {
+          const fileData = JSON.parse(data);
+          // Decodificamos el Base64 que manda GitHub a texto legible
+          const jsonPlano = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf-8'));
+          return res.status(200).json({ success: true, sha: fileData.sha, data: jsonPlano });
+        } catch (e) {
+          return res.status(500).json({ success: false, error: 'Error procesando los datos de GitHub' });
         }
+      });
+    });
+    request.on('error', (e) => res.status(500).json({ success: false, error: e.message }));
+    request.end();
+    return;
+  }
 
-        async function cargarDatos() {
-            log("Conectando con GitHub...");
-            try {
-                const res = await fetch('/api/crud', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'GET', path: 'inventario.json' })
-                });
-                const json = await res.json();
-                if (json.success) {
-                    fileSha = json.sha;
-                    initTable(json.data);
-                } else {
-                    initTable(); // Inicia vacía si el archivo no existe
-                    log("Inventario nuevo.");
-                }
-            } catch (e) {
-                log("Error de red: " + e.message, true);
-                initTable();
-            }
-        }
+  // CASO 2: GUARDAR EL INVENTARIO (PUT)
+  const bodyData = JSON.stringify({
+    message: message || "Actualizado desde el panel",
+    content: Buffer.from(content).toString('base64'), 
+    sha: sha || undefined
+  });
 
-        function nuevaFila() {
-            if (table) table.addRow({ id: Date.now().toString().slice(-4), nombre: "Nuevo", precio: 0, stock: 0 });
-        }
+  const options = {
+    hostname: 'api.github.com',
+    path: exactPath,
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json',
+      'User-Agent': 'Vercel-Serverless-Function', 
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Length': Buffer.byteLength(bodyData)
+    }
+  };
 
-        async function guardarTodo() {
-            if (!table) return;
-            log("Guardando...");
-            try {
-                const res = await fetch('/api/crud', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'PUT',
-                        path: 'inventario.json',
-                        content: JSON.stringify(table.getData(), null, 2),
-                        sha: fileSha || undefined
-                    })
-                });
-                const resJson = await res.json();
-                if (resJson.success) {
-                    fileSha = resJson.sha;
-                    log("✨ ¡Guardado con éxito!");
-                } else {
-                    log("Error: " + resJson.error, true);
-                }
-            } catch (e) {
-                log("Error de conexión.", true);
-            }
-        }
+  const request = https.request(options, (response) => {
+    let data = '';
+    response.on('data', (chunk) => { data += chunk; });
+    response.on('end', () => {
+      let parsedData = {};
+      try { parsedData = JSON.parse(data); } catch (e) { parsedData = { message: data }; }
 
-        window.onload = cargarDatos;
-    </script>
-</body>
-</html>
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return res.status(200).json({ success: true, sha: parsedData.content.sha });
+      } else {
+        return res.status(response.statusCode).json({ success: false, error: parsedData.message || 'Error en GitHub' });
+      }
+    });
+  });
+
+  request.on('error', (error) => res.status(500).json({ success: false, error: error.message }));
+  request.write(bodyData);
+  request.end();
+}
