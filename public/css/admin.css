@@ -1,0 +1,20 @@
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 30px; background: #f9f9f9; color: #333; }
+h1, h2 { color: #222; }
+form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; max-width: 400px; }
+input, label { display: block; margin-bottom: 12px; }
+input[type="text"], input[type="number"] { padding: 10px; width: 100%; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+label { font-size:14px; color:#555; }
+button { background: #0070f3; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+button:hover { background: #0051cb; }
+.btn-cancelar { background: #666; margin-left: 8px; }
+.btn-cancelar:hover { background: #444; }
+table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; vertical-align: middle; }
+th { background: #222; color: white; }
+tr:hover { background: #f5f5f5; }
+.img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; background: #eee; border: 1px solid #ddd; }
+.btn-edit { background: #ffaa00; font-size: 12px; padding: 5px 10px; margin-right: 5px; }
+.btn-edit:hover { background: #e09500; }
+.btn-delete { background: #ff0033; font-size: 12px; padding: 5px 10px; }
+.btn-delete:hover { background: #cc0029; }
+.loading { font-style: italic; color: #0070f3; font-weight: bold; }
