@@ -6,7 +6,7 @@ const PATH_JSON = 'data/productos.json';
 let shaActualJson = '';
 let listaProductos = [];
 
-// Cargar inventario inicial
+// --- 1. CARGAR INVENTARIO ---
 async function cargarInventario() {
     mostrarCargando(true, "Cargando inventario desde GitHub...");
     try {
@@ -26,19 +26,28 @@ async function cargarInventario() {
     }
 }
 
-// Subir Imagen de manera independiente
-async function subirImagen(file) {
-    const base64Limpio = file.split(',');
-    const nombreLimpio = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}.webp`;
-    const rutaImagen = `public/imagenes/${nombreLimpio}`;
+// --- 2. SUBIR IMAGEN (CORREGIDA PARA EVITAR IMAGEN NEGRA) ---
+async function subirImagen(dataUrl, nombreOriginal) {
+    // Extraemos solo el contenido base64 puro (sin el encabezado data:image/...)
+    const base64Puro = dataUrl.split(',')[1]; 
 
-    const json = await llamarAPI('PUT', rutaImagen, { content: base64Limpio });
-    if (!json.success) throw new Error('Error al guardar la imagen en el servidor: ' + json.error);
+    // Limpiamos el nombre: minúsculas, sin espacios y con extensión webp
+    const nombreLimpio = nombreOriginal.toLowerCase().split('.')[0].replace(/[^a-z0-9]/gi, '_');
+    const nombreArchivoWebP = `${Date.now()}-${nombreLimpio}.webp`;
+    const rutaImagen = `public/imagenes/${nombreArchivoWebP}`;
 
+    const json = await llamarAPI('PUT', rutaImagen, { 
+        message: `Subir imagen: ${nombreArchivoWebP}`,
+        content: base64Puro 
+    });
+
+    if (!json.success) throw new Error('Error al guardar la imagen en GitHub: ' + json.error);
+
+    // Retorna la ruta que usará Vercel
     return rutaImagen.replace('public/', '/');
 }
 
-// Guardar cambios totales del JSON
+// --- 3. GUARDAR CAMBIOS EN EL JSON ---
 async function guardarCambiosJSON(mensajeCommit) {
     const json = await llamarAPI('PUT', PATH_JSON, {
         message: mensajeCommit,
@@ -54,24 +63,27 @@ async function guardarCambiosJSON(mensajeCommit) {
     }
 }
 
-// Manejar Submit del formulario
+// --- 4. EVENTO SUBMIT (ORQUESTADOR) ---
 document.getElementById('prodForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    mostrarCargando(true, "Procesando información...");
+    mostrarCargando(true, "Iniciando proceso...");
 
     const index = parseInt(document.getElementById('editIndex').value);
     const fileInput = document.getElementById('imagenFile');
     let urlImagenFinal = index !== -1 ? listaProductos[index].imagen : '';
 
     try {
+        // Si hay un archivo seleccionado, optimizamos y subimos
         if (fileInput.files.length > 0) {
-            mostrarCargando(true, "Optimizando archivo a WebP...");
-            const imagenWebP = await optimizarImagen(fileInput.files[0]);
+            const archivoFisico = fileInput.files[0];
             
-            mostrarCargando(true, "Subiendo nueva imagen a GitHub...");
-            urlImagenFinal = await subirImagen(imagenWebP);
+            mostrarCargando(true, "Optimizando a WebP (Canvas)...");
+            const imagenWebP = await optimizarImagen(archivoFisico);
+            
+            mostrarCargando(true, "Subiendo imagen a GitHub...");
+            urlImagenFinal = await subirImagen(imagenWebP, archivoFisico.name);
         } else if (index === -1) {
-            alert('Debes seleccionar una imagen para crear un producto.');
+            alert('Debes seleccionar una imagen para el nuevo producto.');
             mostrarCargando(false);
             return;
         }
@@ -90,29 +102,31 @@ document.getElementById('prodForm').addEventListener('submit', async (e) => {
             listaProductos[index] = productoData;
             await guardarCambiosJSON(`Actualizar producto: ${productoData.nombre}`);
         }
+        
         cancelarEdicion();
     } catch (error) {
-        alert(error.message);
+        alert("Error: " + error.message);
     } finally {
         mostrarCargando(false);
     }
 });
 
+// --- 5. FUNCIONES DE APOYO ---
 function iniciarEdicion(index) {
     cargarFormulario(listaProductos[index], index);
 }
 
 async function iniciarEliminacion(index) {
     const prod = listaProductos[index];
-    if (!confirm(`¿Deseas eliminar permanentemente "${prod.nombre}"?`)) return;
+    if (!confirm(`¿Deseas eliminar "${prod.nombre}"?`)) return;
 
     listaProductos.splice(index, 1);
-    mostrarCargando(true, "Eliminando del registro...");
+    mostrarCargando(true, "Sincronizando eliminación...");
     await guardarCambiosJSON(`Eliminar producto: ${prod.nombre}`);
     mostrarCargando(false);
 }
 
 document.getElementById('btnCancelar').addEventListener('click', cancelarEdicion);
 
-// Iniciar aplicación
+// Arrancar la App
 cargarInventario();
