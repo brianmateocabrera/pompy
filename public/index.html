@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <title>POMPY Lencería & Sex-Shop</title>
     <style>
+        :root{background:#000;}
+        *{margin:0;padding:0;box-sizing:border-box;}
         body { font-family: sans-serif; margin: 20px; background: #f4f4f4; }
+        main{width:100%;max-width:414px;}
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
+    <main> 
     <h1>POMPY Lencería & Sex-Shop</h1>
     <h2>Nuestros Productos</h2>
     <div id="catalogo" class="grid">Cargando productos...</div>
+    </main>
 
     <script>
         async function cargar() {
