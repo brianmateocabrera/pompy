@@ -1,89 +1,143 @@
-import https from 'https';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Pompy - Sin Librerías</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 10px; background: #f4f4f9; }
+        .header { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #007bff; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        [contenteditable]:focus { outline: 2px solid #007bff; background: #fff; }
+        .btn { padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px; }
+        .btn-add { background: #28a745; color: white; }
+        .btn-save { background: #007bff; color: white; }
+        .btn-del { background: #dc3545; color: white; padding: 5px 10px; }
+        #status { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-size: 13px; }
+    </style>
+</head>
+<body>
 
-export default function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Método no permitido' });
-  }
+    <div class="header">
+        <h2>📦 Gestión de Inventario</h2>
+        <div id="status">Cargando datos...</div>
+        <button class="btn btn-add" onclick="agregarFila()">+ Nuevo Producto</button>
+        <button class="btn btn-save" onclick="guardarCambios()">💾 Guardar Todo</button>
+    </div>
 
-  const token = process.env.GITHUB_TOKEN;
-  const repo = process.env.GITHUB_REPO; 
-  const { path, message, content, sha, action } = req.body;
+    <table id="tabla-inventario">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+            <!-- Las filas se generarán aquí -->
+        </tbody>
+    </table>
 
-  const exactPath = '/repos/' + repo + '/contents/' + path;
+    <script>
+        let inventarioActual =;
+        let fileSha = null;
 
-  // CASO 1: LEER EL INVENTARIO (GET)
-  if (action === 'GET') {
-    const options = {
-      hostname: 'api.github.com',
-      path: exactPath,
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'User-Agent': 'Vercel-Serverless-Function',
-        'Accept': 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
-    };
-
-    const request = https.request(options, (response) => {
-      let data = '';
-      response.on('data', (chunk) => { data += chunk; });
-      response.on('end', () => {
-        if (response.statusCode === 404) {
-          return res.status(200).json({ success: false, status: 404, message: 'Archivo no existe' });
+        function mostrarStatus(msg, color = "black") {
+            const s = document.getElementById('status');
+            s.innerText = msg;
+            s.style.color = color;
         }
-        try {
-          const fileData = JSON.parse(data);
-          // Decodificamos el Base64 que manda GitHub a texto legible
-          const jsonPlano = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf-8'));
-          return res.status(200).json({ success: true, sha: fileData.sha, data: jsonPlano });
-        } catch (e) {
-          return res.status(500).json({ success: false, error: 'Error procesando los datos de GitHub' });
+
+        // 1. Cargar datos iniciales
+        async function cargarDatos() {
+            try {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'GET', path: 'inventario.json' })
+                });
+                const resJson = await res.json();
+                
+                if (resJson.success) {
+                    fileSha = resJson.sha;
+                    inventarioActual = resJson.data;
+                    renderizarTabla();
+                    mostrarStatus("✅ Datos cargados correctamente.");
+                } else {
+                    mostrarStatus("ℹ️ Inventario vacío. Comienza a crear productos.");
+                }
+            } catch (e) {
+                mostrarStatus("❌ Error al conectar: " + e.message, "red");
+            }
         }
-      });
-    });
-    request.on('error', (e) => res.status(500).json({ success: false, error: e.message }));
-    request.end();
-    return;
-  }
 
-  // CASO 2: GUARDAR EL INVENTARIO (PUT)
-  const bodyData = JSON.stringify({
-    message: message || "Actualizado desde el panel",
-    content: Buffer.from(content).toString('base64'), 
-    sha: sha || undefined
-  });
+        // 2. Dibujar la tabla manualmente
+        function renderizarTabla() {
+            const cuerpo = document.getElementById('cuerpo-tabla');
+            cuerpo.innerHTML = '';
+            inventarioActual.forEach((prod, index) => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td contenteditable="true" onblur="actualizarDato(${index}, 'id', this.innerText)">${prod.id}</td>
+                    <td contenteditable="true" onblur="actualizarDato(${index}, 'nombre', this.innerText)">${prod.nombre}</td>
+                    <td contenteditable="true" onblur="actualizarDato(${index}, 'categoria', this.innerText)">${prod.categoria}</td>
+                    <td contenteditable="true" onblur="actualizarDato(${index}, 'precio', this.innerText)">${prod.precio}</td>
+                    <td contenteditable="true" onblur="actualizarDato(${index}, 'stock', this.innerText)">${prod.stock}</td>
+                    <td><button class="btn-del" onclick="eliminarFila(${index})">Eliminar</button></td>
+                `;
+                cuerpo.appendChild(fila);
+            });
+        }
 
-  const options = {
-    hostname: 'api.github.com',
-    path: exactPath,
-    method: 'PUT',
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json',
-      'User-Agent': 'Vercel-Serverless-Function', 
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Length': Buffer.byteLength(bodyData)
-    }
-  };
+        function actualizarDato(index, campo, valor) {
+            inventarioActual[index][campo] = valor;
+        }
 
-  const request = https.request(options, (response) => {
-    let data = '';
-    response.on('data', (chunk) => { data += chunk; });
-    response.on('end', () => {
-      let parsedData = {};
-      try { parsedData = JSON.parse(data); } catch (e) { parsedData = { message: data }; }
+        function agregarFila() {
+            inventarioActual.push({ id: Date.now().toString().slice(-4), nombre: 'Nuevo', categoria: 'Varios', precio: '0', stock: '0' });
+            renderizarTabla();
+        }
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        return res.status(200).json({ success: true, sha: parsedData.content.sha });
-      } else {
-        return res.status(response.statusCode).json({ success: false, error: parsedData.message || 'Error en GitHub' });
-      }
-    });
-  });
+        function eliminarFila(index) {
+            if (confirm("¿Eliminar este producto?")) {
+                inventarioActual.splice(index, 1);
+                renderizarTabla();
+            }
+        }
 
-  request.on('error', (error) => res.status(500).json({ success: false, error: error.message }));
-  request.write(bodyData);
-  request.end();
-}
+        // 3. Guardar en GitHub
+        async function guardarCambios() {
+            mostrarStatus("🚀 Guardando en GitHub...", "blue");
+            try {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'PUT',
+                        path: 'inventario.json',
+                        content: JSON.stringify(inventarioActual, null, 2),
+                        sha: fileSha || undefined
+                    })
+                });
+                const resJson = await res.json();
+                if (resJson.success) {
+                    fileSha = resJson.sha;
+                    mostrarStatus("✨ ¡Guardado con éxito!", "green");
+                } else {
+                    mostrarStatus("❌ Error: " + resJson.error, "red");
+                }
+            } catch (e) {
+                mostrarStatus("❌ Error de red.", "red");
+            }
+        }
+
+        window.onload = cargarDatos;
+    </script>
+</body>
+</html>
