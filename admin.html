@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario Pompy</title>
+    <title>Admin Pompy</title>
     
-    <!-- Enlaces externos confiables -->
+    <!-- Librerías con carga garantizada -->
     <link href="https://unpkg.com" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com"></script>
 
     <style>
-        body { font-family: sans-serif; margin: 15px; background: #f4f4f9; }
-        .controls { margin-bottom: 15px; display: flex; gap: 10px; }
-        button { padding: 12px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; }
-        .btn-add { background: #28a745; color: white; }
-        .btn-save { background: #007bff; color: white; }
-        #status { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-size: 14px; background: #eee; }
-        #excel-table { background: white; border: 1px solid #ccc; }
+        body { font-family: sans-serif; margin: 10px; background: #f0f2f5; color: #1c1e21; }
+        .header { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 10px; }
+        .btn-group { display: flex; gap: 8px; margin-top: 10px; }
+        button { flex: 1; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; }
+        .btn-add { background: #28a745; }
+        .btn-save { background: #007bff; }
+        #status-display { padding: 8px; font-size: 12px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc; }
+        /* IMPORTANTE: Altura definida para que Tabulator se vea */
+        #excel-table { 
+            background: white; 
+            border: 1px solid #ddd; 
+            height: 500px; 
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
-    <h2>📊 Gestión de Inventario</h2>
-    
-    <div id="status">Iniciando sistema...</div>
-
-    <div class="controls">
-        <button class="btn-add" onclick="agregarFila()">➕ Nuevo</button>
-        <button class="btn-save" onclick="guardar()">💾 Guardar en GitHub</button>
+    <div class="header">
+        <h2 style="margin:0">📊 Inventario Pompy</h2>
+        <div id="status-display">Esperando inicialización...</div>
+        <div class="btn-group">
+            <button class="btn-add" onclick="nuevaFila()">➕ NUEVO</button>
+            <button class="btn-save" id="btn-save-main" onclick="guardarTodo()">💾 GUARDAR</button>
+        </div>
     </div>
 
     <div id="excel-table"></div>
@@ -36,95 +43,115 @@
         let table;
         let fileSha = null;
 
-        function log(msg, color = "black") {
-            const s = document.getElementById('status');
-            s.innerText = msg;
-            s.style.color = color;
+        function updateLog(text, isError = false) {
+            const el = document.getElementById('status-display');
+            el.innerText = text;
+            el.style.background = isError ? "#ffdada" : "#e7f3ff";
+            console.log(text);
         }
 
-        // Función para inicializar la tabla
-        function initTable(data =) {
-            if (typeof Tabulator === "undefined") {
-                log("Error: La librería Tabulator no cargó. Revisa tu conexión.", "red");
-                return;
-            }
-
-            table = new Tabulator("#excel-table", {
-                data: data,
-                layout: "fitColumns",
-                columns: [
-                    {title: "ID", field: "id", width: editor: "number"},
-                    {title: "Nombre", field: "nombre", editor: "input"},
-                    {title: "Categoría", field: "categoria", editor: "input"},
-                    {title: "Precio", field: "precio", editor: "number"},
-                    {title: "Stock", field: "stock", editor: "number"},
-                    {title: "Imagen URL", field: "imagen", editor: "input"},
-                    {title: "Borrar", formatter: "buttonCross", width: cellClick: (e, c) => cgetRow()delete()}
-                ]
-            });
-            log("Tabla lista. Puedes añadir productos.", "green");
-        }
-
-        async function cargar() {
-            log("Conectando con el servidor...");
+        // 1. Inicialización de la tabla
+        function startTable(initialData = []) {
             try {
-                const res = await fetch('/api/crud', {
+                if (typeof Tabulator === "undefined") {
+                    updateLog("Error: Tabulator no descargó. Reintentando...", true);
+                    setTimeout(() => startTable(initialData), 2000);
+                    return;
+                }
+
+                table = new Tabulator("#excel-table", {
+                    data: initialData,
+                    height: "500px",
+                    layout: "fitColumns",
+                    placeholder: "Presiona 'NUEVO' para empezar",
+                    columns: [
+                        {title: "ID", field: "id", width: 50, editor: "number"},
+                        {title: "Producto", field: "nombre", editor: "input", widthGrow: 2},
+                        {title: "Categoría", field: "categoria", editor: "list", editorParams:{values:["Lencería", "Juguetes", "Lubricantes", "Fetish", "Masajes", "Juegos", "Kits", "Bienestar"]}},
+                        {title: "Precio", field: "precio", editor: "number", hozAlign: "right"},
+                        {title: "Stock", field: "stock", editor: "number", hozAlign: "center"},
+                        {title: "Img", field: "imagen", editor: "input"},
+                        {title: "X", formatter: "buttonCross", width: 40, hozAlign: "center", cellClick: (e, c) => c.getRow().delete()}
+                    ]
+                });
+
+                table.on("tableBuilt", () => {
+                    updateLog("✅ Sistema listo.");
+                });
+
+            } catch (err) {
+                updateLog("Fallo crítico: " + err.message, true);
+            }
+        }
+
+        // 2. Carga de datos
+        async function fetchInitialData() {
+            updateLog("🔄 Conectando con GitHub...");
+            try {
+                const response = await fetch('/api/crud', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'GET', path: 'inventario.json' })
                 });
                 
-                const resJson = await res.json();
+                const result = await response.json();
                 
-                if (resJson.success) {
-                    fileSha = resJson.sha;
-                    initTable(resJson.data);
-                } else if (resJson.status === 404) {
-                    initTable();
-                    log("Inventario nuevo (archivo no encontrado).", "blue");
+                if (result.success) {
+                    fileSha = result.sha;
+                    startTable(result.data);
+                    updateLog("✅ Inventario cargado.");
                 } else {
-                    log("Error de API: " + resJson.error, "red");
-                    initTable(); 
+                    fileSha = null;
+                    startTable([]);
+                    updateLog("ℹ️ Inventario nuevo (sin archivo).");
                 }
             } catch (e) {
-                log("Error de red: " + e.message, "red");
-                initTable();
+                updateLog("⚠️ Error de red. Tabla en modo local.", true);
+                startTable([]);
             }
         }
 
-        function agregarFila() {
-            if(!table) return log("La tabla no está lista", "red");
-            table.addRow({ id: Date.now(), nombre: "Nuevo", precio: 0, stock: 0 });
+        // 3. Acciones de botones
+        function nuevaFila() {
+            if (!table) return alert("Espera a que cargue la tabla");
+            table.addRow({ id: Date.now().toString().slice(-4), nombre: "Nuevo...", precio: 0, stock: 0 });
         }
 
-        async function guardar() {
-            if(!table) return;
-            log("Guardando en GitHub...", "orange");
+        async function guardarTodo() {
+            if (!table) return;
+            const btn = document.getElementById('btn-save-main');
+            btn.disabled = true;
+            updateLog("🚀 Subiendo a GitHub...");
+
             try {
-                const res = await fetch('/api/crud', {
+                const currentData = table.getData();
+                const response = await fetch('/api/crud', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         action: 'PUT',
                         path: 'inventario.json',
-                        content: JSON.stringify(table.getData(), null, 2),
+                        content: JSON.stringify(currentData, null, 2),
                         sha: fileSha || undefined
                     })
                 });
-                const resJson = await res.json();
-                if(resJson.success) {
-                    fileSha = resJson.sha;
-                    log("¡Guardado con éxito!", "green");
+
+                const final = await response.json();
+                if (final.success) {
+                    fileSha = final.sha;
+                    updateLog("✨ ¡Guardado con éxito!");
                 } else {
-                    log("Error al guardar: " + resJson.error, "red");
+                    updateLog("❌ Error: " + final.error, true);
                 }
             } catch (e) {
-                log("Error de conexión: " + e.message, "red");
+                updateLog("❌ Error de conexión: " + e.message, true);
+            } finally {
+                btn.disabled = false;
             }
         }
 
-        // Ejecutar al cargar la página
-        window.onload = cargar;
+        // Iniciar al cargar
+        window.onload = fetchInitialData;
     </script>
 </body>
 </html>
