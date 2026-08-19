@@ -32,8 +32,8 @@
             contenedor.innerHTML = json.data.map(p => `
                 <article class="card">
                     <header><h3>${p.nombre}</h3></header>
-                    <p>Precio: $${p.precio}</p>
-                    <footer><p>${p.descripcion || ''}</p></footer>
+                    <footer><p>${p.descripcion || ''}</p>
+                    <h4>Precio: $${p.precio}</h4></footer>
                 </article>
             `).join('');
         }
