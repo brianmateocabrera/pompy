@@ -1,201 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pompy Lencería y Sex-shop</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&family=Monoton&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Mi Catálogo</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background: #f4f4f4; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
+    <h1>Catálogo de Productos</h1>
+    <div id="catalogo" class="grid">Cargando productos...</div>
 
-  <main class="app-container">
-    
-    <header>
-      <div class="category-icon">POMPY</div>
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="Buscar...">
-      </div>
-      
-    </header>
+    <script>
+        async function cargar() {
+            const res = await fetch('/api/crud', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
+            });
+            const json = await res.json();
+            const contenedor = document.getElementById('catalogo');
+            
+            if (!json.success || !json.data.length) {
+                contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+                return;
+            }
 
-    <section id="section-home">
-    
-    <div class="banner-container"> 
-  <div class="banner"> 
-    <!--div class="banner-text"> 
-      <div class="banner-title neon-title">HOT SALE</div> 
-      <div class="banner-sub neon-title">HASTA -50%</div > 
-    </div--> 
-
-    <div class="banner-image-wrap">
-      <!-- Este nuevo contenedor es el que se moverá físicamente con CSS -->
-      <div class="banner-slider">
-        <img src="/images/IMG-20260817-WA0015~2.jpg" alt="Inauguración Banner 1"> 
-        <img src="/images/IMG-20260817-WA0015~2.jpg" alt="Inauguración Banner 2"> 
-        <img src="/images/IMG-20260817-WA0015~2.jpg" alt="Inauguración Banner 3"> 
-      </div>
-    </div>
-
-    <div class="banner-dots"> 
-      <span class="dot active"></span> 
-      <span class="dot"></span> 
-      <span class="dot"></span> 
-    </div> 
-  </div> 
-</div>
-
-    <div class="section-header">
-      <span class="section-title neon-title">Nuestras Categorías</span>
-      <a href="#" class="view-all">Ver todas</a>
-    </div>
-
-    <div class="categories-grid">
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-shoe-prints"></i></div>
-        <span class="category-label">Fashion</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-handcuffs"></i></div>
-        <span class="category-label">Juguetes</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
-        <span class="category-label">Lubricantes</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-mask"></i></div>
-        <span class="category-label">Fetish</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-feather"></i></div>
-        <span class="category-label">Masajes</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-heart"></i></div>
-        <span class="category-label">Juegos</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-gift"></i></div>
-        <span class="category-label">Kits</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon"><i class="fa-solid fa-candle-holder"></i></div>
-        <span class="category-label">Bienestar</span>
-      </div>
-    </div>
-
-    <div class="section-header">
-      <span class="section-title cyan neon-title">Destacados</span>
-    </div>
-
-    <div class="promo-container">
-      <!--div class="promo-text-card">
-        <p class="promo-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porro, voluptates, maxime! Temporibus.</p>
-        <a href="#" class="view-all">View All &gt;</a>
-    </div-->
-      <div class="product-card">
-        <div class="product-img">
-          <i class="fa-solid fa-wand-magic-sparkles neon-icon-cyan"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Succionador Aceite Masaje</div>
-          <div class="product-price">$10.00</div>
-        </div>
-      </div>
-      <div class="product-card pink-border">
-        <div class="product-img">
-          <i class="fa-solid fa-droplet neon-icon-pink"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Aceite Masajes Térmico</div>
-          <div class="product-price">$15.00</div>
-        </div>
-      </div>
-      <div class="product-card yellow-border">
-        <div class="product-img">
-          <i class="fa-solid fa-microphone neon-icon-yellow"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Vibrador Microphone</div>
-          <div class="product-price">$10.00</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-header">
-      <span class="section-title yellow neon-title">CATÁLOGO COMPLETO</span>
-      <a href="#" class="view-all">Ver todos</a>
-    </div>
-
-    <div class="product-grid">
-      <div class="product-card pink-border">
-        <div class="product-img">
-          <i class="fa-solid fa-shirt neon-icon-pink"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Casual Dress Shirt Men Long Sleeves</div>
-          <div class="product-price">$30.00</div>
-        </div>
-      </div>
-      <div class="product-card pink-border">
-        <div class="product-img">
-          <i class="fa-solid fa-user-ninja neon-icon-pink"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Limited Edition Backpacks 1 variant</div>
-          <div class="product-price">$41.00</div>
-        </div>
-      </div>
-      <div class="product-card yellow-border">
-        <div class="product-img">
-          <i class="fa-solid fa-vest neon-icon-yellow"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Campera Térmica Neon</div>
-          <div class="product-price">$55.00</div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">
-          <i class="fa-solid fa-mitten neon-icon-cyan"></i>
-        </div>
-        <div class="product-info">
-          <div class="product-name">Guantes Tácticos Cuero</div>
-          <div class="product-price">$20.00</div>
-        </div>
-      </div>
-    </div>
-</section>
-    
-    <nav class="bottom-nav">
-      <a href="#" class="nav-item active">
-        <i class="fa-solid fa-house"></i>
-        <span>Inicio</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-regular fa-heart"></i>
-        <span>Catálogo</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Carrito</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-solid fa-receipt"></i>
-        <span>Contáctanos</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fa-regular fa-user"></i>
-        <span>Info</span>
-      </a>
-    </nav>
-  </main>
-
-  <script src="script.js"></script>
+            contenedor.innerHTML = json.data.map(p => `
+                <div class="card">
+                    <h3>${p.nombre}</h3>
+                    <p>Precio: $${p.precio}</p>
+                    <p>${p.descripcion || ''}</p>
+                </div>
+            `).join('');
+        }
+        cargar();
+    </script>
 </body>
 </html>
