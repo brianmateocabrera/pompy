@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administrador</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        form { background: #eee; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        input { display: block; margin-bottom: 10px; padding: 8px; width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>Administración de Inventario</h1>
+    
+    <form id="prodForm">
+        <h3>Agregar Producto</h3>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="number" id="precio" placeholder="Precio" required>
+        <input type="text" id="descripcion" placeholder="Descripción">
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <h3>Inventario Actual</h3>
+    <pre id="output">Cargando...</pre>
+
+    <script>
+        let shaActual = '';
+        let listaProductos = [];
+
+        async function obtenerDatos() {
+            const res = await fetch('/api/crud', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
+            });
+            const json = await res.json();
+            if(json.success) {
+                shaActual = json.sha;
+                listaProductos = json.data || [];
+                document.getElementById('output').textContent = JSON.stringify(listaProductos, null, 2);
+            } else {
+                listaProductos = [];
+                document.getElementById('output').textContent = "Inventario vacío o nuevo.";
+            }
+        }
+
+        document.getElementById('prodForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nuevo = {
+                nombre: document.getElementById('nombre').value,
+                precio: document.getElementById('precio').value,
+                descripcion: document.getElementById('descripcion').value
+            };
+            listaProductos.push(nuevo);
+
+            const res = await fetch('/api/crud', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'PUT',
+                    path: 'data/productos.json',
+                    message: 'Agregado nuevo producto via Admin',
+                    content: JSON.stringify(listaProductos, null, 2),
+                    sha: shaActual
+                })
+            });
+            const json = await res.json();
+            if(json.success) {
+                alert('¡Guardado con éxito!');
+                obtenerDatos();
+            } else {
+                alert('Error: ' + json.error);
+            }
+        });
+
+        obtenerDatos();
+    </script>
+</body>
+</html>
