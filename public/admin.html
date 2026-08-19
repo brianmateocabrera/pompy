@@ -2,77 +2,216 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Administrador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - CRUD Completo</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; }
-        form { background: #eee; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-        input { display: block; margin-bottom: 10px; padding: 8px; width: 300px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 30px; background: #f9f9f9; color: #333; }
+        h1, h2 { color: #222; }
+        
+        /* Formulario */
+        form { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 30px; max-width: 400px; }
+        input { display: block; margin-bottom: 12px; padding: 10px; width: 100%; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #0070f3; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #0051cb; }
+        .btn-cancelar { background: #666; margin-left: 8px; }
+        .btn-cancelar:hover { background: #444; }
+
+        /* Tabla CRUD */
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #222; color: white; }
+        tr:hover { background: #f5f5f5; }
+        
+        /* Botones de acción */
+        .btn-edit { background: #ffaa00; font-size: 12px; padding: 5px 10px; margin-right: 5px; }
+        .btn-edit:hover { background: #e09500; }
+        .btn-delete { background: #ff0033; font-size: 12px; padding: 5px 10px; }
+        .btn-delete:hover { background: #cc0029; }
+        
+        .loading { font-style: italic; color: #666; }
     </style>
 </head>
 <body>
-    <h1>Administración de Inventario</h1>
+
+    <h1>Panel de Administración</h1>
     
+    <!-- FORMULARIO PARA CREAR Y EDITAR -->
     <form id="prodForm">
-        <h3>Agregar Producto</h3>
-        <input type="text" id="nombre" placeholder="Nombre" required>
-        <input type="number" id="precio" placeholder="Precio" required>
-        <input type="text" id="descripcion" placeholder="Descripción">
-        <button type="submit">Guardar Cambios</button>
+        <h2 id="formTitle">Agregar Nuevo Producto</h2>
+        <input type="hidden" id="editIndex" value="-1"> <!-- -1 significa "Crear", >=0 significa "Editar" -->
+        
+        <input type="text" id="nombre" placeholder="Nombre del producto" required>
+        <input type="number" id="precio" placeholder="Precio ($)" required step="0.01">
+        <input type="text" id="descripcion" placeholder="Descripción breve">
+        
+        <button type="submit" id="btnGuardar">Guardar Producto</button>
+        <button type="button" id="btnCancelar" class="btn-cancelar" style="display: none;" onclick="cancelarEdicion()">Cancelar</button>
     </form>
 
-    <h3>Inventario Actual</h3>
-    <pre id="output">Cargando...</pre>
+    <h2>Inventario de Productos</h2>
+    <p id="loadingText" class="loading" style="display: none;">Procesando operación con GitHub...</p>
+    
+    <!-- TABLA CRUD -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProductos">
+            <tr><td colspan="4">Cargando inventario...</td></tr>
+        </tbody>
+    </table>
 
     <script>
+        const PATH_ARCHIVO = 'data/productos.json';
         let shaActual = '';
         let listaProductos = [];
 
+        // --- 1. LEER (READ) ---
         async function obtenerDatos() {
-            const res = await fetch('/api/crud', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'GET', path: 'data/productos.json' })
-            });
-            const json = await res.json();
-            if(json.success) {
-                shaActual = json.sha;
-                listaProductos = json.data || [];
-                document.getElementById('output').textContent = JSON.stringify(listaProductos, null, 2);
-            } else {
-                listaProductos = [];
-                document.getElementById('output').textContent = "Inventario vacío o nuevo.";
+            mostrarCargando(true);
+            try {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'GET', path: PATH_ARCHIVO })
+                });
+                const json = await res.json();
+                
+                if (json.success) {
+                    shaActual = json.sha;
+                    listaProductos = json.data || [];
+                } else {
+                    shaActual = '';
+                    listaProductos = []; // Archivo no existe aún en GitHub
+                }
+                renderizarTabla();
+            } catch (error) {
+                alert('Error al conectar con la API: ' + error.message);
+            } finally {
+                mostrarCargando(false);
             }
         }
 
+        // Renderizar el listado en la interfaz
+        function renderizarTabla() {
+            const tbody = document.getElementById('tablaProductos');
+            if (listaProductos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4">No hay productos registrados.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = listaProductos.map((prod, index) => `
+                <tr>
+                    <td><strong>${prod.nombre}</strong></td>
+                    <td>$${prod.precio}</td>
+                    <td>${prod.descripcion || '-'}</td>
+                    <td>
+                        <button class="btn-edit" onclick="cargarParaEditar(${index})">Editar</button>
+                        <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // --- 2. CREAR Y ACTUALIZAR (CREATE & UPDATE) ---
         document.getElementById('prodForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const nuevo = {
+            
+            const index = parseInt(document.getElementById('editIndex').value);
+            const productoData = {
                 nombre: document.getElementById('nombre').value,
-                precio: document.getElementById('precio').value,
+                precio: parseFloat(document.getElementById('precio').value),
                 descripcion: document.getElementById('descripcion').value
             };
-            listaProductos.push(nuevo);
 
-            const res = await fetch('/api/crud', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'PUT',
-                    path: 'data/productos.json',
-                    message: 'Agregado nuevo producto via Admin',
-                    content: JSON.stringify(listaProductos, null, 2),
-                    sha: shaActual
-                })
-            });
-            const json = await res.json();
-            if(json.success) {
-                alert('¡Guardado con éxito!');
-                obtenerDatos();
+            let mensajeCommit = '';
+
+            if (index === -1) {
+                // Modo Crear: Agregamos al final de la lista
+                listaProductos.push(productoData);
+                mensajeCommit = `Crear producto: ${productoData.nombre}`;
             } else {
-                alert('Error: ' + json.error);
+                // Modo Editar: Reemplazamos en la posición indicada
+                listaProductos[index] = productoData;
+                mensajeCommit = `Actualizar producto: ${productoData.nombre}`;
             }
+
+            await enviarAGitHub(mensajeCommit);
+            cancelarEdicion(); // Resetea el formulario
         });
 
+        // Preparar formulario para la edición
+        function cargarParaEditar(index) {
+            const prod = listaProductos[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('nombre').value = prod.nombre;
+            document.getElementById('precio').value = prod.precio;
+            document.getElementById('descripcion').value = prod.descripcion || '';
+            
+            document.getElementById('formTitle').textContent = "Editar Producto";
+            document.getElementById('btnGuardar').textContent = "Guardar Cambios";
+            document.getElementById('btnCancelar').style.display = "inline-block";
+        }
+
+        function cancelarEdicion() {
+            document.getElementById('prodForm').reset();
+            document.getElementById('editIndex').value = "-1";
+            document.getElementById('formTitle').textContent = "Agregar Nuevo Producto";
+            document.getElementById('btnGuardar').textContent = "Guardar Producto";
+            document.getElementById('btnCancelar').style.display = "none";
+        }
+
+        // --- 3. ELIMINAR (DELETE) ---
+        async function eliminarProducto(index) {
+            const prod = listaProductos[index];
+            if (!confirm(`¿Estás seguro de que deseas eliminar "${prod.nombre}"?`)) return;
+
+            // Removemos el elemento del array local
+            listaProductos.splice(index, 1);
+            
+            await enviarAGitHub(`Eliminar producto: ${prod.nombre}`);
+        }
+
+        // --- FUNCIÓN GLOBAL PARA GUARDAR EN GITHUB ---
+        async function enviarAGitHub(mensajeCommit) {
+            mostrarCargando(true);
+            try {
+                const res = await fetch('/api/crud', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'PUT',
+                        path: PATH_ARCHIVO,
+                        message: mensajeCommit,
+                        content: JSON.stringify(listaProductos, null, 2),
+                        sha: shaActual || undefined
+                    })
+                });
+                const json = await res.json();
+                
+                if (json.success) {
+                    alert('¡GitHub actualizado con éxito!');
+                    await obtenerDatos(); // Recargamos para obtener el nuevo SHA
+                } else {
+                    alert('Error al guardar en GitHub: ' + json.error);
+                }
+            } catch (error) {
+                alert('Error de red: ' + error.message);
+            } finally {
+                mostrarCargando(false);
+            }
+        }
+
+        function mostrarCargando(visible) {
+            document.getElementById('loadingText').style.display = visible ? 'block' : 'none';
+        }
+
+        // Inicializar carga al abrir la página
         obtenerDatos();
     </script>
 </body>
