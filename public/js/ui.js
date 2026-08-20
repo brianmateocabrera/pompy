@@ -228,21 +228,4 @@ export function cancelarEdicion() {
     document.getElementById('btnCancelar').style.display =
         "none";
 
-}    document.getElementById('editIndex').value = index;
-    document.getElementById('nombre').value = prod.nombre;
-    document.getElementById('precio').value = prod.precio;
-    document.getElementById('descripcion').value = prod.descripcion || '';
-    document.getElementById('imagenFile').required = false;
-    
-    document.getElementById('formTitle').textContent = "Editar Producto";
-    document.getElementById('btnGuardar').textContent = "Guardar Cambios";
-    document.getElementById('btnCancelar').style.display = "inline-block";
-}
-
-export function cancelarEdicion() {
-    document.getElementById('prodForm').reset();
-    document.getElementById('editIndex').value = "-1";
-    document.getElementById('formTitle').textContent = "Agregar Nuevo Producto";
-    document.getElementById('btnGuardar').textContent = "Guardar Producto";
-    document.getElementById('btnCancelar').style.display = "none";
 }
