@@ -208,29 +208,4 @@ cargar();
 </script>
 
 </body>
-</html>                if (!json.success || !json.data || !json.data.length) {
-                    contenedor.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No hay productos disponibles.</p>';
-                    return;
-                }
-
-                contenedor.innerHTML = json.data.map(p => {
-                    const fallbackImg = 'https://unsplash.com';
-                    return `
-                        <div class="card">
-                            <img src="${p.imagen || fallbackImg}" class="card-img" alt="${p.nombre}">
-                            <div class="card-info">
-                                <h3 class="card-title">${p.nombre}</h3>
-                                <p class="card-price">$${p.precio}</p>
-                                <p class="card-desc">${p.descripcion || 'Sin descripción disponible.'}</p>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } catch (error) {
-                document.getElementById('catalogo').innerHTML = '<p>Error al cargar el catálogo.</p>';
-            }
-        }
-        cargar();
-    </script>
-</body>
 </html>
