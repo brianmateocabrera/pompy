@@ -1,6 +1,14 @@
 import https from 'https';
 
 export default function handler(req, res) {
+
+  res.setHeader(
+    'Cache-Control',
+    'no-store, no-cache, must-revalidate, proxy-revalidate'
+  );
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Método no permitido' });
   }
