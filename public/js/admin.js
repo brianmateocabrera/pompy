@@ -56,9 +56,10 @@ async function guardarCambiosJSON(mensajeCommit) {
     });
     
     if (json.success) {
-        alert('¡Cambios guardados con éxito!');
-        await cargarInventario();
-    } else {
+    alert('¡Cambios guardados con éxito!');
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    await cargarInventario();
+} else {
         alert('Error al actualizar el índice de catálogo: ' + json.error);
     }
 }
