@@ -17,7 +17,7 @@ export default function handler(req, res) {
   const token = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPO;
 
-  const { path, message, content, sha, action } = req.body;
+  const { path, message, content, sha, action } = req.body || {};
 
   if (!token || !repo) {
     return res.status(500).json({
