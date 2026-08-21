@@ -10,7 +10,6 @@
 
     <style>
     body {
-        /* Segoe UI: Alta legibilidad para el cuerpo de texto y descripciones generales */
         font-family: 'Segoe UI', Arial, sans-serif;
         margin: 20px;
         background: #080312 
@@ -19,6 +18,15 @@
 
         color: #ffffff;
     }
+
+    header {
+  background-color: #090214;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #1f0a33;
+}
 
     h1, h2 {
         text-align: center;
@@ -156,10 +164,11 @@
 </head>
 
 <body>
-
-    <h1>POMPY</h1>
-    <h2>Lencería y Sex-Shop</h2>
-
+    <header>
+      <h1>POMPY</h1>
+      <h2><i>lencería y sex-shop</i></h2>
+    </header> 
+    
     <div id="catalogo" class="grid">
         Cargando productos...
     </div>
