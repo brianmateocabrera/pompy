@@ -164,11 +164,12 @@ async function cargar() {
 
                     <div class="card">
 
-                        <img
-                            src="${imagen}"
-                            class="card-img"
-                            alt="${nombre}"
-                        >
+                        <img 
+    src="${p.imagen || fallbackImg}" 
+    class="card-img" 
+    alt="${p.nombre}"
+    onerror="this.src='/imagenes/no-image.webp'"
+>
 
                         <div class="card-info">
 
