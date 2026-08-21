@@ -49,21 +49,46 @@ async function subirImagen(dataUrl, nombreOriginal) {
 
 // --- 3. GUARDAR CAMBIOS EN EL JSON ---
 async function guardarCambiosJSON(mensajeCommit) {
+
     const json = await llamarAPI('PUT', PATH_JSON, {
         message: mensajeCommit,
         content: JSON.stringify(listaProductos, null, 2),
         sha: shaActualJson || undefined
     });
-    
-    if (json.success) {
-    alert('¡Cambios guardados con éxito!');
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    await cargarInventario();
-} else {
-        alert('Error al actualizar el índice de catálogo: ' + json.error);
-    }
-}
 
+
+    if (json.success) {
+
+        alert('¡Cambios guardados con éxito!');
+
+        await cargarInventario();
+
+        return;
+
+    }
+
+
+    // Conflicto por SHA antiguo
+    if (json.error && json.error.includes('sha')) {
+
+        alert(
+            'El catálogo fue modificado desde otro dispositivo. ' +
+            'Se actualizará el inventario actual.'
+        );
+
+        await cargarInventario();
+
+        return;
+
+    }
+
+
+    alert(
+        'Error al actualizar el índice de catálogo: ' +
+        json.error
+    );
+
+}
 // --- 4. EVENTO SUBMIT (ORQUESTADOR) ---
 document.getElementById('prodForm').addEventListener('submit', async (e) => {
     e.preventDefault();
