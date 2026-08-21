@@ -22,5 +22,11 @@
     "precio": 100,
     "imagen": "/imagenes/1787270206385-1000542318.webp",
     "descripcion": "Imágen de fallback. Cuando un producto no tiene imagen cargada se mostrará esto."
+  },
+  {
+    "nombre": "VIOLET EMOTION ",
+    "precio": 35000,
+    "imagen": "/imagenes/1787271785064-1000540758.webp",
+    "descripcion": "Estimulador con 20 funciones y 8 velocidades. Recargable"
   }
 ]
