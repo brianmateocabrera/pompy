@@ -186,8 +186,11 @@ function escaparHTML(texto) {
         .replaceAll("'", '&#039;');
 }
 
+
 async function cargar() {
+
     try {
+
         const res = await fetch('/api/crud', {
             method: 'POST',
             headers: {
@@ -199,59 +202,104 @@ async function cargar() {
             })
         });
 
+
         const json = await res.json();
-        const contenedor = document.getElementById('catalogo');
 
-        if (!json.success || !json.data || !json.data.length) {
-            contenedor.innerHTML = '<p style="grid-column:1/-1;text-align:center;">No hay productos disponibles.</p>';
+
+        const contenedor =
+            document.getElementById('catalogo');
+
+
+        if (
+            !json.success ||
+            !json.data ||
+            !json.data.length
+        ) {
+
+            contenedor.innerHTML =
+                '<p style="grid-column:1/-1;text-align:center;">No hay productos disponibles.</p>';
+
             return;
+
         }
 
-        const productosActivos = json.data.filter(p => p.activo !== false);
 
-        if (!productosActivos.length) {
-            contenedor.innerHTML = '<p style="grid-column:1/-1;text-align:center;">No hay productos activos.</p>';
-            return;
-        }
+        contenedor.innerHTML =
+            json.data.map(p => {
 
-        contenedor.innerHTML = productosActivos.map(p => {
-            const nombre = escaparHTML(p.nombre);
-            const descripcion = escaparHTML(p.descripcion || 'Sin descripción disponible.');
-            const rutaOriginal = p.imagenPrincipal || p.imagenes?.[0]?.url || '/imagenes/no-image.webp';
-const imagen = escaparHTML(
-    rutaOriginal.startsWith('/imagenes/') 
-        ? '/public' + rutaOriginal 
-        : rutaOriginal
-);
+                const nombre =
+                    escaparHTML(p.nombre);
 
-            const precio = new Intl.NumberFormat('es-AR', {
-                style: 'currency',
-                currency: 'ARS'
-            }).format(p.precio || 0);
+                const descripcion =
+                    escaparHTML(
+                        p.descripcion ||
+                        'Sin descripción disponible.'
+                    );
 
-            return `
-                <div class="card">
-                    <img 
-                        src="${imagen}" 
-                        class="card-img" 
-                        alt="${nombre}"
-                        onerror="this.src='/imagenes/no-image.webp'"
-                    >
-                    <div class="card-info">
-                        <h3 class="card-title">${nombre}</h3>
-                        <p class="card-price">${precio}</p>
-                        <p class="card-desc">${descripcion}</p>
+                const imagen =
+                    escaparHTML(
+                        p.imagen ||
+                        '/imagenes/no-image.webp'
+                    );
+
+
+                const precio =
+                    new Intl.NumberFormat(
+                        'es-AR',
+                        {
+                            style: 'currency',
+                            currency: 'ARS'
+                        }
+                    ).format(p.precio);
+
+
+
+                return `
+
+                    <div class="card">
+
+                        <img 
+    src="${p.imagen || fallbackImg}" 
+    class="card-img" 
+    alt="${p.nombre}"
+    onerror="this.src='/imagenes/no-image.webp'"
+>
+
+                        <div class="card-info">
+
+                            <h3 class="card-title">
+                                ${nombre}
+                            </h3>
+
+                            <p class="card-price">
+                                ${precio}
+                            </p>
+
+                            <p class="card-desc">
+                                ${descripcion}
+                            </p>
+
+                        </div>
+
                     </div>
-                </div>
-            `;
-        }).join('');
+
+                `;
+
+            }).join('');
+
 
     } catch (error) {
-        document.getElementById('catalogo').innerHTML = '<p>Error al cargar el catálogo.</p>';
+
+        document.getElementById('catalogo').innerHTML =
+            '<p>Error al cargar el catálogo.</p>';
+
     }
+
 }
 
+
 cargar();
+
 </script>
 
 </body>
