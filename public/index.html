@@ -217,7 +217,13 @@ async function cargar() {
         contenedor.innerHTML = productosActivos.map(p => {
             const nombre = escaparHTML(p.nombre);
             const descripcion = escaparHTML(p.descripcion || 'Sin descripción disponible.');
-            const imagen = escaparHTML(p.imagenPrincipal || p.imagenes?.[0]?.url || '/imagenes/no-image.webp');
+            const rutaOriginal = p.imagenPrincipal || p.imagenes?.[0]?.url || '/imagenes/no-image.webp';
+const imagen = escaparHTML(
+    rutaOriginal.startsWith('/imagenes/') 
+        ? '/public' + rutaOriginal 
+        : rutaOriginal
+);
+
             const precio = new Intl.NumberFormat('es-AR', {
                 style: 'currency',
                 currency: 'ARS'
