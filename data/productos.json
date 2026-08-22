@@ -1,50 +1,98 @@
 [
   {
+    "id": "prod-001",
+    "sku": "",
+    "slug": "medias-soquete-pack-x3",
     "nombre": "MEDIAS SOQUETE PACK X3",
+    "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
+    "precioCosto": 0,
     "precio": 7990,
-    "imagen": "/imagenes/1787237189706-1000541450.webp",
-    "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3"
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787173759722-jpb19.webp",
+        "alt": "MEDIAS SOQUETE PACK X3",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787173759722-jpb19.webp",
+    "categoria": [
+      "Medias"
+    ],
+    "tags": [
+      "medias",
+      "soquete",
+      "algodon"
+    ],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-21T00:00:00.000Z",
+    "fechaActualizacion": "2026-08-21T00:00:00.000Z"
   },
   {
+    "id": "prod-002",
+    "sku": "",
+    "slug": "colaless-fashion-strass",
     "nombre": "COLALESS FASHION STRASS",
+    "descripcion": "Bombacha Tanga Colaless Con Strass Invisible. BOMBACHA TANGA INVISIBLE PACK X 3. Diseño con strass. Talle: S - M. Colores lisos y sujetos a disponibilidad. Super cómodas. Excelente calce, calidad y confección. Ideal para cualquier evento u ocasión.",
+    "precioCosto": 0,
     "precio": 1600,
-    "imagen": "/imagenes/1787253617352-1000542256.webp",
-    "descripcion": "Bombacha Tanga Colaless Con Strass Invisible. - Super cómodas "
+    "precioAnterior": null,
+    "imagenes": [],
+    "imagenPrincipal": "",
+    "categoria": [
+      "Ropa interior"
+    ],
+    "tags": [
+      "colaless",
+      "tanga",
+      "strass",
+      "ropa-interior"
+    ],
+    "badges": [],
+    "stock": 0,
+    "talles": [
+      "S",
+      "M"
+    ],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 1,
+    "fechaCreacion": "2026-08-21T00:00:00.000Z",
+    "fechaActualizacion": "2026-08-21T00:00:00.000Z"
   },
   {
-    "nombre": "MINI WAND VIBRATOR",
+    "id": "prod-003",
+    "sku": "",
+    "slug": "mini-wand-vibrator",
+    "nombre": "Mini Wand Vibrator",
+    "descripcion": "Juguete erotico para compartir con tu pareja.",
+    "precioCosto": 0,
     "precio": 24500,
-    "imagen": "/imagenes/1787253699898-1000540768.webp",
-    "descripcion": "Estimulador con 20 funciones y 8 velocidades. Recargable"
-  },
-  {
-    "nombre": "no-image",
-    "precio": 100,
-    "imagen": "/imagenes/1787270206385-1000542318.webp",
-    "descripcion": "Imágen de fallback. Cuando un producto no tiene imagen cargada se mostrará esto."
-  },
-  {
-    "nombre": "VIOLET EMOTION ",
-    "precio": 35000,
-    "imagen": "/imagenes/1787271785064-1000540758.webp",
-    "descripcion": "Estimulador con 20 funciones y 8 velocidades. Recargable"
-  },
-  {
-    "nombre": "GEL NATURAL LUXURIA ",
-    "precio": 12000,
-    "imagen": "/imagenes/1787282966137-1000540762.webp",
-    "descripcion": "Lubricante con efecto calor. 250ml."
-  },
-  {
-    "nombre": "SATISFYER PRO 2+",
-    "precio": 96800,
-    "imagen": "/imagenes/1787317556539-1000542747.webp",
-    "descripcion": "Añade vibración a la experiencia clásica de la tecnología Air-Pulse."
-  },
-  {
-    "nombre": "CONJUNTO LENCERÍA VAQUITA SEXY",
-    "precio": 27020,
-    "imagen": "/imagenes/1787319149185-1000542752.webp",
-    "descripcion": "Material: tela terciopelo. 80% poliéster, 20% elastano. Súper suave y cómodo."
+    "precioAnterior": null,
+    "imagenes": [],
+    "imagenPrincipal": "",
+    "categoria": [
+      "Adultos"
+    ],
+    "tags": [
+      "vibrador",
+      "mini-wand"
+    ],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 2,
+    "fechaCreacion": "2026-08-21T00:00:00.000Z",
+    "fechaActualizacion": "2026-08-21T00:00:00.000Z"
   }
 ]
