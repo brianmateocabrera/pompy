@@ -16,21 +16,82 @@ export async function cargarProductos() {
 
     const json = await llamarAPI('GET', PATH_JSON);
 
-    if (json.success) {
-        shaActualJson = json.sha;
-        listaProductos = json.data || [];
-    } else {
-        shaActualJson = '';
-        listaProductos = [];
+    if (!json.success) {
+        throw new Error(
+            json.error ||
+            'No se pudo cargar el inventario.'
+        );
     }
+
+    shaActualJson = json.sha;
+    listaProductos = Array.isArray(json.data)
+        ? json.data
+        : [];
 
     return listaProductos;
 }
 
 
+/* ------------------------------------------
+   UTILIDADES
+------------------------------------------ */
+
+function generarId() {
+
+    return 'prod-' +
+        Date.now().toString(36) +
+        '-' +
+        Math.random()
+            .toString(36)
+            .substring(2, 8);
+}
+
+
+function generarSlug(nombre) {
+
+    return String(nombre || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+
+function obtenerFechaActual() {
+    return new Date().toISOString();
+}
+
+
+function convertirLista(texto) {
+
+    if (!texto) {
+        return [];
+    }
+
+    return String(texto)
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean);
+}
+
+
+/* ------------------------------------------
+   IMÁGENES
+------------------------------------------ */
+
 async function subirImagen(dataUrl, nombreOriginal) {
 
-    const base64Puro = dataUrl.split(',')[1];
+    const partes = dataUrl.split(',');
+
+    if (partes.length < 2) {
+        throw new Error(
+            'Formato de imagen inválido.'
+        );
+    }
+
+    const base64Puro = partes[1];
+
 
     const nombreLimpio =
         nombreOriginal
@@ -38,8 +99,10 @@ async function subirImagen(dataUrl, nombreOriginal) {
             .split('.')[0]
             .replace(/[^a-z0-9]/gi, '_');
 
+
     const nombreArchivoWebP =
         `${Date.now()}-${nombreLimpio}.webp`;
+
 
     const rutaImagen =
         `public/imagenes/${nombreArchivoWebP}`;
@@ -49,7 +112,9 @@ async function subirImagen(dataUrl, nombreOriginal) {
         'PUT',
         rutaImagen,
         {
-            message: `Subir imagen: ${nombreArchivoWebP}`,
+            message:
+                `Subir imagen: ${nombreArchivoWebP}`,
+
             content: base64Puro
         }
     );
@@ -58,34 +123,52 @@ async function subirImagen(dataUrl, nombreOriginal) {
     if (!json.success) {
         throw new Error(
             'Error al guardar la imagen en GitHub: ' +
-            json.error
+            (json.error || 'Error desconocido.')
         );
     }
 
 
-    return rutaImagen.replace('public/', '/');
+    return rutaImagen.replace(
+        'public/',
+        '/'
+    );
 }
 
 
-async function guardarCambiosJSON(mensajeCommit) {
+/* ------------------------------------------
+   GUARDAR JSON
+------------------------------------------ */
+
+async function guardarCambiosJSON(
+    mensajeCommit
+) {
 
     const json = await llamarAPI(
         'PUT',
         PATH_JSON,
         {
             message: mensajeCommit,
-            content: JSON.stringify(
-                listaProductos,
-                null,
-                2
-            ),
-            sha: shaActualJson || undefined
+
+            content:
+                JSON.stringify(
+                    listaProductos,
+                    null,
+                    2
+                ),
+
+            sha:
+                shaActualJson ||
+                undefined
         }
     );
 
 
     if (json.success) {
-        shaActualJson = json.sha;
+
+        if (json.sha) {
+            shaActualJson = json.sha;
+        }
+
         return {
             success: true
         };
@@ -94,7 +177,9 @@ async function guardarCambiosJSON(mensajeCommit) {
 
     if (
         json.error &&
-        json.error.toLowerCase().includes('sha')
+        json.error
+            .toLowerCase()
+            .includes('sha')
     ) {
 
         await cargarProductos();
@@ -102,7 +187,8 @@ async function guardarCambiosJSON(mensajeCommit) {
         return {
             success: false,
             conflict: true,
-            error: 'El catálogo fue modificado desde otro dispositivo.'
+            error:
+                'El catálogo fue modificado desde otro dispositivo.'
         };
     }
 
@@ -116,38 +202,176 @@ async function guardarCambiosJSON(mensajeCommit) {
 }
 
 
-export async function crearProducto(
+/* ------------------------------------------
+   NORMALIZAR PRODUCTO
+------------------------------------------ */
+
+function normalizarProducto(
     datos,
-    archivoImagen
+    imagenes,
+    imagenPrincipal,
+    productoAnterior = null
 ) {
 
-    let urlImagen = '';
+    const ahora =
+        obtenerFechaActual();
 
 
-    if (!archivoImagen) {
+    const id =
+        productoAnterior?.id ||
+        generarId();
+
+
+    const slug =
+        generarSlug(datos.nombre);
+
+
+    return {
+
+        id,
+
+        sku:
+            String(datos.sku || '').trim(),
+
+        slug,
+
+        nombre:
+            String(datos.nombre || '').trim(),
+
+        descripcion:
+            String(
+                datos.descripcion || ''
+            ).trim(),
+
+        precioCosto:
+            Number(datos.precioCosto) || 0,
+
+        precio:
+            Number(datos.precio) || 0,
+
+        precioAnterior:
+            datos.precioAnterior === '' ||
+            datos.precioAnterior === null ||
+            datos.precioAnterior === undefined
+                ? null
+                : Number(datos.precioAnterior),
+
+        imagenes:
+
+            imagenes.map(
+                (imagen, index) => ({
+                    url: imagen.url,
+                    alt:
+                        imagen.alt ||
+                        datos.nombre,
+
+                    orden: index
+                })
+            ),
+
+        imagenPrincipal:
+            imagenPrincipal || '',
+
+        categoria:
+            convertirLista(
+                datos.categoria
+            ),
+
+        tags:
+            convertirLista(
+                datos.tags
+            ),
+
+        badges:
+            convertirLista(
+                datos.badges
+            ),
+
+        stock:
+            Number(datos.stock) || 0,
+
+        talles:
+            convertirLista(
+                datos.talles
+            ),
+
+        colores:
+            convertirLista(
+                datos.colores
+            ),
+
+        activo:
+            datos.activo !== false,
+
+        destacado:
+            datos.destacado === true,
+
+        orden:
+            Number(datos.orden) || 0,
+
+        fechaCreacion:
+            productoAnterior?.fechaCreacion ||
+            ahora,
+
+        fechaActualizacion:
+            ahora
+    };
+}
+
+
+/* ------------------------------------------
+   CREAR PRODUCTO
+------------------------------------------ */
+
+export async function crearProducto(
+    datos,
+    archivosImagen
+) {
+
+    if (
+        !archivosImagen ||
+        archivosImagen.length === 0
+    ) {
         throw new Error(
-            'Debes seleccionar una imagen para el nuevo producto.'
+            'Debes seleccionar al menos una imagen.'
         );
     }
 
 
-    const imagenWebP =
-        await optimizarImagen(archivoImagen);
+    const imagenes = [];
 
 
-    urlImagen =
-        await subirImagen(
-            imagenWebP,
-            archivoImagen.name
+    for (
+        const archivo of archivosImagen
+    ) {
+
+        const imagenWebP =
+            await optimizarImagen(
+                archivo
+            );
+
+
+        const url =
+            await subirImagen(
+                imagenWebP,
+                archivo.name
+            );
+
+
+        imagenes.push({
+            url,
+            alt: datos.nombre,
+            orden: imagenes.length
+        });
+    }
+
+
+    const producto =
+        normalizarProducto(
+            datos,
+            imagenes,
+            imagenes[0]?.url || ''
         );
-
-
-    const producto = {
-        nombre: datos.nombre,
-        precio: datos.precio,
-        imagen: urlImagen,
-        descripcion: datos.descripcion
-    };
 
 
     listaProductos.push(producto);
@@ -161,15 +385,9 @@ export async function crearProducto(
 
     if (!resultado.success) {
 
-        if (resultado.conflict) {
-            listaProductos =
-                listaProductos.filter(
-                    productoActual =>
-                        productoActual !== producto
-                );
-        }
-
-        throw new Error(resultado.error);
+        throw new Error(
+            resultado.error
+        );
     }
 
 
@@ -177,10 +395,14 @@ export async function crearProducto(
 }
 
 
+/* ------------------------------------------
+   EDITAR PRODUCTO
+------------------------------------------ */
+
 export async function editarProducto(
     index,
     datos,
-    archivoImagen
+    archivosImagen
 ) {
 
     if (
@@ -197,32 +419,67 @@ export async function editarProducto(
         listaProductos[index];
 
 
-    let urlImagen =
-        productoAnterior.imagen;
+    const imagenes =
+        Array.isArray(
+            productoAnterior.imagenes
+        )
+            ? [...productoAnterior.imagenes]
+            : [];
 
 
-    if (archivoImagen) {
+    const archivos =
+        archivosImagen || [];
+
+
+    for (
+        const archivo of archivos
+    ) {
 
         const imagenWebP =
             await optimizarImagen(
-                archivoImagen
+                archivo
             );
 
 
-        urlImagen =
+        const url =
             await subirImagen(
                 imagenWebP,
-                archivoImagen.name
+                archivo.name
             );
+
+
+        imagenes.push({
+            url,
+            alt: datos.nombre,
+            orden: imagenes.length
+        });
     }
 
 
-    const productoActualizado = {
-        nombre: datos.nombre,
-        precio: datos.precio,
-        imagen: urlImagen,
-        descripcion: datos.descripcion
-    };
+    let imagenPrincipal =
+        productoAnterior.imagenPrincipal ||
+        imagenes[0]?.url ||
+        '';
+
+
+    if (
+        !imagenes.some(
+            imagen =>
+                imagen.url === imagenPrincipal
+        )
+    ) {
+        imagenPrincipal =
+            imagenes[0]?.url || '';
+    }
+
+
+    const productoActualizado =
+        normalizarProducto(
+            datos,
+            imagenes,
+            imagenPrincipal,
+            productoAnterior
+        );
 
 
     listaProductos[index] =
@@ -236,7 +493,10 @@ export async function editarProducto(
 
 
     if (!resultado.success) {
-        throw new Error(resultado.error);
+
+        throw new Error(
+            resultado.error
+        );
     }
 
 
@@ -244,7 +504,15 @@ export async function editarProducto(
 }
 
 
-export async function eliminarProducto(index) {
+/* ------------------------------------------
+   ACTUALIZAR IMÁGENES
+------------------------------------------ */
+
+export async function actualizarImagenes(
+    index,
+    imagenes,
+    imagenPrincipal
+) {
 
     if (
         index < 0 ||
@@ -260,7 +528,77 @@ export async function eliminarProducto(index) {
         listaProductos[index];
 
 
-    listaProductos.splice(index, 1);
+    const nuevasImagenes =
+        imagenes.map(
+            (imagen, posicion) => ({
+                url: imagen.url,
+                alt:
+                    imagen.alt ||
+                    producto.nombre,
+
+                orden: posicion
+            })
+        );
+
+
+    producto.imagenes =
+        nuevasImagenes;
+
+
+    producto.imagenPrincipal =
+        imagenPrincipal ||
+        nuevasImagenes[0]?.url ||
+        '';
+
+
+    producto.fechaActualizacion =
+        obtenerFechaActual();
+
+
+    const resultado =
+        await guardarCambiosJSON(
+            `Actualizar imágenes: ${producto.nombre}`
+        );
+
+
+    if (!resultado.success) {
+
+        throw new Error(
+            resultado.error
+        );
+    }
+
+
+    return producto;
+}
+
+
+/* ------------------------------------------
+   ELIMINAR PRODUCTO
+------------------------------------------ */
+
+export async function eliminarProducto(
+    index
+) {
+
+    if (
+        index < 0 ||
+        index >= listaProductos.length
+    ) {
+        throw new Error(
+            'Producto no encontrado.'
+        );
+    }
+
+
+    const producto =
+        listaProductos[index];
+
+
+    listaProductos.splice(
+        index,
+        1
+    );
 
 
     const resultado =
@@ -270,7 +608,10 @@ export async function eliminarProducto(index) {
 
 
     if (!resultado.success) {
-        throw new Error(resultado.error);
+
+        throw new Error(
+            resultado.error
+        );
     }
 
 
