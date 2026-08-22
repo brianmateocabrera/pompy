@@ -100,13 +100,12 @@ export function renderizarTabla(
                         );
 
 
-                    const rutaOriginal = prod.imagenPrincipal || prod.imagenes?.[0]?.url || '/imagenes/no-image.webp';
-const imagen = escaparHTML(
-    rutaOriginal.startsWith('/imagenes/') 
-        ? '/public' + rutaOriginal 
-        : rutaOriginal
-);
-
+                    const imagen =
+                        escaparHTML(
+                            prod.imagenPrincipal ||
+                            prod.imagenes?.[0]?.url ||
+                            '/imagenes/no-image.webp'
+                        );
 
 
                     const costo =
@@ -470,13 +469,10 @@ export function renderizarImagenesFormulario(
             .map(
                 (imagen, index) => {
 
-                    const rutaOriginal = imagen.url || '';
-const url = escaparHTML(
-    rutaOriginal.startsWith('/imagenes/') 
-        ? '/public' + rutaOriginal 
-        : rutaOriginal
-);
-
+                    const url =
+                        escaparHTML(
+                            imagen.url
+                        );
 
 
                     const alt =
