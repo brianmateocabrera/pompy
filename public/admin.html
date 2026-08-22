@@ -1,50 +1,280 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador - Modular</title>
-    <link rel="stylesheet" href="/css/admin.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Panel Administrador - Pompy Shop</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/admin.css"
+    >
 </head>
+
 <body>
 
     <h1>Panel de Administración</h1>
-    
+
+
     <form id="prodForm">
-        <h2 id="formTitle">Agregar Nuevo Producto</h2>
-        <input type="hidden" id="editIndex" value="-1">
-        
-        <input type="text" id="nombre" placeholder="Nombre del producto" required>
-        <input type="number" id="precio" placeholder="Precio ($)" required step="0.01">
-        
-        <label>Imagen del producto (Se optimizará a WebP de forma automática):</label>
-        <input type="file" id="imagenFile" accept="image/*">
-        
-        <input type="text" id="descripcion" placeholder="Descripción breve">
-        
-        <button type="submit" id="btnGuardar">Guardar Producto</button>
-        <button type="button" id="btnCancelar" class="btn-cancelar" style="display: none;">Cancelar</button>
+
+        <h2 id="formTitle">
+            Agregar Nuevo Producto
+        </h2>
+
+
+        <input
+            type="hidden"
+            id="editIndex"
+            value="-1"
+        >
+
+
+        <!-- IDENTIFICACIÓN -->
+
+        <h3>Identificación</h3>
+
+        <input
+            type="text"
+            id="sku"
+            placeholder="SKU"
+        >
+
+        <input
+            type="text"
+            id="nombre"
+            placeholder="Nombre del producto"
+            required
+        >
+
+
+        <!-- PRECIOS -->
+
+        <h3>Precios</h3>
+
+        <input
+            type="number"
+            id="precioCosto"
+            placeholder="Precio de costo ($)"
+            min="0"
+            step="0.01"
+            required
+        >
+
+        <input
+            type="number"
+            id="precio"
+            placeholder="Precio de venta ($)"
+            min="0"
+            step="0.01"
+            required
+        >
+
+        <input
+            type="number"
+            id="precioAnterior"
+            placeholder="Precio anterior ($) - opcional"
+            min="0"
+            step="0.01"
+        >
+
+
+        <!-- INFORMACIÓN -->
+
+        <h3>Información</h3>
+
+        <textarea
+            id="descripcion"
+            placeholder="Descripción del producto"
+            rows="5"
+        ></textarea>
+
+
+        <input
+            type="text"
+            id="categoria"
+            placeholder="Categorías separadas por coma"
+        >
+
+
+        <input
+            type="text"
+            id="tags"
+            placeholder="Tags separados por coma"
+        >
+
+
+        <input
+            type="text"
+            id="badges"
+            placeholder="Badges separados por coma"
+        >
+
+
+        <!-- INVENTARIO -->
+
+        <h3>Inventario</h3>
+
+        <input
+            type="number"
+            id="stock"
+            placeholder="Stock"
+            min="0"
+            step="1"
+            required
+        >
+
+
+        <input
+            type="text"
+            id="talles"
+            placeholder="Talles separados por coma"
+        >
+
+
+        <input
+            type="text"
+            id="colores"
+            placeholder="Colores separados por coma"
+        >
+
+
+        <!-- IMÁGENES -->
+
+        <h3>Imágenes</h3>
+
+        <label>
+            Seleccioná una o varias imágenes:
+        </label>
+
+        <input
+            type="file"
+            id="imagenFile"
+            accept="image/*"
+            multiple
+        >
+
+
+        <div
+            id="imagenesPreview"
+            class="imagenes-preview"
+        ></div>
+
+
+        <!-- VISIBILIDAD -->
+
+        <h3>Visibilidad</h3>
+
+        <label class="checkbox-label">
+
+            <input
+                type="checkbox"
+                id="activo"
+                checked
+            >
+
+            Producto activo
+
+        </label>
+
+
+        <label class="checkbox-label">
+
+            <input
+                type="checkbox"
+                id="destacado"
+            >
+
+            Producto destacado
+
+        </label>
+
+
+        <input
+            type="number"
+            id="orden"
+            placeholder="Orden de aparición"
+            min="0"
+            step="1"
+            value="0"
+        >
+
+
+        <button
+            type="submit"
+            id="btnGuardar"
+        >
+            Guardar Producto
+        </button>
+
+
+        <button
+            type="button"
+            id="btnCancelar"
+            class="btn-cancelar"
+            style="display: none;"
+        >
+            Cancelar
+        </button>
+
     </form>
 
+
     <h2>Inventario de Productos</h2>
-    <p id="loadingText" class="loading" style="display: none;"></p>
-    
+
+
+    <p
+        id="loadingText"
+        class="loading"
+        style="display: none;"
+    ></p>
+
+
     <table>
+
         <thead>
+
             <tr>
+
                 <th>Imagen</th>
-                <th>Nombre</th>
+                <th>Producto</th>
+                <th>SKU</th>
+                <th>Costo</th>
                 <th>Precio</th>
-                <th>Descripción</th>
+                <th>Stock</th>
+                <th>Estado</th>
                 <th>Acciones</th>
+
             </tr>
+
         </thead>
+
+
         <tbody id="tablaProductos">
-            <tr><td colspan="5">Cargando inventario...</td></tr>
+
+            <tr>
+
+                <td colspan="8">
+                    Cargando inventario...
+                </td>
+
+            </tr>
+
         </tbody>
+
     </table>
 
-    <!-- Inicializador del módulo -->
-    <script type="module" src="/js/admin.js"></script>
+
+    <script
+        type="module"
+        src="/js/admin.js"
+    ></script>
+
 </body>
+
 </html>
