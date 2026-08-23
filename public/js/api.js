@@ -1,18 +1,5 @@
 const API_URL = '/api/crud';
 
-let adminPassword = '';
-
-
-export function establecerPassword(password) {
-    adminPassword = String(password || '');
-}
-
-
-export function limpiarPassword() {
-    adminPassword = '';
-}
-
-
 export async function llamarAPI(
     action,
     path,
@@ -21,44 +8,25 @@ export async function llamarAPI(
 
     try {
 
-        const datos = {
-            action,
-            path,
-            ...extraData
-        };
-
-
-        // Solo enviar contraseña en operaciones de escritura
-        if (action !== 'GET') {
-
-            if (!adminPassword) {
-                throw new Error(
-                    'No hay contraseña de administrador.'
-                );
-            }
-
-            datos.password = adminPassword;
-        }
-
-
         const res = await fetch(
             API_URL,
             {
                 method: 'POST',
 
                 headers: {
-                    'Content-Type':
-                        'application/json'
+                    'Content-Type': 'application/json'
                 },
 
-                body:
-                    JSON.stringify(datos)
+                body: JSON.stringify({
+                    action,
+                    path,
+                    ...extraData
+                })
             }
         );
 
 
         let data;
-
 
         try {
 
@@ -92,4 +60,64 @@ export async function llamarAPI(
             'Error de comunicación con la API.'
         );
     }
+}
+
+
+/* ------------------------------------------
+   AUTENTICACIÓN
+------------------------------------------ */
+
+export async function autenticarAdministrador(
+    password
+) {
+
+    return llamarAPI(
+        'AUTH',
+        'data/productos.json',
+        {
+            password
+        }
+    );
+}
+
+
+/* ------------------------------------------
+   GET AUTENTICADO
+------------------------------------------ */
+
+export async function obtenerArchivo(
+    path,
+    password
+) {
+
+    return llamarAPI(
+        'GET',
+        path,
+        {
+            password
+        }
+    );
+}
+
+
+/* ------------------------------------------
+   PUT AUTENTICADO
+------------------------------------------ */
+
+export async function guardarArchivo(
+    path,
+    content,
+    password,
+    opciones = {}
+) {
+
+    return llamarAPI(
+        'PUT',
+        path,
+        {
+            password,
+            content,
+            ...opciones
+        }
+    );
 }
