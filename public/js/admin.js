@@ -8,8 +8,9 @@ import {
 } from './productos.js';
 
 import {
-    establecerPassword,
-    limpiarPassword
+    autenticarAdministrador,
+    cerrarSesion,
+    administradorAutenticado
 } from './api.js';
 
 import {
@@ -35,33 +36,65 @@ const preview =
    AUTENTICACIÓN
 ------------------------------------------ */
 
-async function solicitarPassword() {
+async function autenticar() {
+
+    if (administradorAutenticado()) {
+        return true;
+    }
+
 
     const password =
-        window.prompt(
+        prompt(
             'Ingresá la contraseña de administrador:'
         );
 
 
     if (!password) {
-        throw new Error(
-            'Acceso cancelado.'
-        );
+        return false;
     }
 
 
-    establecerPassword(password);
+    mostrarCargando(
+        true,
+        'Autenticando...'
+    );
 
 
     try {
 
-        await cargarProductos();
+        const resultado =
+            await autenticarAdministrador(
+                password
+            );
+
+
+        if (!resultado.success) {
+
+            alert(
+                resultado.error ||
+                'Contraseña incorrecta.'
+            );
+
+            return false;
+        }
+
+
+        return true;
+
 
     } catch (error) {
 
-        limpiarPassword();
+        alert(
+            'Error de autenticación: ' +
+            error.message
+        );
 
-        throw error;
+        return false;
+
+
+    } finally {
+
+        mostrarCargando(false);
     }
 }
 
@@ -77,9 +110,11 @@ async function cargarInventario() {
         'Cargando inventario desde GitHub...'
     );
 
+
     try {
 
         await cargarProductos();
+
 
         renderizarTabla(
             obtenerProductos(),
@@ -87,12 +122,32 @@ async function cargarInventario() {
             iniciarEliminacion
         );
 
+
     } catch (error) {
+
+        if (
+            error.message
+                .toLowerCase()
+                .includes('401')
+        ) {
+
+            cerrarSesion();
+
+            alert(
+                'La sesión de administrador expiró.'
+            );
+
+            location.reload();
+
+            return;
+        }
+
 
         alert(
             'Error al conectar con la base de datos: ' +
             error.message
         );
+
 
     } finally {
 
@@ -116,43 +171,69 @@ function obtenerDatosFormulario() {
             document.getElementById('nombre').value,
 
         precioCosto:
-            document.getElementById('precioCosto').value,
+            document.getElementById(
+                'precioCosto'
+            ).value,
 
         precio:
-            document.getElementById('precio').value,
+            document.getElementById(
+                'precio'
+            ).value,
 
         precioAnterior:
-            document.getElementById('precioAnterior').value,
+            document.getElementById(
+                'precioAnterior'
+            ).value,
 
         descripcion:
-            document.getElementById('descripcion').value,
+            document.getElementById(
+                'descripcion'
+            ).value,
 
         categoria:
-            document.getElementById('categoria').value,
+            document.getElementById(
+                'categoria'
+            ).value,
 
         tags:
-            document.getElementById('tags').value,
+            document.getElementById(
+                'tags'
+            ).value,
 
         badges:
-            document.getElementById('badges').value,
+            document.getElementById(
+                'badges'
+            ).value,
 
         stock:
-            document.getElementById('stock').value,
+            document.getElementById(
+                'stock'
+            ).value,
 
         talles:
-            document.getElementById('talles').value,
+            document.getElementById(
+                'talles'
+            ).value,
 
         colores:
-            document.getElementById('colores').value,
+            document.getElementById(
+                'colores'
+            ).value,
 
         activo:
-            document.getElementById('activo').checked,
+            document.getElementById(
+                'activo'
+            ).checked,
 
         destacado:
-            document.getElementById('destacado').checked,
+            document.getElementById(
+                'destacado'
+            ).checked,
 
         orden:
-            document.getElementById('orden').value
+            document.getElementById(
+                'orden'
+            ).value
     };
 }
 
@@ -166,6 +247,15 @@ formulario.addEventListener(
     async event => {
 
         event.preventDefault();
+
+
+        if (!administradorAutenticado()) {
+
+            if (!await autenticar()) {
+                return;
+            }
+        }
+
 
         const index =
             parseInt(
@@ -217,6 +307,7 @@ formulario.addEventListener(
                     archivos
                 );
 
+
             } else {
 
                 mostrarCargando(
@@ -251,6 +342,15 @@ formulario.addEventListener(
                 'Error: ' +
                 error.message
             );
+
+
+            if (
+                error.message
+                    .toLowerCase()
+                    .includes('autentic')
+            ) {
+                cerrarSesion();
+            }
 
 
             await cargarInventario();
@@ -447,6 +547,14 @@ function iniciarEdicion(index) {
 
 async function iniciarEliminacion(index) {
 
+    if (!administradorAutenticado()) {
+
+        if (!await autenticar()) {
+            return;
+        }
+    }
+
+
     const producto =
         obtenerProductos()[index];
 
@@ -521,6 +629,14 @@ preview.addEventListener(
         }
 
 
+        if (!administradorAutenticado()) {
+
+            if (!await autenticar()) {
+                return;
+            }
+        }
+
+
         const indexProducto =
             parseInt(
                 document.getElementById(
@@ -581,9 +697,7 @@ preview.addEventListener(
         }
 
 
-        /* --------------------------------------
-           HACER PRINCIPAL
-        -------------------------------------- */
+        /* HACER PRINCIPAL */
 
         if (
             boton.classList.contains(
@@ -607,9 +721,7 @@ preview.addEventListener(
         }
 
 
-        /* --------------------------------------
-           SUBIR IMAGEN
-        -------------------------------------- */
+        /* SUBIR */
 
         if (
             boton.classList.contains(
@@ -650,9 +762,7 @@ preview.addEventListener(
         }
 
 
-        /* --------------------------------------
-           BAJAR IMAGEN
-        -------------------------------------- */
+        /* BAJAR */
 
         if (
             boton.classList.contains(
@@ -694,9 +804,7 @@ preview.addEventListener(
         }
 
 
-        /* --------------------------------------
-           ELIMINAR IMAGEN
-        -------------------------------------- */
+        /* ELIMINAR */
 
         if (
             boton.classList.contains(
@@ -852,34 +960,26 @@ document
 
 
 /* ------------------------------------------
-   INICIO DEL PANEL
+   INICIO
 ------------------------------------------ */
 
-async function iniciarPanel() {
+async function iniciar() {
 
-    try {
+    const autenticado =
+        await autenticar();
 
-        await solicitarPassword();
 
-        renderizarTabla(
-            obtenerProductos(),
-            iniciarEdicion,
-            iniciarEliminacion
-        );
-
-    } catch (error) {
-
-        limpiarPassword();
-
-        alert(
-            'No se pudo acceder al panel: ' +
-            error.message
-        );
+    if (!autenticado) {
 
         document.body.innerHTML =
-            '<h1>Acceso no autorizado</h1>';
+            '<h2>Acceso denegado.</h2>';
+
+        return;
     }
+
+
+    await cargarInventario();
 }
 
 
-iniciarPanel();
+iniciar();
