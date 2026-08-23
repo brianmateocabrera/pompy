@@ -1,85 +1,83 @@
 const API_URL = '/api/crud';
 
 
+/* ------------------------------------------
+   LLAMAR API
+------------------------------------------ */
+
 export async function llamarAPI(
     action,
-    path,
+    path = '',
     extraData = {}
 ) {
 
+    const body = {
+        action,
+        ...(path ? { path } : {}),
+        ...extraData
+    };
+
+
+    const res =
+        await fetch(
+            API_URL,
+            {
+                method: 'POST',
+
+                credentials: 'same-origin',
+
+                headers: {
+                    'Content-Type':
+                        'application/json'
+                },
+
+                body:
+                    JSON.stringify(body)
+            }
+        );
+
+
+    let data;
+
+
     try {
 
-        const res =
-            await fetch(
-                API_URL,
-                {
-                    method: 'POST',
+        data =
+            await res.json();
 
-                    credentials: 'same-origin',
-
-                    headers: {
-                        'Content-Type':
-                            'application/json'
-                    },
-
-                    body: JSON.stringify({
-                        action,
-                        path,
-                        ...extraData
-                    })
-                }
-            );
-
-
-        let data;
-
-        try {
-
-            data =
-                await res.json();
-
-        } catch {
-
-            throw new Error(
-                `La API devolvió una respuesta no válida (HTTP ${res.status}).`
-            );
-        }
-
-
-        if (!res.ok) {
-
-            throw new Error(
-                data.error ||
-                data.message ||
-                `Error HTTP ${res.status}`
-            );
-        }
-
-
-        return data;
-
-
-    } catch (error) {
+    } catch {
 
         throw new Error(
-            error.message ||
-            'Error de comunicación con la API.'
+            `La API devolvió una respuesta no válida (HTTP ${res.status}).`
         );
     }
+
+
+    if (!res.ok) {
+
+        throw new Error(
+            data.error ||
+            data.message ||
+            `Error HTTP ${res.status}`
+        );
+    }
+
+
+    return data;
 }
 
 
 /* ------------------------------------------
-   AUTENTICACIÓN
+   AUTENTICAR ADMINISTRADOR
 ------------------------------------------ */
 
 export async function autenticarAdministrador(
     password
 ) {
 
-    return llamarAPI(
+    return await llamarAPI(
         'AUTH',
-        'data/productos.json',
+        '',
         {
             password
         }
@@ -88,30 +86,16 @@ export async function autenticarAdministrador(
 
 
 /* ------------------------------------------
-   CERRAR SESIÓN
+   COMPROBAR SESIÓN
 ------------------------------------------ */
 
-export async function cerrarSesion() {
-
-    return llamarAPI(
-        'LOGOUT',
-        'data/productos.json'
-    );
-}
-
-
-/* ------------------------------------------
-   ESTADO DE AUTENTICACIÓN
------------------------------------------- */
-
-export async function comprobarSesion() {
+export async function administradorAutenticado() {
 
     try {
 
         const resultado =
             await llamarAPI(
-                'SESSION',
-                'data/productos.json'
+                'SESSION'
             );
 
 
@@ -121,5 +105,25 @@ export async function comprobarSesion() {
     } catch {
 
         return false;
+    }
+}
+
+
+/* ------------------------------------------
+   CERRAR SESIÓN
+------------------------------------------ */
+
+export async function cerrarSesion() {
+
+    try {
+
+        await llamarAPI(
+            'LOGOUT'
+        );
+
+    } catch {
+
+        // La sesión puede ya estar expirada.
+        // No es necesario hacer nada.
     }
 }
