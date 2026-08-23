@@ -320,3 +320,19 @@ tr:hover {
     }
 
 }
+
+.btn-subir-imagen,
+.btn-bajar-imagen {
+    background: #555;
+}
+
+.btn-subir-imagen:hover,
+.btn-bajar-imagen:hover {
+    background: #333;
+}
+
+.btn-subir-imagen:disabled,
+.btn-bajar-imagen:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
