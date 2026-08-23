@@ -2,12 +2,12 @@
   {
     "id": "prod-001",
     "sku": "",
-    "slug": "medias-soquete-pack-x3",
-    "nombre": "MEDIAS SOQUETE PACK X3",
+    "slug": "prueba-soquete-pack-x3",
+    "nombre": "(PRUEBA)SOQUETE PACK X3",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
     "precio": 7990,
-    "precioAnterior": null,
+    "precioAnterior": 9990,
     "imagenes": [
       {
         "url": "/imagenes/1787237189706-1000541450.webp",
@@ -24,15 +24,17 @@
       "soquete",
       "algodon"
     ],
-    "badges": [],
-    "stock": 0,
+    "badges": [
+      "20%"
+    ],
+    "stock": 10,
     "talles": [],
     "colores": [],
     "activo": true,
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-21T00:00:00.000Z"
+    "fechaActualizacion": "2026-08-23T03:55:42.257Z"
   },
   {
     "id": "prod-002",
