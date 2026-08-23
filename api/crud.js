@@ -57,6 +57,31 @@ export default function handler(req, res) {
         }
 
 
+        // =========================================
+        // AUTENTICACIÓN DEL PANEL
+        // =========================================
+
+        if (action === 'AUTH') {
+
+            if (password !== adminPassword) {
+                return res.status(401).json({
+                    success: false,
+                    error: 'Contraseña de administrador incorrecta'
+                });
+            }
+
+
+            return res.status(200).json({
+                success: true,
+                message: 'Autenticación correcta'
+            });
+        }
+
+
+        // =========================================
+        // VALIDAR RUTA
+        // =========================================
+
         if (!path) {
             return res.status(400).json({
                 success: false,
@@ -65,13 +90,14 @@ export default function handler(req, res) {
         }
 
 
-        // -----------------------------------------
+        // =========================================
         // RUTAS PERMITIDAS
-        // -----------------------------------------
+        // =========================================
 
         const rutasPermitidas = [
             'data/productos.json'
         ];
+
 
         const esImagenPermitida =
             typeof path === 'string' &&
@@ -89,9 +115,9 @@ export default function handler(req, res) {
         }
 
 
-        // -----------------------------------------
-        // LECTURA PÚBLICA
-        // -----------------------------------------
+        // =========================================
+        // LEER ARCHIVO
+        // =========================================
 
         if (action === 'GET') {
 
@@ -104,9 +130,9 @@ export default function handler(req, res) {
         }
 
 
-        // -----------------------------------------
+        // =========================================
         // ESCRITURA PROTEGIDA
-        // -----------------------------------------
+        // =========================================
 
         if (password !== adminPassword) {
             return res.status(401).json({
@@ -132,21 +158,31 @@ export default function handler(req, res) {
         }
 
 
+        // =========================================
+        // PREPARAR CONTENIDO
+        // =========================================
+
         let contenidoFinal;
 
 
         if (esImagenPermitida) {
 
+            // La imagen ya viene como Base64 puro.
             contenidoFinal = content;
 
         } else {
 
+            // productos.json llega como texto.
             contenidoFinal =
                 Buffer
                     .from(content)
                     .toString('base64');
         }
 
+
+        // =========================================
+        // DATOS PARA GITHUB
+        // =========================================
 
         const bodyData =
             JSON.stringify({
@@ -171,6 +207,10 @@ export default function handler(req, res) {
             '/contents/' +
             path;
 
+
+        // =========================================
+        // ACTUALIZAR ARCHIVO EN GITHUB
+        // =========================================
 
         const options = {
 
@@ -247,11 +287,14 @@ export default function handler(req, res) {
                             ) {
 
                                 return res.status(200).json({
+
                                     success: true,
+
                                     sha:
                                         parsedData
                                             .content
                                             ?.sha
+
                                 });
                             }
 
@@ -269,7 +312,6 @@ export default function handler(req, res) {
                                         'Error en GitHub'
 
                                 });
-
                         }
                     );
                 }
@@ -281,23 +323,29 @@ export default function handler(req, res) {
             error => {
 
                 return res.status(500).json({
-                    success: false,
-                    error: error.message
-                });
 
+                    success: false,
+
+                    error: error.message
+
+                });
             }
         );
 
 
         request.write(bodyData);
+
         request.end();
 
 
     } catch (error) {
 
         return res.status(500).json({
+
             success: false,
+
             error: error.message
+
         });
     }
 }
@@ -374,10 +422,14 @@ function obtenerArchivo(
                             ) {
 
                                 return res.status(200).json({
+
                                     success: false,
+
                                     status: 404,
+
                                     message:
                                         'Archivo no existe'
+
                                 });
                             }
 
@@ -389,6 +441,7 @@ function obtenerArchivo(
 
                                 const error =
                                     JSON.parse(data);
+
 
                                 return res
                                     .status(
@@ -466,7 +519,6 @@ function obtenerArchivo(
                 error: error.message
 
             });
-
         }
     );
 
