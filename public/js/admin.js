@@ -62,7 +62,7 @@ async function cargarInventario() {
 
 
 /* ------------------------------------------
-   DATOS DEL FORMULARIO
+   OBTENER DATOS DEL FORMULARIO
 ------------------------------------------ */
 
 function obtenerDatosFormulario() {
@@ -118,12 +118,12 @@ function obtenerDatosFormulario() {
 
 
 /* ------------------------------------------
-   SUBMIT
+   GUARDAR PRODUCTO
 ------------------------------------------ */
 
 formulario.addEventListener(
     'submit',
-    async (event) => {
+    async event => {
 
         event.preventDefault();
 
@@ -135,8 +135,10 @@ formulario.addEventListener(
                 10
             );
 
+
         const datos =
             obtenerDatosFormulario();
+
 
         const archivos =
             Array.from(
@@ -154,7 +156,9 @@ formulario.addEventListener(
 
             if (index === -1) {
 
-                if (archivos.length === 0) {
+                if (
+                    archivos.length === 0
+                ) {
 
                     throw new Error(
                         'Debes seleccionar al menos una imagen.'
@@ -177,7 +181,7 @@ formulario.addEventListener(
 
                 mostrarCargando(
                     true,
-                    archivos.length
+                    archivos.length > 0
                         ? 'Optimizando y subiendo imágenes...'
                         : 'Guardando cambios...'
                 );
@@ -208,6 +212,7 @@ formulario.addEventListener(
                 error.message
             );
 
+
             await cargarInventario();
 
 
@@ -220,7 +225,7 @@ formulario.addEventListener(
 
 
 /* ------------------------------------------
-   SELECCIÓN DE IMÁGENES
+   PREVISUALIZAR NUEVAS IMÁGENES
 ------------------------------------------ */
 
 fileInput.addEventListener(
@@ -233,7 +238,9 @@ fileInput.addEventListener(
             );
 
 
-        if (!archivos.length) {
+        if (
+            archivos.length === 0
+        ) {
             return;
         }
 
@@ -253,39 +260,34 @@ fileInput.addEventListener(
                 archivos
             );
 
-        } else {
-
-            mostrarCargando(
-                true,
-                'Preparando imágenes...'
-            );
-
-
-            const producto =
-                obtenerProductos()[index];
-
-
-            renderizarImagenesFormulario(
-                producto
-            );
-
-
-            mostrarPrevisualizacionArchivos(
-                archivos,
-                true
-            );
-
-
-            mostrarCargando(
-                false
-            );
+            return;
         }
+
+
+        const producto =
+            obtenerProductos()[index];
+
+
+        if (!producto) {
+            return;
+        }
+
+
+        renderizarImagenesFormulario(
+            producto
+        );
+
+
+        mostrarPrevisualizacionArchivos(
+            archivos,
+            true
+        );
     }
 );
 
 
 /* ------------------------------------------
-   PREVISUALIZAR ARCHIVOS NUEVOS
+   PREVISUALIZACIÓN DE ARCHIVOS NUEVOS
 ------------------------------------------ */
 
 function mostrarPrevisualizacionArchivos(
@@ -299,7 +301,7 @@ function mostrarPrevisualizacionArchivos(
 
 
     archivos.forEach(
-        (archivo) => {
+        archivo => {
 
             if (
                 !archivo.type.startsWith(
@@ -315,12 +317,13 @@ function mostrarPrevisualizacionArchivos(
 
 
             reader.onload =
-                (event) => {
+                event => {
 
                     const item =
                         document.createElement(
                             'div'
                         );
+
 
                     item.className =
                         'imagen-preview-item';
@@ -331,8 +334,10 @@ function mostrarPrevisualizacionArchivos(
                             'img'
                         );
 
+
                     img.src =
                         event.target.result;
+
 
                     img.alt =
                         archivo.name;
@@ -343,8 +348,10 @@ function mostrarPrevisualizacionArchivos(
                             'p'
                         );
 
+
                     label.className =
                         'imagen-label';
+
 
                     label.textContent =
                         archivo.name;
@@ -426,9 +433,7 @@ async function iniciarEliminacion(index) {
 
     try {
 
-        await eliminarProducto(
-            index
-        );
+        await eliminarProducto(index);
 
 
         alert(
@@ -458,12 +463,12 @@ async function iniciarEliminacion(index) {
 
 
 /* ------------------------------------------
-   IMÁGENES EXISTENTES
+   GESTIÓN DE IMÁGENES
 ------------------------------------------ */
 
 preview.addEventListener(
     'click',
-    async (event) => {
+    async event => {
 
         const boton =
             event.target.closest(
@@ -485,17 +490,20 @@ preview.addEventListener(
             );
 
 
-        if (indexProducto < 0) {
+        if (
+            Number.isNaN(
+                indexProducto
+            ) ||
+            indexProducto < 0
+        ) {
             return;
         }
 
 
-        const productos =
-            obtenerProductos();
-
-
         const producto =
-            productos[indexProducto];
+            obtenerProductos()[
+                indexProducto
+            ];
 
 
         if (!producto) {
@@ -503,12 +511,18 @@ preview.addEventListener(
         }
 
 
-        const imagenes =
+        let imagenes =
             Array.isArray(
                 producto.imagenes
             )
                 ? [...producto.imagenes]
-                : [];
+                : producto.imagen
+                    ? [{
+                        url: producto.imagen,
+                        alt: producto.nombre,
+                        orden: 0
+                    }]
+                    : [];
 
 
         const indexImagen =
@@ -519,6 +533,7 @@ preview.addEventListener(
 
 
         if (
+            Number.isNaN(indexImagen) ||
             indexImagen < 0 ||
             indexImagen >= imagenes.length
         ) {
@@ -526,7 +541,9 @@ preview.addEventListener(
         }
 
 
-        /* Hacer principal */
+        /* --------------------------------------
+           HACER PRINCIPAL
+        -------------------------------------- */
 
         if (
             boton.classList.contains(
@@ -538,46 +555,108 @@ preview.addEventListener(
                 imagenes[indexImagen].url;
 
 
-            mostrarCargando(
-                true,
+            await guardarOrdenImagenes(
+                indexProducto,
+                imagenes,
+                imagenPrincipal,
                 'Guardando imagen principal...'
             );
-
-
-            try {
-
-                await actualizarImagenes(
-                    indexProducto,
-                    imagenes,
-                    imagenPrincipal
-                );
-
-
-                renderizarImagenesFormulario(
-                    obtenerProductos()[
-                        indexProducto
-                    ]
-                );
-
-
-            } catch (error) {
-
-                alert(
-                    'Error: ' +
-                    error.message
-                );
-
-            } finally {
-
-                mostrarCargando(false);
-            }
 
 
             return;
         }
 
 
-        /* Eliminar imagen */
+        /* --------------------------------------
+           SUBIR IMAGEN
+        -------------------------------------- */
+
+        if (
+            boton.classList.contains(
+                'btn-subir-imagen'
+            )
+        ) {
+
+            if (
+                indexImagen === 0
+            ) {
+                return;
+            }
+
+
+            [
+                imagenes[indexImagen - 1],
+                imagenes[indexImagen]
+            ] = [
+                imagenes[indexImagen],
+                imagenes[indexImagen - 1]
+            ];
+
+
+            actualizarOrdenLocal(
+                imagenes
+            );
+
+
+            await guardarOrdenImagenes(
+                indexProducto,
+                imagenes,
+                producto.imagenPrincipal,
+                'Reordenando imágenes...'
+            );
+
+
+            return;
+        }
+
+
+        /* --------------------------------------
+           BAJAR IMAGEN
+        -------------------------------------- */
+
+        if (
+            boton.classList.contains(
+                'btn-bajar-imagen'
+            )
+        ) {
+
+            if (
+                indexImagen >=
+                imagenes.length - 1
+            ) {
+                return;
+            }
+
+
+            [
+                imagenes[indexImagen],
+                imagenes[indexImagen + 1]
+            ] = [
+                imagenes[indexImagen + 1],
+                imagenes[indexImagen]
+            ];
+
+
+            actualizarOrdenLocal(
+                imagenes
+            );
+
+
+            await guardarOrdenImagenes(
+                indexProducto,
+                imagenes,
+                producto.imagenPrincipal,
+                'Reordenando imágenes...'
+            );
+
+
+            return;
+        }
+
+
+        /* --------------------------------------
+           ELIMINAR IMAGEN
+        -------------------------------------- */
 
         if (
             boton.classList.contains(
@@ -594,9 +673,18 @@ preview.addEventListener(
             }
 
 
+            const imagenEliminada =
+                imagenes[indexImagen];
+
+
             imagenes.splice(
                 indexImagen,
                 1
+            );
+
+
+            actualizarOrdenLocal(
+                imagenes
             );
 
 
@@ -606,9 +694,7 @@ preview.addEventListener(
 
             if (
                 imagenPrincipal ===
-                producto.imagenes[
-                    indexImagen
-                ]?.url
+                imagenEliminada.url
             ) {
 
                 imagenPrincipal =
@@ -617,42 +703,100 @@ preview.addEventListener(
             }
 
 
-            mostrarCargando(
-                true,
-                'Actualizando imágenes...'
+            await guardarOrdenImagenes(
+                indexProducto,
+                imagenes,
+                imagenPrincipal,
+                'Eliminando imagen...'
             );
-
-
-            try {
-
-                await actualizarImagenes(
-                    indexProducto,
-                    imagenes,
-                    imagenPrincipal
-                );
-
-
-                renderizarImagenesFormulario(
-                    obtenerProductos()[
-                        indexProducto
-                    ]
-                );
-
-
-            } catch (error) {
-
-                alert(
-                    'Error: ' +
-                    error.message
-                );
-
-            } finally {
-
-                mostrarCargando(false);
-            }
         }
     }
 );
+
+
+/* ------------------------------------------
+   ACTUALIZAR ORDEN
+------------------------------------------ */
+
+function actualizarOrdenLocal(
+    imagenes
+) {
+
+    imagenes.forEach(
+        (imagen, index) => {
+
+            imagen.orden =
+                index;
+        }
+    );
+}
+
+
+/* ------------------------------------------
+   GUARDAR CAMBIOS DE IMÁGENES
+------------------------------------------ */
+
+async function guardarOrdenImagenes(
+    indexProducto,
+    imagenes,
+    imagenPrincipal,
+    mensaje
+) {
+
+    mostrarCargando(
+        true,
+        mensaje
+    );
+
+
+    try {
+
+        actualizarOrdenLocal(
+            imagenes
+        );
+
+
+        await actualizarImagenes(
+            indexProducto,
+            imagenes,
+            imagenPrincipal
+        );
+
+
+        const productoActualizado =
+            obtenerProductos()[
+                indexProducto
+            ];
+
+
+        renderizarImagenesFormulario(
+            productoActualizado
+        );
+
+
+        renderizarTabla(
+            obtenerProductos(),
+            iniciarEdicion,
+            iniciarEliminacion
+        );
+
+
+    } catch (error) {
+
+        alert(
+            'Error al actualizar las imágenes: ' +
+            error.message
+        );
+
+
+        await cargarInventario();
+
+
+    } finally {
+
+        mostrarCargando(false);
+    }
+}
 
 
 /* ------------------------------------------
