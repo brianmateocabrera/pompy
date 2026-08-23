@@ -1,8 +1,12 @@
 import https from 'https';
 import crypto from 'crypto';
 
+
 const COOKIE_NAME = 'admin_session';
-const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 horas
+
+const SESSION_DURATION =
+    8 * 60 * 60 * 1000; // 8 horas
+
 
 export default function handler(req, res) {
 
@@ -13,11 +17,19 @@ export default function handler(req, res) {
             'no-store, no-cache, must-revalidate, proxy-revalidate'
         );
 
-        res.setHeader('Pragma', 'no-cache');
-        res.setHeader('Expires', '0');
+        res.setHeader(
+            'Pragma',
+            'no-cache'
+        );
+
+        res.setHeader(
+            'Expires',
+            '0'
+        );
 
 
         if (req.method !== 'POST') {
+
             return res.status(405).json({
                 success: false,
                 error: 'Método no permitido'
@@ -36,17 +48,21 @@ export default function handler(req, res) {
 
 
         if (!token || !repo) {
+
             return res.status(500).json({
                 success: false,
-                error: 'Faltan variables de entorno de GitHub'
+                error:
+                    'Faltan variables de entorno de GitHub'
             });
         }
 
 
         if (!adminPassword) {
+
             return res.status(500).json({
                 success: false,
-                error: 'Falta la variable ADMIN_PASSWORD'
+                error:
+                    'Falta la variable ADMIN_PASSWORD'
             });
         }
 
@@ -69,14 +85,16 @@ export default function handler(req, res) {
 
             if (
                 typeof password !== 'string' ||
-                !crypto.timingSafeEqual(
-                    Buffer.from(password),
-                    Buffer.from(adminPassword)
+                !compararSecretos(
+                    password,
+                    adminPassword
                 )
             ) {
+
                 return res.status(401).json({
                     success: false,
-                    error: 'Contraseña de administrador incorrecta'
+                    error:
+                        'Contraseña de administrador incorrecta'
                 });
             }
 
@@ -98,6 +116,28 @@ export default function handler(req, res) {
 
 
         // =========================================
+        // COMPROBAR SESIÓN
+        // =========================================
+
+        if (action === 'SESSION') {
+
+            if (!sesionValida(req)) {
+
+                return res.status(401).json({
+                    success: false,
+                    error:
+                        'Sesión inválida o expirada'
+                });
+            }
+
+
+            return res.status(200).json({
+                success: true
+            });
+        }
+
+
+        // =========================================
         // CERRAR SESIÓN
         // =========================================
 
@@ -105,7 +145,14 @@ export default function handler(req, res) {
 
             res.setHeader(
                 'Set-Cookie',
-                `${COOKIE_NAME}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Strict`
+                [
+                    `${COOKIE_NAME}=`,
+                    'Path=/',
+                    'HttpOnly',
+                    'Secure',
+                    'SameSite=Strict',
+                    'Max-Age=0'
+                ].join('; ')
             );
 
 
@@ -116,16 +163,22 @@ export default function handler(req, res) {
 
 
         // =========================================
-        // RUTA
+        // VALIDAR RUTA
         // =========================================
 
         if (!path) {
+
             return res.status(400).json({
                 success: false,
-                error: 'Ruta de archivo requerida'
+                error:
+                    'Ruta de archivo requerida'
             });
         }
 
+
+        // =========================================
+        // RUTAS PERMITIDAS
+        // =========================================
 
         const rutasPermitidas = [
             'data/productos.json'
@@ -134,22 +187,33 @@ export default function handler(req, res) {
 
         const esImagenPermitida =
             typeof path === 'string' &&
-            path.startsWith('public/imagenes/');
+            path.startsWith(
+                'public/imagenes/'
+            );
 
 
         if (
             !rutasPermitidas.includes(path) &&
             !esImagenPermitida
         ) {
+
             return res.status(403).json({
                 success: false,
-                error: 'Ruta no autorizada'
+                error:
+                    'Ruta no autorizada'
             });
         }
 
 
         // =========================================
-        // GET PÚBLICO
+        // GET
+        // =========================================
+        //
+        // El catálogo público puede leer
+        // productos.json sin autenticación.
+        //
+        // Las imágenes son archivos públicos
+        // servidos directamente por Vercel.
         // =========================================
 
         if (action === 'GET') {
@@ -164,49 +228,87 @@ export default function handler(req, res) {
 
 
         // =========================================
-        // OPERACIONES DE ESCRITURA
+        // ESCRITURA
         // =========================================
 
         if (action !== 'PUT') {
+
             return res.status(400).json({
                 success: false,
-                error: 'Acción no permitida'
+                error:
+                    'Acción no permitida'
             });
         }
 
+
+        // =========================================
+        // VALIDAR SESIÓN
+        // =========================================
 
         if (!sesionValida(req)) {
 
             return res.status(401).json({
                 success: false,
-                error: 'Sesión de administrador inválida o expirada'
+                error:
+                    'Sesión de administrador inválida o expirada'
             });
         }
 
 
-        if (!content) {
+        // =========================================
+        // VALIDAR CONTENIDO
+        // =========================================
+
+        if (
+            content === undefined ||
+            content === null ||
+            content === ''
+        ) {
+
             return res.status(400).json({
                 success: false,
-                error: 'Contenido requerido'
+                error:
+                    'Contenido requerido'
             });
         }
 
+
+        // =========================================
+        // PREPARAR CONTENIDO
+        // =========================================
 
         let contenidoFinal;
 
 
         if (esImagenPermitida) {
 
-            contenidoFinal = content;
+            /*
+             * Las imágenes llegan como Base64
+             * puro desde imageOptimizer.js.
+             */
+
+            contenidoFinal =
+                content;
 
         } else {
 
+            /*
+             * productos.json llega como texto.
+             */
+
             contenidoFinal =
                 Buffer
-                    .from(content)
+                    .from(
+                        content,
+                        'utf8'
+                    )
                     .toString('base64');
         }
 
+
+        // =========================================
+        // DATOS PARA GITHUB
+        // =========================================
 
         const bodyData =
             JSON.stringify({
@@ -231,13 +333,20 @@ export default function handler(req, res) {
             path;
 
 
+        // =========================================
+        // REQUEST GITHUB
+        // =========================================
+
         const options = {
 
-            hostname: 'api.github.com',
+            hostname:
+                'api.github.com',
 
-            path: exactPath,
+            path:
+                exactPath,
 
-            method: 'PUT',
+            method:
+                'PUT',
 
             headers: {
 
@@ -257,7 +366,9 @@ export default function handler(req, res) {
                     '2022-11-28',
 
                 'Content-Length':
-                    Buffer.byteLength(bodyData)
+                    Buffer.byteLength(
+                        bodyData
+                    )
             }
         };
 
@@ -273,6 +384,7 @@ export default function handler(req, res) {
                     response.on(
                         'data',
                         chunk => {
+
                             data += chunk;
                         }
                     );
@@ -286,14 +398,24 @@ export default function handler(req, res) {
 
 
                             try {
+
                                 parsedData =
-                                    JSON.parse(data);
+                                    JSON.parse(
+                                        data
+                                    );
+
                             } catch {
+
                                 parsedData = {
-                                    message: data
+                                    message:
+                                        data
                                 };
                             }
 
+
+                            // =================================
+                            // ÉXITO
+                            // =================================
 
                             if (
                                 response.statusCode >= 200 &&
@@ -301,24 +423,36 @@ export default function handler(req, res) {
                             ) {
 
                                 return res.status(200).json({
-                                    success: true,
+
+                                    success:
+                                        true,
+
                                     sha:
                                         parsedData
                                             .content
                                             ?.sha
+
                                 });
                             }
 
+
+                            // =================================
+                            // ERROR GITHUB
+                            // =================================
 
                             return res
                                 .status(
                                     response.statusCode
                                 )
                                 .json({
-                                    success: false,
+
+                                    success:
+                                        false,
+
                                     error:
                                         parsedData.message ||
                                         'Error en GitHub'
+
                                 });
                         }
                     );
@@ -331,29 +465,81 @@ export default function handler(req, res) {
             error => {
 
                 return res.status(500).json({
-                    success: false,
-                    error: error.message
+
+                    success:
+                        false,
+
+                    error:
+                        error.message
+
                 });
             }
         );
 
 
-        request.write(bodyData);
+        request.write(
+            bodyData
+        );
+
         request.end();
 
 
     } catch (error) {
 
         return res.status(500).json({
-            success: false,
-            error: error.message
+
+            success:
+                false,
+
+            error:
+                error.message
+
         });
     }
 }
 
 
 // =================================================
-// SESIONES
+// COMPARAR CONTRASEÑAS
+// =================================================
+
+function compararSecretos(
+    recibido,
+    esperado
+) {
+
+    const recibidoBuffer =
+        Buffer.from(
+            String(recibido),
+            'utf8'
+        );
+
+
+    const esperadoBuffer =
+        Buffer.from(
+            String(esperado),
+            'utf8'
+        );
+
+
+    if (
+        recibidoBuffer.length !==
+        esperadoBuffer.length
+    ) {
+
+        return false;
+    }
+
+
+    return crypto.timingSafeEqual(
+        recibidoBuffer,
+        esperadoBuffer
+    );
+}
+
+
+// =================================================
+// CREAR SESIÓN
 // =================================================
 
 function crearSesion() {
@@ -364,74 +550,121 @@ function crearSesion() {
 
 
     const random =
-        crypto.randomBytes(32)
+        crypto
+            .randomBytes(32)
             .toString('hex');
 
 
-    return `${expiracion}.${random}`;
+    return (
+        `${expiracion}.${random}`
+    );
 }
 
 
-function construirCookie(session) {
+// =================================================
+// CREAR COOKIE
+// =================================================
+
+function construirCookie(
+    session
+) {
 
     return [
+
         `${COOKIE_NAME}=${session}`,
+
         'Path=/',
+
         'HttpOnly',
+
         'Secure',
+
         'SameSite=Strict',
-        `Max-Age=${Math.floor(SESSION_DURATION / 1000)}`
+
+        `Max-Age=${Math.floor(
+            SESSION_DURATION / 1000
+        )}`
+
     ].join('; ');
 }
 
 
-function obtenerCookies(req) {
+// =================================================
+// OBTENER COOKIES
+// =================================================
+
+function obtenerCookies(
+    req
+) {
 
     const cookies = {};
 
     const header =
-        req.headers.cookie || '';
+        req.headers.cookie ||
+        '';
 
 
     header
         .split(';')
-        .forEach(parte => {
+        .forEach(
+            parte => {
 
-            const indice =
-                parte.indexOf('=');
+                const indice =
+                    parte.indexOf('=');
 
-            if (indice === -1) {
-                return;
+
+                if (
+                    indice === -1
+                ) {
+                    return;
+                }
+
+
+                const nombre =
+                    parte
+                        .slice(
+                            0,
+                            indice
+                        )
+                        .trim();
+
+
+                const valor =
+                    parte
+                        .slice(
+                            indice + 1
+                        )
+                        .trim();
+
+
+                cookies[nombre] =
+                    valor;
             }
-
-
-            const nombre =
-                parte
-                    .slice(0, indice)
-                    .trim();
-
-            const valor =
-                parte
-                    .slice(indice + 1)
-                    .trim();
-
-
-            cookies[nombre] = valor;
-        });
+        );
 
 
     return cookies;
 }
 
 
-function sesionValida(req) {
+// =================================================
+// VALIDAR SESIÓN
+// =================================================
+
+function sesionValida(
+    req
+) {
 
     const cookies =
-        obtenerCookies(req);
+        obtenerCookies(
+            req
+        );
 
 
     const session =
-        cookies[COOKIE_NAME];
+        cookies[
+            COOKIE_NAME
+        ];
 
 
     if (!session) {
@@ -443,19 +676,26 @@ function sesionValida(req) {
         session.split('.');
 
 
-    if (partes.length !== 2) {
+    if (
+        partes.length !== 2
+    ) {
         return false;
     }
 
 
     const expiracion =
-        Number(partes[0]);
+        Number(
+            partes[0]
+        );
 
 
     if (
-        !Number.isFinite(expiracion) ||
+        !Number.isFinite(
+            expiracion
+        ) ||
         expiracion < Date.now()
     ) {
+
         return false;
     }
 
@@ -465,6 +705,7 @@ function sesionValida(req) {
             partes[1]
         )
     ) {
+
         return false;
     }
 
@@ -474,7 +715,7 @@ function sesionValida(req) {
 
 
 // =================================================
-// GITHUB GET
+// OBTENER ARCHIVO DESDE GITHUB
 // =================================================
 
 function obtenerArchivo(
@@ -493,11 +734,14 @@ function obtenerArchivo(
 
     const options = {
 
-        hostname: 'api.github.com',
+        hostname:
+            'api.github.com',
 
-        path: exactPath,
+        path:
+            exactPath,
 
-        method: 'GET',
+        method:
+            'GET',
 
         headers: {
 
@@ -527,6 +771,7 @@ function obtenerArchivo(
                 response.on(
                     'data',
                     chunk => {
+
                         data += chunk;
                     }
                 );
@@ -538,26 +783,53 @@ function obtenerArchivo(
 
                         try {
 
+                            // =============================
+                            // NO EXISTE
+                            // =============================
+
                             if (
-                                response.statusCode === 404
+                                response.statusCode ===
+                                404
                             ) {
 
                                 return res.status(200).json({
-                                    success: false,
-                                    status: 404,
+
+                                    success:
+                                        false,
+
+                                    status:
+                                        404,
+
                                     message:
                                         'Archivo no existe'
+
                                 });
                             }
 
+
+                            // =============================
+                            // ERROR GITHUB
+                            // =============================
 
                             if (
                                 response.statusCode < 200 ||
                                 response.statusCode >= 300
                             ) {
 
-                                const error =
-                                    JSON.parse(data);
+                                let errorData;
+
+
+                                try {
+
+                                    errorData =
+                                        JSON.parse(
+                                            data
+                                        );
+
+                                } catch {
+
+                                    errorData = {};
+                                }
 
 
                                 return res
@@ -565,16 +837,26 @@ function obtenerArchivo(
                                         response.statusCode
                                     )
                                     .json({
-                                        success: false,
+
+                                        success:
+                                            false,
+
                                         error:
-                                            error.message ||
+                                            errorData.message ||
                                             'Error en GitHub'
+
                                     });
                             }
 
 
+                            // =============================
+                            // DECODIFICAR
+                            // =============================
+
                             const fileData =
-                                JSON.parse(data);
+                                JSON.parse(
+                                    data
+                                );
 
 
                             const contenido =
@@ -583,7 +865,9 @@ function obtenerArchivo(
                                         fileData.content,
                                         'base64'
                                     )
-                                    .toString('utf-8');
+                                    .toString(
+                                        'utf8'
+                                    );
 
 
                             const jsonPlano =
@@ -593,20 +877,29 @@ function obtenerArchivo(
 
 
                             return res.status(200).json({
-                                success: true,
+
+                                success:
+                                    true,
+
                                 sha:
                                     fileData.sha,
+
                                 data:
                                     jsonPlano
+
                             });
 
 
                         } catch (error) {
 
                             return res.status(500).json({
-                                success: false,
+
+                                success:
+                                    false,
+
                                 error:
                                     error.message
+
                             });
                         }
                     }
@@ -620,8 +913,13 @@ function obtenerArchivo(
         error => {
 
             return res.status(500).json({
-                success: false,
-                error: error.message
+
+                success:
+                    false,
+
+                error:
+                    error.message
+
             });
         }
     );
