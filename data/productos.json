@@ -10,12 +10,14 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1787173759722-jpb19.webp",
+        "url": "imagenes
+/1787237189706-1000541450.webp",
         "alt": "MEDIAS SOQUETE PACK X3",
         "orden": 0
       }
     ],
-    "imagenPrincipal": "/imagenes/1787173759722-jpb19.webp",
+    "imagenPrincipal": "imagenes
+/1787237189706-1000541450.webp",
     "categoria": [
       "Medias"
     ],
@@ -43,8 +45,16 @@
     "precioCosto": 0,
     "precio": 1600,
     "precioAnterior": null,
-    "imagenes": [],
-    "imagenPrincipal": "",
+    "imagenes": [
+      {
+        "url": "imagenes
+/1787253617352-1000542256.webp",
+        "alt": "MEDIAS SOQUETE PACK X3",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "imagenes
+/1787253617352-1000542256.webp",
     "categoria": [
       "Ropa interior"
     ],
@@ -76,8 +86,16 @@
     "precioCosto": 0,
     "precio": 24500,
     "precioAnterior": null,
-    "imagenes": [],
-    "imagenPrincipal": "",
+    "imagenes": [
+      {
+        "url": "imagenes
+/1787253651807-1000540755.webp",
+        "alt": "MEDIAS SOQUETE PACK X3",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "imagenes
+/1787253651807-1000540755.webp",
     "categoria": [
       "Adultos"
     ],
