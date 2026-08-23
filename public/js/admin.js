@@ -38,7 +38,10 @@ const preview =
 
 async function autenticar() {
 
-    if (administradorAutenticado()) {
+    const sesionValida =
+        await administradorAutenticado();
+
+    if (sesionValida) {
         return true;
     }
 
@@ -49,7 +52,17 @@ async function autenticar() {
         );
 
 
-    if (!password) {
+    if (password === null) {
+        return false;
+    }
+
+
+    if (password === '') {
+
+        alert(
+            'Debés ingresar una contraseña.'
+        );
+
         return false;
     }
 
@@ -100,6 +113,25 @@ async function autenticar() {
 
 
 /* ------------------------------------------
+   VERIFICAR SESIÓN
+------------------------------------------ */
+
+async function verificarAutenticacion() {
+
+    const autenticado =
+        await administradorAutenticado();
+
+
+    if (autenticado) {
+        return true;
+    }
+
+
+    return await autenticar();
+}
+
+
+/* ------------------------------------------
    CARGAR INVENTARIO
 ------------------------------------------ */
 
@@ -125,19 +157,35 @@ async function cargarInventario() {
 
     } catch (error) {
 
+        const mensaje =
+            String(
+                error.message || ''
+            ).toLowerCase();
+
+
         if (
-            error.message
-                .toLowerCase()
-                .includes('401')
+            mensaje.includes('401') ||
+            mensaje.includes('sesión') ||
+            mensaje.includes('autentic')
         ) {
 
-            cerrarSesion();
+            await cerrarSesion();
 
-            alert(
-                'La sesión de administrador expiró.'
-            );
 
-            location.reload();
+            const autenticado =
+                await autenticar();
+
+
+            if (autenticado) {
+
+                await cargarInventario();
+
+            } else {
+
+                document.body.innerHTML =
+                    '<h2>Acceso denegado.</h2>';
+            }
+
 
             return;
         }
@@ -249,11 +297,12 @@ formulario.addEventListener(
         event.preventDefault();
 
 
-        if (!administradorAutenticado()) {
+        const autenticado =
+            await verificarAutenticacion();
 
-            if (!await autenticar()) {
-                return;
-            }
+
+        if (!autenticado) {
+            return;
         }
 
 
@@ -344,16 +393,9 @@ formulario.addEventListener(
             );
 
 
-            if (
-                error.message
-                    .toLowerCase()
-                    .includes('autentic')
-            ) {
-                cerrarSesion();
-            }
-
-
-            await cargarInventario();
+            await manejarErrorSesion(
+                error
+            );
 
 
         } finally {
@@ -517,7 +559,16 @@ function mostrarPrevisualizacionArchivos(
    EDITAR PRODUCTO
 ------------------------------------------ */
 
-function iniciarEdicion(index) {
+async function iniciarEdicion(index) {
+
+    const autenticado =
+        await verificarAutenticacion();
+
+
+    if (!autenticado) {
+        return;
+    }
+
 
     const producto =
         obtenerProductos()[index];
@@ -547,11 +598,12 @@ function iniciarEdicion(index) {
 
 async function iniciarEliminacion(index) {
 
-    if (!administradorAutenticado()) {
+    const autenticado =
+        await verificarAutenticacion();
 
-        if (!await autenticar()) {
-            return;
-        }
+
+    if (!autenticado) {
+        return;
     }
 
 
@@ -600,7 +652,9 @@ async function iniciarEliminacion(index) {
         );
 
 
-        await cargarInventario();
+        await manejarErrorSesion(
+            error
+        );
 
 
     } finally {
@@ -629,11 +683,12 @@ preview.addEventListener(
         }
 
 
-        if (!administradorAutenticado()) {
+        const autenticado =
+            await verificarAutenticacion();
 
-            if (!await autenticar()) {
-                return;
-            }
+
+        if (!autenticado) {
+            return;
         }
 
 
@@ -937,13 +992,60 @@ async function guardarOrdenImagenes(
         );
 
 
-        await cargarInventario();
+        await manejarErrorSesion(
+            error
+        );
 
 
     } finally {
 
         mostrarCargando(false);
     }
+}
+
+
+/* ------------------------------------------
+   MANEJO DE SESIÓN EXPIRADA
+------------------------------------------ */
+
+async function manejarErrorSesion(
+    error
+) {
+
+    const mensaje =
+        String(
+            error?.message || ''
+        ).toLowerCase();
+
+
+    if (
+        mensaje.includes('401') ||
+        mensaje.includes('sesión') ||
+        mensaje.includes('autentic')
+    ) {
+
+        await cerrarSesion();
+
+
+        const autenticado =
+            await autenticar();
+
+
+        if (autenticado) {
+
+            await cargarInventario();
+
+        } else {
+
+            document.body.innerHTML =
+                '<h2>Acceso denegado.</h2>';
+        }
+
+        return true;
+    }
+
+
+    return false;
 }
 
 
