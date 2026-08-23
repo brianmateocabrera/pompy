@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta
@@ -8,7 +7,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Panel Administrador - Pompy Shop</title>
+    <title>Panel Administrador - Modular</title>
 
     <link
         rel="stylesheet"
@@ -27,15 +26,12 @@
             Agregar Nuevo Producto
         </h2>
 
-
         <input
             type="hidden"
             id="editIndex"
             value="-1"
         >
 
-
-        <!-- IDENTIFICACIÓN -->
 
         <h3>Identificación</h3>
 
@@ -53,8 +49,6 @@
         >
 
 
-        <!-- PRECIOS -->
-
         <h3>Precios</h3>
 
         <input
@@ -63,37 +57,32 @@
             placeholder="Precio de costo ($)"
             min="0"
             step="0.01"
-            required
         >
 
         <input
             type="number"
             id="precio"
             placeholder="Precio de venta ($)"
+            required
             min="0"
             step="0.01"
-            required
         >
 
         <input
             type="number"
             id="precioAnterior"
-            placeholder="Precio anterior ($) - opcional"
+            placeholder="Precio anterior ($)"
             min="0"
             step="0.01"
         >
 
 
-        <!-- INFORMACIÓN -->
-
-        <h3>Información</h3>
+        <h3>Información del producto</h3>
 
         <textarea
             id="descripcion"
             placeholder="Descripción del producto"
-            rows="5"
         ></textarea>
-
 
         <input
             type="text"
@@ -101,13 +90,11 @@
             placeholder="Categorías separadas por coma"
         >
 
-
         <input
             type="text"
             id="tags"
             placeholder="Tags separados por coma"
         >
-
 
         <input
             type="text"
@@ -116,9 +103,7 @@
         >
 
 
-        <!-- INVENTARIO -->
-
-        <h3>Inventario</h3>
+        <h3>Stock y variantes</h3>
 
         <input
             type="number"
@@ -126,16 +111,13 @@
             placeholder="Stock"
             min="0"
             step="1"
-            required
         >
-
 
         <input
             type="text"
             id="talles"
             placeholder="Talles separados por coma"
         >
-
 
         <input
             type="text"
@@ -144,12 +126,10 @@
         >
 
 
-        <!-- IMÁGENES -->
-
         <h3>Imágenes</h3>
 
         <label>
-            Seleccioná una o varias imágenes:
+            Agregar imágenes del producto
         </label>
 
         <input
@@ -159,16 +139,13 @@
             multiple
         >
 
-
         <div
             id="imagenesPreview"
             class="imagenes-preview"
         ></div>
 
 
-        <!-- VISIBILIDAD -->
-
-        <h3>Visibilidad</h3>
+        <h3>Configuración</h3>
 
         <label class="checkbox-label">
 
@@ -227,7 +204,6 @@
 
     <h2>Inventario de Productos</h2>
 
-
     <p
         id="loadingText"
         class="loading"
@@ -242,7 +218,7 @@
             <tr>
 
                 <th>Imagen</th>
-                <th>Producto</th>
+                <th>Nombre</th>
                 <th>SKU</th>
                 <th>Costo</th>
                 <th>Precio</th>
@@ -258,11 +234,9 @@
         <tbody id="tablaProductos">
 
             <tr>
-
                 <td colspan="8">
                     Cargando inventario...
                 </td>
-
             </tr>
 
         </tbody>
@@ -276,5 +250,4 @@
     ></script>
 
 </body>
-
 </html>
