@@ -1,6 +1,5 @@
 const API_URL = '/api/crud';
 
-const AUTH_KEY = 'admin_authenticated';
 
 export async function llamarAPI(
     action,
@@ -10,53 +9,34 @@ export async function llamarAPI(
 
     try {
 
-        const password =
-            sessionStorage.getItem(
-                AUTH_KEY
+        const res =
+            await fetch(
+                API_URL,
+                {
+                    method: 'POST',
+
+                    credentials: 'same-origin',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body: JSON.stringify({
+                        action,
+                        path,
+                        ...extraData
+                    })
+                }
             );
-
-
-        const datos = {
-            action,
-            path,
-            ...extraData
-        };
-
-
-        /*
-         * Las operaciones protegidas utilizan
-         * automáticamente la contraseña almacenada
-         * durante la sesión.
-         */
-
-        if (
-            action !== 'AUTH' &&
-            password
-        ) {
-            datos.password = password;
-        }
-
-
-        const res = await fetch(
-            API_URL,
-            {
-                method: 'POST',
-
-                headers: {
-                    'Content-Type':
-                        'application/json'
-                },
-
-                body: JSON.stringify(datos)
-            }
-        );
 
 
         let data;
 
         try {
 
-            data = await res.json();
+            data =
+                await res.json();
 
         } catch {
 
@@ -97,28 +77,13 @@ export async function autenticarAdministrador(
     password
 ) {
 
-    const resultado =
-        await llamarAPI(
-            'AUTH',
-            'data/productos.json',
-            {
-                password
-            }
-        );
-
-
-    if (
-        resultado.success
-    ) {
-
-        sessionStorage.setItem(
-            AUTH_KEY,
+    return llamarAPI(
+        'AUTH',
+        'data/productos.json',
+        {
             password
-        );
-    }
-
-
-    return resultado;
+        }
+    );
 }
 
 
@@ -126,10 +91,11 @@ export async function autenticarAdministrador(
    CERRAR SESIÓN
 ------------------------------------------ */
 
-export function cerrarSesion() {
+export async function cerrarSesion() {
 
-    sessionStorage.removeItem(
-        AUTH_KEY
+    return llamarAPI(
+        'LOGOUT',
+        'data/productos.json'
     );
 }
 
@@ -138,11 +104,22 @@ export function cerrarSesion() {
    ESTADO DE AUTENTICACIÓN
 ------------------------------------------ */
 
-export function administradorAutenticado() {
+export async function comprobarSesion() {
 
-    return Boolean(
-        sessionStorage.getItem(
-            AUTH_KEY
-        )
-    );
+    try {
+
+        const resultado =
+            await llamarAPI(
+                'SESSION',
+                'data/productos.json'
+            );
+
+
+        return resultado.success === true;
+
+
+    } catch {
+
+        return false;
+    }
 }
