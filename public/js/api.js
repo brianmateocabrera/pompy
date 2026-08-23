@@ -1,5 +1,7 @@
 const API_URL = '/api/crud';
 
+const AUTH_KEY = 'admin_authenticated';
+
 export async function llamarAPI(
     action,
     path,
@@ -8,20 +10,44 @@ export async function llamarAPI(
 
     try {
 
+        const password =
+            sessionStorage.getItem(
+                AUTH_KEY
+            );
+
+
+        const datos = {
+            action,
+            path,
+            ...extraData
+        };
+
+
+        /*
+         * Las operaciones protegidas utilizan
+         * automáticamente la contraseña almacenada
+         * durante la sesión.
+         */
+
+        if (
+            action !== 'AUTH' &&
+            password
+        ) {
+            datos.password = password;
+        }
+
+
         const res = await fetch(
             API_URL,
             {
                 method: 'POST',
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type':
+                        'application/json'
                 },
 
-                body: JSON.stringify({
-                    action,
-                    path,
-                    ...extraData
-                })
+                body: JSON.stringify(datos)
             }
         );
 
@@ -71,53 +97,52 @@ export async function autenticarAdministrador(
     password
 ) {
 
-    return llamarAPI(
-        'AUTH',
-        'data/productos.json',
-        {
+    const resultado =
+        await llamarAPI(
+            'AUTH',
+            'data/productos.json',
+            {
+                password
+            }
+        );
+
+
+    if (
+        resultado.success
+    ) {
+
+        sessionStorage.setItem(
+            AUTH_KEY,
             password
-        }
+        );
+    }
+
+
+    return resultado;
+}
+
+
+/* ------------------------------------------
+   CERRAR SESIÓN
+------------------------------------------ */
+
+export function cerrarSesion() {
+
+    sessionStorage.removeItem(
+        AUTH_KEY
     );
 }
 
 
 /* ------------------------------------------
-   GET AUTENTICADO
+   ESTADO DE AUTENTICACIÓN
 ------------------------------------------ */
 
-export async function obtenerArchivo(
-    path,
-    password
-) {
+export function administradorAutenticado() {
 
-    return llamarAPI(
-        'GET',
-        path,
-        {
-            password
-        }
-    );
-}
-
-
-/* ------------------------------------------
-   PUT AUTENTICADO
------------------------------------------- */
-
-export async function guardarArchivo(
-    path,
-    content,
-    password,
-    opciones = {}
-) {
-
-    return llamarAPI(
-        'PUT',
-        path,
-        {
-            password,
-            content,
-            ...opciones
-        }
+    return Boolean(
+        sessionStorage.getItem(
+            AUTH_KEY
+        )
     );
 }
