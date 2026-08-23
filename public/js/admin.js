@@ -8,6 +8,11 @@ import {
 } from './productos.js';
 
 import {
+    establecerPassword,
+    limpiarPassword
+} from './api.js';
+
+import {
     mostrarCargando,
     renderizarTabla,
     cargarFormulario,
@@ -24,6 +29,41 @@ const fileInput =
 
 const preview =
     document.getElementById('imagenesPreview');
+
+
+/* ------------------------------------------
+   AUTENTICACIÓN
+------------------------------------------ */
+
+async function solicitarPassword() {
+
+    const password =
+        window.prompt(
+            'Ingresá la contraseña de administrador:'
+        );
+
+
+    if (!password) {
+        throw new Error(
+            'Acceso cancelado.'
+        );
+    }
+
+
+    establecerPassword(password);
+
+
+    try {
+
+        await cargarProductos();
+
+    } catch (error) {
+
+        limpiarPassword();
+
+        throw error;
+    }
+}
 
 
 /* ------------------------------------------
@@ -812,7 +852,34 @@ document
 
 
 /* ------------------------------------------
-   INICIO
+   INICIO DEL PANEL
 ------------------------------------------ */
 
-cargarInventario();
+async function iniciarPanel() {
+
+    try {
+
+        await solicitarPassword();
+
+        renderizarTabla(
+            obtenerProductos(),
+            iniciarEdicion,
+            iniciarEliminacion
+        );
+
+    } catch (error) {
+
+        limpiarPassword();
+
+        alert(
+            'No se pudo acceder al panel: ' +
+            error.message
+        );
+
+        document.body.innerHTML =
+            '<h1>Acceso no autorizado</h1>';
+    }
+}
+
+
+iniciarPanel();
