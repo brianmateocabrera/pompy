@@ -27,29 +27,20 @@ export function mostrarCargando(
     visible,
     mensaje = 'Procesando...'
 ) {
-
     const el =
-        document.getElementById(
-            'loadingText'
-        );
+        document.getElementById('loadingText');
 
-
-    if (!el) {
-        return;
-    }
-
+    if (!el) return;
 
     el.textContent = mensaje;
 
     el.style.display =
-        visible
-            ? 'block'
-            : 'none';
+        visible ? 'block' : 'none';
 }
 
 
 /* ------------------------------------------
-   TABLA DE PRODUCTOS
+   TABLA
 ------------------------------------------ */
 
 export function renderizarTabla(
@@ -57,140 +48,93 @@ export function renderizarTabla(
     onEditar,
     onEliminar
 ) {
-
     const tbody =
         document.getElementById(
             'tablaProductos'
         );
 
-
-    if (
-        !tbody
-    ) {
-        return;
-    }
-
+    if (!tbody) return;
 
     if (
         !listaProductos ||
         listaProductos.length === 0
     ) {
-
         tbody.innerHTML =
             '<tr><td colspan="8">No hay productos registrados.</td></tr>';
 
         return;
     }
 
-
     tbody.innerHTML =
-        listaProductos
-            .map(
-                (prod, index) => {
+        listaProductos.map(
+            (prod, index) => {
 
-                    const nombre =
-                        escaparHTML(
-                            prod.nombre
-                        );
+                const nombre =
+                    escaparHTML(
+                        prod.nombre
+                    );
 
+                const sku =
+                    escaparHTML(
+                        prod.sku || '-'
+                    );
 
-                    const sku =
-                        escaparHTML(
-                            prod.sku || '-'
-                        );
+                const imagen =
+                    escaparHTML(
+                        prod.imagenPrincipal ||
+                        prod.imagenes?.[0]?.url ||
+                        prod.imagen ||
+                        '/imagenes/no-image.webp'
+                    );
 
+                const costo =
+                    formatearPrecio(
+                        prod.precioCosto
+                    );
 
-                    const imagen =
-                        escaparHTML(
-                            prod.imagenPrincipal ||
-                            prod.imagenes?.[0]?.url ||
-                            '/imagenes/no-image.webp'
-                        );
+                const precio =
+                    formatearPrecio(
+                        prod.precio
+                    );
 
+                const stock =
+                    Number(prod.stock) || 0;
 
-                    const costo =
-                        formatearPrecio(
-                            prod.precioCosto
-                        );
+                let estado =
+                    prod.activo
+                        ? '<span class="estado-activo">Activo</span>'
+                        : '<span class="estado-inactivo">Inactivo</span>';
 
+                if (prod.destacado) {
+                    estado +=
+                        '<br><span class="estado-destacado">Destacado</span>';
+                }
 
-                    const precio =
-                        formatearPrecio(
-                            prod.precio
-                        );
-
-
-                    const stock =
-                        Number(
-                            prod.stock
-                        ) || 0;
-
-
-                    let estado =
-                        prod.activo
-                            ? '<span class="estado-activo">Activo</span>'
-                            : '<span class="estado-inactivo">Inactivo</span>';
-
-
-                    if (
-                        prod.destacado
-                    ) {
-
-                        estado +=
-                            '<br><span class="estado-destacado">Destacado</span>';
-
-                    }
-
-
-                    return `
-
+                return `
                     <tr>
 
                         <td>
-
                             <img
                                 src="${imagen}"
                                 class="img-preview"
                                 alt="${nombre}"
                                 onerror="this.src='/imagenes/no-image.webp'"
                             >
-
                         </td>
-
 
                         <td>
-
-                            <strong>
-                                ${nombre}
-                            </strong>
-
+                            <strong>${nombre}</strong>
                         </td>
 
+                        <td>${sku}</td>
 
-                        <td>
-                            ${sku}
-                        </td>
+                        <td>${costo}</td>
 
+                        <td>${precio}</td>
 
-                        <td>
-                            ${costo}
-                        </td>
+                        <td>${stock}</td>
 
-
-                        <td>
-                            ${precio}
-                        </td>
-
-
-                        <td>
-                            ${stock}
-                        </td>
-
-
-                        <td>
-                            ${estado}
-                        </td>
-
+                        <td>${estado}</td>
 
                         <td>
 
@@ -201,7 +145,6 @@ export function renderizarTabla(
                             >
                                 Editar
                             </button>
-
 
                             <button
                                 type="button"
@@ -214,74 +157,54 @@ export function renderizarTabla(
                         </td>
 
                     </tr>
+                `;
+            }
+        ).join('');
 
-                    `;
-
-                }
-            )
-            .join('');
-
-
-    /* Eventos de edición */
 
     tbody
         .querySelectorAll('.btn-edit')
-        .forEach(
-            btn => {
+        .forEach(btn => {
 
-                btn.addEventListener(
-                    'click',
-                    () => {
+            btn.addEventListener(
+                'click',
+                () =>
+                    onEditar(
+                        parseInt(
+                            btn.dataset.index,
+                            10
+                        )
+                    )
+            );
+        });
 
-                        onEditar(
-                            parseInt(
-                                btn.dataset.index,
-                                10
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    /* Eventos de eliminación */
 
     tbody
         .querySelectorAll('.btn-delete')
-        .forEach(
-            btn => {
+        .forEach(btn => {
 
-                btn.addEventListener(
-                    'click',
-                    () => {
-
-                        onEliminar(
-                            parseInt(
-                                btn.dataset.index,
-                                10
-                            )
-                        );
-
-                    }
-                );
-
-            }
-        );
+            btn.addEventListener(
+                'click',
+                () =>
+                    onEliminar(
+                        parseInt(
+                            btn.dataset.index,
+                            10
+                        )
+                    )
+            );
+        });
 }
 
 
 /* ------------------------------------------
-   CARGAR PRODUCTO EN FORMULARIO
+   FORMULARIO
 ------------------------------------------ */
 
 export function cargarFormulario(
     prod,
     index
 ) {
-
     document.getElementById(
         'editIndex'
     ).value = index;
@@ -289,14 +212,12 @@ export function cargarFormulario(
 
     document.getElementById(
         'sku'
-    ).value =
-        prod.sku || '';
+    ).value = prod.sku || '';
 
 
     document.getElementById(
         'nombre'
-    ).value =
-        prod.nombre || '';
+    ).value = prod.nombre || '';
 
 
     document.getElementById(
@@ -389,13 +310,10 @@ export function cargarFormulario(
 
     document.getElementById(
         'imagenFile'
-    ).required =
-        false;
+    ).required = false;
 
 
-    renderizarImagenesFormulario(
-        prod
-    );
+    renderizarImagenesFormulario(prod);
 
 
     document.getElementById(
@@ -418,30 +336,30 @@ export function cargarFormulario(
 
 
 /* ------------------------------------------
-   PREVISUALIZACIÓN DE IMÁGENES
+   IMÁGENES
 ------------------------------------------ */
 
 export function renderizarImagenesFormulario(
     producto
 ) {
-
     const contenedor =
         document.getElementById(
             'imagenesPreview'
         );
 
-
-    if (!contenedor) {
-        return;
-    }
+    if (!contenedor) return;
 
 
     const imagenes =
-        Array.isArray(
-            producto.imagenes
-        )
-            ? producto.imagenes
-            : [];
+        Array.isArray(producto.imagenes)
+            ? [...producto.imagenes]
+            : producto.imagen
+                ? [{
+                    url: producto.imagen,
+                    alt: producto.nombre,
+                    orden: 0
+                }]
+                : [];
 
 
     const principal =
@@ -451,7 +369,6 @@ export function renderizarImagenesFormulario(
 
 
     if (imagenes.length === 0) {
-
         contenedor.innerHTML =
             '<p>No hay imágenes cargadas.</p>';
 
@@ -459,36 +376,33 @@ export function renderizarImagenesFormulario(
     }
 
 
+    imagenes.sort(
+        (a, b) =>
+            (a.orden || 0) -
+            (b.orden || 0)
+    );
+
+
     contenedor.innerHTML =
-        imagenes
-            .sort(
-                (a, b) =>
-                    (a.orden || 0) -
-                    (b.orden || 0)
-            )
-            .map(
-                (imagen, index) => {
+        imagenes.map(
+            (imagen, index) => {
 
-                    const url =
-                        escaparHTML(
-                            imagen.url
-                        );
+                const url =
+                    escaparHTML(
+                        imagen.url
+                    );
 
+                const alt =
+                    escaparHTML(
+                        imagen.alt ||
+                        producto.nombre
+                    );
 
-                    const alt =
-                        escaparHTML(
-                            imagen.alt ||
-                            producto.nombre
-                        );
+                const esPrincipal =
+                    imagen.url === principal;
 
 
-                    const esPrincipal =
-                        imagen.url ===
-                        principal;
-
-
-                    return `
-
+                return `
                     <div
                         class="imagen-preview-item"
                         data-imagen-index="${index}"
@@ -505,17 +419,13 @@ export function renderizarImagenesFormulario(
                             onerror="this.src='/imagenes/no-image.webp'"
                         >
 
-
                         <p class="imagen-label">
-
                             ${
                                 esPrincipal
                                     ? 'Imagen principal'
                                     : `Imagen ${index + 1}`
                             }
-
                         </p>
-
 
                         <button
                             type="button"
@@ -529,6 +439,27 @@ export function renderizarImagenesFormulario(
                             }
                         </button>
 
+                        <button
+                            type="button"
+                            class="btn-subir-imagen"
+                            data-imagen-index="${index}"
+                            ${index === 0 ? 'disabled' : ''}
+                        >
+                            Subir
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-bajar-imagen"
+                            data-imagen-index="${index}"
+                            ${
+                                index === imagenes.length - 1
+                                    ? 'disabled'
+                                    : ''
+                            }
+                        >
+                            Bajar
+                        </button>
 
                         <button
                             type="button"
@@ -539,17 +470,14 @@ export function renderizarImagenesFormulario(
                         </button>
 
                     </div>
-
-                    `;
-
-                }
-            )
-            .join('');
+                `;
+            }
+        ).join('');
 }
 
 
 /* ------------------------------------------
-   CANCELAR EDICIÓN
+   CANCELAR
 ------------------------------------------ */
 
 export function cancelarEdicion() {
@@ -559,7 +487,6 @@ export function cancelarEdicion() {
             'prodForm'
         );
 
-
     if (formulario) {
         formulario.reset();
     }
@@ -567,8 +494,7 @@ export function cancelarEdicion() {
 
     document.getElementById(
         'editIndex'
-    ).value =
-        '-1';
+    ).value = '-1';
 
 
     document.getElementById(
@@ -594,7 +520,6 @@ export function cancelarEdicion() {
             'imagenesPreview'
         );
 
-
     if (preview) {
         preview.innerHTML = '';
     }
@@ -602,6 +527,5 @@ export function cancelarEdicion() {
 
     document.getElementById(
         'imagenFile'
-    ).required =
-        true;
+    ).required = true;
 }
