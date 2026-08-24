@@ -193,17 +193,70 @@
             step="1"
         >
 
+        <div class="campo-lista">
+
+    <label for="talles">
+        Talles
+    </label>
+
+    <div class="lista-input">
+
         <input
             type="text"
             id="talles"
-            placeholder="Talles separados por coma"
+            placeholder="Escribí un talle"
+            autocomplete="off"
         >
+
+        <button
+            type="button"
+            class="btn-agregar-lista"
+            data-lista="talles"
+        >
+            Agregar
+        </button>
+
+    </div>
+
+    <div
+        id="tallesLista"
+        class="chips"
+    ></div>
+
+</div>
+
+
+<div class="campo-lista">
+
+    <label for="colores">
+        Colores
+    </label>
+
+    <div class="lista-input">
 
         <input
             type="text"
             id="colores"
-            placeholder="Colores separados por coma"
+            placeholder="Escribí un color"
+            autocomplete="off"
         >
+
+        <button
+            type="button"
+            class="btn-agregar-lista"
+            data-lista="colores"
+        >
+            Agregar
+        </button>
+
+    </div>
+
+    <div
+        id="coloresLista"
+        class="chips"
+    ></div>
+
+</div>
 
 
         <h3>Imágenes</h3>
