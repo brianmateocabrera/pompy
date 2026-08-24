@@ -336,3 +336,80 @@ tr:hover {
     opacity: 0.35;
     cursor: not-allowed;
 }
+
+/* ------------------------------------------
+   CAMPOS DE LISTAS
+------------------------------------------ */
+
+.campo-lista {
+    margin-bottom: 18px;
+}
+
+.campo-lista > label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.lista-input {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.lista-input input {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.btn-agregar-lista {
+    flex-shrink: 0;
+    background: #555;
+    padding: 10px 12px;
+}
+
+.btn-agregar-lista:hover {
+    background: #333;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 9px;
+    border-radius: 15px;
+    background: #e8eef7;
+    color: #333;
+    font-size: 13px;
+}
+
+.chip button {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border-radius: 50%;
+    background: #777;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.chip button:hover {
+    background: #333;
+}
+
+@media (max-width: 500px) {
+
+    .lista-input {
+        flex-direction: column;
+    }
+
+    .btn-agregar-lista {
+        width: 100%;
+    }
+}
