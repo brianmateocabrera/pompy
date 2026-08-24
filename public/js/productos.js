@@ -143,64 +143,77 @@ async function guardarCambiosJSON(
     mensajeCommit
 ) {
 
-    const json = await llamarAPI(
-        'PUT',
-        PATH_JSON,
-        {
-            message: mensajeCommit,
+    try {
 
-            content:
-                JSON.stringify(
-                    listaProductos,
-                    null,
-                    2
-                ),
+        const json =
+            await llamarAPI(
+                'PUT',
+                PATH_JSON,
+                {
+                    message:
+                        mensajeCommit,
 
-            sha:
-                shaActualJson ||
-                undefined
+                    content:
+                        JSON.stringify(
+                            listaProductos,
+                            null,
+                            2
+                        ),
+
+                    sha:
+                        shaActualJson ||
+                        undefined
+                }
+            );
+
+
+        if (json.success) {
+
+            if (json.sha) {
+                shaActualJson =
+                    json.sha;
+            }
+
+            return {
+                success: true
+            };
         }
-    );
 
-
-    if (json.success) {
-
-        if (json.sha) {
-            shaActualJson = json.sha;
-        }
-
-        return {
-            success: true
-        };
-    }
-
-
-    if (
-        json.error &&
-        json.error
-            .toLowerCase()
-            .includes('sha')
-    ) {
-
-        await cargarProductos();
 
         return {
             success: false,
-            conflict: true,
             error:
-                'El catálogo fue modificado desde otro dispositivo.'
+                json.error ||
+                'Error al actualizar el catálogo.'
+        };
+
+
+    } catch (error) {
+
+        if (
+            error.status === 409 ||
+            error.conflict === true
+        ) {
+
+            await cargarProductos();
+
+            return {
+                success: false,
+                conflict: true,
+                error:
+                    'El catálogo fue modificado desde otro dispositivo. Se recargaron los datos actuales.'
+            };
+        }
+
+
+        return {
+            success: false,
+            error:
+                error.message ||
+                'Error al actualizar el catálogo.'
         };
     }
-
-
-    return {
-        success: false,
-        error:
-            json.error ||
-            'Error al actualizar el catálogo.'
-    };
 }
-
 /* ------------------------------------------
    VALIDACIÓN
 ------------------------------------------ */
