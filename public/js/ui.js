@@ -203,9 +203,10 @@ export function renderizarTabla(
 const listasFormulario = {
     categoria: [],
     tags: [],
-    badges: []
+    badges: [],
+    talles: [],
+    colores: []
 };
-
 
 function normalizarLista(
     valores
@@ -517,20 +518,15 @@ cargarListaFormulario(
         prod.stock ?? 0;
 
 
-    document.getElementById(
-        'talles'
-    ).value =
-        Array.isArray(prod.talles)
-            ? prod.talles.join(', ')
-            : '';
+    cargarListaFormulario(
+    'talles',
+    prod.talles
+);
 
-
-    document.getElementById(
-        'colores'
-    ).value =
-        Array.isArray(prod.colores)
-            ? prod.colores.join(', ')
-            : '';
+cargarListaFormulario(
+    'colores',
+    prod.colores
+);
 
 
     document.getElementById(
