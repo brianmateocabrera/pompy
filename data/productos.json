@@ -200,5 +200,34 @@
     "orden": 0,
     "fechaCreacion": "2026-08-24T06:28:18.370Z",
     "fechaActualizacion": "2026-08-24T06:30:02.185Z"
+  },
+  {
+    "id": "prod-mt6wq4kw-1fapxv",
+    "sku": "Prod-020",
+    "slug": "producto1",
+    "nombre": "Producto1",
+    "descripcion": "Productos de prueba",
+    "precioCosto": 0,
+    "precio": 100,
+    "precioAnterior": 200,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787556060255-1000536641.webp",
+        "alt": "Producto1",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-24T07:21:01.616Z",
+    "fechaActualizacion": "2026-08-24T07:21:01.616Z"
   }
 ]
