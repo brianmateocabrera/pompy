@@ -86,12 +86,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1787253651807-1000540755.webp",
+        "url": "/imagenes/1787253699898-1000540768.webp",
         "alt": "Mini Wand Vibrator",
         "orden": 0
       },
       {
-        "url": "/imagenes/1787253699898-1000540768.webp",
+        "url": "/imagenes/1787253651807-1000540755.webp",
         "alt": "Mini Wand Vibrator",
         "orden": 1
       }
@@ -112,7 +112,7 @@
     "destacado": false,
     "orden": 2,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-24T05:09:39.087Z"
+    "fechaActualizacion": "2026-08-24T05:09:43.887Z"
   },
   {
     "id": "prod-mt6rxamq-y77dgl",
