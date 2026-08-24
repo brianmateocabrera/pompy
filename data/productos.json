@@ -2,8 +2,8 @@
   {
     "id": "prod-001",
     "sku": "",
-    "slug": "prueba-soquete-pack-x3",
-    "nombre": "(PRUEBA)SOQUETE PACK X3",
+    "slug": "medias-soquete-pack-x3",
+    "nombre": "MEDIAS SOQUETE PACK X3",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
     "precio": 7990,
@@ -17,7 +17,8 @@
     ],
     "imagenPrincipal": "/imagenes/1787237189706-1000541450.webp",
     "categoria": [
-      "Medias"
+      "Medias",
+      "Lencería"
     ],
     "tags": [
       "medias",
@@ -28,13 +29,19 @@
       "20%"
     ],
     "stock": 10,
-    "talles": [],
-    "colores": [],
+    "talles": [
+      "Único"
+    ],
+    "colores": [
+      "Blanco",
+      "Gris",
+      "Negro"
+    ],
     "activo": true,
-    "destacado": true,
+    "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-24T05:44:59.504Z"
+    "fechaActualizacion": "2026-08-24T07:00:57.935Z"
   },
   {
     "id": "prod-002",
