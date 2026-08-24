@@ -174,10 +174,10 @@
       "Adultos",
       "Lencería"
     ],
-    "tags": [
-      "Vaquita"
+    "tags": [],
+    "badges": [
+      "Nuevo"
     ],
-    "badges": [],
     "stock": 2,
     "talles": [
       "S",
@@ -192,6 +192,6 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-24T06:28:18.370Z",
-    "fechaActualizacion": "2026-08-24T06:28:18.370Z"
+    "fechaActualizacion": "2026-08-24T06:30:02.185Z"
   }
 ]
