@@ -45,17 +45,14 @@ async function autenticar() {
         return true;
     }
 
-
     const password =
         prompt(
             'Ingresá la contraseña de administrador:'
         );
 
-
     if (password === null) {
         return false;
     }
-
 
     if (password === '') {
 
@@ -66,12 +63,10 @@ async function autenticar() {
         return false;
     }
 
-
     mostrarCargando(
         true,
         'Autenticando...'
     );
-
 
     try {
 
@@ -79,7 +74,6 @@ async function autenticar() {
             await autenticarAdministrador(
                 password
             );
-
 
         if (!resultado.success) {
 
@@ -91,9 +85,7 @@ async function autenticar() {
             return false;
         }
 
-
         return true;
-
 
     } catch (error) {
 
@@ -103,7 +95,6 @@ async function autenticar() {
         );
 
         return false;
-
 
     } finally {
 
@@ -121,11 +112,9 @@ async function verificarAutenticacion() {
     const autenticado =
         await administradorAutenticado();
 
-
     if (autenticado) {
         return true;
     }
-
 
     return await autenticar();
 }
@@ -142,11 +131,9 @@ async function cargarInventario() {
         'Cargando inventario desde GitHub...'
     );
 
-
     try {
 
         await cargarProductos();
-
 
         renderizarTabla(
             obtenerProductos(),
@@ -154,14 +141,12 @@ async function cargarInventario() {
             iniciarEliminacion
         );
 
-
     } catch (error) {
 
         const mensaje =
             String(
                 error.message || ''
             ).toLowerCase();
-
 
         if (
             mensaje.includes('401') ||
@@ -171,10 +156,8 @@ async function cargarInventario() {
 
             await cerrarSesion();
 
-
             const autenticado =
                 await autenticar();
-
 
             if (autenticado) {
 
@@ -186,16 +169,13 @@ async function cargarInventario() {
                     '<h2>Acceso denegado.</h2>';
             }
 
-
             return;
         }
-
 
         alert(
             'Error al conectar con la base de datos: ' +
             error.message
         );
-
 
     } finally {
 
@@ -213,10 +193,10 @@ function obtenerDatosFormulario() {
     return {
 
         sku:
-            document.getElementById('sku').value,
+            document.getElementById('sku').value.trim(),
 
         nombre:
-            document.getElementById('nombre').value,
+            document.getElementById('nombre').value.trim(),
 
         precioCosto:
             document.getElementById(
@@ -236,7 +216,7 @@ function obtenerDatosFormulario() {
         descripcion:
             document.getElementById(
                 'descripcion'
-            ).value,
+            ).value.trim(),
 
         categoria:
             document.getElementById(
@@ -287,6 +267,176 @@ function obtenerDatosFormulario() {
 
 
 /* ------------------------------------------
+   VALIDAR DATOS
+------------------------------------------ */
+
+function validarDatosFormulario(
+    datos,
+    esNuevo
+) {
+
+    if (!datos.nombre) {
+
+        throw new Error(
+            'El nombre del producto es obligatorio.'
+        );
+    }
+
+    if (
+        datos.nombre.length < 2
+    ) {
+
+        throw new Error(
+            'El nombre del producto es demasiado corto.'
+        );
+    }
+
+    const precio =
+        Number(datos.precio);
+
+    if (
+        datos.precio === '' ||
+        !Number.isFinite(precio) ||
+        precio < 0
+    ) {
+
+        throw new Error(
+            'El precio de venta debe ser un número válido mayor o igual a 0.'
+        );
+    }
+
+    if (
+        datos.precioCosto !== ''
+    ) {
+
+        const precioCosto =
+            Number(datos.precioCosto);
+
+        if (
+            !Number.isFinite(precioCosto) ||
+            precioCosto < 0
+        ) {
+
+            throw new Error(
+                'El precio de costo debe ser un número válido mayor o igual a 0.'
+            );
+        }
+    }
+
+    if (
+        datos.precioAnterior !== ''
+    ) {
+
+        const precioAnterior =
+            Number(datos.precioAnterior);
+
+        if (
+            !Number.isFinite(precioAnterior) ||
+            precioAnterior < 0
+        ) {
+
+            throw new Error(
+                'El precio anterior debe ser un número válido mayor o igual a 0.'
+            );
+        }
+    }
+
+    if (
+        datos.stock !== ''
+    ) {
+
+        const stock =
+            Number(datos.stock);
+
+        if (
+            !Number.isInteger(stock) ||
+            stock < 0
+        ) {
+
+            throw new Error(
+                'El stock debe ser un número entero mayor o igual a 0.'
+            );
+        }
+    }
+
+    if (
+        datos.orden !== ''
+    ) {
+
+        const orden =
+            Number(datos.orden);
+
+        if (
+            !Number.isInteger(orden) ||
+            orden < 0
+        ) {
+
+            throw new Error(
+                'El orden debe ser un número entero mayor o igual a 0.'
+            );
+        }
+    }
+
+    if (esNuevo) {
+
+        const archivos =
+            Array.from(
+                fileInput.files
+            );
+
+        if (
+            archivos.length === 0
+        ) {
+
+            throw new Error(
+                'Debés seleccionar al menos una imagen.'
+            );
+        }
+
+        validarArchivosImagen(
+            archivos
+        );
+    }
+}
+
+
+/* ------------------------------------------
+   VALIDAR IMÁGENES
+------------------------------------------ */
+
+function validarArchivosImagen(
+    archivos
+) {
+
+    for (
+        const archivo of archivos
+    ) {
+
+        if (
+            !archivo.type ||
+            !archivo.type.startsWith(
+                'image/'
+            )
+        ) {
+
+            throw new Error(
+                `"${archivo.name}" no es un archivo de imagen válido.`
+            );
+        }
+
+        if (
+            archivo.size === 0
+        ) {
+
+            throw new Error(
+                `"${archivo.name}" está vacío.`
+            );
+        }
+    }
+}
+
+
+/* ------------------------------------------
    GUARDAR PRODUCTO
 ------------------------------------------ */
 
@@ -296,15 +446,12 @@ formulario.addEventListener(
 
         event.preventDefault();
 
-
         const autenticado =
             await verificarAutenticacion();
-
 
         if (!autenticado) {
             return;
         }
-
 
         const index =
             parseInt(
@@ -314,48 +461,69 @@ formulario.addEventListener(
                 10
             );
 
-
         const datos =
             obtenerDatosFormulario();
-
 
         const archivos =
             Array.from(
                 fileInput.files
             );
 
+        try {
+
+            validarDatosFormulario(
+                datos,
+                index === -1
+            );
+
+        } catch (error) {
+
+            alert(
+                error.message
+            );
+
+            return;
+        }
+
+        if (
+            index !== -1 &&
+            archivos.length > 0
+        ) {
+
+            try {
+
+                validarArchivosImagen(
+                    archivos
+                );
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+                return;
+            }
+        }
 
         mostrarCargando(
             true,
             'Guardando producto...'
         );
 
-
         try {
 
             if (index === -1) {
-
-                if (
-                    archivos.length === 0
-                ) {
-
-                    throw new Error(
-                        'Debes seleccionar al menos una imagen.'
-                    );
-                }
-
 
                 mostrarCargando(
                     true,
                     'Optimizando y subiendo imágenes...'
                 );
 
-
                 await crearProducto(
                     datos,
                     archivos
                 );
-
 
             } else {
 
@@ -366,7 +534,6 @@ formulario.addEventListener(
                         : 'Guardando cambios...'
                 );
 
-
                 await editarProducto(
                     index,
                     datos,
@@ -374,16 +541,13 @@ formulario.addEventListener(
                 );
             }
 
-
             alert(
                 '¡Cambios guardados con éxito!'
             );
 
-
             cancelarEdicion();
 
             await cargarInventario();
-
 
         } catch (error) {
 
@@ -392,11 +556,9 @@ formulario.addEventListener(
                 error.message
             );
 
-
             await manejarErrorSesion(
                 error
             );
-
 
         } finally {
 
@@ -419,13 +581,28 @@ fileInput.addEventListener(
                 fileInput.files
             );
 
-
         if (
             archivos.length === 0
         ) {
             return;
         }
 
+        try {
+
+            validarArchivosImagen(
+                archivos
+            );
+
+        } catch (error) {
+
+            alert(
+                error.message
+            );
+
+            fileInput.value = '';
+
+            return;
+        }
 
         const index =
             parseInt(
@@ -434,7 +611,6 @@ fileInput.addEventListener(
                 ).value,
                 10
             );
-
 
         if (index === -1) {
 
@@ -445,20 +621,16 @@ fileInput.addEventListener(
             return;
         }
 
-
         const producto =
             obtenerProductos()[index];
-
 
         if (!producto) {
             return;
         }
 
-
         renderizarImagenesFormulario(
             producto
         );
-
 
         mostrarPrevisualizacionArchivos(
             archivos,
@@ -481,22 +653,11 @@ function mostrarPrevisualizacionArchivos(
         preview.innerHTML = '';
     }
 
-
     archivos.forEach(
         archivo => {
 
-            if (
-                !archivo.type.startsWith(
-                    'image/'
-                )
-            ) {
-                return;
-            }
-
-
             const reader =
                 new FileReader();
-
 
             reader.onload =
                 event => {
@@ -506,46 +667,36 @@ function mostrarPrevisualizacionArchivos(
                             'div'
                         );
 
-
                     item.className =
                         'imagen-preview-item';
-
 
                     const img =
                         document.createElement(
                             'img'
                         );
 
-
                     img.src =
                         event.target.result;
 
-
                     img.alt =
                         archivo.name;
-
 
                     const label =
                         document.createElement(
                             'p'
                         );
 
-
                     label.className =
                         'imagen-label';
-
 
                     label.textContent =
                         archivo.name;
 
-
                     item.appendChild(img);
-
                     item.appendChild(label);
 
                     preview.appendChild(item);
                 };
-
 
             reader.readAsDataURL(
                 archivo
@@ -564,26 +715,21 @@ async function iniciarEdicion(index) {
     const autenticado =
         await verificarAutenticacion();
 
-
     if (!autenticado) {
         return;
     }
 
-
     const producto =
         obtenerProductos()[index];
-
 
     if (!producto) {
         return;
     }
 
-
     cargarFormulario(
         producto,
         index
     );
-
 
     window.scrollTo({
         top: 0,
@@ -601,48 +747,39 @@ async function iniciarEliminacion(index) {
     const autenticado =
         await verificarAutenticacion();
 
-
     if (!autenticado) {
         return;
     }
 
-
     const producto =
         obtenerProductos()[index];
-
 
     if (!producto) {
         return;
     }
 
-
     if (
         !confirm(
-            `¿Deseas eliminar "${producto.nombre}"?`
+            `¿Deseás eliminar "${producto.nombre}"?`
         )
     ) {
         return;
     }
-
 
     mostrarCargando(
         true,
         'Sincronizando eliminación...'
     );
 
-
     try {
 
         await eliminarProducto(index);
-
 
         alert(
             '¡Producto eliminado correctamente!'
         );
 
-
         await cargarInventario();
-
 
     } catch (error) {
 
@@ -651,11 +788,9 @@ async function iniciarEliminacion(index) {
             error.message
         );
 
-
         await manejarErrorSesion(
             error
         );
-
 
     } finally {
 
@@ -677,20 +812,16 @@ preview.addEventListener(
                 'button'
             );
 
-
         if (!boton) {
             return;
         }
 
-
         const autenticado =
             await verificarAutenticacion();
-
 
         if (!autenticado) {
             return;
         }
-
 
         const indexProducto =
             parseInt(
@@ -699,7 +830,6 @@ preview.addEventListener(
                 ).value,
                 10
             );
-
 
         if (
             Number.isNaN(
@@ -710,17 +840,14 @@ preview.addEventListener(
             return;
         }
 
-
         const producto =
             obtenerProductos()[
                 indexProducto
             ];
 
-
         if (!producto) {
             return;
         }
-
 
         let imagenes =
             Array.isArray(
@@ -735,13 +862,11 @@ preview.addEventListener(
                     }]
                     : [];
 
-
         const indexImagen =
             parseInt(
                 boton.dataset.imagenIndex,
                 10
             );
-
 
         if (
             Number.isNaN(indexImagen) ||
@@ -763,14 +888,12 @@ preview.addEventListener(
             const imagenPrincipal =
                 imagenes[indexImagen].url;
 
-
             await guardarOrdenImagenes(
                 indexProducto,
                 imagenes,
                 imagenPrincipal,
                 'Guardando imagen principal...'
             );
-
 
             return;
         }
@@ -790,7 +913,6 @@ preview.addEventListener(
                 return;
             }
 
-
             [
                 imagenes[indexImagen - 1],
                 imagenes[indexImagen]
@@ -799,11 +921,9 @@ preview.addEventListener(
                 imagenes[indexImagen - 1]
             ];
 
-
             actualizarOrdenLocal(
                 imagenes
             );
-
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -811,7 +931,6 @@ preview.addEventListener(
                 producto.imagenPrincipal,
                 'Reordenando imágenes...'
             );
-
 
             return;
         }
@@ -832,7 +951,6 @@ preview.addEventListener(
                 return;
             }
 
-
             [
                 imagenes[indexImagen],
                 imagenes[indexImagen + 1]
@@ -841,11 +959,9 @@ preview.addEventListener(
                 imagenes[indexImagen]
             ];
 
-
             actualizarOrdenLocal(
                 imagenes
             );
-
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -853,7 +969,6 @@ preview.addEventListener(
                 producto.imagenPrincipal,
                 'Reordenando imágenes...'
             );
-
 
             return;
         }
@@ -875,25 +990,20 @@ preview.addEventListener(
                 return;
             }
 
-
             const imagenEliminada =
                 imagenes[indexImagen];
-
 
             imagenes.splice(
                 indexImagen,
                 1
             );
 
-
             actualizarOrdenLocal(
                 imagenes
             );
 
-
             let imagenPrincipal =
                 producto.imagenPrincipal;
-
 
             if (
                 imagenPrincipal ===
@@ -904,7 +1014,6 @@ preview.addEventListener(
                     imagenes[0]?.url ||
                     '';
             }
-
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -951,13 +1060,11 @@ async function guardarOrdenImagenes(
         mensaje
     );
 
-
     try {
 
         actualizarOrdenLocal(
             imagenes
         );
-
 
         await actualizarImagenes(
             indexProducto,
@@ -965,24 +1072,20 @@ async function guardarOrdenImagenes(
             imagenPrincipal
         );
 
-
         const productoActualizado =
             obtenerProductos()[
                 indexProducto
             ];
 
-
         renderizarImagenesFormulario(
             productoActualizado
         );
-
 
         renderizarTabla(
             obtenerProductos(),
             iniciarEdicion,
             iniciarEliminacion
         );
-
 
     } catch (error) {
 
@@ -991,11 +1094,9 @@ async function guardarOrdenImagenes(
             error.message
         );
 
-
         await manejarErrorSesion(
             error
         );
-
 
     } finally {
 
@@ -1017,7 +1118,6 @@ async function manejarErrorSesion(
             error?.message || ''
         ).toLowerCase();
 
-
     if (
         mensaje.includes('401') ||
         mensaje.includes('sesión') ||
@@ -1026,10 +1126,8 @@ async function manejarErrorSesion(
 
         await cerrarSesion();
 
-
         const autenticado =
             await autenticar();
-
 
         if (autenticado) {
 
@@ -1043,7 +1141,6 @@ async function manejarErrorSesion(
 
         return true;
     }
-
 
     return false;
 }
@@ -1070,7 +1167,6 @@ async function iniciar() {
     const autenticado =
         await autenticar();
 
-
     if (!autenticado) {
 
         document.body.innerHTML =
@@ -1078,7 +1174,6 @@ async function iniciar() {
 
         return;
     }
-
 
     await cargarInventario();
 }
