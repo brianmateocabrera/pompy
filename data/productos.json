@@ -231,10 +231,10 @@
     "stock": 0,
     "talles": [],
     "colores": [],
-    "activo": false,
+    "activo": true,
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-24T08:07:20.161Z"
+    "fechaActualizacion": "2026-08-24T08:08:14.172Z"
   }
 ]
