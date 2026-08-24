@@ -204,8 +204,8 @@
   {
     "id": "prod-mt6wq4kw-1fapxv",
     "sku": "",
-    "slug": "producto1",
-    "nombre": "Producto1",
+    "slug": "durazno",
+    "nombre": "Durazno",
     "descripcion": "Productos de prueba",
     "precioCosto": 0,
     "precio": 100,
@@ -223,16 +223,18 @@
       }
     ],
     "imagenPrincipal": "/imagenes/1787557072584-1000536552.webp",
-    "categoria": [],
+    "categoria": [
+      "Neón"
+    ],
     "tags": [],
     "badges": [],
     "stock": 0,
     "talles": [],
     "colores": [],
-    "activo": true,
+    "activo": false,
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-24T08:06:41.946Z"
+    "fechaActualizacion": "2026-08-24T08:07:20.161Z"
   }
 ]
