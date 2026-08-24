@@ -55,17 +55,27 @@ export async function llamarAPI(
 
     if (!res.ok) {
 
-        throw new Error(
-            data.error ||
-            data.message ||
-            `Error HTTP ${res.status}`
-        );
+        const error =
+            new Error(
+                data.error ||
+                data.message ||
+                `Error HTTP ${res.status}`
+            );
+
+
+        error.status =
+            res.status;
+
+        error.conflict =
+            data.conflict === true;
+
+
+        throw error;
     }
 
 
     return data;
 }
-
 
 /* ------------------------------------------
    AUTENTICAR ADMINISTRADOR
