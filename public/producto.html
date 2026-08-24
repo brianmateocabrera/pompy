@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Producto</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 22px 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        main {
+            width: min(1100px, calc(100% - 30px));
+            margin: 30px auto 50px;
+        }
+
+        .producto {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .imagen-principal-contenedor {
+            background: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .imagen-principal {
+            display: block;
+            width: 100%;
+            height: 520px;
+            object-fit: contain;
+            background: #eee;
+        }
+
+        .galeria {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        .miniatura {
+            width: 75px;
+            height: 75px;
+            flex: 0 0 75px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .miniatura.activa {
+            border-color: #0070f3;
+        }
+
+        .informacion h1 {
+            margin: 0 0 15px;
+            font-size: 30px;
+        }
+
+        .descripcion {
+            color: #666;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .precio {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0070f3;
+        }
+
+        .precio-anterior {
+            margin-left: 10px;
+            color: #888;
+            font-size: 17px;
+            text-decoration: line-through;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            padding: 6px 9px;
+            border-radius: 5px;
+            background: #111;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.destacado {
+            background: #d18b00;
+        }
+
+        .meta {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .meta p {
+            margin: 9px 0;
+            color: #555;
+        }
+
+        .meta strong {
+            color: #222;
+        }
+
+        .error {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .error a {
+            color: #0070f3;
+        }
+
+        @media (max-width: 750px) {
+
+            .producto {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+
+            .imagen-principal {
+                height: 380px;
+            }
+
+            .informacion h1 {
+                font-size: 25px;
+            }
+
+            .precio {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            main {
+                width: calc(100% - 20px);
+                margin-top: 15px;
+            }
+
+            .imagen-principal {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="/">
+            ← Volver al catálogo
+        </a>
+    </header>
+
+    <main id="contenido">
+        <div class="error">
+            Cargando producto...
+        </div>
+    </main>
+
+    <script>
+
+        const API_URL = '/api/crud';
+        const PATH_JSON = 'data/productos.json';
+
+
+        function escaparHTML(texto) {
+
+            return String(texto ?? '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+
+        function formatearPrecio(valor) {
+
+            return new Intl.NumberFormat(
+                'es-AR',
+                {
+                    style: 'currency',
+                    currency: 'ARS'
+                }
+            ).format(Number(valor) || 0);
+        }
+
+
+        function obtenerSlug() {
+
+            const parametros =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return parametros.get('slug');
+        }
+
+
+        async function cargarProducto() {
+
+            const contenido =
+                document.getElementById(
+                    'contenido'
+                );
+
+
+            const slug =
+                obtenerSlug();
+
+
+            if (!slug) {
+
+                mostrarError(
+                    'No se indicó ningún producto.'
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: 'POST',
+
+                            headers: {
+                                'Content-Type':
+                                    'application/json'
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    action: 'GET',
+                                    path: PATH_JSON
+                                })
+                        }
+                    );
+
+
+                const json =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !json.success ||
+                    !Array.isArray(json.data)
+                ) {
+
+                    throw new Error(
+                        json.error ||
+                        'No se pudo cargar el catálogo.'
+                    );
+                }
+
+
+                const producto =
+                    json.data.find(
+                        item =>
+                            item.slug === slug &&
+                            item.activo !== false
+                    );
+
+
+                if (!producto) {
+
+                    mostrarError(
+                        'El producto no existe o no está disponible.'
+                    );
+
+                    return;
+                }
+
+
+                document.title =
+                    producto.nombre ||
+                    'Producto';
+
+
+                renderizarProducto(
+                    producto
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Error cargando producto:',
+                    error
+                );
+
+
+                mostrarError(
+                    'Error al cargar el producto.'
+                );
+            }
+        }
+
+
+        function renderizarProducto(
+            producto
+        ) {
+
+            const nombre =
+                escaparHTML(
+                    producto.nombre
+                );
+
+
+            const descripcion =
+                escaparHTML(
+                    producto.descripcion ||
+                    'Sin descripción disponible.'
+                );
+
+
+            const imagenes =
+                Array.isArray(
+                    producto.imagenes
+                )
+                    ? producto.imagenes.filter(
+                        imagen =>
+                            imagen &&
+                            imagen.url
+                    )
+                    : [];
+
+
+            const imagenPrincipal =
+                producto.imagenPrincipal ||
+                imagenes[0]?.url ||
+                producto.imagen ||
+                '/imagenes/no-image.webp';
+
+
+            const stock =
+                Number(producto.stock) || 0;
+
+
+            const precio =
+                formatearPrecio(
+                    producto.precio
+                );
+
+
+            const tienePrecioAnterior =
+                producto.precioAnterior !== null &&
+                producto.precioAnterior !== undefined &&
+                producto.precioAnterior !== '' &&
+                Number(producto.precioAnterior) >
+                    Number(producto.precio);
+
+
+            const precioAnterior =
+                tienePrecioAnterior
+                    ? `
+                        <span class="precio-anterior">
+                            ${formatearPrecio(
+                                producto.precioAnterior
+                            )}
+                        </span>
+                    `
+                    : '';
+
+
+            const badges = [
+                ...(producto.destacado
+                    ? ['Destacado']
+                    : []),
+                ...(Array.isArray(producto.badges)
+                    ? producto.badges
+                    : [])
+            ];
+
+
+            const badgesHTML =
+                badges.length > 0
+                    ? `
+                        <div class="badges">
+                            ${badges
+                                .map(
+                                    badge => `
+                                        <span
+                                            class="badge ${
+                                                badge ===
+                                                'Destacado'
+                                                    ? 'destacado'
+                                                    : ''
+                                            }"
+                                        >
+                                            ${escaparHTML(
+                                                badge
+                                            )}
+                                        </span>
+                                    `
+                                )
+                                .join('')}
+                        </div>
+                    `
+                    : '';
+
+
+            const categoria =
+                Array.isArray(
+                    producto.categoria
+                )
+                    ? producto.categoria.join(', ')
+                    : '';
+
+
+            const tags =
+                Array.isArray(
+                    producto.tags
+                )
+                    ? producto.tags.join(', ')
+                    : '';
+
+
+            const talles =
+                Array.isArray(
+                    producto.talles
+                )
+                    ? producto.talles.join(', ')
+                    : '';
+
+
+            const colores =
+                Array.isArray(
+                    producto.colores
+                )
+                    ? producto.colores.join(', ')
+                    : '';
+
+
+            const meta = `
+
+                <div class="meta">
+
+                    <p>
+                        <strong>Stock:</strong>
+                        ${
+                            stock > 0
+                                ? stock
+                                : 'Sin stock'
+                        }
+                    </p>
+
+                    ${
+                        categoria
+                            ? `
+                                <p>
+                                    <strong>Categoría:</strong>
+                                    ${escaparHTML(
+                                        categoria
+                                    )}
+                                </p>
+                            `
+                            : ''
+                    }
+
+                    ${
+                        talles
+                            ? `
+                                <p>
+                                    <strong>Talles:</strong>
+                                    ${escaparHTML(
+                                        talles
+                                    )}
+                                </p>
+                            `
+                            : ''
+                    }
+
+                    ${
+                        colores
+                            ? `
+                                <p>
+                                    <strong>Colores:</strong>
+                                    ${escaparHTML(
+                                        colores
+                                    )}
+                                </p>
+                            `
+                            : ''
+                    }
+
+                    ${
+                        tags
+                            ? `
+                                <p>
+                                    <strong>Tags:</strong>
+                                    ${escaparHTML(
+                                        tags
+                                    )}
+                                </p>
+                            `
+                            : ''
+                    }
+
+                </div>
+            `;
+
+
+            const galeriaHTML =
+                imagenes.length > 0
+                    ? `
+                        <div class="galeria">
+
+                            ${imagenes
+                                .map(
+                                    (imagen, index) => `
+                                        <img
+                                            src="${escaparHTML(
+                                                imagen.url
+                                            )}"
+                                            alt="${escaparHTML(
+                                                imagen.alt ||
+                                                producto.nombre
+                                            )}"
+                                            class="miniatura ${
+                                                imagen.url ===
+                                                imagenPrincipal
+                                                    ? 'activa'
+                                                    : ''
+                                            }"
+                                            data-url="${escaparHTML(
+                                                imagen.url
+                                            )}"
+                                            data-index="${index}"
+                                        >
+                                    `
+                                )
+                                .join('')}
+
+                        </div>
+                    `
+                    : '';
+
+
+            document.getElementById(
+                'contenido'
+            ).innerHTML = `
+
+                <article class="producto">
+
+                    <section>
+
+                        <div
+                            class="imagen-principal-contenedor"
+                        >
+                            <img
+                                id="imagenPrincipal"
+                                src="${escaparHTML(
+                                    imagenPrincipal
+                                )}"
+                                class="imagen-principal"
+                                alt="${nombre}"
+                                onerror="
+                                    this.src='/imagenes/no-image.webp'
+                                "
+                            >
+                        </div>
+
+                        ${galeriaHTML}
+
+                    </section>
+
+
+                    <section class="informacion">
+
+                        ${badgesHTML}
+
+                        <h1>
+                            ${nombre}
+                        </h1>
+
+                        <div>
+                            <span class="precio">
+                                ${precio}
+                            </span>
+
+                            ${precioAnterior}
+                        </div>
+
+                        <p class="descripcion">
+                            ${descripcion}
+                        </p>
+
+                        ${meta}
+
+                    </section>
+
+                </article>
+            `;
+
+
+            activarGaleria();
+        }
+
+
+        function activarGaleria() {
+
+            const imagenPrincipal =
+                document.getElementById(
+                    'imagenPrincipal'
+                );
+
+
+            document
+                .querySelectorAll(
+                    '.miniatura'
+                )
+                .forEach(
+                    miniatura => {
+
+                        miniatura.addEventListener(
+                            'click',
+                            () => {
+
+                                imagenPrincipal.src =
+                                    miniatura.dataset.url;
+
+
+                                document
+                                    .querySelectorAll(
+                                        '.miniatura'
+                                    )
+                                    .forEach(
+                                        elemento =>
+                                            elemento.classList
+                                                .remove(
+                                                    'activa'
+                                                )
+                                    );
+
+
+                                miniatura.classList.add(
+                                    'activa'
+                                );
+                            }
+                        );
+                    }
+                );
+        }
+
+
+        function mostrarError(
+            mensaje
+        ) {
+
+            document.getElementById(
+                'contenido'
+            ).innerHTML = `
+
+                <div class="error">
+
+                    <h2>
+                        ${escaparHTML(mensaje)}
+                    </h2>
+
+                    <p>
+                        <a href="/">
+                            Volver al catálogo
+                        </a>
+                    </p>
+
+                </div>
+            `;
+        }
+
+
+        cargarProducto();
+
+    </script>
+
+</body>
+</html>
