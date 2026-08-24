@@ -84,7 +84,7 @@
   },
   {
     "id": "prod-003",
-    "sku": "",
+    "sku": "SEX-001",
     "slug": "mini-wand-vibrator",
     "nombre": "MINI WAND VIBRATOR",
     "descripcion": "Juguete erotico para compartir con tu pareja.",
@@ -119,7 +119,7 @@
     "destacado": false,
     "orden": 2,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-24T05:09:49.003Z"
+    "fechaActualizacion": "2026-08-24T07:24:43.999Z"
   },
   {
     "id": "prod-mt6rxamq-y77dgl",
