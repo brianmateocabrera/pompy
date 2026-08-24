@@ -1,7 +1,7 @@
 [
   {
     "id": "prod-001",
-    "sku": "",
+    "sku": "LEN-001",
     "slug": "medias-soquete-pack-x3",
     "nombre": "MEDIAS SOQUETE PACK X3",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
@@ -38,10 +38,10 @@
       "Negro"
     ],
     "activo": true,
-    "destacado": true,
+    "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-24T07:21:46.728Z"
+    "fechaActualizacion": "2026-08-24T07:24:14.554Z"
   },
   {
     "id": "prod-002",
