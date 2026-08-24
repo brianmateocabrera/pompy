@@ -236,5 +236,40 @@
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
     "fechaActualizacion": "2026-08-24T08:08:14.172Z"
+  },
+  {
+    "id": "prod-mt76709g-q2q6qh",
+    "sku": "",
+    "slug": "massage-stick",
+    "nombre": "Massage Stick",
+    "descripcion": "Silicona hipoalergénica. Vibración potente y silencioso.",
+    "precioCosto": 0,
+    "precio": 35000,
+    "precioAnterior": 42000,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787571963880-1000545154.webp",
+        "alt": "Massage Stick",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787571963880-1000545154.webp",
+    "categoria": [
+      "Sex-shop",
+      "Adultos",
+      "Vibrador"
+    ],
+    "tags": [],
+    "badges": [],
+    "stock": 3,
+    "talles": [],
+    "colores": [
+      "Rojo"
+    ],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-24T11:46:05.713Z",
+    "fechaActualizacion": "2026-08-24T11:46:05.713Z"
   }
 ]
