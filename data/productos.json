@@ -203,7 +203,7 @@
   },
   {
     "id": "prod-mt6wq4kw-1fapxv",
-    "sku": "Prod-020",
+    "sku": "",
     "slug": "producto1",
     "nombre": "Producto1",
     "descripcion": "Productos de prueba",
@@ -215,6 +215,11 @@
         "url": "/imagenes/1787556060255-1000536641.webp",
         "alt": "Producto1",
         "orden": 0
+      },
+      {
+        "url": "/imagenes/1787557072584-1000536552.webp",
+        "alt": "Producto1",
+        "orden": 1
       }
     ],
     "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
@@ -228,6 +233,6 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-24T07:21:01.616Z"
+    "fechaActualizacion": "2026-08-24T07:37:54.083Z"
   }
 ]
