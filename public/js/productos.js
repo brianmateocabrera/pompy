@@ -201,6 +201,137 @@ async function guardarCambiosJSON(
     };
 }
 
+/* ------------------------------------------
+   VALIDACIÓN
+------------------------------------------ */
+
+function validarProducto(datos, indexActual = -1) {
+
+    const nombre =
+        String(datos.nombre || '').trim();
+
+    if (!nombre) {
+        throw new Error(
+            'El nombre del producto es obligatorio.'
+        );
+    }
+
+    if (nombre.length < 2) {
+        throw new Error(
+            'El nombre del producto debe tener al menos 2 caracteres.'
+        );
+    }
+
+
+    const precio =
+        Number(datos.precio);
+
+    if (
+        !Number.isFinite(precio) ||
+        precio < 0
+    ) {
+        throw new Error(
+            'El precio de venta no es válido.'
+        );
+    }
+
+
+    if (datos.precioCosto !== '' &&
+        datos.precioCosto !== undefined &&
+        datos.precioCosto !== null) {
+
+        const precioCosto =
+            Number(datos.precioCosto);
+
+        if (
+            !Number.isFinite(precioCosto) ||
+            precioCosto < 0
+        ) {
+            throw new Error(
+                'El precio de costo no es válido.'
+            );
+        }
+    }
+
+
+    if (datos.precioAnterior !== '' &&
+        datos.precioAnterior !== undefined &&
+        datos.precioAnterior !== null) {
+
+        const precioAnterior =
+            Number(datos.precioAnterior);
+
+        if (
+            !Number.isFinite(precioAnterior) ||
+            precioAnterior < 0
+        ) {
+            throw new Error(
+                'El precio anterior no es válido.'
+            );
+        }
+    }
+
+
+    if (datos.stock !== '' &&
+        datos.stock !== undefined &&
+        datos.stock !== null) {
+
+        const stock =
+            Number(datos.stock);
+
+        if (
+            !Number.isInteger(stock) ||
+            stock < 0
+        ) {
+            throw new Error(
+                'El stock debe ser un número entero mayor o igual a 0.'
+            );
+        }
+    }
+
+
+    if (datos.orden !== '' &&
+        datos.orden !== undefined &&
+        datos.orden !== null) {
+
+        const orden =
+            Number(datos.orden);
+
+        if (
+            !Number.isInteger(orden) ||
+            orden < 0
+        ) {
+            throw new Error(
+                'El orden debe ser un número entero mayor o igual a 0.'
+            );
+        }
+    }
+
+
+    const sku =
+        String(datos.sku || '')
+            .trim()
+            .toLowerCase();
+
+
+    if (sku) {
+
+        const duplicado =
+            listaProductos.some(
+                (producto, index) =>
+                    index !== indexActual &&
+                    String(producto.sku || '')
+                        .trim()
+                        .toLowerCase() === sku
+            );
+
+        if (duplicado) {
+            throw new Error(
+                `El SKU "${datos.sku}" ya está asignado a otro producto.`
+            );
+        }
+    }
+}
 
 /* ------------------------------------------
    NORMALIZAR PRODUCTO
@@ -327,6 +458,7 @@ export async function crearProducto(
     datos,
     archivosImagen
 ) {
+        validarProducto(datos);
 
     if (
         !archivosImagen ||
@@ -414,6 +546,7 @@ export async function editarProducto(
         );
     }
 
+        validarProducto(datos, index);
 
     const productoAnterior =
         listaProductos[index];
