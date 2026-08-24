@@ -18,9 +18,9 @@ import {
     renderizarTabla,
     cargarFormulario,
     renderizarImagenesFormulario,
-    cancelarEdicion
+    cancelarEdicion,
+    obtenerListaFormulario
 } from './ui.js';
-
 
 const formulario =
     document.getElementById('prodForm');
@@ -219,20 +219,20 @@ function obtenerDatosFormulario() {
             ).value.trim(),
 
         categoria:
-            document.getElementById(
-                'categoria'
-            ).value,
+    obtenerListaFormulario(
+        'categoria'
+    ),
 
-        tags:
-            document.getElementById(
-                'tags'
-            ).value,
+tags:
+    obtenerListaFormulario(
+        'tags'
+    ),
 
-        badges:
-            document.getElementById(
-                'badges'
-            ).value,
-
+badges:
+    obtenerListaFormulario(
+        'badges'
+    ),
+        
         stock:
             document.getElementById(
                 'stock'
