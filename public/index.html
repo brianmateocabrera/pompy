@@ -306,6 +306,15 @@
                 height: 240px;
             }
         }
+
+        .card {
+    cursor: pointer;
+}
+
+.card:focus {
+    outline: 2px solid #0070f3;
+    outline-offset: 2px;
+    }
     </style>
 </head>
 
@@ -771,6 +780,7 @@
 
 
             activarGalerias();
+            activarTarjetas();
         }
 
 
@@ -947,7 +957,12 @@
 
 
             return `
-                <article class="card">
+    <article
+        class="card"
+        data-slug="${escaparHTML(producto.slug || '')}"
+        role="link"
+        tabindex="0"
+    >
 
                     <div class="imagen-contenedor">
 
@@ -1007,7 +1022,65 @@
             `;
         }
 
+        /* ------------------------------------------
+           TARJETAS 
+        ------------------------------------------ */
+        
+function activarTarjetas() {
 
+    document
+        .querySelectorAll('.card[data-slug]')
+        .forEach(card => {
+
+            const abrir =
+                () => {
+
+                    const slug =
+                        card.dataset.slug;
+
+                    if (!slug) {
+                        return;
+                    }
+
+                    window.location.href =
+                        `/producto.html?slug=${encodeURIComponent(slug)}`;
+                };
+
+
+            card.addEventListener(
+                'click',
+                event => {
+
+                    if (
+                        event.target.closest(
+                            '.galeria-mini'
+                        )
+                    ) {
+                        return;
+                    }
+
+                    abrir();
+                }
+            );
+
+
+            card.addEventListener(
+                'keydown',
+                event => {
+
+                    if (
+                        event.key === 'Enter' ||
+                        event.key === ' '
+                    ) {
+
+                        event.preventDefault();
+
+                        abrir();
+                    }
+                }
+            );
+        });
+}
         /* ------------------------------------------
            GALERÍA
         ------------------------------------------ */
