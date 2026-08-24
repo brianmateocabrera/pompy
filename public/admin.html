@@ -84,23 +84,103 @@
             placeholder="Descripción del producto"
         ></textarea>
 
+        <div class="campo-lista">
+
+    <label for="categoria">
+        Categorías
+    </label>
+
+    <div class="lista-input">
+
         <input
             type="text"
             id="categoria"
-            placeholder="Categorías separadas por coma"
+            placeholder="Escribí una categoría"
+            autocomplete="off"
         >
+
+        <button
+            type="button"
+            class="btn-agregar-lista"
+            data-lista="categoria"
+        >
+            Agregar
+        </button>
+
+    </div>
+
+    <div
+        id="categoriaLista"
+        class="chips"
+    ></div>
+
+</div>
+
+
+<div class="campo-lista">
+
+    <label for="tags">
+        Tags
+    </label>
+
+    <div class="lista-input">
 
         <input
             type="text"
             id="tags"
-            placeholder="Tags separados por coma"
+            placeholder="Escribí un tag"
+            autocomplete="off"
         >
+
+        <button
+            type="button"
+            class="btn-agregar-lista"
+            data-lista="tags"
+        >
+            Agregar
+        </button>
+
+    </div>
+
+    <div
+        id="tagsLista"
+        class="chips"
+    ></div>
+
+</div>
+
+
+<div class="campo-lista">
+
+    <label for="badges">
+        Badges
+    </label>
+
+    <div class="lista-input">
 
         <input
             type="text"
             id="badges"
-            placeholder="Badges separados por coma"
+            placeholder="Ej.: 20%, Nuevo, Oferta"
+            autocomplete="off"
         >
+
+        <button
+            type="button"
+            class="btn-agregar-lista"
+            data-lista="badges"
+        >
+            Agregar
+        </button>
+
+    </div>
+
+    <div
+        id="badgesLista"
+        class="chips"
+    ></div>
+
+</div>
 
 
         <h3>Stock y variantes</h3>
