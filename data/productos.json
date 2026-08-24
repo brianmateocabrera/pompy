@@ -31,10 +31,10 @@
     "talles": [],
     "colores": [],
     "activo": true,
-    "destacado": false,
+    "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-23T03:55:42.257Z"
+    "fechaActualizacion": "2026-08-24T05:44:59.504Z"
   },
   {
     "id": "prod-002",
