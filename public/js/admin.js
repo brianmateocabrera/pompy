@@ -239,14 +239,14 @@ badges:
             ).value,
 
         talles:
-            document.getElementById(
-                'talles'
-            ).value,
+    obtenerListaFormulario(
+        'talles'
+    ),
 
-        colores:
-            document.getElementById(
-                'colores'
-            ).value,
+colores:
+    obtenerListaFormulario(
+        'colores'
+    ),
 
         activo:
             document.getElementById(
