@@ -313,7 +313,7 @@ function eliminarValorLista(
 }
 
 
-function obtenerListaFormulario(
+export function obtenerListaFormulario(
     tipo
 ) {
 
