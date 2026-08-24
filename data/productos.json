@@ -152,34 +152,5 @@
     "orden": 0,
     "fechaCreacion": "2026-08-24T05:06:37.968Z",
     "fechaActualizacion": "2026-08-24T05:08:16.785Z"
-  },
-  {
-    "id": "prod-mt6s357f-6fnuy4",
-    "sku": "",
-    "slug": "prueba",
-    "nombre": "Prueba",
-    "descripcion": "Prueba",
-    "precioCosto": 0,
-    "precio": 100,
-    "precioAnterior": 200,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787548269580-1000538961.webp",
-        "alt": "Prueba",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787548269580-1000538961.webp",
-    "categoria": [],
-    "tags": [],
-    "badges": [],
-    "stock": 1,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-24T05:11:10.875Z",
-    "fechaActualizacion": "2026-08-24T05:11:10.875Z"
   }
 ]
