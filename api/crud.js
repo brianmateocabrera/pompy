@@ -440,20 +440,37 @@ export default function handler(req, res) {
                             // ERROR GITHUB
                             // =================================
 
-                            return res
-                                .status(
-                                    response.statusCode
-                                )
-                                .json({
+                            if (
+    response.statusCode === 409
+) {
 
-                                    success:
-                                        false,
+    return res.status(409).json({
 
-                                    error:
-                                        parsedData.message ||
-                                        'Error en GitHub'
+        success: false,
 
-                                });
+        conflict: true,
+
+        error:
+            'El archivo fue modificado desde otro dispositivo.'
+
+    });
+}
+
+
+return res
+    .status(
+        response.statusCode
+    )
+    .json({
+
+        success:
+            false,
+
+        error:
+            parsedData.message ||
+            'Error en GitHub'
+
+    });
                         }
                     );
                 }
