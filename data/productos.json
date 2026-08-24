@@ -128,6 +128,11 @@
         "url": "/imagenes/1787547996918-1000544897.webp",
         "alt": "GEL LUBRICANTE LUXURIA",
         "orden": 0
+      },
+      {
+        "url": "/imagenes/1787548095190-1000543985.webp",
+        "alt": "GEL LUBRICANTE LUXURIA",
+        "orden": 1
       }
     ],
     "imagenPrincipal": "/imagenes/1787547996918-1000544897.webp",
@@ -137,7 +142,7 @@
     ],
     "tags": [],
     "badges": [
-      "20%"
+      "NUEVO"
     ],
     "stock": 5,
     "talles": [],
@@ -146,6 +151,6 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T05:06:37.968Z",
-    "fechaActualizacion": "2026-08-24T05:06:37.968Z"
+    "fechaActualizacion": "2026-08-24T05:08:16.785Z"
   }
 ]
