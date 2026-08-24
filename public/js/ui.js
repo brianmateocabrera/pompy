@@ -196,6 +196,256 @@ export function renderizarTabla(
         });
 }
 
+/* ------------------------------------------
+   LISTAS DEL FORMULARIO
+------------------------------------------ */
+
+const listasFormulario = {
+    categoria: [],
+    tags: [],
+    badges: []
+};
+
+
+function normalizarLista(
+    valores
+) {
+
+    if (!Array.isArray(valores)) {
+        return [];
+    }
+
+    return [
+        ...new Set(
+            valores
+                .map(valor =>
+                    String(valor || '').trim()
+                )
+                .filter(Boolean)
+        )
+    ];
+}
+
+
+function renderizarChips(
+    tipo
+) {
+
+    const contenedor =
+        document.getElementById(
+            `${tipo}Lista`
+        );
+
+    if (!contenedor) {
+        return;
+    }
+
+    const valores =
+        listasFormulario[tipo];
+
+    contenedor.innerHTML =
+        valores.map(
+            (valor, index) => `
+
+                <span class="chip">
+
+                    ${escaparHTML(valor)}
+
+                    <button
+                        type="button"
+                        data-lista="${tipo}"
+                        data-index="${index}"
+                        aria-label="Eliminar ${escaparHTML(valor)}"
+                    >
+                        ×
+                    </button>
+
+                </span>
+
+            `
+        ).join('');
+}
+
+
+function agregarValorLista(
+    tipo,
+    valor
+) {
+
+    const limpio =
+        String(valor || '').trim();
+
+    if (!limpio) {
+        return;
+    }
+
+    const existe =
+        listasFormulario[tipo]
+            .some(
+                item =>
+                    item.toLowerCase() ===
+                    limpio.toLowerCase()
+            );
+
+    if (existe) {
+        return;
+    }
+
+    listasFormulario[tipo].push(
+        limpio
+    );
+
+    renderizarChips(tipo);
+}
+
+
+function eliminarValorLista(
+    tipo,
+    index
+) {
+
+    listasFormulario[tipo].splice(
+        index,
+        1
+    );
+
+    renderizarChips(tipo);
+}
+
+
+function obtenerListaFormulario(
+    tipo
+) {
+
+    return [
+        ...listasFormulario[tipo]
+    ];
+}
+
+
+function cargarListaFormulario(
+    tipo,
+    valores
+) {
+
+    listasFormulario[tipo] =
+        normalizarLista(valores);
+
+    renderizarChips(tipo);
+}
+
+
+function limpiarListasFormulario() {
+
+    Object.keys(
+        listasFormulario
+    ).forEach(
+        tipo => {
+
+            listasFormulario[tipo] = [];
+
+            renderizarChips(tipo);
+        }
+    );
+}
+
+
+/* ------------------------------------------
+   EVENTOS DE LISTAS
+------------------------------------------ */
+
+document
+    .querySelectorAll('.btn-agregar-lista')
+    .forEach(
+        boton => {
+
+            boton.addEventListener(
+                'click',
+                () => {
+
+                    const tipo =
+                        boton.dataset.lista;
+
+                    const input =
+                        document.getElementById(
+                            tipo
+                        );
+
+                    if (!input) {
+                        return;
+                    }
+
+                    agregarValorLista(
+                        tipo,
+                        input.value
+                    );
+
+                    input.value = '';
+
+                    input.focus();
+                }
+            );
+        }
+    );
+
+
+Object.keys(
+    listasFormulario
+).forEach(
+    tipo => {
+
+        const input =
+            document.getElementById(
+                tipo
+            );
+
+        if (!input) {
+            return;
+        }
+
+        input.addEventListener(
+            'keydown',
+            event => {
+
+                if (
+                    event.key === 'Enter'
+                ) {
+
+                    event.preventDefault();
+
+                    document
+                        .querySelector(
+                            `.btn-agregar-lista[data-lista="${tipo}"]`
+                        )
+                        ?.click();
+                }
+            }
+        );
+    }
+);
+
+
+document.addEventListener(
+    'click',
+    event => {
+
+        const boton =
+            event.target.closest(
+                '.chip button'
+            );
+
+        if (!boton) {
+            return;
+        }
+
+        eliminarValorLista(
+            boton.dataset.lista,
+            Number(
+                boton.dataset.index
+            )
+        );
+    }
+);
 
 /* ------------------------------------------
    FORMULARIO
@@ -244,29 +494,22 @@ export function cargarFormulario(
         prod.descripcion || '';
 
 
-    document.getElementById(
-        'categoria'
-    ).value =
-        Array.isArray(prod.categoria)
-            ? prod.categoria.join(', ')
-            : '';
+    cargarListaFormulario(
+    'categoria',
+    prod.categoria
+);
 
 
-    document.getElementById(
-        'tags'
-    ).value =
-        Array.isArray(prod.tags)
-            ? prod.tags.join(', ')
-            : '';
+cargarListaFormulario(
+    'tags',
+    prod.tags
+);
 
 
-    document.getElementById(
-        'badges'
-    ).value =
-        Array.isArray(prod.badges)
-            ? prod.badges.join(', ')
-            : '';
-
+cargarListaFormulario(
+    'badges',
+    prod.badges
+);
 
     document.getElementById(
         'stock'
@@ -528,4 +771,6 @@ export function cancelarEdicion() {
     document.getElementById(
         'imagenFile'
     ).required = true;
+
+    limpiarListasFormulario();
 }
