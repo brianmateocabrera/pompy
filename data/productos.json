@@ -152,5 +152,46 @@
     "orden": 0,
     "fechaCreacion": "2026-08-24T05:06:37.968Z",
     "fechaActualizacion": "2026-08-24T05:08:16.785Z"
+  },
+  {
+    "id": "prod-mt6uubsz-k6ai48",
+    "sku": "",
+    "slug": "conjunto-lenceria-vaquita-sexy",
+    "nombre": "CONJUNTO LENCERÍA VAQUITA SEXY",
+    "descripcion": "Conjunto de lencería estampado animal print. Dos piezas más accesorios.",
+    "precioCosto": 0,
+    "precio": 25000,
+    "precioAnterior": 30000,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787552896923-1000544899.webp",
+        "alt": "CONJUNTO LENCERÍA VAQUITA SEXY",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787552896923-1000544899.webp",
+    "categoria": [
+      "Adultos",
+      "Lencería"
+    ],
+    "tags": [
+      "Vaquita"
+    ],
+    "badges": [],
+    "stock": 2,
+    "talles": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "colores": [
+      "Blanco y negro"
+    ],
+    "activo": true,
+    "destacado": true,
+    "orden": 0,
+    "fechaCreacion": "2026-08-24T06:28:18.370Z",
+    "fechaActualizacion": "2026-08-24T06:28:18.370Z"
   }
 ]
