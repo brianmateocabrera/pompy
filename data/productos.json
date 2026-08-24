@@ -70,10 +70,10 @@
     ],
     "colores": [],
     "activo": true,
-    "destacado": false,
+    "destacado": true,
     "orden": 1,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-23T16:52:23.095Z"
+    "fechaActualizacion": "2026-08-24T05:45:18.049Z"
   },
   {
     "id": "prod-003",
