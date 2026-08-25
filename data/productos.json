@@ -335,5 +335,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-25T09:11:28.861Z",
     "fechaActualizacion": "2026-08-25T09:44:43.063Z"
+  },
+  {
+    "id": "prod-mt8hxje2-0wps1j",
+    "sku": "SEX-004",
+    "slug": "vibrator",
+    "nombre": "VIBRATOR",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 24500,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787652143709-1000545178.webp",
+        "alt": "VIBRATOR",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787652143709-1000545178.webp",
+    "categoria": [
+      "Sex-shop"
+    ],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [
+      "Rosa",
+      "Negro"
+    ],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-25T10:02:25.514Z",
+    "fechaActualizacion": "2026-08-25T10:02:25.514Z"
   }
 ]
