@@ -250,7 +250,7 @@
   },
   {
     "id": "prod-mt76709g-q2q6qh",
-    "sku": "",
+    "sku": "SEX-003",
     "slug": "massage-stick",
     "nombre": "Massage Stick",
     "descripcion": "Silicona hipoalergénica. Vibración potente y silencioso.",
@@ -266,11 +266,13 @@
     ],
     "imagenPrincipal": "/imagenes/1787571963880-1000545154.webp",
     "categoria": [
-      "Sex-shop",
-      "Adultos",
-      "Vibrador"
+      "Sex-shop"
     ],
-    "tags": [],
+    "tags": [
+      "Vibrador",
+      "Consolador",
+      "Clítoris"
+    ],
     "badges": [],
     "stock": 3,
     "talles": [],
@@ -281,7 +283,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T11:46:05.713Z",
-    "fechaActualizacion": "2026-08-24T11:46:05.713Z"
+    "fechaActualizacion": "2026-08-25T09:31:26.282Z"
   },
   {
     "id": "prod-mt8g40v2-4yyte8",
