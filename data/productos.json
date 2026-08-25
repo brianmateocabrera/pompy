@@ -208,13 +208,13 @@
   },
   {
     "id": "prod-mt6wq4kw-1fapxv",
-    "sku": "",
-    "slug": "durazno-corazon",
-    "nombre": "Durazno/corazón",
+    "sku": "PRUEBA",
+    "slug": "tubos-de-neon",
+    "nombre": "Tubos de neón",
     "descripcion": "Productos de prueba",
     "precioCosto": 0,
-    "precio": 1000,
-    "precioAnterior": 2000,
+    "precio": 25000,
+    "precioAnterior": 29000,
     "imagenes": [
       {
         "url": "/imagenes/1787557072584-1000536552.webp",
@@ -233,20 +233,23 @@
       }
     ],
     "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
-    "categoria": [
-      "Neón",
-      "Fruta"
-    ],
+    "categoria": [],
     "tags": [],
     "badges": [],
     "stock": 0,
-    "talles": [],
-    "colores": [],
+    "talles": [
+      "Corazón",
+      "Durazno",
+      "Círculo"
+    ],
+    "colores": [
+      "Rojo"
+    ],
     "activo": true,
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T09:02:20.053Z"
+    "fechaActualizacion": "2026-08-25T09:42:44.588Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
