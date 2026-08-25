@@ -290,7 +290,7 @@
   },
   {
     "id": "prod-mt8g40v2-4yyte8",
-    "sku": "",
+    "sku": "LEN-004",
     "slug": "tanga-encaje-valentina-secret",
     "nombre": "TANGA ENCAJE VALENTINA SECRET",
     "descripcion": "Encaje floral traslúcido, super suave al tacto y cómodo para todo el día.",
@@ -329,6 +329,6 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-25T09:11:28.861Z",
-    "fechaActualizacion": "2026-08-25T09:11:28.861Z"
+    "fechaActualizacion": "2026-08-25T09:43:12.855Z"
   }
 ]
