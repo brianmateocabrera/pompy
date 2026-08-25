@@ -5,18 +5,6 @@ const PATH_JSON = 'data/productos.json';
 let shaActualJson = '';
 
 
-export function obtenerShaActual() {
-    return shaActualJson;
-}
-
-
-export function establecerShaActual(
-    sha
-) {
-    shaActualJson = sha || '';
-}
-
-
 export async function cargarProductosDesdeAPI() {
 
     const json =
@@ -74,6 +62,7 @@ export async function guardarProductos(
         if (json.success) {
 
             if (json.sha) {
+
                 shaActualJson =
                     json.sha;
             }
@@ -85,6 +74,7 @@ export async function guardarProductos(
 
 
         return {
+
             success: false,
 
             error:
@@ -101,6 +91,7 @@ export async function guardarProductos(
         ) {
 
             return {
+
                 success: false,
 
                 conflict: true,
@@ -112,6 +103,7 @@ export async function guardarProductos(
 
 
         return {
+
             success: false,
 
             error:
