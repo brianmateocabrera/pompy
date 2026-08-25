@@ -220,6 +220,11 @@
         "url": "/imagenes/1787556060255-1000536641.webp",
         "alt": "Producto1",
         "orden": 1
+      },
+      {
+        "url": "/imagenes/1787648538895-1000538961.webp",
+        "alt": "Durazno/corazón",
+        "orden": 2
       }
     ],
     "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
@@ -236,7 +241,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T09:01:37.648Z"
+    "fechaActualizacion": "2026-08-25T09:02:20.053Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
