@@ -1,32 +1,27 @@
-import { llamarAPI } from './api.js';
-import { optimizarImagen } from './imageOptimizer.js';
+import {
+    optimizarImagen
+} from './imageOptimizer.js';
 
-const PATH_JSON = 'data/productos.json';
+import {
+    cargarProductosDesdeAPI,
+    guardarProductos,
+    establecerShaActual
+} from './productos-persistencia.js';
 
-let shaActualJson = '';
+
 let listaProductos = [];
 
 
 export function obtenerProductos() {
+
     return listaProductos;
 }
 
 
 export async function cargarProductos() {
 
-    const json = await llamarAPI('GET', PATH_JSON);
-
-    if (!json.success) {
-        throw new Error(
-            json.error ||
-            'No se pudo cargar el inventario.'
-        );
-    }
-
-    shaActualJson = json.sha;
-    listaProductos = Array.isArray(json.data)
-        ? json.data
-        : [];
+    listaProductos =
+        await cargarProductosDesdeAPI();
 
     return listaProductos;
 }
@@ -52,13 +47,22 @@ function generarSlug(nombre) {
     return String(nombre || '')
         .toLowerCase()
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
+        .replace(
+            /[\u0300-\u036f]/g,
+            ''
+        )
+        .replace(
+            /[^a-z0-9]+/g,
+            '-'
+        )
+        .replace(
+            /^-+|-+$/g,
+            '');
 }
 
 
 function obtenerFechaActual() {
+
     return new Date().toISOString();
 }
 
@@ -71,7 +75,9 @@ function convertirLista(texto) {
 
     return String(texto)
         .split(',')
-        .map(item => item.trim())
+        .map(
+            item => item.trim()
+        )
         .filter(Boolean);
 }
 
@@ -80,24 +86,35 @@ function convertirLista(texto) {
    IMÁGENES
 ------------------------------------------ */
 
-async function subirImagen(dataUrl, nombreOriginal) {
+async function subirImagen(
+    dataUrl,
+    nombreOriginal
+) {
 
-    const partes = dataUrl.split(',');
+    const partes =
+        dataUrl.split(',');
+
 
     if (partes.length < 2) {
+
         throw new Error(
             'Formato de imagen inválido.'
         );
     }
 
-    const base64Puro = partes[1];
+
+    const base64Puro =
+        partes[1];
 
 
     const nombreLimpio =
         nombreOriginal
             .toLowerCase()
             .split('.')[0]
-            .replace(/[^a-z0-9]/gi, '_');
+            .replace(
+                /[^a-z0-9]/gi,
+                '_'
+            );
 
 
     const nombreArchivoWebP =
@@ -108,22 +125,32 @@ async function subirImagen(dataUrl, nombreOriginal) {
         `public/imagenes/${nombreArchivoWebP}`;
 
 
-    const json = await llamarAPI(
-        'PUT',
-        rutaImagen,
-        {
-            message:
-                `Subir imagen: ${nombreArchivoWebP}`,
+    const { llamarAPI } =
+        await import('./api.js');
 
-            content: base64Puro
-        }
-    );
+
+    const json =
+        await llamarAPI(
+            'PUT',
+            rutaImagen,
+            {
+                message:
+                    `Subir imagen: ${nombreArchivoWebP}`,
+
+                content:
+                    base64Puro
+            }
+        );
 
 
     if (!json.success) {
+
         throw new Error(
             'Error al guardar la imagen en GitHub: ' +
-            (json.error || 'Error desconocido.')
+            (
+                json.error ||
+                'Error desconocido.'
+            )
         );
     }
 
@@ -136,100 +163,32 @@ async function subirImagen(dataUrl, nombreOriginal) {
 
 
 /* ------------------------------------------
-   GUARDAR JSON
------------------------------------------- */
-
-async function guardarCambiosJSON(
-    mensajeCommit
-) {
-
-    try {
-
-        const json =
-            await llamarAPI(
-                'PUT',
-                PATH_JSON,
-                {
-                    message:
-                        mensajeCommit,
-
-                    content:
-                        JSON.stringify(
-                            listaProductos,
-                            null,
-                            2
-                        ),
-
-                    sha:
-                        shaActualJson ||
-                        undefined
-                }
-            );
-
-
-        if (json.success) {
-
-            if (json.sha) {
-                shaActualJson =
-                    json.sha;
-            }
-
-            return {
-                success: true
-            };
-        }
-
-
-        return {
-            success: false,
-            error:
-                json.error ||
-                'Error al actualizar el catálogo.'
-        };
-
-
-    } catch (error) {
-
-        if (
-            error.status === 409 ||
-            error.conflict === true
-        ) {
-
-            await cargarProductos();
-
-            return {
-                success: false,
-                conflict: true,
-                error:
-                    'El catálogo fue modificado desde otro dispositivo. Se recargaron los datos actuales.'
-            };
-        }
-
-
-        return {
-            success: false,
-            error:
-                error.message ||
-                'Error al actualizar el catálogo.'
-        };
-    }
-}
-/* ------------------------------------------
    VALIDACIÓN
 ------------------------------------------ */
 
-function validarProducto(datos, indexActual = -1) {
+function validarProducto(
+    datos,
+    indexActual = -1
+) {
 
     const nombre =
-        String(datos.nombre || '').trim();
+        String(
+            datos.nombre || ''
+        ).trim();
+
 
     if (!nombre) {
+
         throw new Error(
             'El nombre del producto es obligatorio.'
         );
     }
 
-    if (nombre.length < 2) {
+
+    if (
+        nombre.length < 2
+    ) {
+
         throw new Error(
             'El nombre del producto debe tener al menos 2 caracteres.'
         );
@@ -239,27 +198,33 @@ function validarProducto(datos, indexActual = -1) {
     const precio =
         Number(datos.precio);
 
+
     if (
         !Number.isFinite(precio) ||
         precio < 0
     ) {
+
         throw new Error(
             'El precio de venta no es válido.'
         );
     }
 
 
-    if (datos.precioCosto !== '' &&
+    if (
+        datos.precioCosto !== '' &&
         datos.precioCosto !== undefined &&
-        datos.precioCosto !== null) {
+        datos.precioCosto !== null
+    ) {
 
         const precioCosto =
             Number(datos.precioCosto);
+
 
         if (
             !Number.isFinite(precioCosto) ||
             precioCosto < 0
         ) {
+
             throw new Error(
                 'El precio de costo no es válido.'
             );
@@ -267,17 +232,21 @@ function validarProducto(datos, indexActual = -1) {
     }
 
 
-    if (datos.precioAnterior !== '' &&
+    if (
+        datos.precioAnterior !== '' &&
         datos.precioAnterior !== undefined &&
-        datos.precioAnterior !== null) {
+        datos.precioAnterior !== null
+    ) {
 
         const precioAnterior =
             Number(datos.precioAnterior);
+
 
         if (
             !Number.isFinite(precioAnterior) ||
             precioAnterior < 0
         ) {
+
             throw new Error(
                 'El precio anterior no es válido.'
             );
@@ -285,17 +254,21 @@ function validarProducto(datos, indexActual = -1) {
     }
 
 
-    if (datos.stock !== '' &&
+    if (
+        datos.stock !== '' &&
         datos.stock !== undefined &&
-        datos.stock !== null) {
+        datos.stock !== null
+    ) {
 
         const stock =
             Number(datos.stock);
+
 
         if (
             !Number.isInteger(stock) ||
             stock < 0
         ) {
+
             throw new Error(
                 'El stock debe ser un número entero mayor o igual a 0.'
             );
@@ -303,17 +276,21 @@ function validarProducto(datos, indexActual = -1) {
     }
 
 
-    if (datos.orden !== '' &&
+    if (
+        datos.orden !== '' &&
         datos.orden !== undefined &&
-        datos.orden !== null) {
+        datos.orden !== null
+    ) {
 
         const orden =
             Number(datos.orden);
+
 
         if (
             !Number.isInteger(orden) ||
             orden < 0
         ) {
+
             throw new Error(
                 'El orden debe ser un número entero mayor o igual a 0.'
             );
@@ -322,7 +299,9 @@ function validarProducto(datos, indexActual = -1) {
 
 
     const sku =
-        String(datos.sku || '')
+        String(
+            datos.sku || ''
+        )
             .trim()
             .toLowerCase();
 
@@ -331,20 +310,28 @@ function validarProducto(datos, indexActual = -1) {
 
         const duplicado =
             listaProductos.some(
-                (producto, index) =>
+                (
+                    producto,
+                    index
+                ) =>
                     index !== indexActual &&
-                    String(producto.sku || '')
+                    String(
+                        producto.sku || ''
+                    )
                         .trim()
                         .toLowerCase() === sku
             );
 
+
         if (duplicado) {
+
             throw new Error(
                 `El SKU "${datos.sku}" ya está asignado a otro producto.`
             );
         }
     }
 }
+
 
 /* ------------------------------------------
    NORMALIZAR PRODUCTO
@@ -367,7 +354,9 @@ function normalizarProducto(
 
 
     const slug =
-        generarSlug(datos.nombre);
+        generarSlug(
+            datos.nombre
+        );
 
 
     return {
@@ -375,12 +364,16 @@ function normalizarProducto(
         id,
 
         sku:
-            String(datos.sku || '').trim(),
+            String(
+                datos.sku || ''
+            ).trim(),
 
         slug,
 
         nombre:
-            String(datos.nombre || '').trim(),
+            String(
+                datos.nombre || ''
+            ).trim(),
 
         descripcion:
             String(
@@ -388,28 +381,39 @@ function normalizarProducto(
             ).trim(),
 
         precioCosto:
-            Number(datos.precioCosto) || 0,
+            Number(
+                datos.precioCosto
+            ) || 0,
 
         precio:
-            Number(datos.precio) || 0,
+            Number(
+                datos.precio
+            ) || 0,
 
         precioAnterior:
             datos.precioAnterior === '' ||
             datos.precioAnterior === null ||
             datos.precioAnterior === undefined
                 ? null
-                : Number(datos.precioAnterior),
+                : Number(
+                    datos.precioAnterior
+                ),
 
         imagenes:
-
             imagenes.map(
-                (imagen, index) => ({
-                    url: imagen.url,
+                (
+                    imagen,
+                    index
+                ) => ({
+                    url:
+                        imagen.url,
+
                     alt:
                         imagen.alt ||
                         datos.nombre,
 
-                    orden: index
+                    orden:
+                        index
                 })
             ),
 
@@ -432,7 +436,9 @@ function normalizarProducto(
             ),
 
         stock:
-            Number(datos.stock) || 0,
+            Number(
+                datos.stock
+            ) || 0,
 
         talles:
             convertirLista(
@@ -451,7 +457,9 @@ function normalizarProducto(
             datos.destacado === true,
 
         orden:
-            Number(datos.orden) || 0,
+            Number(
+                datos.orden
+            ) || 0,
 
         fechaCreacion:
             productoAnterior?.fechaCreacion ||
@@ -471,12 +479,17 @@ export async function crearProducto(
     datos,
     archivosImagen
 ) {
-        validarProducto(datos);
+
+    validarProducto(
+        datos
+    );
+
 
     if (
         !archivosImagen ||
         archivosImagen.length === 0
     ) {
+
         throw new Error(
             'Debes seleccionar al menos una imagen.'
         );
@@ -504,9 +517,14 @@ export async function crearProducto(
 
 
         imagenes.push({
+
             url,
-            alt: datos.nombre,
-            orden: imagenes.length
+
+            alt:
+                datos.nombre,
+
+            orden:
+                imagenes.length
         });
     }
 
@@ -519,11 +537,14 @@ export async function crearProducto(
         );
 
 
-    listaProductos.push(producto);
+    listaProductos.push(
+        producto
+    );
 
 
     const resultado =
-        await guardarCambiosJSON(
+        await guardarProductos(
+            listaProductos,
             `Crear producto: ${producto.nombre}`
         );
 
@@ -554,12 +575,18 @@ export async function editarProducto(
         index < 0 ||
         index >= listaProductos.length
     ) {
+
         throw new Error(
             'Producto no encontrado.'
         );
     }
 
-        validarProducto(datos, index);
+
+    validarProducto(
+        datos,
+        index
+    );
+
 
     const productoAnterior =
         listaProductos[index];
@@ -569,7 +596,9 @@ export async function editarProducto(
         Array.isArray(
             productoAnterior.imagenes
         )
-            ? [...productoAnterior.imagenes]
+            ? [
+                ...productoAnterior.imagenes
+            ]
             : [];
 
 
@@ -595,9 +624,14 @@ export async function editarProducto(
 
 
         imagenes.push({
+
             url,
-            alt: datos.nombre,
-            orden: imagenes.length
+
+            alt:
+                datos.nombre,
+
+            orden:
+                imagenes.length
         });
     }
 
@@ -611,9 +645,11 @@ export async function editarProducto(
     if (
         !imagenes.some(
             imagen =>
-                imagen.url === imagenPrincipal
+                imagen.url ===
+                imagenPrincipal
         )
     ) {
+
         imagenPrincipal =
             imagenes[0]?.url || '';
     }
@@ -633,7 +669,8 @@ export async function editarProducto(
 
 
     const resultado =
-        await guardarCambiosJSON(
+        await guardarProductos(
+            listaProductos,
             `Actualizar producto: ${productoActualizado.nombre}`
         );
 
@@ -664,6 +701,7 @@ export async function actualizarImagenes(
         index < 0 ||
         index >= listaProductos.length
     ) {
+
         throw new Error(
             'Producto no encontrado.'
         );
@@ -676,13 +714,20 @@ export async function actualizarImagenes(
 
     const nuevasImagenes =
         imagenes.map(
-            (imagen, posicion) => ({
-                url: imagen.url,
+            (
+                imagen,
+                posicion
+            ) => ({
+
+                url:
+                    imagen.url,
+
                 alt:
                     imagen.alt ||
                     producto.nombre,
 
-                orden: posicion
+                orden:
+                    posicion
             })
         );
 
@@ -702,7 +747,8 @@ export async function actualizarImagenes(
 
 
     const resultado =
-        await guardarCambiosJSON(
+        await guardarProductos(
+            listaProductos,
             `Actualizar imágenes: ${producto.nombre}`
         );
 
@@ -731,6 +777,7 @@ export async function eliminarProducto(
         index < 0 ||
         index >= listaProductos.length
     ) {
+
         throw new Error(
             'Producto no encontrado.'
         );
@@ -748,7 +795,8 @@ export async function eliminarProducto(
 
 
     const resultado =
-        await guardarCambiosJSON(
+        await guardarProductos(
+            listaProductos,
             `Eliminar producto: ${producto.nombre}`
         );
 
