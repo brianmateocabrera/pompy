@@ -162,7 +162,7 @@
   },
   {
     "id": "prod-mt6uubsz-k6ai48",
-    "sku": "",
+    "sku": "LEN-003",
     "slug": "conjunto-lenceria-vaquita-sexy",
     "nombre": "CONJUNTO LENCERÍA VAQUITA SEXY",
     "descripcion": "Conjunto de lencería estampado animal print. Dos piezas más accesorios.",
@@ -178,10 +178,15 @@
     ],
     "imagenPrincipal": "/imagenes/1787552896923-1000544899.webp",
     "categoria": [
-      "Adultos",
-      "Lencería"
+      "Lencería",
+      "Sex-shop"
     ],
-    "tags": [],
+    "tags": [
+      "Disfraz",
+      "Bikini",
+      "Conjunto",
+      "Animal print"
+    ],
     "badges": [
       "Nuevo"
     ],
@@ -199,7 +204,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-24T06:28:18.370Z",
-    "fechaActualizacion": "2026-08-24T06:30:02.185Z"
+    "fechaActualizacion": "2026-08-25T09:29:51.897Z"
   },
   {
     "id": "prod-mt6wq4kw-1fapxv",
