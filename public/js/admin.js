@@ -6,11 +6,9 @@ import {
     eliminarProducto
 } from './productos.js';
 
-
 import {
     cerrarSesion
 } from './api.js';
-
 
 import {
     mostrarCargando,
@@ -20,18 +18,16 @@ import {
     obtenerListaFormulario
 } from './ui.js';
 
-
 import {
     autenticar,
     verificarAutenticacion,
     manejarErrorSesion
 } from './admin-auth.js';
 
-
 import {
-    validarArchivosImagen,
     configurarPrevisualizacion,
-    configurarGestionImagenes
+    configurarGestionImagenes,
+    validarArchivosImagen
 } from './admin-imagenes.js';
 
 
@@ -53,18 +49,15 @@ async function cargarInventario() {
         'Cargando inventario desde GitHub...'
     );
 
-
     try {
 
         await cargarProductos();
-
 
         renderizarTabla(
             obtenerProductos(),
             iniciarEdicion,
             iniciarEliminacion
         );
-
 
     } catch (error) {
 
@@ -74,17 +67,14 @@ async function cargarInventario() {
                 cargarInventario
             );
 
-
         if (manejado) {
             return;
         }
-
 
         alert(
             'Error al conectar con la base de datos: ' +
             error.message
         );
-
 
     } finally {
 
@@ -195,7 +185,6 @@ function validarDatosFormulario(
         );
     }
 
-
     if (
         datos.nombre.length < 2
     ) {
@@ -205,10 +194,8 @@ function validarDatosFormulario(
         );
     }
 
-
     const precio =
         Number(datos.precio);
-
 
     if (
         datos.precio === '' ||
@@ -221,14 +208,12 @@ function validarDatosFormulario(
         );
     }
 
-
     if (
         datos.precioCosto !== ''
     ) {
 
         const precioCosto =
             Number(datos.precioCosto);
-
 
         if (
             !Number.isFinite(precioCosto) ||
@@ -241,14 +226,12 @@ function validarDatosFormulario(
         }
     }
 
-
     if (
         datos.precioAnterior !== ''
     ) {
 
         const precioAnterior =
             Number(datos.precioAnterior);
-
 
         if (
             !Number.isFinite(precioAnterior) ||
@@ -261,14 +244,12 @@ function validarDatosFormulario(
         }
     }
 
-
     if (
         datos.stock !== ''
     ) {
 
         const stock =
             Number(datos.stock);
-
 
         if (
             !Number.isInteger(stock) ||
@@ -281,14 +262,12 @@ function validarDatosFormulario(
         }
     }
 
-
     if (
         datos.orden !== ''
     ) {
 
         const orden =
             Number(datos.orden);
-
 
         if (
             !Number.isInteger(orden) ||
@@ -301,14 +280,12 @@ function validarDatosFormulario(
         }
     }
 
-
     if (esNuevo) {
 
         const archivos =
             Array.from(
                 fileInput.files
             );
-
 
         if (
             archivos.length === 0
@@ -318,7 +295,6 @@ function validarDatosFormulario(
                 'Debés seleccionar al menos una imagen.'
             );
         }
-
 
         validarArchivosImagen(
             archivos
@@ -337,15 +313,12 @@ formulario.addEventListener(
 
         event.preventDefault();
 
-
         const autenticado =
             await verificarAutenticacion();
-
 
         if (!autenticado) {
             return;
         }
-
 
         const index =
             parseInt(
@@ -355,16 +328,13 @@ formulario.addEventListener(
                 10
             );
 
-
         const datos =
             obtenerDatosFormulario();
-
 
         const archivos =
             Array.from(
                 fileInput.files
             );
-
 
         try {
 
@@ -372,7 +342,6 @@ formulario.addEventListener(
                 datos,
                 index === -1
             );
-
 
         } catch (error) {
 
@@ -382,7 +351,6 @@ formulario.addEventListener(
 
             return;
         }
-
 
         if (
             index !== -1 &&
@@ -395,7 +363,6 @@ formulario.addEventListener(
                     archivos
                 );
 
-
             } catch (error) {
 
                 alert(
@@ -406,12 +373,10 @@ formulario.addEventListener(
             }
         }
 
-
         mostrarCargando(
             true,
             'Guardando producto...'
         );
-
 
         try {
 
@@ -422,12 +387,10 @@ formulario.addEventListener(
                     'Optimizando y subiendo imágenes...'
                 );
 
-
                 await crearProducto(
                     datos,
                     archivos
                 );
-
 
             } else {
 
@@ -438,7 +401,6 @@ formulario.addEventListener(
                         : 'Guardando cambios...'
                 );
 
-
                 await editarProducto(
                     index,
                     datos,
@@ -446,17 +408,13 @@ formulario.addEventListener(
                 );
             }
 
-
             alert(
                 '¡Cambios guardados con éxito!'
             );
 
-
             cancelarEdicion();
 
-
             await cargarInventario();
-
 
         } catch (error) {
 
@@ -465,12 +423,10 @@ formulario.addEventListener(
                 error.message
             );
 
-
             await manejarErrorSesion(
                 error,
                 cargarInventario
             );
-
 
         } finally {
 
@@ -489,31 +445,24 @@ async function iniciarEdicion(index) {
     const autenticado =
         await verificarAutenticacion();
 
-
     if (!autenticado) {
         return;
     }
 
-
     const producto =
         obtenerProductos()[index];
-
 
     if (!producto) {
         return;
     }
-
 
     cargarFormulario(
         producto,
         index
     );
 
-
     window.scrollTo({
-
         top: 0,
-
         behavior: 'smooth'
     });
 }
@@ -528,20 +477,16 @@ async function iniciarEliminacion(index) {
     const autenticado =
         await verificarAutenticacion();
 
-
     if (!autenticado) {
         return;
     }
 
-
     const producto =
         obtenerProductos()[index];
-
 
     if (!producto) {
         return;
     }
-
 
     if (
         !confirm(
@@ -551,12 +496,10 @@ async function iniciarEliminacion(index) {
         return;
     }
 
-
     mostrarCargando(
         true,
         'Sincronizando eliminación...'
     );
-
 
     try {
 
@@ -564,14 +507,11 @@ async function iniciarEliminacion(index) {
             index
         );
 
-
         alert(
             '¡Producto eliminado correctamente!'
         );
 
-
         await cargarInventario();
-
 
     } catch (error) {
 
@@ -580,12 +520,10 @@ async function iniciarEliminacion(index) {
             error.message
         );
 
-
         await manejarErrorSesion(
             error,
             cargarInventario
         );
-
 
     } finally {
 
@@ -615,7 +553,6 @@ async function iniciar() {
     const autenticado =
         await autenticar();
 
-
     if (!autenticado) {
 
         document.body.innerHTML =
@@ -624,18 +561,15 @@ async function iniciar() {
         return;
     }
 
-
-    configurarPrevisualizacion(
-        cargarInventario
-    );
-
+    configurarPrevisualizacion();
 
     configurarGestionImagenes(
-        cargarInventario,
+        verificarAutenticacion,
+        manejarErrorSesion,
+        renderizarTabla,
         iniciarEdicion,
         iniciarEliminacion
     );
-
 
     await cargarInventario();
 }
