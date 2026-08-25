@@ -2,16 +2,76 @@ import { llamarAPI } from './api.js';
 
 const PATH_JSON = 'data/productos.json';
 
+const CARGA_TIMEOUT = 10000;
+
 let shaActualJson = '';
 
 
+/* ------------------------------------------
+   CARGAR PRODUCTOS DESDE API
+------------------------------------------ */
+
 export async function cargarProductosDesdeAPI() {
+
+    let timeoutId;
+
+    const timeout =
+        new Promise(
+            (_, reject) => {
+
+                timeoutId =
+                    setTimeout(
+                        () => {
+
+                            const error =
+                                new Error(
+                                    'La carga del inventario tardó demasiado. La API no respondió dentro de 10 segundos.'
+                                );
+
+                            error.code =
+                                'INVENTARIO_TIMEOUT';
+
+                            reject(error);
+
+                        },
+                        CARGA_TIMEOUT
+                    );
+            }
+        );
+
+
+    const carga =
+        cargarDesdeAPI();
+
+
+    try {
+
+        return await Promise.race([
+            carga,
+            timeout
+        ]);
+
+    } finally {
+
+        clearTimeout(
+            timeoutId
+        );
+    }
+}
+
+
+/* ------------------------------------------
+   PETICIÓN REAL
+------------------------------------------ */
+
+async function cargarDesdeAPI() {
 
     const json =
         await llamarAPI(
             'GET',
             PATH_JSON
         );
+
 
     if (!json) {
 
@@ -46,6 +106,10 @@ export async function cargarProductosDesdeAPI() {
 }
 
 
+/* ------------------------------------------
+   GUARDAR PRODUCTOS
+------------------------------------------ */
+
 export async function guardarProductos(
     productos,
     mensajeCommit
@@ -78,9 +142,7 @@ export async function guardarProductos(
         if (!json) {
 
             return {
-
                 success: false,
-
                 error:
                     'La API no devolvió una respuesta.'
             };
