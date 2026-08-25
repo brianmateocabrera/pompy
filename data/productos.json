@@ -236,7 +236,7 @@
     "categoria": [],
     "tags": [],
     "badges": [],
-    "stock": 0,
+    "stock": 1,
     "talles": [
       "Corazón",
       "Durazno",
@@ -249,7 +249,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T09:42:44.588Z"
+    "fechaActualizacion": "2026-08-25T09:45:32.843Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
