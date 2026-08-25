@@ -1,12 +1,17 @@
 import https from 'https';
-import crypto from 'crypto';
+
+import {
+    compararSecretos,
+    crearSesion,
+    construirCookie,
+    construirCookieLogout,
+    sesionValida
+} from './auth.js';
 
 
-const COOKIE_NAME = 'admin_session';
-
-const SESSION_DURATION =
-    8 * 60 * 60 * 1000; // 8 horas
-
+// =================================================
+// HANDLER PRINCIPAL
+// =================================================
 
 export default function handler(req, res) {
 
@@ -28,6 +33,10 @@ export default function handler(req, res) {
         );
 
 
+        // =========================================
+        // MÉTODO HTTP
+        // =========================================
+
         if (req.method !== 'POST') {
 
             return res.status(405).json({
@@ -36,6 +45,10 @@ export default function handler(req, res) {
             });
         }
 
+
+        // =========================================
+        // VARIABLES DE ENTORNO
+        // =========================================
 
         const token =
             process.env.GITHUB_TOKEN;
@@ -66,6 +79,10 @@ export default function handler(req, res) {
             });
         }
 
+
+        // =========================================
+        // BODY
+        // =========================================
 
         const {
             path,
@@ -145,14 +162,7 @@ export default function handler(req, res) {
 
             res.setHeader(
                 'Set-Cookie',
-                [
-                    `${COOKIE_NAME}=`,
-                    'Path=/',
-                    'HttpOnly',
-                    'Secure',
-                    'SameSite=Strict',
-                    'Max-Age=0'
-                ].join('; ')
+                construirCookieLogout()
             );
 
 
@@ -441,36 +451,36 @@ export default function handler(req, res) {
                             // =================================
 
                             if (
-    response.statusCode === 409
-) {
+                                response.statusCode === 409
+                            ) {
 
-    return res.status(409).json({
+                                return res.status(409).json({
 
-        success: false,
+                                    success: false,
 
-        conflict: true,
+                                    conflict: true,
 
-        error:
-            'El archivo fue modificado desde otro dispositivo.'
+                                    error:
+                                        'El archivo fue modificado desde otro dispositivo.'
 
-    });
-}
+                                });
+                            }
 
 
-return res
-    .status(
-        response.statusCode
-    )
-    .json({
+                            return res
+                                .status(
+                                    response.statusCode
+                                )
+                                .json({
 
-        success:
-            false,
+                                    success:
+                                        false,
 
-        error:
-            parsedData.message ||
-            'Error en GitHub'
+                                    error:
+                                        parsedData.message ||
+                                        'Error en GitHub'
 
-    });
+                                });
                         }
                     );
                 }
@@ -513,221 +523,6 @@ return res
 
         });
     }
-}
-
-
-// =================================================
-// COMPARAR CONTRASEÑAS
-// =================================================
-
-function compararSecretos(
-    recibido,
-    esperado
-) {
-
-    const recibidoBuffer =
-        Buffer.from(
-            String(recibido),
-            'utf8'
-        );
-
-
-    const esperadoBuffer =
-        Buffer.from(
-            String(esperado),
-            'utf8'
-        );
-
-
-    if (
-        recibidoBuffer.length !==
-        esperadoBuffer.length
-    ) {
-
-        return false;
-    }
-
-
-    return crypto.timingSafeEqual(
-        recibidoBuffer,
-        esperadoBuffer
-    );
-}
-
-
-// =================================================
-// CREAR SESIÓN
-// =================================================
-
-function crearSesion() {
-
-    const expiracion =
-        Date.now() +
-        SESSION_DURATION;
-
-
-    const random =
-        crypto
-            .randomBytes(32)
-            .toString('hex');
-
-
-    return (
-        `${expiracion}.${random}`
-    );
-}
-
-
-// =================================================
-// CREAR COOKIE
-// =================================================
-
-function construirCookie(
-    session
-) {
-
-    return [
-
-        `${COOKIE_NAME}=${session}`,
-
-        'Path=/',
-
-        'HttpOnly',
-
-        'Secure',
-
-        'SameSite=Strict',
-
-        `Max-Age=${Math.floor(
-            SESSION_DURATION / 1000
-        )}`
-
-    ].join('; ');
-}
-
-
-// =================================================
-// OBTENER COOKIES
-// =================================================
-
-function obtenerCookies(
-    req
-) {
-
-    const cookies = {};
-
-    const header =
-        req.headers.cookie ||
-        '';
-
-
-    header
-        .split(';')
-        .forEach(
-            parte => {
-
-                const indice =
-                    parte.indexOf('=');
-
-
-                if (
-                    indice === -1
-                ) {
-                    return;
-                }
-
-
-                const nombre =
-                    parte
-                        .slice(
-                            0,
-                            indice
-                        )
-                        .trim();
-
-
-                const valor =
-                    parte
-                        .slice(
-                            indice + 1
-                        )
-                        .trim();
-
-
-                cookies[nombre] =
-                    valor;
-            }
-        );
-
-
-    return cookies;
-}
-
-
-// =================================================
-// VALIDAR SESIÓN
-// =================================================
-
-function sesionValida(
-    req
-) {
-
-    const cookies =
-        obtenerCookies(
-            req
-        );
-
-
-    const session =
-        cookies[
-            COOKIE_NAME
-        ];
-
-
-    if (!session) {
-        return false;
-    }
-
-
-    const partes =
-        session.split('.');
-
-
-    if (
-        partes.length !== 2
-    ) {
-        return false;
-    }
-
-
-    const expiracion =
-        Number(
-            partes[0]
-        );
-
-
-    if (
-        !Number.isFinite(
-            expiracion
-        ) ||
-        expiracion < Date.now()
-    ) {
-
-        return false;
-    }
-
-
-    if (
-        !/^[a-f0-9]{64}$/i.test(
-            partes[1]
-        )
-    ) {
-
-        return false;
-    }
-
-
-    return true;
 }
 
 
