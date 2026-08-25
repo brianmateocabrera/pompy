@@ -5,14 +5,8 @@ import {
 
 import {
     mostrarCargando,
-    renderizarTabla,
     renderizarImagenesFormulario
 } from './ui.js';
-
-import {
-    verificarAutenticacion,
-    manejarErrorSesion
-} from './admin-auth.js';
 
 
 const fileInput =
@@ -42,7 +36,6 @@ export function validarArchivosImagen(
             );
         }
 
-
         if (archivo.size === 0) {
 
             throw new Error(
@@ -54,7 +47,7 @@ export function validarArchivosImagen(
 
 
 // =================================================
-// PREVISUALIZAR ARCHIVOS
+// PREVISUALIZAR ARCHIVOS NUEVOS
 // =================================================
 
 export function mostrarPrevisualizacionArchivos(
@@ -66,58 +59,56 @@ export function mostrarPrevisualizacionArchivos(
         preview.innerHTML = '';
     }
 
+    archivos.forEach(
+        archivo => {
 
-    archivos.forEach(archivo => {
+            const reader =
+                new FileReader();
 
-        const reader =
-            new FileReader();
+            reader.onload =
+                event => {
 
+                    const item =
+                        document.createElement(
+                            'div'
+                        );
 
-        reader.onload =
-            event => {
+                    item.className =
+                        'imagen-preview-item';
 
-                const item =
-                    document.createElement('div');
+                    const img =
+                        document.createElement(
+                            'img'
+                        );
 
+                    img.src =
+                        event.target.result;
 
-                item.className =
-                    'imagen-preview-item';
+                    img.alt =
+                        archivo.name;
 
+                    const label =
+                        document.createElement(
+                            'p'
+                        );
 
-                const img =
-                    document.createElement('img');
+                    label.className =
+                        'imagen-label';
 
+                    label.textContent =
+                        archivo.name;
 
-                img.src =
-                    event.target.result;
+                    item.appendChild(img);
+                    item.appendChild(label);
 
+                    preview.appendChild(item);
+                };
 
-                img.alt =
-                    archivo.name;
-
-
-                const label =
-                    document.createElement('p');
-
-
-                label.className =
-                    'imagen-label';
-
-
-                label.textContent =
-                    archivo.name;
-
-
-                item.appendChild(img);
-
-                item.appendChild(label);
-
-                preview.appendChild(item);
-            };
-
-
-        reader.readAsDataURL(archivo);
-    });
+            reader.readAsDataURL(
+                archivo
+            );
+        }
+    );
 }
 
 
@@ -140,6 +131,45 @@ function actualizarOrdenLocal(
 
 
 // =================================================
+// OBTENER IMÁGENES DEL PRODUCTO
+// =================================================
+
+function obtenerImagenesProducto(
+    producto
+) {
+
+    if (
+        Array.isArray(
+            producto.imagenes
+        )
+    ) {
+
+        return [
+            ...producto.imagenes
+        ];
+    }
+
+    if (
+        producto.imagen
+    ) {
+
+        return [{
+            url:
+                producto.imagen,
+
+            alt:
+                producto.nombre,
+
+            orden:
+                0
+        }];
+    }
+
+    return [];
+}
+
+
+// =================================================
 // GUARDAR CAMBIOS DE IMÁGENES
 // =================================================
 
@@ -147,7 +177,8 @@ async function guardarOrdenImagenes(
     indexProducto,
     imagenes,
     imagenPrincipal,
-    mensaje
+    mensaje,
+    alGuardar
 ) {
 
     mostrarCargando(
@@ -155,13 +186,11 @@ async function guardarOrdenImagenes(
         mensaje
     );
 
-
     try {
 
         actualizarOrdenLocal(
             imagenes
         );
-
 
         await actualizarImagenes(
             indexProducto,
@@ -169,36 +198,22 @@ async function guardarOrdenImagenes(
             imagenPrincipal
         );
 
-
         const productoActualizado =
             obtenerProductos()[
                 indexProducto
             ];
 
-
         renderizarImagenesFormulario(
             productoActualizado
         );
 
-
-        renderizarTabla(
-            obtenerProductos()
-        );
-
+        if (typeof alGuardar === 'function') {
+            await alGuardar();
+        }
 
     } catch (error) {
 
-        alert(
-            'Error al actualizar las imágenes: ' +
-            error.message
-        );
-
-
-        await manejarErrorSesion(
-            error,
-            async () => {}
-        );
-
+        throw error;
 
     } finally {
 
@@ -211,9 +226,7 @@ async function guardarOrdenImagenes(
 // CONFIGURAR PREVISUALIZACIÓN
 // =================================================
 
-export function configurarPrevisualizacion(
-    cargarInventario
-) {
+export function configurarPrevisualizacion() {
 
     fileInput.addEventListener(
         'change',
@@ -224,13 +237,11 @@ export function configurarPrevisualizacion(
                     fileInput.files
                 );
 
-
             if (
                 archivos.length === 0
             ) {
                 return;
             }
-
 
             try {
 
@@ -238,19 +249,16 @@ export function configurarPrevisualizacion(
                     archivos
                 );
 
-
             } catch (error) {
 
                 alert(
                     error.message
                 );
 
-
                 fileInput.value = '';
 
                 return;
             }
-
 
             const index =
                 parseInt(
@@ -259,7 +267,6 @@ export function configurarPrevisualizacion(
                     ).value,
                     10
                 );
-
 
             if (index === -1) {
 
@@ -270,20 +277,16 @@ export function configurarPrevisualizacion(
                 return;
             }
 
-
             const producto =
                 obtenerProductos()[index];
-
 
             if (!producto) {
                 return;
             }
 
-
             renderizarImagenesFormulario(
                 producto
             );
-
 
             mostrarPrevisualizacionArchivos(
                 archivos,
@@ -299,7 +302,9 @@ export function configurarPrevisualizacion(
 // =================================================
 
 export function configurarGestionImagenes(
-    cargarInventario,
+    verificarAutenticacion,
+    manejarErrorSesion,
+    renderizarTabla,
     iniciarEdicion,
     iniciarEliminacion
 ) {
@@ -313,20 +318,16 @@ export function configurarGestionImagenes(
                     'button'
                 );
 
-
             if (!boton) {
                 return;
             }
 
-
             const autenticado =
                 await verificarAutenticacion();
-
 
             if (!autenticado) {
                 return;
             }
-
 
             const indexProducto =
                 parseInt(
@@ -335,7 +336,6 @@ export function configurarGestionImagenes(
                     ).value,
                     10
                 );
-
 
             if (
                 Number.isNaN(
@@ -346,38 +346,25 @@ export function configurarGestionImagenes(
                 return;
             }
 
-
             const producto =
                 obtenerProductos()[
                     indexProducto
                 ];
 
-
             if (!producto) {
                 return;
             }
 
-
-            let imagenes =
-                Array.isArray(
-                    producto.imagenes
-                )
-                    ? [...producto.imagenes]
-                    : producto.imagen
-                        ? [{
-                            url: producto.imagen,
-                            alt: producto.nombre,
-                            orden: 0
-                        }]
-                        : [];
-
+            const imagenes =
+                obtenerImagenesProducto(
+                    producto
+                );
 
             const indexImagen =
                 parseInt(
                     boton.dataset.imagenIndex,
                     10
                 );
-
 
             if (
                 Number.isNaN(indexImagen) ||
@@ -398,17 +385,34 @@ export function configurarGestionImagenes(
                 )
             ) {
 
-                const imagenPrincipal =
-                    imagenes[indexImagen].url;
+                try {
 
+                    await guardarOrdenImagenes(
+                        indexProducto,
+                        imagenes,
+                        imagenes[indexImagen].url,
+                        'Guardando imagen principal...',
+                        async () => {
 
-                await guardarOrdenImagenes(
-                    indexProducto,
-                    imagenes,
-                    imagenPrincipal,
-                    'Guardando imagen principal...'
-                );
+                            renderizarTabla(
+                                obtenerProductos(),
+                                iniciarEdicion,
+                                iniciarEliminacion
+                            );
+                        }
+                    );
 
+                } catch (error) {
+
+                    alert(
+                        'Error al actualizar las imágenes: ' +
+                        error.message
+                    );
+
+                    await manejarErrorSesion(
+                        error
+                    );
+                }
 
                 return;
             }
@@ -430,7 +434,6 @@ export function configurarGestionImagenes(
                     return;
                 }
 
-
                 [
                     imagenes[indexImagen - 1],
                     imagenes[indexImagen]
@@ -439,19 +442,34 @@ export function configurarGestionImagenes(
                     imagenes[indexImagen - 1]
                 ];
 
+                try {
 
-                actualizarOrdenLocal(
-                    imagenes
-                );
+                    await guardarOrdenImagenes(
+                        indexProducto,
+                        imagenes,
+                        producto.imagenPrincipal,
+                        'Reordenando imágenes...',
+                        async () => {
 
+                            renderizarTabla(
+                                obtenerProductos(),
+                                iniciarEdicion,
+                                iniciarEliminacion
+                            );
+                        }
+                    );
 
-                await guardarOrdenImagenes(
-                    indexProducto,
-                    imagenes,
-                    producto.imagenPrincipal,
-                    'Reordenando imágenes...'
-                );
+                } catch (error) {
 
+                    alert(
+                        'Error al actualizar las imágenes: ' +
+                        error.message
+                    );
+
+                    await manejarErrorSesion(
+                        error
+                    );
+                }
 
                 return;
             }
@@ -474,7 +492,6 @@ export function configurarGestionImagenes(
                     return;
                 }
 
-
                 [
                     imagenes[indexImagen],
                     imagenes[indexImagen + 1]
@@ -483,19 +500,34 @@ export function configurarGestionImagenes(
                     imagenes[indexImagen]
                 ];
 
+                try {
 
-                actualizarOrdenLocal(
-                    imagenes
-                );
+                    await guardarOrdenImagenes(
+                        indexProducto,
+                        imagenes,
+                        producto.imagenPrincipal,
+                        'Reordenando imágenes...',
+                        async () => {
 
+                            renderizarTabla(
+                                obtenerProductos(),
+                                iniciarEdicion,
+                                iniciarEliminacion
+                            );
+                        }
+                    );
 
-                await guardarOrdenImagenes(
-                    indexProducto,
-                    imagenes,
-                    producto.imagenPrincipal,
-                    'Reordenando imágenes...'
-                );
+                } catch (error) {
 
+                    alert(
+                        'Error al actualizar las imágenes: ' +
+                        error.message
+                    );
+
+                    await manejarErrorSesion(
+                        error
+                    );
+                }
 
                 return;
             }
@@ -519,25 +551,20 @@ export function configurarGestionImagenes(
                     return;
                 }
 
-
                 const imagenEliminada =
                     imagenes[indexImagen];
-
 
                 imagenes.splice(
                     indexImagen,
                     1
                 );
 
-
                 actualizarOrdenLocal(
                     imagenes
                 );
 
-
                 let imagenPrincipal =
                     producto.imagenPrincipal;
-
 
                 if (
                     imagenPrincipal ===
@@ -549,13 +576,34 @@ export function configurarGestionImagenes(
                         '';
                 }
 
+                try {
 
-                await guardarOrdenImagenes(
-                    indexProducto,
-                    imagenes,
-                    imagenPrincipal,
-                    'Eliminando imagen...'
-                );
+                    await guardarOrdenImagenes(
+                        indexProducto,
+                        imagenes,
+                        imagenPrincipal,
+                        'Eliminando imagen...',
+                        async () => {
+
+                            renderizarTabla(
+                                obtenerProductos(),
+                                iniciarEdicion,
+                                iniciarEliminacion
+                            );
+                        }
+                    );
+
+                } catch (error) {
+
+                    alert(
+                        'Error al actualizar las imágenes: ' +
+                        error.message
+                    );
+
+                    await manejarErrorSesion(
+                        error
+                    );
+                }
             }
         }
     );
