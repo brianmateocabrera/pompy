@@ -212,12 +212,12 @@
     "precioAnterior": 2000,
     "imagenes": [
       {
-        "url": "/imagenes/1787556060255-1000536641.webp",
+        "url": "/imagenes/1787557072584-1000536552.webp",
         "alt": "Producto1",
         "orden": 0
       },
       {
-        "url": "/imagenes/1787557072584-1000536552.webp",
+        "url": "/imagenes/1787556060255-1000536641.webp",
         "alt": "Producto1",
         "orden": 1
       }
@@ -236,7 +236,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T08:57:39.150Z"
+    "fechaActualizacion": "2026-08-25T09:01:37.648Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
