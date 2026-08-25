@@ -1,741 +1,946 @@
 import https from 'https';
+import crypto from 'crypto';
 
-import {
-    compararSecretos,
-    crearSesion,
-    construirCookie,
-    construirCookieLogout,
-    sesionValida
-} from './auth.js';
+const COOKIE_NAME = 'admin_session';
 
-
-// =================================================
-// HANDLER PRINCIPAL
-// =================================================
+const SESSION_DURATION =
+8 * 60 * 60 * 1000; // 8 horas
 
 export default function handler(req, res) {
 
-    try {
+try {  
 
-        res.setHeader(
-            'Cache-Control',
-            'no-store, no-cache, must-revalidate, proxy-revalidate'
-        );
+    res.setHeader(  
+        'Cache-Control',  
+        'no-store, no-cache, must-revalidate, proxy-revalidate'  
+    );  
 
-        res.setHeader(
-            'Pragma',
-            'no-cache'
-        );
+    res.setHeader(  
+        'Pragma',  
+        'no-cache'  
+    );  
 
-        res.setHeader(
-            'Expires',
-            '0'
-        );
+    res.setHeader(  
+        'Expires',  
+        '0'  
+    );  
 
 
-        // =========================================
-        // MÉTODO HTTP
-        // =========================================
+    if (req.method !== 'POST') {  
 
-        if (req.method !== 'POST') {
+        return res.status(405).json({  
+            success: false,  
+            error: 'Método no permitido'  
+        });  
+    }  
 
-            return res.status(405).json({
-                success: false,
-                error: 'Método no permitido'
-            });
-        }
 
+    const token =  
+        process.env.GITHUB_TOKEN;  
 
-        // =========================================
-        // VARIABLES DE ENTORNO
-        // =========================================
+    const repo =  
+        process.env.GITHUB_REPO;  
 
-        const token =
-            process.env.GITHUB_TOKEN;
+    const adminPassword =  
+        process.env.ADMIN_PASSWORD;  
 
-        const repo =
-            process.env.GITHUB_REPO;
 
-        const adminPassword =
-            process.env.ADMIN_PASSWORD;
+    if (!token || !repo) {  
 
+        return res.status(500).json({  
+            success: false,  
+            error:  
+                'Faltan variables de entorno de GitHub'  
+        });  
+    }  
 
-        if (!token || !repo) {
 
-            return res.status(500).json({
-                success: false,
-                error:
-                    'Faltan variables de entorno de GitHub'
-            });
-        }
+    if (!adminPassword) {  
 
+        return res.status(500).json({  
+            success: false,  
+            error:  
+                'Falta la variable ADMIN_PASSWORD'  
+        });  
+    }  
 
-        if (!adminPassword) {
 
-            return res.status(500).json({
-                success: false,
-                error:
-                    'Falta la variable ADMIN_PASSWORD'
-            });
-        }
+    const {  
+        path,  
+        message,  
+        content,  
+        sha,  
+        action,  
+        password  
+    } = req.body || {};  
 
 
-        // =========================================
-        // BODY
-        // =========================================
+    // =========================================  
+    // AUTENTICACIÓN  
+    // =========================================  
 
-        const {
-            path,
-            message,
-            content,
-            sha,
-            action,
-            password
-        } = req.body || {};
+    if (action === 'AUTH') {  
 
+        if (  
+            typeof password !== 'string' ||  
+            !compararSecretos(  
+                password,  
+                adminPassword  
+            )  
+        ) {  
 
-        // =========================================
-        // AUTENTICACIÓN
-        // =========================================
+            return res.status(401).json({  
+                success: false,  
+                error:  
+                    'Contraseña de administrador incorrecta'  
+            });  
+        }  
 
-        if (action === 'AUTH') {
 
-            if (
-                typeof password !== 'string' ||
-                !compararSecretos(
-                    password,
-                    adminPassword
-                )
-            ) {
+        const session =  
+            crearSesion();  
 
-                return res.status(401).json({
-                    success: false,
-                    error:
-                        'Contraseña de administrador incorrecta'
-                });
-            }
 
+        res.setHeader(  
+            'Set-Cookie',  
+            construirCookie(session)  
+        );  
 
-            const session =
-                crearSesion();
 
+        return res.status(200).json({  
+            success: true  
+        });  
+    }  
 
-            res.setHeader(
-                'Set-Cookie',
-                construirCookie(session)
-            );
 
+    // =========================================  
+    // COMPROBAR SESIÓN  
+    // =========================================  
 
-            return res.status(200).json({
-                success: true
-            });
-        }
+    if (action === 'SESSION') {  
 
+        if (!sesionValida(req)) {  
 
-        // =========================================
-        // COMPROBAR SESIÓN
-        // =========================================
+            return res.status(401).json({  
+                success: false,  
+                error:  
+                    'Sesión inválida o expirada'  
+            });  
+        }  
 
-        if (action === 'SESSION') {
 
-            if (!sesionValida(req)) {
+        return res.status(200).json({  
+            success: true  
+        });  
+    }  
 
-                return res.status(401).json({
-                    success: false,
-                    error:
-                        'Sesión inválida o expirada'
-                });
-            }
 
+    // =========================================  
+    // CERRAR SESIÓN  
+    // =========================================  
 
-            return res.status(200).json({
-                success: true
-            });
-        }
+    if (action === 'LOGOUT') {  
 
+        res.setHeader(  
+            'Set-Cookie',  
+            [  
+                `${COOKIE_NAME}=`,  
+                'Path=/',  
+                'HttpOnly',  
+                'Secure',  
+                'SameSite=Strict',  
+                'Max-Age=0'  
+            ].join('; ')  
+        );  
 
-        // =========================================
-        // CERRAR SESIÓN
-        // =========================================
 
-        if (action === 'LOGOUT') {
+        return res.status(200).json({  
+            success: true  
+        });  
+    }  
 
-            res.setHeader(
-                'Set-Cookie',
-                construirCookieLogout()
-            );
 
+    // =========================================  
+    // VALIDAR RUTA  
+    // =========================================  
 
-            return res.status(200).json({
-                success: true
-            });
-        }
+    if (!path) {  
 
+        return res.status(400).json({  
+            success: false,  
+            error:  
+                'Ruta de archivo requerida'  
+        });  
+    }  
 
-        // =========================================
-        // VALIDAR RUTA
-        // =========================================
 
-        if (!path) {
+    // =========================================  
+    // RUTAS PERMITIDAS  
+    // =========================================  
 
-            return res.status(400).json({
-                success: false,
-                error:
-                    'Ruta de archivo requerida'
-            });
-        }
+    const rutasPermitidas = [  
+        'data/productos.json'  
+    ];  
 
 
-        // =========================================
-        // RUTAS PERMITIDAS
-        // =========================================
+    const esImagenPermitida =  
+        typeof path === 'string' &&  
+        path.startsWith(  
+            'public/imagenes/'  
+        );  
 
-        const rutasPermitidas = [
-            'data/productos.json'
-        ];
 
+    if (  
+        !rutasPermitidas.includes(path) &&  
+        !esImagenPermitida  
+    ) {  
 
-        const esImagenPermitida =
-            typeof path === 'string' &&
-            path.startsWith(
-                'public/imagenes/'
-            );
+        return res.status(403).json({  
+            success: false,  
+            error:  
+                'Ruta no autorizada'  
+        });  
+    }  
 
 
-        if (
-            !rutasPermitidas.includes(path) &&
-            !esImagenPermitida
-        ) {
+    // =========================================  
+    // GET  
+    // =========================================  
+    //  
+    // El catálogo público puede leer  
+    // productos.json sin autenticación.  
+    //  
+    // Las imágenes son archivos públicos  
+    // servidos directamente por Vercel.  
+    // =========================================  
 
-            return res.status(403).json({
-                success: false,
-                error:
-                    'Ruta no autorizada'
-            });
-        }
+    if (action === 'GET') {  
 
+        return obtenerArchivo(  
+            path,  
+            token,  
+            repo,  
+            res  
+        );  
+    }  
 
-        // =========================================
-        // GET
-        // =========================================
-        //
-        // El catálogo público puede leer
-        // productos.json sin autenticación.
-        //
-        // Las imágenes son archivos públicos
-        // servidos directamente por Vercel.
-        // =========================================
 
-        if (action === 'GET') {
+    // =========================================  
+    // ESCRITURA  
+    // =========================================  
 
-            return obtenerArchivo(
-                path,
-                token,
-                repo,
-                res
-            );
-        }
+    if (action !== 'PUT') {  
 
+        return res.status(400).json({  
+            success: false,  
+            error:  
+                'Acción no permitida'  
+        });  
+    }  
 
-        // =========================================
-        // ESCRITURA
-        // =========================================
 
-        if (action !== 'PUT') {
+    // =========================================  
+    // VALIDAR SESIÓN  
+    // =========================================  
 
-            return res.status(400).json({
-                success: false,
-                error:
-                    'Acción no permitida'
-            });
-        }
+    if (!sesionValida(req)) {  
 
+        return res.status(401).json({  
+            success: false,  
+            error:  
+                'Sesión de administrador inválida o expirada'  
+        });  
+    }  
 
-        // =========================================
-        // VALIDAR SESIÓN
-        // =========================================
 
-        if (!sesionValida(req)) {
+    // =========================================  
+    // VALIDAR CONTENIDO  
+    // =========================================  
 
-            return res.status(401).json({
-                success: false,
-                error:
-                    'Sesión de administrador inválida o expirada'
-            });
-        }
+    if (  
+        content === undefined ||  
+        content === null ||  
+        content === ''  
+    ) {  
 
+        return res.status(400).json({  
+            success: false,  
+            error:  
+                'Contenido requerido'  
+        });  
+    }  
 
-        // =========================================
-        // VALIDAR CONTENIDO
-        // =========================================
 
-        if (
-            content === undefined ||
-            content === null ||
-            content === ''
-        ) {
+    // =========================================  
+    // PREPARAR CONTENIDO  
+    // =========================================  
 
-            return res.status(400).json({
-                success: false,
-                error:
-                    'Contenido requerido'
-            });
-        }
+    let contenidoFinal;  
 
 
-        // =========================================
-        // PREPARAR CONTENIDO
-        // =========================================
+    if (esImagenPermitida) {  
 
-        let contenidoFinal;
+        /*  
+         * Las imágenes llegan como Base64  
+         * puro desde imageOptimizer.js.  
+         */  
 
+        contenidoFinal =  
+            content;  
 
-        if (esImagenPermitida) {
+    } else {  
 
-            /*
-             * Las imágenes llegan como Base64
-             * puro desde imageOptimizer.js.
-             */
+        /*  
+         * productos.json llega como texto.  
+         */  
 
-            contenidoFinal =
-                content;
+        contenidoFinal =  
+            Buffer  
+                .from(  
+                    content,  
+                    'utf8'  
+                )  
+                .toString('base64');  
+    }  
 
-        } else {
 
-            /*
-             * productos.json llega como texto.
-             */
+    // =========================================  
+    // DATOS PARA GITHUB  
+    // =========================================  
 
-            contenidoFinal =
-                Buffer
-                    .from(
-                        content,
-                        'utf8'
-                    )
-                    .toString('base64');
-        }
+    const bodyData =  
+        JSON.stringify({  
 
+            message:  
+                message ||  
+                'Actualizado desde el panel',  
 
-        // =========================================
-        // DATOS PARA GITHUB
-        // =========================================
+            content:  
+                contenidoFinal,  
 
-        const bodyData =
-            JSON.stringify({
+            ...(sha  
+                ? { sha }  
+                : {})  
+        });  
 
-                message:
-                    message ||
-                    'Actualizado desde el panel',
 
-                content:
-                    contenidoFinal,
+    const exactPath =  
+        '/repos/' +  
+        repo +  
+        '/contents/' +  
+        path;  
 
-                ...(sha
-                    ? { sha }
-                    : {})
-            });
 
+    // =========================================  
+    // REQUEST GITHUB  
+    // =========================================  
 
-        const exactPath =
-            '/repos/' +
-            repo +
-            '/contents/' +
-            path;
+    const options = {  
 
+        hostname:  
+            'api.github.com',  
 
-        // =========================================
-        // REQUEST GITHUB
-        // =========================================
+        path:  
+            exactPath,  
 
-        const options = {
+        method:  
+            'PUT',  
 
-            hostname:
-                'api.github.com',
+        headers: {  
 
-            path:
-                exactPath,
+            'Authorization':  
+                'Bearer ' + token,  
 
-            method:
-                'PUT',
+            'Content-Type':  
+                'application/json',  
 
-            headers: {
+            'User-Agent':  
+                'Vercel-Serverless-Function',  
 
-                'Authorization':
-                    'Bearer ' + token,
+            'Accept':  
+                'application/vnd.github+json',  
 
-                'Content-Type':
-                    'application/json',
+            'X-GitHub-Api-Version':  
+                '2022-11-28',  
 
-                'User-Agent':
-                    'Vercel-Serverless-Function',
+            'Content-Length':  
+                Buffer.byteLength(  
+                    bodyData  
+                )  
+        }  
+    };  
 
-                'Accept':
-                    'application/vnd.github+json',
 
-                'X-GitHub-Api-Version':
-                    '2022-11-28',
+    const request =  
+        https.request(  
+            options,  
+            response => {  
 
-                'Content-Length':
-                    Buffer.byteLength(
-                        bodyData
-                    )
-            }
-        };
+                let data = '';  
 
 
-        const request =
-            https.request(
-                options,
-                response => {
+                response.on(  
+                    'data',  
+                    chunk => {  
 
-                    let data = '';
+                        data += chunk;  
+                    }  
+                );  
 
 
-                    response.on(
-                        'data',
-                        chunk => {
+                response.on(  
+                    'end',  
+                    () => {  
 
-                            data += chunk;
-                        }
-                    );
+                        let parsedData = {};  
 
 
-                    response.on(
-                        'end',
-                        () => {
+                        try {  
 
-                            let parsedData = {};
+                            parsedData =  
+                                JSON.parse(  
+                                    data  
+                                );  
 
+                        } catch {  
 
-                            try {
+                            parsedData = {  
+                                message:  
+                                    data  
+                            };  
+                        }  
 
-                                parsedData =
-                                    JSON.parse(
-                                        data
-                                    );
 
-                            } catch {
+                        // =================================  
+                        // ÉXITO  
+                        // =================================  
 
-                                parsedData = {
-                                    message:
-                                        data
-                                };
-                            }
+                        if (  
+                            response.statusCode >= 200 &&  
+                            response.statusCode < 300  
+                        ) {  
 
+                            return res.status(200).json({  
 
-                            // =================================
-                            // ÉXITO
-                            // =================================
+                                success:  
+                                    true,  
 
-                            if (
-                                response.statusCode >= 200 &&
-                                response.statusCode < 300
-                            ) {
+                                sha:  
+                                    parsedData  
+                                        .content  
+                                        ?.sha  
 
-                                return res.status(200).json({
+                            });  
+                        }  
 
-                                    success:
-                                        true,
 
-                                    sha:
-                                        parsedData
-                                            .content
-                                            ?.sha
+                        // =================================  
+                        // ERROR GITHUB  
+                        // =================================  
 
-                                });
-                            }
+                        if (  
+response.statusCode === 409
 
+) {
 
-                            // =================================
-                            // ERROR GITHUB
-                            // =================================
+return res.status(409).json({  
 
-                            if (
-                                response.statusCode === 409
-                            ) {
+    success: false,  
 
-                                return res.status(409).json({
+    conflict: true,  
 
-                                    success: false,
+    error:  
+        'El archivo fue modificado desde otro dispositivo.'  
 
-                                    conflict: true,
+});
 
-                                    error:
-                                        'El archivo fue modificado desde otro dispositivo.'
-
-                                });
-                            }
-
-
-                            return res
-                                .status(
-                                    response.statusCode
-                                )
-                                .json({
-
-                                    success:
-                                        false,
-
-                                    error:
-                                        parsedData.message ||
-                                        'Error en GitHub'
-
-                                });
-                        }
-                    );
-                }
-            );
-
-
-        request.on(
-            'error',
-            error => {
-
-                return res.status(500).json({
-
-                    success:
-                        false,
-
-                    error:
-                        error.message
-
-                });
-            }
-        );
-
-
-        request.write(
-            bodyData
-        );
-
-        request.end();
-
-
-    } catch (error) {
-
-        return res.status(500).json({
-
-            success:
-                false,
-
-            error:
-                error.message
-
-        });
-    }
 }
 
+return res
+.status(
+response.statusCode
+)
+.json({
+
+success:  
+        false,  
+
+    error:  
+        parsedData.message ||  
+        'Error en GitHub'  
+
+});  
+                    }  
+                );  
+            }  
+        );  
+
+
+    request.on(  
+        'error',  
+        error => {  
+
+            return res.status(500).json({  
+
+                success:  
+                    false,  
+
+                error:  
+                    error.message  
+
+            });  
+        }  
+    );  
+
+
+    request.write(  
+        bodyData  
+    );  
+
+    request.end();  
+
+
+} catch (error) {  
+
+    return res.status(500).json({  
+
+        success:  
+            false,  
+
+        error:  
+            error.message  
+
+    });  
+}
+
+}
+
+// =================================================
+// COMPARAR CONTRASEÑAS
+// =================================================
+
+function compararSecretos(
+recibido,
+esperado
+) {
+
+const recibidoBuffer =  
+    Buffer.from(  
+        String(recibido),  
+        'utf8'  
+    );  
+
+
+const esperadoBuffer =  
+    Buffer.from(  
+        String(esperado),  
+        'utf8'  
+    );  
+
+
+if (  
+    recibidoBuffer.length !==  
+    esperadoBuffer.length  
+) {  
+
+    return false;  
+}  
+
+
+return crypto.timingSafeEqual(  
+    recibidoBuffer,  
+    esperadoBuffer  
+);
+
+}
+
+// =================================================
+// CREAR SESIÓN
+// =================================================
+
+function crearSesion() {
+
+const expiracion =  
+    Date.now() +  
+    SESSION_DURATION;  
+
+
+const random =  
+    crypto  
+        .randomBytes(32)  
+        .toString('hex');  
+
+
+return (  
+    `${expiracion}.${random}`  
+);
+
+}
+
+// =================================================
+// CREAR COOKIE
+// =================================================
+
+function construirCookie(
+session
+) {
+
+return [  
+
+    `${COOKIE_NAME}=${session}`,  
+
+    'Path=/',  
+
+    'HttpOnly',  
+
+    'Secure',  
+
+    'SameSite=Strict',  
+
+    `Max-Age=${Math.floor(  
+        SESSION_DURATION / 1000  
+    )}`  
+
+].join('; ');
+
+}
+
+// =================================================
+// OBTENER COOKIES
+// =================================================
+
+function obtenerCookies(
+req
+) {
+
+const cookies = {};  
+
+const header =  
+    req.headers.cookie ||  
+    '';  
+
+
+header  
+    .split(';')  
+    .forEach(  
+        parte => {  
+
+            const indice =  
+                parte.indexOf('=');  
+
+
+            if (  
+                indice === -1  
+            ) {  
+                return;  
+            }  
+
+
+            const nombre =  
+                parte  
+                    .slice(  
+                        0,  
+                        indice  
+                    )  
+                    .trim();  
+
+
+            const valor =  
+                parte  
+                    .slice(  
+                        indice + 1  
+                    )  
+                    .trim();  
+
+
+            cookies[nombre] =  
+                valor;  
+        }  
+    );  
+
+
+return cookies;
+
+}
+
+// =================================================
+// VALIDAR SESIÓN
+// =================================================
+
+function sesionValida(
+req
+) {
+
+const cookies =  
+    obtenerCookies(  
+        req  
+    );  
+
+
+const session =  
+    cookies[  
+        COOKIE_NAME  
+    ];  
+
+
+if (!session) {  
+    return false;  
+}  
+
+
+const partes =  
+    session.split('.');  
+
+
+if (  
+    partes.length !== 2  
+) {  
+    return false;  
+}  
+
+
+const expiracion =  
+    Number(  
+        partes[0]  
+    );  
+
+
+if (  
+    !Number.isFinite(  
+        expiracion  
+    ) ||  
+    expiracion < Date.now()  
+) {  
+
+    return false;  
+}  
+
+
+if (  
+    !/^[a-f0-9]{64}$/i.test(  
+        partes[1]  
+    )  
+) {  
+
+    return false;  
+}  
+
+
+return true;
+
+}
 
 // =================================================
 // OBTENER ARCHIVO DESDE GITHUB
 // =================================================
 
 function obtenerArchivo(
-    path,
-    token,
-    repo,
-    res
+path,
+token,
+repo,
+res
 ) {
 
-    const exactPath =
-        '/repos/' +
-        repo +
-        '/contents/' +
-        path;
+const exactPath =  
+    '/repos/' +  
+    repo +  
+    '/contents/' +  
+    path;  
 
 
-    const options = {
+const options = {  
 
-        hostname:
-            'api.github.com',
+    hostname:  
+        'api.github.com',  
 
-        path:
-            exactPath,
+    path:  
+        exactPath,  
 
-        method:
-            'GET',
+    method:  
+        'GET',  
 
-        headers: {
+    headers: {  
 
-            'Authorization':
-                'Bearer ' + token,
+        'Authorization':  
+            'Bearer ' + token,  
 
-            'User-Agent':
-                'Vercel-Serverless-Function',
+        'User-Agent':  
+            'Vercel-Serverless-Function',  
 
-            'Accept':
-                'application/vnd.github+json',
+        'Accept':  
+            'application/vnd.github+json',  
 
-            'X-GitHub-Api-Version':
-                '2022-11-28'
-        }
-    };
+        'X-GitHub-Api-Version':  
+            '2022-11-28'  
+    }  
+};  
 
 
-    const request =
-        https.request(
-            options,
-            response => {
+const request =  
+    https.request(  
+        options,  
+        response => {  
 
-                let data = '';
+            let data = '';  
 
 
-                response.on(
-                    'data',
-                    chunk => {
+            response.on(  
+                'data',  
+                chunk => {  
 
-                        data += chunk;
-                    }
-                );
+                    data += chunk;  
+                }  
+            );  
 
 
-                response.on(
-                    'end',
-                    () => {
+            response.on(  
+                'end',  
+                () => {  
 
-                        try {
+                    try {  
 
-                            // =============================
-                            // NO EXISTE
-                            // =============================
+                        // =============================  
+                        // NO EXISTE  
+                        // =============================  
 
-                            if (
-                                response.statusCode ===
-                                404
-                            ) {
+                        if (  
+                            response.statusCode ===  
+                            404  
+                        ) {  
 
-                                return res.status(200).json({
+                            return res.status(200).json({  
 
-                                    success:
-                                        false,
+                                success:  
+                                    false,  
 
-                                    status:
-                                        404,
+                                status:  
+                                    404,  
 
-                                    message:
-                                        'Archivo no existe'
+                                message:  
+                                    'Archivo no existe'  
 
-                                });
-                            }
+                            });  
+                        }  
 
 
-                            // =============================
-                            // ERROR GITHUB
-                            // =============================
+                        // =============================  
+                        // ERROR GITHUB  
+                        // =============================  
 
-                            if (
-                                response.statusCode < 200 ||
-                                response.statusCode >= 300
-                            ) {
+                        if (  
+                            response.statusCode < 200 ||  
+                            response.statusCode >= 300  
+                        ) {  
 
-                                let errorData;
+                            let errorData;  
 
 
-                                try {
+                            try {  
 
-                                    errorData =
-                                        JSON.parse(
-                                            data
-                                        );
+                                errorData =  
+                                    JSON.parse(  
+                                        data  
+                                    );  
 
-                                } catch {
+                            } catch {  
 
-                                    errorData = {};
-                                }
+                                errorData = {};  
+                            }  
 
 
-                                return res
-                                    .status(
-                                        response.statusCode
-                                    )
-                                    .json({
+                            return res  
+                                .status(  
+                                    response.statusCode  
+                                )  
+                                .json({  
 
-                                        success:
-                                            false,
+                                    success:  
+                                        false,  
 
-                                        error:
-                                            errorData.message ||
-                                            'Error en GitHub'
+                                    error:  
+                                        errorData.message ||  
+                                        'Error en GitHub'  
 
-                                    });
-                            }
+                                });  
+                        }  
 
 
-                            // =============================
-                            // DECODIFICAR
-                            // =============================
+                        // =============================  
+                        // DECODIFICAR  
+                        // =============================  
 
-                            const fileData =
-                                JSON.parse(
-                                    data
-                                );
+                        const fileData =  
+                            JSON.parse(  
+                                data  
+                            );  
 
 
-                            const contenido =
-                                Buffer
-                                    .from(
-                                        fileData.content,
-                                        'base64'
-                                    )
-                                    .toString(
-                                        'utf8'
-                                    );
+                        const contenido =  
+                            Buffer  
+                                .from(  
+                                    fileData.content,  
+                                    'base64'  
+                                )  
+                                .toString(  
+                                    'utf8'  
+                                );  
 
 
-                            const jsonPlano =
-                                JSON.parse(
-                                    contenido
-                                );
+                        const jsonPlano =  
+                            JSON.parse(  
+                                contenido  
+                            );  
 
 
-                            return res.status(200).json({
+                        return res.status(200).json({  
 
-                                success:
-                                    true,
+                            success:  
+                                true,  
 
-                                sha:
-                                    fileData.sha,
+                            sha:  
+                                fileData.sha,  
 
-                                data:
-                                    jsonPlano
+                            data:  
+                                jsonPlano  
 
-                            });
+                        });  
 
 
-                        } catch (error) {
+                    } catch (error) {  
 
-                            return res.status(500).json({
+                        return res.status(500).json({  
 
-                                success:
-                                    false,
+                            success:  
+                                false,  
 
-                                error:
-                                    error.message
+                            error:  
+                                error.message  
 
-                            });
-                        }
-                    }
-                );
-            }
-        );
+                        });  
+                    }  
+                }  
+            );  
+        }  
+    );  
 
 
-    request.on(
-        'error',
-        error => {
+request.on(  
+    'error',  
+    error => {  
 
-            return res.status(500).json({
+        return res.status(500).json({  
 
-                success:
-                    false,
+            success:  
+                false,  
 
-                error:
-                    error.message
+            error:  
+                error.message  
 
-            });
-        }
-    );
+        });  
+    }  
+);  
 
 
-    request.end();
+request.end();
+
 }
