@@ -306,10 +306,13 @@
     ],
     "imagenPrincipal": "/imagenes/1787649087259-1000545163.webp",
     "categoria": [
-      "Lencería",
-      "Tanga"
+      "Lencería"
     ],
-    "tags": [],
+    "tags": [
+      "Tanga",
+      "Colaless",
+      "Encaje"
+    ],
     "badges": [],
     "stock": 12,
     "talles": [
@@ -329,6 +332,6 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-25T09:11:28.861Z",
-    "fechaActualizacion": "2026-08-25T09:43:12.855Z"
+    "fechaActualizacion": "2026-08-25T09:44:43.063Z"
   }
 ]
