@@ -7,11 +7,11 @@ import {
     actualizarImagenes
 } from './productos.js';
 
+
 import {
-    autenticarAdministrador,
-    cerrarSesion,
-    administradorAutenticado
+    cerrarSesion
 } from './api.js';
+
 
 import {
     mostrarCargando,
@@ -22,107 +22,29 @@ import {
     obtenerListaFormulario
 } from './ui.js';
 
+
+import {
+    autenticar,
+    verificarAutenticacion,
+    manejarErrorSesion
+} from './admin-auth.js';
+
+
 const formulario =
     document.getElementById('prodForm');
 
+
 const fileInput =
     document.getElementById('imagenFile');
+
 
 const preview =
     document.getElementById('imagenesPreview');
 
 
-/* ------------------------------------------
-   AUTENTICACIÓN
------------------------------------------- */
-
-async function autenticar() {
-
-    const sesionValida =
-        await administradorAutenticado();
-
-    if (sesionValida) {
-        return true;
-    }
-
-    const password =
-        prompt(
-            'Ingresá la contraseña de administrador:'
-        );
-
-    if (password === null) {
-        return false;
-    }
-
-    if (password === '') {
-
-        alert(
-            'Debés ingresar una contraseña.'
-        );
-
-        return false;
-    }
-
-    mostrarCargando(
-        true,
-        'Autenticando...'
-    );
-
-    try {
-
-        const resultado =
-            await autenticarAdministrador(
-                password
-            );
-
-        if (!resultado.success) {
-
-            alert(
-                resultado.error ||
-                'Contraseña incorrecta.'
-            );
-
-            return false;
-        }
-
-        return true;
-
-    } catch (error) {
-
-        alert(
-            'Error de autenticación: ' +
-            error.message
-        );
-
-        return false;
-
-    } finally {
-
-        mostrarCargando(false);
-    }
-}
-
-
-/* ------------------------------------------
-   VERIFICAR SESIÓN
------------------------------------------- */
-
-async function verificarAutenticacion() {
-
-    const autenticado =
-        await administradorAutenticado();
-
-    if (autenticado) {
-        return true;
-    }
-
-    return await autenticar();
-}
-
-
-/* ------------------------------------------
-   CARGAR INVENTARIO
------------------------------------------- */
+// =================================================
+// CARGAR INVENTARIO
+// =================================================
 
 async function cargarInventario() {
 
@@ -131,9 +53,11 @@ async function cargarInventario() {
         'Cargando inventario desde GitHub...'
     );
 
+
     try {
 
         await cargarProductos();
+
 
         renderizarTabla(
             obtenerProductos(),
@@ -141,41 +65,26 @@ async function cargarInventario() {
             iniciarEliminacion
         );
 
+
     } catch (error) {
 
-        const mensaje =
-            String(
-                error.message || ''
-            ).toLowerCase();
+        const manejado =
+            await manejarErrorSesion(
+                error,
+                cargarInventario
+            );
 
-        if (
-            mensaje.includes('401') ||
-            mensaje.includes('sesión') ||
-            mensaje.includes('autentic')
-        ) {
 
-            await cerrarSesion();
-
-            const autenticado =
-                await autenticar();
-
-            if (autenticado) {
-
-                await cargarInventario();
-
-            } else {
-
-                document.body.innerHTML =
-                    '<h2>Acceso denegado.</h2>';
-            }
-
+        if (manejado) {
             return;
         }
+
 
         alert(
             'Error al conectar con la base de datos: ' +
             error.message
         );
+
 
     } finally {
 
@@ -184,19 +93,23 @@ async function cargarInventario() {
 }
 
 
-/* ------------------------------------------
-   OBTENER DATOS DEL FORMULARIO
------------------------------------------- */
+// =================================================
+// OBTENER DATOS DEL FORMULARIO
+// =================================================
 
 function obtenerDatosFormulario() {
 
     return {
 
         sku:
-            document.getElementById('sku').value.trim(),
+            document.getElementById(
+                'sku'
+            ).value.trim(),
 
         nombre:
-            document.getElementById('nombre').value.trim(),
+            document.getElementById(
+                'nombre'
+            ).value.trim(),
 
         precioCosto:
             document.getElementById(
@@ -219,34 +132,34 @@ function obtenerDatosFormulario() {
             ).value.trim(),
 
         categoria:
-    obtenerListaFormulario(
-        'categoria'
-    ),
+            obtenerListaFormulario(
+                'categoria'
+            ),
 
-tags:
-    obtenerListaFormulario(
-        'tags'
-    ),
+        tags:
+            obtenerListaFormulario(
+                'tags'
+            ),
 
-badges:
-    obtenerListaFormulario(
-        'badges'
-    ),
-        
+        badges:
+            obtenerListaFormulario(
+                'badges'
+            ),
+
         stock:
             document.getElementById(
                 'stock'
             ).value,
 
         talles:
-    obtenerListaFormulario(
-        'talles'
-    ),
+            obtenerListaFormulario(
+                'talles'
+            ),
 
-colores:
-    obtenerListaFormulario(
-        'colores'
-    ),
+        colores:
+            obtenerListaFormulario(
+                'colores'
+            ),
 
         activo:
             document.getElementById(
@@ -266,9 +179,9 @@ colores:
 }
 
 
-/* ------------------------------------------
-   VALIDAR DATOS
------------------------------------------- */
+// =================================================
+// VALIDAR DATOS
+// =================================================
 
 function validarDatosFormulario(
     datos,
@@ -282,6 +195,7 @@ function validarDatosFormulario(
         );
     }
 
+
     if (
         datos.nombre.length < 2
     ) {
@@ -291,8 +205,10 @@ function validarDatosFormulario(
         );
     }
 
+
     const precio =
         Number(datos.precio);
+
 
     if (
         datos.precio === '' ||
@@ -305,12 +221,14 @@ function validarDatosFormulario(
         );
     }
 
+
     if (
         datos.precioCosto !== ''
     ) {
 
         const precioCosto =
             Number(datos.precioCosto);
+
 
         if (
             !Number.isFinite(precioCosto) ||
@@ -323,12 +241,14 @@ function validarDatosFormulario(
         }
     }
 
+
     if (
         datos.precioAnterior !== ''
     ) {
 
         const precioAnterior =
             Number(datos.precioAnterior);
+
 
         if (
             !Number.isFinite(precioAnterior) ||
@@ -341,12 +261,14 @@ function validarDatosFormulario(
         }
     }
 
+
     if (
         datos.stock !== ''
     ) {
 
         const stock =
             Number(datos.stock);
+
 
         if (
             !Number.isInteger(stock) ||
@@ -359,12 +281,14 @@ function validarDatosFormulario(
         }
     }
 
+
     if (
         datos.orden !== ''
     ) {
 
         const orden =
             Number(datos.orden);
+
 
         if (
             !Number.isInteger(orden) ||
@@ -377,12 +301,14 @@ function validarDatosFormulario(
         }
     }
 
+
     if (esNuevo) {
 
         const archivos =
             Array.from(
                 fileInput.files
             );
+
 
         if (
             archivos.length === 0
@@ -393,6 +319,7 @@ function validarDatosFormulario(
             );
         }
 
+
         validarArchivosImagen(
             archivos
         );
@@ -400,9 +327,9 @@ function validarDatosFormulario(
 }
 
 
-/* ------------------------------------------
-   VALIDAR IMÁGENES
------------------------------------------- */
+// =================================================
+// VALIDAR IMÁGENES
+// =================================================
 
 function validarArchivosImagen(
     archivos
@@ -424,6 +351,7 @@ function validarArchivosImagen(
             );
         }
 
+
         if (
             archivo.size === 0
         ) {
@@ -436,9 +364,9 @@ function validarArchivosImagen(
 }
 
 
-/* ------------------------------------------
-   GUARDAR PRODUCTO
------------------------------------------- */
+// =================================================
+// GUARDAR PRODUCTO
+// =================================================
 
 formulario.addEventListener(
     'submit',
@@ -446,12 +374,15 @@ formulario.addEventListener(
 
         event.preventDefault();
 
+
         const autenticado =
             await verificarAutenticacion();
+
 
         if (!autenticado) {
             return;
         }
+
 
         const index =
             parseInt(
@@ -461,13 +392,16 @@ formulario.addEventListener(
                 10
             );
 
+
         const datos =
             obtenerDatosFormulario();
+
 
         const archivos =
             Array.from(
                 fileInput.files
             );
+
 
         try {
 
@@ -475,6 +409,7 @@ formulario.addEventListener(
                 datos,
                 index === -1
             );
+
 
         } catch (error) {
 
@@ -484,6 +419,7 @@ formulario.addEventListener(
 
             return;
         }
+
 
         if (
             index !== -1 &&
@@ -496,6 +432,7 @@ formulario.addEventListener(
                     archivos
                 );
 
+
             } catch (error) {
 
                 alert(
@@ -506,10 +443,12 @@ formulario.addEventListener(
             }
         }
 
+
         mostrarCargando(
             true,
             'Guardando producto...'
         );
+
 
         try {
 
@@ -520,10 +459,12 @@ formulario.addEventListener(
                     'Optimizando y subiendo imágenes...'
                 );
 
+
                 await crearProducto(
                     datos,
                     archivos
                 );
+
 
             } else {
 
@@ -534,6 +475,7 @@ formulario.addEventListener(
                         : 'Guardando cambios...'
                 );
 
+
                 await editarProducto(
                     index,
                     datos,
@@ -541,13 +483,17 @@ formulario.addEventListener(
                 );
             }
 
+
             alert(
                 '¡Cambios guardados con éxito!'
             );
 
+
             cancelarEdicion();
 
+
             await cargarInventario();
+
 
         } catch (error) {
 
@@ -556,9 +502,12 @@ formulario.addEventListener(
                 error.message
             );
 
+
             await manejarErrorSesion(
-                error
+                error,
+                cargarInventario
             );
+
 
         } finally {
 
@@ -568,9 +517,9 @@ formulario.addEventListener(
 );
 
 
-/* ------------------------------------------
-   PREVISUALIZAR NUEVAS IMÁGENES
------------------------------------------- */
+// =================================================
+// PREVISUALIZAR NUEVAS IMÁGENES
+// =================================================
 
 fileInput.addEventListener(
     'change',
@@ -581,11 +530,13 @@ fileInput.addEventListener(
                 fileInput.files
             );
 
+
         if (
             archivos.length === 0
         ) {
             return;
         }
+
 
         try {
 
@@ -593,16 +544,19 @@ fileInput.addEventListener(
                 archivos
             );
 
+
         } catch (error) {
 
             alert(
                 error.message
             );
 
+
             fileInput.value = '';
 
             return;
         }
+
 
         const index =
             parseInt(
@@ -611,6 +565,7 @@ fileInput.addEventListener(
                 ).value,
                 10
             );
+
 
         if (index === -1) {
 
@@ -621,16 +576,20 @@ fileInput.addEventListener(
             return;
         }
 
+
         const producto =
             obtenerProductos()[index];
+
 
         if (!producto) {
             return;
         }
 
+
         renderizarImagenesFormulario(
             producto
         );
+
 
         mostrarPrevisualizacionArchivos(
             archivos,
@@ -640,9 +599,9 @@ fileInput.addEventListener(
 );
 
 
-/* ------------------------------------------
-   PREVISUALIZACIÓN DE ARCHIVOS NUEVOS
------------------------------------------- */
+// =================================================
+// PREVISUALIZACIÓN DE ARCHIVOS
+// =================================================
 
 function mostrarPrevisualizacionArchivos(
     archivos,
@@ -653,11 +612,13 @@ function mostrarPrevisualizacionArchivos(
         preview.innerHTML = '';
     }
 
+
     archivos.forEach(
         archivo => {
 
             const reader =
                 new FileReader();
+
 
             reader.onload =
                 event => {
@@ -667,36 +628,46 @@ function mostrarPrevisualizacionArchivos(
                             'div'
                         );
 
+
                     item.className =
                         'imagen-preview-item';
+
 
                     const img =
                         document.createElement(
                             'img'
                         );
 
+
                     img.src =
                         event.target.result;
 
+
                     img.alt =
                         archivo.name;
+
 
                     const label =
                         document.createElement(
                             'p'
                         );
 
+
                     label.className =
                         'imagen-label';
+
 
                     label.textContent =
                         archivo.name;
 
+
                     item.appendChild(img);
+
                     item.appendChild(label);
 
                     preview.appendChild(item);
                 };
+
 
             reader.readAsDataURL(
                 archivo
@@ -706,57 +677,68 @@ function mostrarPrevisualizacionArchivos(
 }
 
 
-/* ------------------------------------------
-   EDITAR PRODUCTO
------------------------------------------- */
+// =================================================
+// EDITAR PRODUCTO
+// =================================================
 
 async function iniciarEdicion(index) {
 
     const autenticado =
         await verificarAutenticacion();
 
+
     if (!autenticado) {
         return;
     }
 
+
     const producto =
         obtenerProductos()[index];
+
 
     if (!producto) {
         return;
     }
+
 
     cargarFormulario(
         producto,
         index
     );
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: 'smooth'
     });
 }
 
 
-/* ------------------------------------------
-   ELIMINAR PRODUCTO
------------------------------------------- */
+// =================================================
+// ELIMINAR PRODUCTO
+// =================================================
 
 async function iniciarEliminacion(index) {
 
     const autenticado =
         await verificarAutenticacion();
 
+
     if (!autenticado) {
         return;
     }
 
+
     const producto =
         obtenerProductos()[index];
+
 
     if (!producto) {
         return;
     }
+
 
     if (
         !confirm(
@@ -766,20 +748,27 @@ async function iniciarEliminacion(index) {
         return;
     }
 
+
     mostrarCargando(
         true,
         'Sincronizando eliminación...'
     );
 
+
     try {
 
-        await eliminarProducto(index);
+        await eliminarProducto(
+            index
+        );
+
 
         alert(
             '¡Producto eliminado correctamente!'
         );
 
+
         await cargarInventario();
+
 
     } catch (error) {
 
@@ -788,9 +777,12 @@ async function iniciarEliminacion(index) {
             error.message
         );
 
+
         await manejarErrorSesion(
-            error
+            error,
+            cargarInventario
         );
+
 
     } finally {
 
@@ -799,9 +791,9 @@ async function iniciarEliminacion(index) {
 }
 
 
-/* ------------------------------------------
-   GESTIÓN DE IMÁGENES
------------------------------------------- */
+// =================================================
+// GESTIÓN DE IMÁGENES
+// =================================================
 
 preview.addEventListener(
     'click',
@@ -812,16 +804,20 @@ preview.addEventListener(
                 'button'
             );
 
+
         if (!boton) {
             return;
         }
 
+
         const autenticado =
             await verificarAutenticacion();
+
 
         if (!autenticado) {
             return;
         }
+
 
         const indexProducto =
             parseInt(
@@ -830,6 +826,7 @@ preview.addEventListener(
                 ).value,
                 10
             );
+
 
         if (
             Number.isNaN(
@@ -840,14 +837,17 @@ preview.addEventListener(
             return;
         }
 
+
         const producto =
             obtenerProductos()[
                 indexProducto
             ];
 
+
         if (!producto) {
             return;
         }
+
 
         let imagenes =
             Array.isArray(
@@ -862,11 +862,13 @@ preview.addEventListener(
                     }]
                     : [];
 
+
         const indexImagen =
             parseInt(
                 boton.dataset.imagenIndex,
                 10
             );
+
 
         if (
             Number.isNaN(indexImagen) ||
@@ -877,7 +879,7 @@ preview.addEventListener(
         }
 
 
-        /* HACER PRINCIPAL */
+        // HACER PRINCIPAL
 
         if (
             boton.classList.contains(
@@ -888,6 +890,7 @@ preview.addEventListener(
             const imagenPrincipal =
                 imagenes[indexImagen].url;
 
+
             await guardarOrdenImagenes(
                 indexProducto,
                 imagenes,
@@ -895,11 +898,12 @@ preview.addEventListener(
                 'Guardando imagen principal...'
             );
 
+
             return;
         }
 
 
-        /* SUBIR */
+        // SUBIR
 
         if (
             boton.classList.contains(
@@ -913,6 +917,7 @@ preview.addEventListener(
                 return;
             }
 
+
             [
                 imagenes[indexImagen - 1],
                 imagenes[indexImagen]
@@ -921,9 +926,11 @@ preview.addEventListener(
                 imagenes[indexImagen - 1]
             ];
 
+
             actualizarOrdenLocal(
                 imagenes
             );
+
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -932,11 +939,12 @@ preview.addEventListener(
                 'Reordenando imágenes...'
             );
 
+
             return;
         }
 
 
-        /* BAJAR */
+        // BAJAR
 
         if (
             boton.classList.contains(
@@ -951,6 +959,7 @@ preview.addEventListener(
                 return;
             }
 
+
             [
                 imagenes[indexImagen],
                 imagenes[indexImagen + 1]
@@ -959,9 +968,11 @@ preview.addEventListener(
                 imagenes[indexImagen]
             ];
 
+
             actualizarOrdenLocal(
                 imagenes
             );
+
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -970,11 +981,12 @@ preview.addEventListener(
                 'Reordenando imágenes...'
             );
 
+
             return;
         }
 
 
-        /* ELIMINAR */
+        // ELIMINAR
 
         if (
             boton.classList.contains(
@@ -990,20 +1002,25 @@ preview.addEventListener(
                 return;
             }
 
+
             const imagenEliminada =
                 imagenes[indexImagen];
+
 
             imagenes.splice(
                 indexImagen,
                 1
             );
 
+
             actualizarOrdenLocal(
                 imagenes
             );
 
+
             let imagenPrincipal =
                 producto.imagenPrincipal;
+
 
             if (
                 imagenPrincipal ===
@@ -1014,6 +1031,7 @@ preview.addEventListener(
                     imagenes[0]?.url ||
                     '';
             }
+
 
             await guardarOrdenImagenes(
                 indexProducto,
@@ -1026,9 +1044,9 @@ preview.addEventListener(
 );
 
 
-/* ------------------------------------------
-   ACTUALIZAR ORDEN
------------------------------------------- */
+// =================================================
+// ACTUALIZAR ORDEN
+// =================================================
 
 function actualizarOrdenLocal(
     imagenes
@@ -1044,9 +1062,9 @@ function actualizarOrdenLocal(
 }
 
 
-/* ------------------------------------------
-   GUARDAR CAMBIOS DE IMÁGENES
------------------------------------------- */
+// =================================================
+// GUARDAR CAMBIOS DE IMÁGENES
+// =================================================
 
 async function guardarOrdenImagenes(
     indexProducto,
@@ -1060,11 +1078,13 @@ async function guardarOrdenImagenes(
         mensaje
     );
 
+
     try {
 
         actualizarOrdenLocal(
             imagenes
         );
+
 
         await actualizarImagenes(
             indexProducto,
@@ -1072,20 +1092,24 @@ async function guardarOrdenImagenes(
             imagenPrincipal
         );
 
+
         const productoActualizado =
             obtenerProductos()[
                 indexProducto
             ];
 
+
         renderizarImagenesFormulario(
             productoActualizado
         );
+
 
         renderizarTabla(
             obtenerProductos(),
             iniciarEdicion,
             iniciarEliminacion
         );
+
 
     } catch (error) {
 
@@ -1094,9 +1118,12 @@ async function guardarOrdenImagenes(
             error.message
         );
 
+
         await manejarErrorSesion(
-            error
+            error,
+            cargarInventario
         );
+
 
     } finally {
 
@@ -1105,50 +1132,9 @@ async function guardarOrdenImagenes(
 }
 
 
-/* ------------------------------------------
-   MANEJO DE SESIÓN EXPIRADA
------------------------------------------- */
-
-async function manejarErrorSesion(
-    error
-) {
-
-    const mensaje =
-        String(
-            error?.message || ''
-        ).toLowerCase();
-
-    if (
-        mensaje.includes('401') ||
-        mensaje.includes('sesión') ||
-        mensaje.includes('autentic')
-    ) {
-
-        await cerrarSesion();
-
-        const autenticado =
-            await autenticar();
-
-        if (autenticado) {
-
-            await cargarInventario();
-
-        } else {
-
-            document.body.innerHTML =
-                '<h2>Acceso denegado.</h2>';
-        }
-
-        return true;
-    }
-
-    return false;
-}
-
-
-/* ------------------------------------------
-   CANCELAR
------------------------------------------- */
+// =================================================
+// CANCELAR
+// =================================================
 
 document
     .getElementById('btnCancelar')
@@ -1158,14 +1144,15 @@ document
     );
 
 
-/* ------------------------------------------
-   INICIO
------------------------------------------- */
+// =================================================
+// INICIO
+// =================================================
 
 async function iniciar() {
 
     const autenticado =
         await autenticar();
+
 
     if (!autenticado) {
 
@@ -1174,6 +1161,7 @@ async function iniciar() {
 
         return;
     }
+
 
     await cargarInventario();
 }
