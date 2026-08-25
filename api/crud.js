@@ -7,6 +7,9 @@ const COOKIE_NAME = 'admin_session';
 const SESSION_DURATION =
     8 * 60 * 60 * 1000; // 8 horas
 
+const SESSION_SECRET =
+    process.env.SESSION_SECRET;
+
 
 export default function handler(req, res) {
 
@@ -63,6 +66,16 @@ export default function handler(req, res) {
                 success: false,
                 error:
                     'Falta la variable ADMIN_PASSWORD'
+            });
+        }
+
+
+        if (!SESSION_SECRET) {
+
+            return res.status(500).json({
+                success: false,
+                error:
+                    'Falta la variable SESSION_SECRET'
             });
         }
 
@@ -431,7 +444,6 @@ export default function handler(req, res) {
                                         parsedData
                                             .content
                                             ?.sha
-
                                 });
                             }
 
@@ -441,36 +453,36 @@ export default function handler(req, res) {
                             // =================================
 
                             if (
-    response.statusCode === 409
-) {
+                                response.statusCode === 409
+                            ) {
 
-    return res.status(409).json({
+                                return res.status(409).json({
 
-        success: false,
+                                    success:
+                                        false,
 
-        conflict: true,
+                                    conflict:
+                                        true,
 
-        error:
-            'El archivo fue modificado desde otro dispositivo.'
+                                    error:
+                                        'El archivo fue modificado desde otro dispositivo.'
+                                });
+                            }
 
-    });
-}
 
+                            return res
+                                .status(
+                                    response.statusCode
+                                )
+                                .json({
 
-return res
-    .status(
-        response.statusCode
-    )
-    .json({
+                                    success:
+                                        false,
 
-        success:
-            false,
-
-        error:
-            parsedData.message ||
-            'Error en GitHub'
-
-    });
+                                    error:
+                                        parsedData.message ||
+                                        'Error en GitHub'
+                                });
                         }
                     );
                 }
@@ -488,7 +500,6 @@ return res
 
                     error:
                         error.message
-
                 });
             }
         );
@@ -510,7 +521,6 @@ return res
 
             error:
                 error.message
-
         });
     }
 }
@@ -572,8 +582,22 @@ function crearSesion() {
             .toString('hex');
 
 
+    const datos =
+        `${expiracion}.${random}`;
+
+
+    const firma =
+        crypto
+            .createHmac(
+                'sha256',
+                SESSION_SECRET
+            )
+            .update(datos)
+            .digest('hex');
+
+
     return (
-        `${expiracion}.${random}`
+        `${datos}.${firma}`
     );
 }
 
@@ -615,6 +639,7 @@ function obtenerCookies(
 ) {
 
     const cookies = {};
+
 
     const header =
         req.headers.cookie ||
@@ -694,15 +719,22 @@ function sesionValida(
 
 
     if (
-        partes.length !== 2
+        partes.length !== 3
     ) {
         return false;
     }
 
 
+    const [
+        expiracionTexto,
+        random,
+        firma
+    ] = partes;
+
+
     const expiracion =
         Number(
-            partes[0]
+            expiracionTexto
         );
 
 
@@ -710,7 +742,7 @@ function sesionValida(
         !Number.isFinite(
             expiracion
         ) ||
-        expiracion < Date.now()
+        expiracion <= Date.now()
     ) {
 
         return false;
@@ -719,7 +751,10 @@ function sesionValida(
 
     if (
         !/^[a-f0-9]{64}$/i.test(
-            partes[1]
+            random
+        ) ||
+        !/^[a-f0-9]{64}$/i.test(
+            firma
         )
     ) {
 
@@ -727,7 +762,47 @@ function sesionValida(
     }
 
 
-    return true;
+    const datos =
+        `${expiracion}.${random}`;
+
+
+    const firmaEsperada =
+        crypto
+            .createHmac(
+                'sha256',
+                SESSION_SECRET
+            )
+            .update(datos)
+            .digest('hex');
+
+
+    const firmaRecibidaBuffer =
+        Buffer.from(
+            firma,
+            'hex'
+        );
+
+
+    const firmaEsperadaBuffer =
+        Buffer.from(
+            firmaEsperada,
+            'hex'
+        );
+
+
+    if (
+        firmaRecibidaBuffer.length !==
+        firmaEsperadaBuffer.length
+    ) {
+
+        return false;
+    }
+
+
+    return crypto.timingSafeEqual(
+        firmaRecibidaBuffer,
+        firmaEsperadaBuffer
+    );
 }
 
 
@@ -819,7 +894,6 @@ function obtenerArchivo(
 
                                     message:
                                         'Archivo no existe'
-
                                 });
                             }
 
@@ -861,7 +935,6 @@ function obtenerArchivo(
                                         error:
                                             errorData.message ||
                                             'Error en GitHub'
-
                                     });
                             }
 
@@ -903,7 +976,6 @@ function obtenerArchivo(
 
                                 data:
                                     jsonPlano
-
                             });
 
 
@@ -916,7 +988,6 @@ function obtenerArchivo(
 
                                 error:
                                     error.message
-
                             });
                         }
                     }
@@ -936,7 +1007,6 @@ function obtenerArchivo(
 
                 error:
                     error.message
-
             });
         }
     );
