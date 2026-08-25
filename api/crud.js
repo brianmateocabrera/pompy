@@ -1,558 +1,376 @@
-import https from 'https';
 import crypto from 'crypto';
+
+import {
+    obtenerArchivo,
+    actualizarArchivo
+} from './lib/github.js';
+
 
 const COOKIE_NAME = 'admin_session';
 
 const SESSION_DURATION =
-8 * 60 * 60 * 1000; // 8 horas
+    8 * 60 * 60 * 1000; // 8 horas
+
 
 export default function handler(req, res) {
 
-try {  
+    try {
 
-    res.setHeader(  
-        'Cache-Control',  
-        'no-store, no-cache, must-revalidate, proxy-revalidate'  
-    );  
+        res.setHeader(
+            'Cache-Control',
+            'no-store, no-cache, must-revalidate, proxy-revalidate'
+        );
 
-    res.setHeader(  
-        'Pragma',  
-        'no-cache'  
-    );  
+        res.setHeader(
+            'Pragma',
+            'no-cache'
+        );
 
-    res.setHeader(  
-        'Expires',  
-        '0'  
-    );  
+        res.setHeader(
+            'Expires',
+            '0'
+        );
 
 
-    if (req.method !== 'POST') {  
+        if (req.method !== 'POST') {
 
-        return res.status(405).json({  
-            success: false,  
-            error: 'Método no permitido'  
-        });  
-    }  
+            return res.status(405).json({
+                success: false,
+                error: 'Método no permitido'
+            });
+        }
 
 
-    const token =  
-        process.env.GITHUB_TOKEN;  
+        const token =
+            process.env.GITHUB_TOKEN;
 
-    const repo =  
-        process.env.GITHUB_REPO;  
+        const repo =
+            process.env.GITHUB_REPO;
 
-    const adminPassword =  
-        process.env.ADMIN_PASSWORD;  
+        const adminPassword =
+            process.env.ADMIN_PASSWORD;
 
 
-    if (!token || !repo) {  
+        if (!token || !repo) {
 
-        return res.status(500).json({  
-            success: false,  
-            error:  
-                'Faltan variables de entorno de GitHub'  
-        });  
-    }  
+            return res.status(500).json({
+                success: false,
+                error:
+                    'Faltan variables de entorno de GitHub'
+            });
+        }
 
 
-    if (!adminPassword) {  
+        if (!adminPassword) {
 
-        return res.status(500).json({  
-            success: false,  
-            error:  
-                'Falta la variable ADMIN_PASSWORD'  
-        });  
-    }  
+            return res.status(500).json({
+                success: false,
+                error:
+                    'Falta la variable ADMIN_PASSWORD'
+            });
+        }
 
 
-    const {  
-        path,  
-        message,  
-        content,  
-        sha,  
-        action,  
-        password  
-    } = req.body || {};  
+        const {
+            path,
+            message,
+            content,
+            sha,
+            action,
+            password
+        } = req.body || {};
 
 
-    // =========================================  
-    // AUTENTICACIÓN  
-    // =========================================  
+        // =========================================
+        // AUTENTICACIÓN
+        // =========================================
 
-    if (action === 'AUTH') {  
+        if (action === 'AUTH') {
 
-        if (  
-            typeof password !== 'string' ||  
-            !compararSecretos(  
-                password,  
-                adminPassword  
-            )  
-        ) {  
+            if (
+                typeof password !== 'string' ||
+                !compararSecretos(
+                    password,
+                    adminPassword
+                )
+            ) {
 
-            return res.status(401).json({  
-                success: false,  
-                error:  
-                    'Contraseña de administrador incorrecta'  
-            });  
-        }  
+                return res.status(401).json({
+                    success: false,
+                    error:
+                        'Contraseña de administrador incorrecta'
+                });
+            }
 
 
-        const session =  
-            crearSesion();  
+            const session =
+                crearSesion();
 
 
-        res.setHeader(  
-            'Set-Cookie',  
-            construirCookie(session)  
-        );  
+            res.setHeader(
+                'Set-Cookie',
+                construirCookie(session)
+            );
 
 
-        return res.status(200).json({  
-            success: true  
-        });  
-    }  
+            return res.status(200).json({
+                success: true
+            });
+        }
 
 
-    // =========================================  
-    // COMPROBAR SESIÓN  
-    // =========================================  
+        // =========================================
+        // COMPROBAR SESIÓN
+        // =========================================
 
-    if (action === 'SESSION') {  
+        if (action === 'SESSION') {
 
-        if (!sesionValida(req)) {  
+            if (!sesionValida(req)) {
 
-            return res.status(401).json({  
-                success: false,  
-                error:  
-                    'Sesión inválida o expirada'  
-            });  
-        }  
+                return res.status(401).json({
+                    success: false,
+                    error:
+                        'Sesión inválida o expirada'
+                });
+            }
 
 
-        return res.status(200).json({  
-            success: true  
-        });  
-    }  
+            return res.status(200).json({
+                success: true
+            });
+        }
 
 
-    // =========================================  
-    // CERRAR SESIÓN  
-    // =========================================  
+        // =========================================
+        // CERRAR SESIÓN
+        // =========================================
 
-    if (action === 'LOGOUT') {  
+        if (action === 'LOGOUT') {
 
-        res.setHeader(  
-            'Set-Cookie',  
-            [  
-                `${COOKIE_NAME}=`,  
-                'Path=/',  
-                'HttpOnly',  
-                'Secure',  
-                'SameSite=Strict',  
-                'Max-Age=0'  
-            ].join('; ')  
-        );  
+            res.setHeader(
+                'Set-Cookie',
+                [
+                    `${COOKIE_NAME}=`,
+                    'Path=/',
+                    'HttpOnly',
+                    'Secure',
+                    'SameSite=Strict',
+                    'Max-Age=0'
+                ].join('; ')
+            );
 
 
-        return res.status(200).json({  
-            success: true  
-        });  
-    }  
+            return res.status(200).json({
+                success: true
+            });
+        }
 
 
-    // =========================================  
-    // VALIDAR RUTA  
-    // =========================================  
+        // =========================================
+        // VALIDAR RUTA
+        // =========================================
 
-    if (!path) {  
+        if (!path) {
 
-        return res.status(400).json({  
-            success: false,  
-            error:  
-                'Ruta de archivo requerida'  
-        });  
-    }  
+            return res.status(400).json({
+                success: false,
+                error:
+                    'Ruta de archivo requerida'
+            });
+        }
 
 
-    // =========================================  
-    // RUTAS PERMITIDAS  
-    // =========================================  
+        // =========================================
+        // RUTAS PERMITIDAS
+        // =========================================
 
-    const rutasPermitidas = [  
-        'data/productos.json'  
-    ];  
+        const rutasPermitidas = [
+            'data/productos.json'
+        ];
 
 
-    const esImagenPermitida =  
-        typeof path === 'string' &&  
-        path.startsWith(  
-            'public/imagenes/'  
-        );  
+        const esImagenPermitida =
+            typeof path === 'string' &&
+            path.startsWith(
+                'public/imagenes/'
+            );
 
 
-    if (  
-        !rutasPermitidas.includes(path) &&  
-        !esImagenPermitida  
-    ) {  
+        if (
+            !rutasPermitidas.includes(path) &&
+            !esImagenPermitida
+        ) {
 
-        return res.status(403).json({  
-            success: false,  
-            error:  
-                'Ruta no autorizada'  
-        });  
-    }  
+            return res.status(403).json({
+                success: false,
+                error:
+                    'Ruta no autorizada'
+            });
+        }
 
 
-    // =========================================  
-    // GET  
-    // =========================================  
-    //  
-    // El catálogo público puede leer  
-    // productos.json sin autenticación.  
-    //  
-    // Las imágenes son archivos públicos  
-    // servidos directamente por Vercel.  
-    // =========================================  
+        // =========================================
+        // GET
+        // =========================================
 
-    if (action === 'GET') {  
+        if (action === 'GET') {
 
-        return obtenerArchivo(  
-            path,  
-            token,  
-            repo,  
-            res  
-        );  
-    }  
+            return obtenerArchivo(
+                path,
+                token,
+                repo,
+                res
+            );
+        }
 
 
-    // =========================================  
-    // ESCRITURA  
-    // =========================================  
+        // =========================================
+        // ESCRITURA
+        // =========================================
 
-    if (action !== 'PUT') {  
+        if (action !== 'PUT') {
 
-        return res.status(400).json({  
-            success: false,  
-            error:  
-                'Acción no permitida'  
-        });  
-    }  
+            return res.status(400).json({
+                success: false,
+                error:
+                    'Acción no permitida'
+            });
+        }
 
 
-    // =========================================  
-    // VALIDAR SESIÓN  
-    // =========================================  
+        // =========================================
+        // VALIDAR SESIÓN
+        // =========================================
 
-    if (!sesionValida(req)) {  
+        if (!sesionValida(req)) {
 
-        return res.status(401).json({  
-            success: false,  
-            error:  
-                'Sesión de administrador inválida o expirada'  
-        });  
-    }  
+            return res.status(401).json({
+                success: false,
+                error:
+                    'Sesión de administrador inválida o expirada'
+            });
+        }
 
 
-    // =========================================  
-    // VALIDAR CONTENIDO  
-    // =========================================  
+        // =========================================
+        // VALIDAR CONTENIDO
+        // =========================================
 
-    if (  
-        content === undefined ||  
-        content === null ||  
-        content === ''  
-    ) {  
+        if (
+            content === undefined ||
+            content === null ||
+            content === ''
+        ) {
 
-        return res.status(400).json({  
-            success: false,  
-            error:  
-                'Contenido requerido'  
-        });  
-    }  
+            return res.status(400).json({
+                success: false,
+                error:
+                    'Contenido requerido'
+            });
+        }
 
 
-    // =========================================  
-    // PREPARAR CONTENIDO  
-    // =========================================  
+        // =========================================
+        // PREPARAR CONTENIDO
+        // =========================================
 
-    let contenidoFinal;  
+        let contenidoFinal;
 
 
-    if (esImagenPermitida) {  
+        if (esImagenPermitida) {
 
-        /*  
-         * Las imágenes llegan como Base64  
-         * puro desde imageOptimizer.js.  
-         */  
+            /*
+             * Las imágenes llegan como Base64
+             * puro desde imageOptimizer.js.
+             */
 
-        contenidoFinal =  
-            content;  
+            contenidoFinal =
+                content;
 
-    } else {  
+        } else {
 
-        /*  
-         * productos.json llega como texto.  
-         */  
+            /*
+             * productos.json llega como texto.
+             */
 
-        contenidoFinal =  
-            Buffer  
-                .from(  
-                    content,  
-                    'utf8'  
-                )  
-                .toString('base64');  
-    }  
+            contenidoFinal =
+                Buffer
+                    .from(
+                        content,
+                        'utf8'
+                    )
+                    .toString('base64');
+        }
 
 
-    // =========================================  
-    // DATOS PARA GITHUB  
-    // =========================================  
+        // =========================================
+        // ACTUALIZAR GITHUB
+        // =========================================
 
-    const bodyData =  
-        JSON.stringify({  
+        return actualizarArchivo(
+            path,
+            token,
+            repo,
+            message,
+            contenidoFinal,
+            sha,
+            res
+        );
 
-            message:  
-                message ||  
-                'Actualizado desde el panel',  
 
-            content:  
-                contenidoFinal,  
+    } catch (error) {
 
-            ...(sha  
-                ? { sha }  
-                : {})  
-        });  
+        return res.status(500).json({
 
+            success:
+                false,
 
-    const exactPath =  
-        '/repos/' +  
-        repo +  
-        '/contents/' +  
-        path;  
+            error:
+                error.message
 
-
-    // =========================================  
-    // REQUEST GITHUB  
-    // =========================================  
-
-    const options = {  
-
-        hostname:  
-            'api.github.com',  
-
-        path:  
-            exactPath,  
-
-        method:  
-            'PUT',  
-
-        headers: {  
-
-            'Authorization':  
-                'Bearer ' + token,  
-
-            'Content-Type':  
-                'application/json',  
-
-            'User-Agent':  
-                'Vercel-Serverless-Function',  
-
-            'Accept':  
-                'application/vnd.github+json',  
-
-            'X-GitHub-Api-Version':  
-                '2022-11-28',  
-
-            'Content-Length':  
-                Buffer.byteLength(  
-                    bodyData  
-                )  
-        }  
-    };  
-
-
-    const request =  
-        https.request(  
-            options,  
-            response => {  
-
-                let data = '';  
-
-
-                response.on(  
-                    'data',  
-                    chunk => {  
-
-                        data += chunk;  
-                    }  
-                );  
-
-
-                response.on(  
-                    'end',  
-                    () => {  
-
-                        let parsedData = {};  
-
-
-                        try {  
-
-                            parsedData =  
-                                JSON.parse(  
-                                    data  
-                                );  
-
-                        } catch {  
-
-                            parsedData = {  
-                                message:  
-                                    data  
-                            };  
-                        }  
-
-
-                        // =================================  
-                        // ÉXITO  
-                        // =================================  
-
-                        if (  
-                            response.statusCode >= 200 &&  
-                            response.statusCode < 300  
-                        ) {  
-
-                            return res.status(200).json({  
-
-                                success:  
-                                    true,  
-
-                                sha:  
-                                    parsedData  
-                                        .content  
-                                        ?.sha  
-
-                            });  
-                        }  
-
-
-                        // =================================  
-                        // ERROR GITHUB  
-                        // =================================  
-
-                        if (  
-response.statusCode === 409
-
-) {
-
-return res.status(409).json({  
-
-    success: false,  
-
-    conflict: true,  
-
-    error:  
-        'El archivo fue modificado desde otro dispositivo.'  
-
-});
-
+        });
+    }
 }
 
-return res
-.status(
-response.statusCode
-)
-.json({
-
-success:  
-        false,  
-
-    error:  
-        parsedData.message ||  
-        'Error en GitHub'  
-
-});  
-                    }  
-                );  
-            }  
-        );  
-
-
-    request.on(  
-        'error',  
-        error => {  
-
-            return res.status(500).json({  
-
-                success:  
-                    false,  
-
-                error:  
-                    error.message  
-
-            });  
-        }  
-    );  
-
-
-    request.write(  
-        bodyData  
-    );  
-
-    request.end();  
-
-
-} catch (error) {  
-
-    return res.status(500).json({  
-
-        success:  
-            false,  
-
-        error:  
-            error.message  
-
-    });  
-}
-
-}
 
 // =================================================
 // COMPARAR CONTRASEÑAS
 // =================================================
 
 function compararSecretos(
-recibido,
-esperado
+    recibido,
+    esperado
 ) {
 
-const recibidoBuffer =  
-    Buffer.from(  
-        String(recibido),  
-        'utf8'  
-    );  
+    const recibidoBuffer =
+        Buffer.from(
+            String(recibido),
+            'utf8'
+        );
 
 
-const esperadoBuffer =  
-    Buffer.from(  
-        String(esperado),  
-        'utf8'  
-    );  
+    const esperadoBuffer =
+        Buffer.from(
+            String(esperado),
+            'utf8'
+        );
 
 
-if (  
-    recibidoBuffer.length !==  
-    esperadoBuffer.length  
-) {  
+    if (
+        recibidoBuffer.length !==
+        esperadoBuffer.length
+    ) {
 
-    return false;  
-}  
+        return false;
+    }
 
 
-return crypto.timingSafeEqual(  
-    recibidoBuffer,  
-    esperadoBuffer  
-);
-
+    return crypto.timingSafeEqual(
+        recibidoBuffer,
+        esperadoBuffer
+    );
 }
+
 
 // =================================================
 // CREAR SESIÓN
@@ -560,387 +378,171 @@ return crypto.timingSafeEqual(
 
 function crearSesion() {
 
-const expiracion =  
-    Date.now() +  
-    SESSION_DURATION;  
+    const expiracion =
+        Date.now() +
+        SESSION_DURATION;
 
 
-const random =  
-    crypto  
-        .randomBytes(32)  
-        .toString('hex');  
+    const random =
+        crypto
+            .randomBytes(32)
+            .toString('hex');
 
 
-return (  
-    `${expiracion}.${random}`  
-);
-
+    return (
+        `${expiracion}.${random}`
+    );
 }
+
 
 // =================================================
 // CREAR COOKIE
 // =================================================
 
 function construirCookie(
-session
+    session
 ) {
 
-return [  
+    return [
 
-    `${COOKIE_NAME}=${session}`,  
+        `${COOKIE_NAME}=${session}`,
 
-    'Path=/',  
+        'Path=/',
 
-    'HttpOnly',  
+        'HttpOnly',
 
-    'Secure',  
+        'Secure',
 
-    'SameSite=Strict',  
+        'SameSite=Strict',
 
-    `Max-Age=${Math.floor(  
-        SESSION_DURATION / 1000  
-    )}`  
+        `Max-Age=${Math.floor(
+            SESSION_DURATION / 1000
+        )}`
 
-].join('; ');
-
+    ].join('; ');
 }
+
 
 // =================================================
 // OBTENER COOKIES
 // =================================================
 
 function obtenerCookies(
-req
+    req
 ) {
 
-const cookies = {};  
+    const cookies = {};
 
-const header =  
-    req.headers.cookie ||  
-    '';  
-
-
-header  
-    .split(';')  
-    .forEach(  
-        parte => {  
-
-            const indice =  
-                parte.indexOf('=');  
+    const header =
+        req.headers.cookie ||
+        '';
 
 
-            if (  
-                indice === -1  
-            ) {  
-                return;  
-            }  
+    header
+        .split(';')
+        .forEach(
+            parte => {
+
+                const indice =
+                    parte.indexOf('=');
 
 
-            const nombre =  
-                parte  
-                    .slice(  
-                        0,  
-                        indice  
-                    )  
-                    .trim();  
+                if (
+                    indice === -1
+                ) {
+                    return;
+                }
 
 
-            const valor =  
-                parte  
-                    .slice(  
-                        indice + 1  
-                    )  
-                    .trim();  
+                const nombre =
+                    parte
+                        .slice(
+                            0,
+                            indice
+                        )
+                        .trim();
 
 
-            cookies[nombre] =  
-                valor;  
-        }  
-    );  
+                const valor =
+                    parte
+                        .slice(
+                            indice + 1
+                        )
+                        .trim();
 
 
-return cookies;
+                cookies[nombre] =
+                    valor;
+            }
+        );
 
+
+    return cookies;
 }
+
 
 // =================================================
 // VALIDAR SESIÓN
 // =================================================
 
 function sesionValida(
-req
+    req
 ) {
 
-const cookies =  
-    obtenerCookies(  
-        req  
-    );  
+    const cookies =
+        obtenerCookies(
+            req
+        );
 
 
-const session =  
-    cookies[  
-        COOKIE_NAME  
-    ];  
+    const session =
+        cookies[
+            COOKIE_NAME
+        ];
 
 
-if (!session) {  
-    return false;  
-}  
+    if (!session) {
+        return false;
+    }
 
 
-const partes =  
-    session.split('.');  
+    const partes =
+        session.split('.');
 
 
-if (  
-    partes.length !== 2  
-) {  
-    return false;  
-}  
+    if (
+        partes.length !== 2
+    ) {
+        return false;
+    }
 
 
-const expiracion =  
-    Number(  
-        partes[0]  
-    );  
+    const expiracion =
+        Number(
+            partes[0]
+        );
 
 
-if (  
-    !Number.isFinite(  
-        expiracion  
-    ) ||  
-    expiracion < Date.now()  
-) {  
+    if (
+        !Number.isFinite(
+            expiracion
+        ) ||
+        expiracion < Date.now()
+    ) {
 
-    return false;  
-}  
+        return false;
+    }
 
 
-if (  
-    !/^[a-f0-9]{64}$/i.test(  
-        partes[1]  
-    )  
-) {  
+    if (
+        !/^[a-f0-9]{64}$/i.test(
+            partes[1]
+        )
+    ) {
 
-    return false;  
-}  
+        return false;
+    }
 
 
-return true;
-
-}
-
-// =================================================
-// OBTENER ARCHIVO DESDE GITHUB
-// =================================================
-
-function obtenerArchivo(
-path,
-token,
-repo,
-res
-) {
-
-const exactPath =  
-    '/repos/' +  
-    repo +  
-    '/contents/' +  
-    path;  
-
-
-const options = {  
-
-    hostname:  
-        'api.github.com',  
-
-    path:  
-        exactPath,  
-
-    method:  
-        'GET',  
-
-    headers: {  
-
-        'Authorization':  
-            'Bearer ' + token,  
-
-        'User-Agent':  
-            'Vercel-Serverless-Function',  
-
-        'Accept':  
-            'application/vnd.github+json',  
-
-        'X-GitHub-Api-Version':  
-            '2022-11-28'  
-    }  
-};  
-
-
-const request =  
-    https.request(  
-        options,  
-        response => {  
-
-            let data = '';  
-
-
-            response.on(  
-                'data',  
-                chunk => {  
-
-                    data += chunk;  
-                }  
-            );  
-
-
-            response.on(  
-                'end',  
-                () => {  
-
-                    try {  
-
-                        // =============================  
-                        // NO EXISTE  
-                        // =============================  
-
-                        if (  
-                            response.statusCode ===  
-                            404  
-                        ) {  
-
-                            return res.status(200).json({  
-
-                                success:  
-                                    false,  
-
-                                status:  
-                                    404,  
-
-                                message:  
-                                    'Archivo no existe'  
-
-                            });  
-                        }  
-
-
-                        // =============================  
-                        // ERROR GITHUB  
-                        // =============================  
-
-                        if (  
-                            response.statusCode < 200 ||  
-                            response.statusCode >= 300  
-                        ) {  
-
-                            let errorData;  
-
-
-                            try {  
-
-                                errorData =  
-                                    JSON.parse(  
-                                        data  
-                                    );  
-
-                            } catch {  
-
-                                errorData = {};  
-                            }  
-
-
-                            return res  
-                                .status(  
-                                    response.statusCode  
-                                )  
-                                .json({  
-
-                                    success:  
-                                        false,  
-
-                                    error:  
-                                        errorData.message ||  
-                                        'Error en GitHub'  
-
-                                });  
-                        }  
-
-
-                        // =============================  
-                        // DECODIFICAR  
-                        // =============================  
-
-                        const fileData =  
-                            JSON.parse(  
-                                data  
-                            );  
-
-
-                        const contenido =  
-                            Buffer  
-                                .from(  
-                                    fileData.content,  
-                                    'base64'  
-                                )  
-                                .toString(  
-                                    'utf8'  
-                                );  
-
-
-                        const jsonPlano =  
-                            JSON.parse(  
-                                contenido  
-                            );  
-
-
-                        return res.status(200).json({  
-
-                            success:  
-                                true,  
-
-                            sha:  
-                                fileData.sha,  
-
-                            data:  
-                                jsonPlano  
-
-                        });  
-
-
-                    } catch (error) {  
-
-                        return res.status(500).json({  
-
-                            success:  
-                                false,  
-
-                            error:  
-                                error.message  
-
-                        });  
-                    }  
-                }  
-            );  
-        }  
-    );  
-
-
-request.on(  
-    'error',  
-    error => {  
-
-        return res.status(500).json({  
-
-            success:  
-                false,  
-
-            error:  
-                error.message  
-
-        });  
-    }  
-);  
-
-
-request.end();
-
+    return true;
 }
