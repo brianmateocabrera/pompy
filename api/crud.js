@@ -11,6 +11,23 @@ const SESSION_SECRET =
     process.env.SESSION_SECRET;
 
 
+// =================================================
+// LÍMITES DE IMÁGENES
+// =================================================
+
+const IMAGEN_MAX_BYTES =
+    4.5 * 1024 * 1024;
+
+const IMAGEN_MAX_BASE64_LENGTH =
+    Math.ceil(
+        IMAGEN_MAX_BYTES * 4 / 3
+    ) + 4;
+
+
+// =================================================
+// HANDLER
+// =================================================
+
 export default function handler(req, res) {
 
     try {
@@ -179,7 +196,10 @@ export default function handler(req, res) {
         // VALIDAR RUTA
         // =========================================
 
-        if (!path) {
+        if (
+            typeof path !== 'string' ||
+            !path
+        ) {
 
             return res.status(400).json({
                 success: false,
@@ -199,10 +219,7 @@ export default function handler(req, res) {
 
 
         const esImagenPermitida =
-            typeof path === 'string' &&
-            path.startsWith(
-                'public/imagenes/'
-            );
+            esRutaImagenPermitida(path);
 
 
         if (
@@ -220,13 +237,6 @@ export default function handler(req, res) {
 
         // =========================================
         // GET
-        // =========================================
-        //
-        // El catálogo público puede leer
-        // productos.json sin autenticación.
-        //
-        // Las imágenes son archivos públicos
-        // servidos directamente por Vercel.
         // =========================================
 
         if (action === 'GET') {
@@ -295,10 +305,21 @@ export default function handler(req, res) {
 
         if (esImagenPermitida) {
 
-            /*
-             * Las imágenes llegan como Base64
-             * puro desde imageOptimizer.js.
-             */
+            const validacion =
+                validarImagenBase64(
+                    content
+                );
+
+
+            if (!validacion.valida) {
+
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        validacion.error
+                });
+            }
+
 
             contenidoFinal =
                 content;
@@ -308,6 +329,18 @@ export default function handler(req, res) {
             /*
              * productos.json llega como texto.
              */
+
+            if (
+                typeof content !== 'string'
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        'El contenido del archivo no es válido.'
+                });
+            }
+
 
             contenidoFinal =
                 Buffer
@@ -449,7 +482,7 @@ export default function handler(req, res) {
 
 
                             // =================================
-                            // ERROR GITHUB
+                            // CONFLICTO
                             // =================================
 
                             if (
@@ -470,19 +503,70 @@ export default function handler(req, res) {
                             }
 
 
-                            return res
-                                .status(
-                                    response.statusCode
-                                )
-                                .json({
+                            // =================================
+                            // AUTORIZACIÓN GITHUB
+                            // =================================
+
+                            if (
+                                response.statusCode === 401 ||
+                                response.statusCode === 403
+                            ) {
+
+                                console.error(
+                                    'GitHub rechazó la operación:',
+                                    response.statusCode,
+                                    parsedData.message
+                                );
+
+                                return res.status(502).json({
 
                                     success:
                                         false,
 
                                     error:
-                                        parsedData.message ||
-                                        'Error en GitHub'
+                                        'GitHub rechazó la operación de escritura.'
                                 });
+                            }
+
+
+                            // =================================
+                            // ARCHIVO NO ENCONTRADO
+                            // =================================
+
+                            if (
+                                response.statusCode === 404
+                            ) {
+
+                                return res.status(502).json({
+
+                                    success:
+                                        false,
+
+                                    error:
+                                        'El archivo o repositorio indicado no existe en GitHub.'
+                                });
+                            }
+
+
+                            // =================================
+                            // ERROR GITHUB
+                            // =================================
+
+                            console.error(
+                                'Error GitHub:',
+                                response.statusCode,
+                                parsedData.message
+                            );
+
+
+                            return res.status(502).json({
+
+                                success:
+                                    false,
+
+                                error:
+                                    'GitHub no pudo completar la operación.'
+                            });
                         }
                     );
                 }
@@ -493,13 +577,19 @@ export default function handler(req, res) {
             'error',
             error => {
 
-                return res.status(500).json({
+                console.error(
+                    'Error de conexión con GitHub:',
+                    error
+                );
+
+
+                return res.status(502).json({
 
                     success:
                         false,
 
                     error:
-                        error.message
+                        'No se pudo conectar con GitHub.'
                 });
             }
         );
@@ -514,15 +604,216 @@ export default function handler(req, res) {
 
     } catch (error) {
 
+        console.error(
+            'Error interno:',
+            error
+        );
+
+
         return res.status(500).json({
 
             success:
                 false,
 
             error:
-                error.message
+                'Error interno del servidor.'
         });
     }
+}
+
+
+// =================================================
+// VALIDAR RUTA DE IMAGEN
+// =================================================
+
+function esRutaImagenPermitida(
+    path
+) {
+
+    return (
+        typeof path === 'string' &&
+        /^public\/imagenes\/[a-zA-Z0-9_-]+\.webp$/i
+            .test(path)
+    );
+}
+
+
+// =================================================
+// VALIDAR IMAGEN BASE64
+// =================================================
+
+function validarImagenBase64(
+    content
+) {
+
+    if (
+        typeof content !== 'string'
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'El contenido de la imagen no es válido.'
+        };
+    }
+
+
+    if (
+        content.length === 0
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'La imagen está vacía.'
+        };
+    }
+
+
+    if (
+        content.length >
+        IMAGEN_MAX_BASE64_LENGTH
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'La imagen supera el tamaño máximo permitido de 4.5 MB.'
+        };
+    }
+
+
+    /*
+     * Solo aceptamos Base64 puro.
+     * El frontend elimina previamente
+     * el encabezado data:image/webp;base64,
+     */
+
+    if (
+        !/^[A-Za-z0-9+/]*={0,2}$/.test(
+            content
+        )
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'El contenido de la imagen no es Base64 válido.'
+        };
+    }
+
+
+    if (
+        content.length % 4 !== 0
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'El contenido Base64 de la imagen está incompleto.'
+        };
+    }
+
+
+    let buffer;
+
+
+    try {
+
+        buffer =
+            Buffer.from(
+                content,
+                'base64'
+            );
+
+    } catch {
+
+        return {
+            valida: false,
+            error:
+                'No se pudo decodificar la imagen.'
+        };
+    }
+
+
+    if (
+        !buffer ||
+        buffer.length === 0
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'La imagen está vacía.'
+        };
+    }
+
+
+    if (
+        buffer.length >
+        IMAGEN_MAX_BYTES
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'La imagen supera el tamaño máximo permitido de 4.5 MB.'
+        };
+    }
+
+
+    /*
+     * Validación real del formato WebP.
+     *
+     * WebP válido:
+     * bytes 0-3  = RIFF
+     * bytes 8-11 = WEBP
+     */
+
+    if (
+        buffer.length < 12
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'El archivo no contiene una estructura WebP válida.'
+        };
+    }
+
+
+    const riff =
+        buffer.toString(
+            'ascii',
+            0,
+            4
+        );
+
+
+    const webp =
+        buffer.toString(
+            'ascii',
+            8,
+            12
+        );
+
+
+    if (
+        riff !== 'RIFF' ||
+        webp !== 'WEBP'
+    ) {
+
+        return {
+            valida: false,
+            error:
+                'El archivo no es una imagen WebP válida.'
+        };
+    }
+
+
+    return {
+        valida: true
+    };
 }
 
 
@@ -923,9 +1214,16 @@ function obtenerArchivo(
                                 }
 
 
+                                console.error(
+                                    'Error GitHub al leer archivo:',
+                                    response.statusCode,
+                                    errorData.message
+                                );
+
+
                                 return res
                                     .status(
-                                        response.statusCode
+                                        502
                                     )
                                     .json({
 
@@ -933,8 +1231,7 @@ function obtenerArchivo(
                                             false,
 
                                         error:
-                                            errorData.message ||
-                                            'Error en GitHub'
+                                            'No se pudo obtener el archivo desde GitHub.'
                                     });
                             }
 
@@ -981,13 +1278,19 @@ function obtenerArchivo(
 
                         } catch (error) {
 
+                            console.error(
+                                'Error procesando respuesta de GitHub:',
+                                error
+                            );
+
+
                             return res.status(500).json({
 
                                 success:
                                     false,
 
                                 error:
-                                    error.message
+                                    'No se pudo procesar la respuesta de GitHub.'
                             });
                         }
                     }
@@ -1000,13 +1303,19 @@ function obtenerArchivo(
         'error',
         error => {
 
-            return res.status(500).json({
+            console.error(
+                'Error de conexión con GitHub:',
+                error
+            );
+
+
+            return res.status(502).json({
 
                 success:
                     false,
 
                 error:
-                    error.message
+                    'No se pudo conectar con GitHub.'
             });
         }
     );
