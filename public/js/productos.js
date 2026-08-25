@@ -1,19 +1,29 @@
-import { llamarAPI } from './api.js';
-import { optimizarImagen } from './imageOptimizer.js';
-
 import {
     cargarProductosDesdeAPI,
     guardarProductos
 } from './productos-persistencia.js';
 
+import {
+    procesarImagen
+} from './productos-imagenes.js';
+
+
 let listaProductos = [];
 
+
+/* ------------------------------------------
+   OBTENER PRODUCTOS
+------------------------------------------ */
 
 export function obtenerProductos() {
 
     return listaProductos;
 }
 
+
+/* ------------------------------------------
+   CARGAR PRODUCTOS
+------------------------------------------ */
 
 export async function cargarProductos() {
 
@@ -76,86 +86,6 @@ function convertirLista(texto) {
             item => item.trim()
         )
         .filter(Boolean);
-}
-
-
-/* ------------------------------------------
-   IMÁGENES
------------------------------------------- */
-
-async function subirImagen(
-    dataUrl,
-    nombreOriginal
-) {
-
-    const partes =
-        dataUrl.split(',');
-
-
-    if (partes.length < 2) {
-
-        throw new Error(
-            'Formato de imagen inválido.'
-        );
-    }
-
-
-    const base64Puro =
-        partes[1];
-
-
-    const nombreLimpio =
-        nombreOriginal
-            .toLowerCase()
-            .split('.')[0]
-            .replace(
-                /[^a-z0-9]/gi,
-                '_'
-            );
-
-
-    const nombreArchivoWebP =
-        `${Date.now()}-${nombreLimpio}.webp`;
-
-
-    const rutaImagen =
-        `public/imagenes/${nombreArchivoWebP}`;
-
-
-    /*const { llamarAPI } =
-        await import('./api.js');*/
-
-
-    const json =
-        await llamarAPI(
-            'PUT',
-            rutaImagen,
-            {
-                message:
-                    `Subir imagen: ${nombreArchivoWebP}`,
-
-                content:
-                    base64Puro
-            }
-        );
-
-
-    if (!json.success) {
-
-        throw new Error(
-            'Error al guardar la imagen en GitHub: ' +
-            (
-                json.error ||
-                'Error desconocido.'
-            )
-        );
-    }
-
-
-    return rutaImagen.replace(
-        'public/',
-        '/'
-    );
 }
 
 
@@ -402,6 +332,7 @@ function normalizarProducto(
                     imagen,
                     index
                 ) => ({
+
                     url:
                         imagen.url,
 
@@ -500,16 +431,9 @@ export async function crearProducto(
         const archivo of archivosImagen
     ) {
 
-        const imagenWebP =
-            await optimizarImagen(
-                archivo
-            );
-
-
         const url =
-            await subirImagen(
-                imagenWebP,
-                archivo.name
+            await procesarImagen(
+                archivo
             );
 
 
@@ -607,16 +531,9 @@ export async function editarProducto(
         const archivo of archivos
     ) {
 
-        const imagenWebP =
-            await optimizarImagen(
-                archivo
-            );
-
-
         const url =
-            await subirImagen(
-                imagenWebP,
-                archivo.name
+            await procesarImagen(
+                archivo
             );
 
 
