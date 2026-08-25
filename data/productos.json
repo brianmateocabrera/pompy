@@ -204,8 +204,8 @@
   {
     "id": "prod-mt6wq4kw-1fapxv",
     "sku": "",
-    "slug": "durazno",
-    "nombre": "Durazno",
+    "slug": "durazno-corazon",
+    "nombre": "Durazno/corazón",
     "descripcion": "Productos de prueba",
     "precioCosto": 0,
     "precio": 1000,
@@ -236,7 +236,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T05:24:16.111Z"
+    "fechaActualizacion": "2026-08-25T08:57:39.150Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
