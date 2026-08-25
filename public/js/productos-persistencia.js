@@ -13,6 +13,14 @@ export async function cargarProductosDesdeAPI() {
             PATH_JSON
         );
 
+    if (!json) {
+
+        throw new Error(
+            'La API no devolvió una respuesta.'
+        );
+    }
+
+
     if (!json.success) {
 
         throw new Error(
@@ -21,12 +29,20 @@ export async function cargarProductosDesdeAPI() {
         );
     }
 
+
     shaActualJson =
         json.sha || '';
 
-    return Array.isArray(json.data)
-        ? json.data
-        : [];
+
+    if (!Array.isArray(json.data)) {
+
+        throw new Error(
+            'El catálogo recibido no tiene un formato válido.'
+        );
+    }
+
+
+    return json.data;
 }
 
 
@@ -59,6 +75,18 @@ export async function guardarProductos(
             );
 
 
+        if (!json) {
+
+            return {
+
+                success: false,
+
+                error:
+                    'La API no devolvió una respuesta.'
+            };
+        }
+
+
         if (json.success) {
 
             if (json.sha) {
@@ -73,21 +101,9 @@ export async function guardarProductos(
         }
 
 
-        return {
-
-            success: false,
-
-            error:
-                json.error ||
-                'Error al actualizar el catálogo.'
-        };
-
-
-    } catch (error) {
-
         if (
-            error.status === 409 ||
-            error.conflict === true
+            json.status === 409 ||
+            json.conflict === true
         ) {
 
             return {
@@ -107,7 +123,36 @@ export async function guardarProductos(
             success: false,
 
             error:
-                error.message ||
+                json.error ||
+                'Error al actualizar el catálogo.'
+        };
+
+
+    } catch (error) {
+
+        if (
+            error?.status === 409 ||
+            error?.conflict === true
+        ) {
+
+            return {
+
+                success: false,
+
+                conflict: true,
+
+                error:
+                    'El catálogo fue modificado desde otro dispositivo.'
+            };
+        }
+
+
+        return {
+
+            success: false,
+
+            error:
+                error?.message ||
                 'Error al actualizar el catálogo.'
         };
     }
