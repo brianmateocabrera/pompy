@@ -208,8 +208,8 @@
     "nombre": "Durazno",
     "descripcion": "Productos de prueba",
     "precioCosto": 0,
-    "precio": 100,
-    "precioAnterior": 200,
+    "precio": 1000,
+    "precioAnterior": 2000,
     "imagenes": [
       {
         "url": "/imagenes/1787556060255-1000536641.webp",
@@ -224,7 +224,8 @@
     ],
     "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
     "categoria": [
-      "Neón"
+      "Neón",
+      "Fruta"
     ],
     "tags": [],
     "badges": [],
@@ -235,7 +236,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T05:24:12.233Z"
+    "fechaActualizacion": "2026-08-25T05:24:16.111Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
