@@ -1,5 +1,7 @@
 const API_URL = '/api/crud';
 
+const API_TIMEOUT = 15000;
+
 
 /* ------------------------------------------
    LLAMAR API
@@ -18,64 +20,119 @@ export async function llamarAPI(
     };
 
 
-    const res =
-        await fetch(
-            API_URL,
-            {
-                method: 'POST',
+    const controller =
+        new AbortController();
 
-                credentials: 'same-origin',
 
-                headers: {
-                    'Content-Type':
-                        'application/json'
-                },
-
-                body:
-                    JSON.stringify(body)
-            }
+    const timeout =
+        setTimeout(
+            () => {
+                controller.abort();
+            },
+            API_TIMEOUT
         );
-
-
-    let data;
 
 
     try {
 
-        data =
-            await res.json();
+        const res =
+            await fetch(
+                API_URL,
+                {
+                    method: 'POST',
 
-    } catch {
+                    credentials:
+                        'same-origin',
 
-        throw new Error(
-            `La API devolvió una respuesta no válida (HTTP ${res.status}).`
-        );
-    }
+                    cache:
+                        'no-store',
 
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
 
-    if (!res.ok) {
+                    body:
+                        JSON.stringify(body),
 
-        const error =
-            new Error(
-                data.error ||
-                data.message ||
-                `Error HTTP ${res.status}`
+                    signal:
+                        controller.signal
+                }
             );
 
 
-        error.status =
-            res.status;
+        let data;
 
-        error.conflict =
-            data.conflict === true;
+
+        try {
+
+            data =
+                await res.json();
+
+        } catch {
+
+            throw new Error(
+                `La API devolvió una respuesta no válida (HTTP ${res.status}).`
+            );
+        }
+
+
+        if (!res.ok) {
+
+            const error =
+                new Error(
+                    data.error ||
+                    data.message ||
+                    `Error HTTP ${res.status}`
+                );
+
+
+            error.status =
+                res.status;
+
+
+            error.conflict =
+                data.conflict === true;
+
+
+            throw error;
+        }
+
+
+        return data;
+
+
+    } catch (error) {
+
+        if (
+            error.name === 'AbortError'
+        ) {
+
+            const timeoutError =
+                new Error(
+                    `La API no respondió dentro de ${API_TIMEOUT / 1000} segundos.`
+                );
+
+
+            timeoutError.code =
+                'API_TIMEOUT';
+
+
+            throw timeoutError;
+        }
 
 
         throw error;
+
+
+    } finally {
+
+        clearTimeout(
+            timeout
+        );
     }
-
-
-    return data;
 }
+
 
 /* ------------------------------------------
    AUTENTICAR ADMINISTRADOR
@@ -134,6 +191,5 @@ export async function cerrarSesion() {
     } catch {
 
         // La sesión puede ya estar expirada.
-        // No es necesario hacer nada.
     }
 }
