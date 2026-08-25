@@ -44,7 +44,7 @@
   },
   {
     "id": "prod-002",
-    "sku": "",
+    "sku": "LEN-002",
     "slug": "colaless-fashion-strass",
     "nombre": "COLALESS FASHION STRASS",
     "descripcion": "Bombacha Tanga Colaless Con Strass Invisible. BOMBACHA TANGA INVISIBLE PACK X 3. Diseño con strass. Super cómodas.",
@@ -79,7 +79,7 @@
     "destacado": true,
     "orden": 1,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-25T09:26:45.662Z"
+    "fechaActualizacion": "2026-08-25T09:43:39.729Z"
   },
   {
     "id": "prod-003",
