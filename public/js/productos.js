@@ -1,13 +1,10 @@
-import {
-    optimizarImagen
-} from './imageOptimizer.js';
+import { llamarAPI } from './api.js';
+import { optimizarImagen } from './imageOptimizer.js';
 
 import {
     cargarProductosDesdeAPI,
-    guardarProductos,
-    establecerShaActual
+    guardarProductos
 } from './productos-persistencia.js';
-
 
 let listaProductos = [];
 
@@ -125,8 +122,8 @@ async function subirImagen(
         `public/imagenes/${nombreArchivoWebP}`;
 
 
-    const { llamarAPI } =
-        await import('./api.js');
+    /*const { llamarAPI } =
+        await import('./api.js');*/
 
 
     const json =
