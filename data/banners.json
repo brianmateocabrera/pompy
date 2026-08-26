@@ -1,16 +1,16 @@
 [
   {
-    "id": "banner-mta6ysuj-66rjb7",
-    "imagen": "/imagenes/1787754659381-1000540619.webp",
-    "titulo": "Inauguración",
+    "id": "banner-mta77qkd-ksermb",
+    "imagen": "/imagenes/1787755076519-1000546615.webp",
+    "titulo": "Seguime en Instagram",
     "enlace": "https://www.instagram.com/pom.py2",
     "activo": true,
     "orden": 0
   },
   {
-    "id": "banner-mta77qkd-ksermb",
-    "imagen": "/imagenes/1787755076519-1000546615.webp",
-    "titulo": "Seguime en Instagram",
+    "id": "banner-mta6ysuj-66rjb7",
+    "imagen": "/imagenes/1787754659381-1000540619.webp",
+    "titulo": "Inauguración",
     "enlace": "https://www.instagram.com/pom.py2",
     "activo": true,
     "orden": 1
