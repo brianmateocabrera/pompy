@@ -17,8 +17,8 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    /* Forzamos a que el header mida exactamente lo mismo que el logo */
-    height: 60px; 
+    /* Fijamos la nueva altura del header */
+    height: 70px; 
     overflow: hidden;
 }
 
@@ -28,41 +28,43 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Asegura que los hijos ocupen el 100% de los 60px del header */
+    /* Mantiene los elementos acoplados a los 70px */
     height: 100%; 
+    padding: 0 15px; /* Añade un pequeño colchón a los lados */
 }
 
 .logo {
-    /* El logo define la altura máxima */
-    height: 60px; 
+    /* Tu logo ahora mide 70px de alto */
+    height: 70px; 
     width: auto;
     display: block;
 }
 
 .header-text {
     text-align: right;
-    /* Centra el bloque de texto verticalmente si es más pequeño que 60px */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* Controla que el bloque de texto no supere los 70px */
+    height: 100%; 
 }
 
 header h1 {
     margin: 0;
-    line-height: 1;
-    /* Reducido ligeramente para controlar la altura total del texto */
-    font-size: 20px; 
+    line-height: 1.1;
+    /* Subido a 22px gracias al nuevo espacio disponible */
+    font-size: 22px; 
     font-family: 'Tilt Neon', sans-serif;
     letter-spacing: 0.5px;
 }
 
 header p {
     margin: 0;
-    line-height: 1;
+    line-height: 1.1;
     color: #ccc;
     font-family: 'Meow Script', cursive;
-    /* Reducido ligeramente para que no desborde los 60px */
-    font-size: 16px; 
+    /* Ajustado a 18px para mantener la proporción */
+    font-size: 18px; 
 }
 
 main {
