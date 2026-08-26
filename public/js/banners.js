@@ -1,9 +1,15 @@
-import { llamarAPI } from './api.js';
+import {
+    llamarAPI
+} from './api.js';
 
-const PATH_BANNERS = 'data/banners.json';
 
-let banners = [];
-let shaActual = '';
+const PATH_BANNERS =
+    'data/banners.json';
+
+
+let listaBanners = [];
+
+let shaActualBanners = '';
 
 
 /* ------------------------------------------
@@ -11,7 +17,8 @@ let shaActual = '';
 ------------------------------------------ */
 
 export function obtenerBanners() {
-    return banners;
+
+    return listaBanners;
 }
 
 
@@ -27,23 +34,32 @@ export async function cargarBanners() {
             PATH_BANNERS
         );
 
+
     if (!json?.success) {
+
         throw new Error(
             json?.error ||
             'No se pudieron cargar los banners.'
         );
     }
 
+
     if (!Array.isArray(json.data)) {
+
         throw new Error(
-            'El archivo de banners no tiene un formato válido.'
+            'El archivo de banners tiene un formato inválido.'
         );
     }
 
-    banners = json.data;
-    shaActual = json.sha || '';
 
-    return banners;
+    listaBanners =
+        json.data;
+
+    shaActualBanners =
+        json.sha || '';
+
+
+    return listaBanners;
 }
 
 
@@ -51,8 +67,9 @@ export async function cargarBanners() {
    GUARDAR BANNERS
 ------------------------------------------ */
 
-async function guardarBanners(
-    mensaje
+export async function guardarBanners(
+    banners,
+    mensaje = 'Actualizar banners'
 ) {
 
     const json =
@@ -70,10 +87,11 @@ async function guardarBanners(
                     ),
 
                 sha:
-                    shaActual ||
+                    shaActualBanners ||
                     undefined
             }
         );
+
 
     if (!json?.success) {
 
@@ -81,10 +99,12 @@ async function guardarBanners(
             json?.status === 409 ||
             json?.conflict === true
         ) {
+
             throw new Error(
                 'Los banners fueron modificados desde otro dispositivo.'
             );
         }
+
 
         throw new Error(
             json?.error ||
@@ -92,55 +112,46 @@ async function guardarBanners(
         );
     }
 
+
+    listaBanners =
+        banners;
+
+
     if (json.sha) {
-        shaActual = json.sha;
+
+        shaActualBanners =
+            json.sha;
     }
+
+
+    return listaBanners;
 }
 
 
 /* ------------------------------------------
-   GENERAR ID
+   CREAR BANNER
 ------------------------------------------ */
 
-function generarId() {
-
-    return 'banner-' +
-        Date.now().toString(36) +
-        '-' +
-        Math.random()
-            .toString(36)
-            .substring(2, 8);
-}
-
-
-/* ------------------------------------------
-   NORMALIZAR
------------------------------------------- */
-
-function normalizarBanner(
-    datos,
-    bannerAnterior = null
+export async function crearBanner(
+    datos
 ) {
 
-    return {
+    const banner = {
 
         id:
-            bannerAnterior?.id ||
-            generarId(),
+            'banner-' +
+            Date.now().toString(36) +
+            '-' +
+            Math.random()
+                .toString(36)
+                .substring(2, 8),
 
         imagen:
-            String(
-                datos.imagen || ''
-            ).trim(),
+            datos.imagen || '',
 
         titulo:
             String(
                 datos.titulo || ''
-            ).trim(),
-
-        texto:
-            String(
-                datos.texto || ''
             ).trim(),
 
         enlace:
@@ -156,83 +167,103 @@ function normalizarBanner(
                 datos.orden
             ) || 0
     };
-}
 
 
-/* ------------------------------------------
-   CREAR
------------------------------------------- */
-
-export async function crearBanner(
-    datos
-) {
-
-    if (!datos.imagen) {
-        throw new Error(
-            'El banner necesita una imagen.'
-        );
-    }
-
-    const banner =
-        normalizarBanner(
-            datos
-        );
-
-    banners.push(
+    const nuevaLista = [
+        ...listaBanners,
         banner
-    );
+    ];
+
 
     await guardarBanners(
+        nuevaLista,
         `Crear banner: ${banner.titulo || banner.id}`
     );
+
 
     return banner;
 }
 
 
 /* ------------------------------------------
-   EDITAR
+   ACTUALIZAR BANNER
 ------------------------------------------ */
 
-export async function editarBanner(
+export async function actualizarBanner(
     index,
     datos
 ) {
 
     if (
         index < 0 ||
-        index >= banners.length
+        index >= listaBanners.length
     ) {
+
         throw new Error(
             'Banner no encontrado.'
         );
     }
 
-    const banner =
-        normalizarBanner(
-            datos,
-            banners[index]
-        );
 
-    if (!banner.imagen) {
-        throw new Error(
-            'El banner necesita una imagen.'
-        );
-    }
+    const bannerAnterior =
+        listaBanners[index];
 
-    banners[index] =
-        banner;
+
+    const bannerActualizado = {
+
+        ...bannerAnterior,
+
+        imagen:
+            datos.imagen ??
+            bannerAnterior.imagen,
+
+        titulo:
+            String(
+                datos.titulo ??
+                bannerAnterior.titulo ??
+                ''
+            ).trim(),
+
+        enlace:
+            String(
+                datos.enlace ??
+                bannerAnterior.enlace ??
+                ''
+            ).trim(),
+
+        activo:
+            datos.activo ??
+            bannerAnterior.activo,
+
+        orden:
+            Number(
+                datos.orden ??
+                bannerAnterior.orden ??
+                0
+            )
+    };
+
+
+    const nuevaLista =
+        [...listaBanners];
+
+
+    nuevaLista[index] =
+        bannerActualizado;
+
 
     await guardarBanners(
-        `Actualizar banner: ${banner.titulo || banner.id}`
+        nuevaLista,
+        `Actualizar banner: ${bannerActualizado.titulo || bannerActualizado.id}`
     );
 
-    return banner;
+
+    return bannerActualizado;
 }
 
 
 /* ------------------------------------------
-   ELIMINAR
+   ELIMINAR BANNER
 ------------------------------------------ */
 
 export async function eliminarBanner(
@@ -241,102 +272,31 @@ export async function eliminarBanner(
 
     if (
         index < 0 ||
-        index >= banners.length
+        index >= listaBanners.length
     ) {
+
         throw new Error(
             'Banner no encontrado.'
         );
     }
 
-    const eliminado =
-        banners[index];
-
-    banners.splice(
-        index,
-        1
-    );
-
-    await guardarBanners(
-        `Eliminar banner: ${eliminado.titulo || eliminado.id}`
-    );
-
-    return eliminado;
-}
-
-
-/* ------------------------------------------
-   REORDENAR
------------------------------------------- */
-
-export async function reordenarBanner(
-    index,
-    nuevaPosicion
-) {
-
-    if (
-        index < 0 ||
-        index >= banners.length
-    ) {
-        throw new Error(
-            'Banner no encontrado.'
-        );
-    }
 
     const banner =
-        banners.splice(
-            index,
-            1
-        )[0];
+        listaBanners[index];
 
-    const posicion =
-        Math.max(
-            0,
-            Math.min(
-                nuevaPosicion,
-                banners.length
-            )
+
+    const nuevaLista =
+        listaBanners.filter(
+            (_, posicion) =>
+                posicion !== index
         );
 
-    banners.splice(
-        posicion,
-        0,
-        banner
-    );
-
-    banners.forEach(
-        (item, i) => {
-            item.orden = i;
-        }
-    );
 
     await guardarBanners(
-        'Reordenar banners'
+        nuevaLista,
+        `Eliminar banner: ${banner.titulo || banner.id}`
     );
-}
 
 
-/* ------------------------------------------
-   ACTIVAR / DESACTIVAR
------------------------------------------- */
-
-export async function cambiarEstadoBanner(
-    index,
-    activo
-) {
-
-    if (
-        index < 0 ||
-        index >= banners.length
-    ) {
-        throw new Error(
-            'Banner no encontrado.'
-        );
-    }
-
-    banners[index].activo =
-        activo === true;
-
-    await guardarBanners(
-        `${activo ? 'Activar' : 'Desactivar'} banner`
-    );
+    return banner;
 }
