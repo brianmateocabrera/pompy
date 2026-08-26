@@ -411,13 +411,6 @@ function crearTarjeta(producto) {
         );
 
 
-    const descripcion =
-        escaparHTML(
-            producto.descripcion ||
-            'Sin descripción disponible.'
-        );
-
-
     const imagenPrincipal =
         escaparHTML(
             obtenerImagenPrincipal(
@@ -456,50 +449,6 @@ function crearTarjeta(producto) {
         Number(producto.stock) || 0;
 
 
-    const stockHTML =
-        stock > 0
-            ? `
-                <span>
-                    <strong>Stock:</strong>
-                    ${stock}
-                </span>
-            `
-            : `
-                <span>
-                    <strong>Stock:</strong>
-                    Sin stock
-                </span>
-            `;
-
-
-    const talles =
-        Array.isArray(producto.talles) &&
-        producto.talles.length > 0
-            ? `
-                <span>
-                    <strong>Talles:</strong>
-                    ${escaparHTML(
-                        producto.talles.join(', ')
-                    )}
-                </span>
-            `
-            : '';
-
-
-    const colores =
-        Array.isArray(producto.colores) &&
-        producto.colores.length > 0
-            ? `
-                <span>
-                    <strong>Colores:</strong>
-                    ${escaparHTML(
-                        producto.colores.join(', ')
-                    )}
-                </span>
-            `
-            : '';
-
-
     const badges =
         Array.isArray(producto.badges)
             ? producto.badges
@@ -515,16 +464,6 @@ function crearTarjeta(producto) {
             : '';
 
 
-    const destacado =
-        producto.destacado
-            ? `
-                <span class="badge badge-destacado">
-                    Destacado
-                </span>
-            `
-            : '';
-
-
     const sinStock =
         stock <= 0
             ? `
@@ -535,41 +474,14 @@ function crearTarjeta(producto) {
             : '';
 
 
-    const imagenes =
-        Array.isArray(
-            producto.imagenes
-        )
-            ? producto.imagenes
-                .filter(
-                    imagen =>
-                        imagen &&
-                        imagen.url
-                )
-            : [];
+    const mensajeWhatsApp =
+        encodeURIComponent(
+            `Hola, quisiera consultar por el producto "${producto.nombre}".`
+        );
 
 
-    const galeria =
-        imagenes.length > 1
-            ? `
-                <div class="galeria-mini">
-                    ${imagenes
-                        .map(
-                            imagen => `
-                                <img
-                                    src="${escaparHTML(
-                                        imagen.url
-                                    )}"
-                                    alt="${nombre}"
-                                    data-imagen="${escaparHTML(
-                                        imagen.url
-                                    )}"
-                                >
-                            `
-                        )
-                        .join('')}
-                </div>
-            `
-            : '';
+    const whatsappNumero =
+        'REEMPLAZAR_CON_NUMERO';
 
 
     return `
@@ -593,20 +505,19 @@ function crearTarjeta(producto) {
                 >
 
                 <div class="badge-contenedor">
-                    ${destacado}
                     ${badges}
                     ${sinStock}
                 </div>
 
             </div>
 
-            ${galeria}
 
             <div class="card-info">
 
                 <h2 class="card-title">
                     ${nombre}
                 </h2>
+
 
                 <p class="card-price">
 
@@ -618,26 +529,23 @@ function crearTarjeta(producto) {
 
                 </p>
 
-                <p class="card-desc">
-                    ${descripcion}
-                </p>
 
-                <div class="producto-meta">
-
-                    ${stockHTML}
-
-                    ${talles}
-
-                    ${colores}
-
-                </div>
+                <a
+                    class="boton-whatsapp"
+                    href="https://wa.me/${whatsappNumero}?text=${mensajeWhatsApp}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Consultar ${nombre} por WhatsApp"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Consultar por WhatsApp
+                </a>
 
             </div>
 
         </article>
     `;
 }
-
 
 /* ------------------------------------------
    TARJETAS
@@ -673,7 +581,7 @@ function activarTarjetas() {
 
                         if (
                             event.target.closest(
-                                '.galeria-mini'
+                                '.boton-whatsapp'
                             )
                         ) {
                             return;
@@ -703,7 +611,6 @@ function activarTarjetas() {
             }
         );
 }
-
 
 /* ------------------------------------------
    GALERÍA
@@ -911,7 +818,7 @@ function activarTarjetasDestacados() {
 
                         if (
                             event.target.closest(
-                                '.galeria-mini'
+                                '.boton-whatsapp'
                             )
                         ) {
                             return;
@@ -953,7 +860,6 @@ function activarTarjetasDestacados() {
             }
         );
 }
-
 
 /* ------------------------------------------
    ARRASTRE HORIZONTAL
