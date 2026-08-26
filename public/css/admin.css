@@ -413,3 +413,203 @@ tr:hover {
         width: 100%;
     }
 }
+
+/* ==========================================
+   VISTAS DEL PANEL
+========================================== */
+
+.vista-admin {
+    display: none;
+}
+
+.vista-admin.activa {
+    display: block;
+}
+
+
+/* ==========================================
+   BANNERS
+========================================== */
+
+.lista-banners {
+    display: grid;
+    gap: 15px;
+    max-width: 650px;
+}
+
+.banner-admin-card {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.banner-admin-card img {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #eee;
+}
+
+.banner-admin-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.banner-admin-info span {
+    font-size: 13px;
+    color: #666;
+}
+
+.banner-activo {
+    color: #168a16 !important;
+    font-weight: bold;
+}
+
+.banner-inactivo {
+    color: #999 !important;
+    font-weight: bold;
+}
+
+.banner-admin-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.banner-admin-actions button {
+    flex: 1;
+    min-width: 90px;
+}
+
+.btn-banner-editar {
+    background: #ffaa00;
+}
+
+.btn-banner-editar:hover {
+    background: #e09500;
+}
+
+.btn-banner-toggle {
+    background: #555;
+}
+
+.btn-banner-toggle:hover {
+    background: #333;
+}
+
+.btn-banner-eliminar {
+    background: #ff0033;
+}
+
+.btn-banner-eliminar:hover {
+    background: #cc0029;
+}
+
+.banner-imagen-actual {
+    margin: 10px 0 15px;
+}
+
+.banner-imagen-actual img {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.sin-banners {
+    color: #777;
+    font-style: italic;
+}
+
+.error-banners {
+    color: #cc0029;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   NAVEGACIÓN INFERIOR
+========================================== */
+
+.admin-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    display: flex;
+
+    background: white;
+    border-top: 1px solid #ddd;
+
+    box-shadow:
+        0 -2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.admin-nav-item {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    padding: 10px 5px;
+
+    background: transparent;
+    color: #777;
+
+    border-radius: 0;
+
+    font-size: 12px;
+}
+
+.admin-nav-item:hover {
+    background: #f5f5f5;
+}
+
+.admin-nav-item.activo {
+    color: #0070f3;
+}
+
+.admin-nav-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+/* ==========================================
+   ESPACIO PARA NAV INFERIOR
+========================================== */
+
+body {
+    padding-bottom: 75px;
+}
+
+
+/* ==========================================
+   MÓVIL
+========================================== */
+
+@media (max-width: 500px) {
+
+    .banner-admin-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .banner-admin-actions button:last-child {
+        grid-column: 1 / -1;
+    }
+
+}
