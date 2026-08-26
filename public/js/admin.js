@@ -90,38 +90,61 @@ async function cargarInventario() {
         'Cargando inventario desde GitHub...'
     );
 
+    const tabla =
+        document.getElementById('tablaProductos');
+
     try {
 
-        alert('DIAGNÓSTICO 1: entrar a cargarInventario()');
-
-        alert('DIAGNÓSTICO 2: antes de cargarProductos()');
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Conectando con la API...
+                </td>
+            </tr>
+        `;
 
         await cargarProductos();
 
-        alert(
-            'DIAGNÓSTICO 3: cargarProductos() terminó correctamente'
-        );
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Inventario recibido. Renderizando...
+                </td>
+            </tr>
+        `;
+
+        const productos =
+            obtenerProductos();
 
         renderizarTabla(
-            obtenerProductos(),
+            productos,
             iniciarEdicion,
             iniciarEliminacion
         );
 
-        alert(
-            'DIAGNÓSTICO 4: tabla renderizada'
-        );
-
     } catch (error) {
 
-        alert(
-            'DIAGNÓSTICO ERROR:\n\n' +
-            'Mensaje: ' +
-            (error?.message || 'sin mensaje') +
-            '\n\nCódigo: ' +
-            (error?.code || 'sin código') +
-            '\n\nStatus: ' +
-            (error?.status || 'sin status')
+        const mensaje =
+            error?.message ||
+            String(error);
+
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="8"
+                    style="
+                        color:red;
+                        font-weight:bold;
+                        padding:20px;
+                    ">
+                    ERROR AL CARGAR INVENTARIO:<br><br>
+                    ${mensaje}
+                </td>
+            </tr>
+        `;
+
+        console.error(
+            'ERROR CARGANDO INVENTARIO:',
+            error
         );
 
         const manejado =
@@ -134,18 +157,9 @@ async function cargarInventario() {
             return;
         }
 
-        alert(
-            'Error al conectar con la base de datos: ' +
-            error.message
-        );
-
     } finally {
 
         mostrarCargando(false);
-
-        alert(
-            'DIAGNÓSTICO FINAL: terminó cargarInventario()'
-        );
     }
 }
 
