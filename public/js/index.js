@@ -479,13 +479,9 @@ function crearTarjeta(producto) {
 
 
     const mensajeWhatsApp =
-        encodeURIComponent(
-            `Hola, quisiera consultar por el producto "${producto.nombre}".`
-        );
-
-
-    const whatsappNumero =
-        'REEMPLAZAR_CON_NUMERO';
+    encodeURIComponent(
+        `${MENSAJE_WHATSAPP} ${producto.nombre}`
+    );
 
 
     return `
