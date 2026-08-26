@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "banner-mta6ysuj-66rjb7",
+    "imagen": "/imagenes/1787754659381-1000540619.webp",
+    "titulo": "Inauguración",
+    "enlace": "https://www.instagram.com/pom.py2",
+    "activo": true,
+    "orden": 0
+  }
+]
