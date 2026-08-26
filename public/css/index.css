@@ -10,6 +10,66 @@ body {
 }
 
 header {
+    background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(8px);
+    color: white;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    max-height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.header-text {
+    text-align: right;
+}
+
+header h1 {
+    margin: 0 0 2px;
+    font-size: 24px;
+    font-family: 'Monoton', cursive;
+    letter-spacing: 1px;
+}
+
+header p {
+    margin: 0;
+    color: #ccc;
+    font-family: 'Meow Script', cursive;
+    font-size: 20px;
+}
+
+main {
+    width: min(1200px, calc(100% - 30px));
+    margin: 25px auto 40px;
+}
+
+/*
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+header {
     background: #111;
     color: white;
     padding: 30px 20px;
@@ -30,7 +90,7 @@ main {
     width: min(1200px, calc(100% - 30px));
     margin: 25px auto 40px;
 }
-
+/*
 
 /* ------------------------------------------
    BANNERS / CARRUSEL
