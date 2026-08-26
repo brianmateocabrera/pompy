@@ -10,7 +10,7 @@ body {
 }
 
 header {
-    background: rgba(17, 17, 17, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(8px);
     color: white;
     padding: 15px 20px;
