@@ -155,10 +155,10 @@
     "talles": [],
     "colores": [],
     "activo": true,
-    "destacado": false,
+    "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-24T05:06:37.968Z",
-    "fechaActualizacion": "2026-08-25T09:28:16.194Z"
+    "fechaActualizacion": "2026-08-26T18:01:51.334Z"
   },
   {
     "id": "prod-mt6uubsz-k6ai48",
