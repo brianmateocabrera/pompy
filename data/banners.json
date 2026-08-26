@@ -12,7 +12,7 @@
     "imagen": "/imagenes/1787755076519-1000546615.webp",
     "titulo": "Seguime en Insta",
     "enlace": "https://www.instagram.com/pom.py2",
-    "activo": false,
+    "activo": true,
     "orden": 1
   }
 ]
