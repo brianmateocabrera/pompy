@@ -17,7 +17,7 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    height: 70px; 
+    height: 70px;
     overflow: hidden;
 }
 
@@ -27,12 +27,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100%; 
-    padding: 0 15px; 
+    height: 100%;
+    padding: 0 15px;
 }
 
 .logo {
-    height: 70px; 
+    height: 70px;
     width: auto;
     display: block;
     flex-shrink: 0;
@@ -43,18 +43,18 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%; 
+    height: 100%;
     min-width: 0;
 }
 
 header h1 {
     margin: 0;
     line-height: 1.1;
-    font-size: 22px; 
+    font-size: 22px;
     font-family: 'Tilt Neon', sans-serif;
-    letter-spacing: 1.5px; 
-    color: #ffb3b7; 
-    text-shadow: 
+    letter-spacing: 1.5px;
+    color: #ffb3b7;
+    text-shadow:
         0 0 4px #ff3344,
         0 0 10px #ff0015,
         0 0 25px #ff0015,
@@ -68,9 +68,9 @@ header p {
     margin: 0;
     line-height: 1.1;
     font-family: 'Meow Script', cursive;
-    font-size: 18px; 
-    color: #ffccd0; 
-    text-shadow: 
+    font-size: 18px;
+    color: #ffccd0;
+    text-shadow:
         0 0 4px #ff3344,
         0 0 10px #ff0015,
         0 0 30px rgba(255, 0, 21, 0.8),
@@ -80,7 +80,7 @@ header p {
 
 @keyframes neon-flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        text-shadow: 
+        text-shadow:
             0 0 4px #ff3344,
             0 0 10px #ff0015,
             0 0 25px #ff0015,
@@ -88,6 +88,7 @@ header p {
             0 0 75px #ff0015;
         opacity: 1;
     }
+
     20%, 24%, 55% {
         text-shadow: 0 0 4px rgba(255, 0, 21, 0.4);
         opacity: 0.8;
@@ -98,6 +99,7 @@ main {
     width: min(1200px, calc(100% - 30px));
     margin: 25px auto 40px;
 }
+
 
 /* ------------------------------------------
    BANNERS / CARRUSEL
@@ -306,10 +308,6 @@ main {
     font-weight: bold;
 }
 
-.badge-destacado {
-    background: #d18b00;
-}
-
 .badge-sin-stock {
     background: #777;
 }
@@ -329,7 +327,7 @@ main {
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 0 0 10px;
+    margin: 0;
 }
 
 .precio-actual {
@@ -344,45 +342,35 @@ main {
     text-decoration: line-through;
 }
 
-.card-desc {
-    margin: 0 0 12px;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.45;
-}
-
-.producto-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 13px;
-    color: #555;
-}
-
-.producto-meta strong {
-    color: #333;
-}
-
 
 /* ------------------------------------------
-   GALERÍA DE PRODUCTO
+   BOTÓN WHATSAPP
 ------------------------------------------ */
 
-.galeria-mini {
+.boton-whatsapp {
     display: flex;
-    gap: 5px;
-    padding: 8px 16px 0;
-    overflow-x: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: #25d366;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
 }
 
-.galeria-mini img {
-    width: 45px;
-    height: 45px;
-    flex: 0 0 45px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    cursor: pointer;
+.boton-whatsapp:hover {
+    background: #1ebe5d;
+}
+
+.boton-whatsapp:focus {
+    outline: 2px solid #0070f3;
+    outline-offset: 2px;
 }
 
 
@@ -405,6 +393,57 @@ main {
     border-radius: 10px;
     text-align: center;
     color: #b00020;
+}
+
+
+/* ------------------------------------------
+   PRODUCTOS DESTACADOS
+------------------------------------------ */
+
+.destacados {
+    margin-bottom: 25px;
+}
+
+.destacados-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.destacados-titulo {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.destacados-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 12px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    cursor: grab;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.destacados-track.arrastrando {
+    cursor: grabbing;
+    scroll-snap-type: none;
+}
+
+.destacados-track > .card {
+    flex: 0 0 240px;
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.destacados-track .card:hover {
+    transform: translateY(-4px);
 }
 
 
@@ -497,82 +536,10 @@ main {
         font-size: 12px;
     }
 
-    .card-desc {
+    .boton-whatsapp {
         font-size: 13px;
+        padding: 9px 8px;
     }
-}
-
-
-/* ------------------------------------------
-   MÓVIL PEQUEÑO
------------------------------------------- */
-
-@media (max-width: 360px) {
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .card-img {
-        height: 240px;
-    }
-}
-
-/* ------------------------------------------
-   PRODUCTOS DESTACADOS
------------------------------------------- */
-
-.destacados {
-    margin-bottom: 25px;
-}
-
-.destacados-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-}
-
-.destacados-titulo {
-    margin: 0;
-    font-size: 22px;
-    line-height: 1.2;
-}
-
-.destacados-track {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 4px 2px 12px;
-    scroll-snap-type: x proximity;
-    scrollbar-width: thin;
-    cursor: grab;
-    user-select: none;
-    -webkit-overflow-scrolling: touch;
-}
-
-.destacados-track.arrastrando {
-    cursor: grabbing;
-    scroll-snap-type: none;
-}
-
-.destacados-track > .card {
-    flex: 0 0 240px;
-    min-width: 0;
-    scroll-snap-align: start;
-}
-
-.destacados-track .card:hover {
-    transform: translateY(-4px);
-}
-
-.destacados-vacio {
-    display: none;
-}
-
-@media (max-width: 550px) {
 
     .destacados {
         margin-bottom: 15px;
@@ -596,7 +563,20 @@ main {
     }
 }
 
+
+/* ------------------------------------------
+   MÓVIL PEQUEÑO
+------------------------------------------ */
+
 @media (max-width: 360px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-img {
+        height: 240px;
+    }
 
     .destacados-track > .card {
         flex-basis: 240px;
