@@ -39,7 +39,8 @@ header {
 }
 
 header h1 {
-    margin: 0 0 2px;
+    margin: 0;
+    line-height: 1.1;
     font-size: 26px;
     font-family: 'Tilt Neon', sans-serif;
     letter-spacing: 0.5px;
@@ -47,6 +48,7 @@ header h1 {
 
 header p {
     margin: 0;
+    line-height: 1.1;
     color: #ccc;
     font-family: 'Meow Script', cursive;
     font-size: 20px;
