@@ -28,13 +28,14 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100%; 
-    padding: 0 15px;
+    padding: 0 15px; 
 }
 
 .logo {
     height: 70px; 
     width: auto;
     display: block;
+    flex-shrink: 0;
 }
 
 .header-text {
@@ -43,6 +44,7 @@ header {
     flex-direction: column;
     justify-content: center;
     height: 100%; 
+    min-width: 0;
 }
 
 header h1 {
@@ -50,14 +52,16 @@ header h1 {
     line-height: 1.1;
     font-size: 22px; 
     font-family: 'Tilt Neon', sans-serif;
-    letter-spacing: 1.5px;
-    color: #fff;
+    letter-spacing: 1.5px; 
+    color: #fff; 
     text-shadow: 
         0 0 4px #fff,
         0 0 10px #D90718,
         0 0 20px #D90718,
         0 0 40px rgba(217, 7, 24, 0.8),
         0 0 70px rgba(217, 7, 24, 0.5);
+    white-space: nowrap;
+    animation: neon-flicker 6s infinite alternate;
 }
 
 header p {
@@ -65,13 +69,29 @@ header p {
     line-height: 1.1;
     font-family: 'Meow Script', cursive;
     font-size: 18px; 
-    
     color: #ffe6e8; 
     text-shadow: 
         0 0 4px #ffe6e8,
         0 0 10px rgba(217, 7, 24, 0.8),
         0 0 30px rgba(217, 7, 24, 0.6),
         0 0 50px rgba(217, 7, 24, 0.3);
+    white-space: nowrap;
+}
+
+@keyframes neon-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 
+            0 0 4px #fff,
+            0 0 10px #D90718,
+            0 0 20px #D90718,
+            0 0 40px rgba(217, 7, 24, 0.8),
+            0 0 70px rgba(217, 7, 24, 0.5);
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.7;
+    }
 }
 
 main {
