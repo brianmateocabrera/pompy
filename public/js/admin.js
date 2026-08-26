@@ -41,7 +41,7 @@ const fileInput =
 // =================================================
 // CARGAR INVENTARIO
 // =================================================
-
+/*
 async function cargarInventario() {
 
     mostrarCargando(
@@ -81,7 +81,73 @@ async function cargarInventario() {
         mostrarCargando(false);
     }
 }
+*/
 
+async function cargarInventario() {
+
+    mostrarCargando(
+        true,
+        'Cargando inventario desde GitHub...'
+    );
+
+    try {
+
+        alert('DIAGNÓSTICO 1: entrar a cargarInventario()');
+
+        alert('DIAGNÓSTICO 2: antes de cargarProductos()');
+
+        await cargarProductos();
+
+        alert(
+            'DIAGNÓSTICO 3: cargarProductos() terminó correctamente'
+        );
+
+        renderizarTabla(
+            obtenerProductos(),
+            iniciarEdicion,
+            iniciarEliminacion
+        );
+
+        alert(
+            'DIAGNÓSTICO 4: tabla renderizada'
+        );
+
+    } catch (error) {
+
+        alert(
+            'DIAGNÓSTICO ERROR:\n\n' +
+            'Mensaje: ' +
+            (error?.message || 'sin mensaje') +
+            '\n\nCódigo: ' +
+            (error?.code || 'sin código') +
+            '\n\nStatus: ' +
+            (error?.status || 'sin status')
+        );
+
+        const manejado =
+            await manejarErrorSesion(
+                error,
+                cargarInventario
+            );
+
+        if (manejado) {
+            return;
+        }
+
+        alert(
+            'Error al conectar con la base de datos: ' +
+            error.message
+        );
+
+    } finally {
+
+        mostrarCargando(false);
+
+        alert(
+            'DIAGNÓSTICO FINAL: terminó cargarInventario()'
+        );
+    }
+}
 
 // =================================================
 // OBTENER DATOS DEL FORMULARIO
