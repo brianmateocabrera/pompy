@@ -1,3 +1,25 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.body.insertAdjacentHTML(
+        'afterbegin',
+        `
+        <div style="
+            background:#ffeb3b;
+            color:#000;
+            padding:15px;
+            margin:10px;
+            font-size:18px;
+            font-weight:bold;
+            position:relative;
+            z-index:99999;
+        ">
+            admin.js fue cargado correctamente
+        </div>
+        `
+    );
+
+});
+
 import {
     cargarProductos,
     obtenerProductos,
