@@ -376,65 +376,10 @@
 
     </table>
 
-<!--
-    <script
-        type="module"
-        src="/js/admin.js"
-    ></script>
--->
-<script>
-document.body.insertAdjacentHTML(
-    'afterbegin',
-    `
-    <div id="diagnostico-admin"
-         style="
-            background:#222;
-            color:white;
-            padding:20px;
-            margin:10px;
-            font-size:16px;
-            font-weight:bold;
-            white-space:pre-wrap;
-         ">
-        Probando módulos...
-    </div>
-    `
-);
-</script>
+<script
+    type="module"
+    src="/js/admin.js"
+></script>
 
-<script type="module">
-
-const diagnostico =
-    document.getElementById(
-        'diagnostico-admin'
-    );
-
-const modulos = [
-    '/js/productos-persistencia.js',
-    '/js/productos-imagenes.js'
-];
-
-for (const ruta of modulos) {
-
-    diagnostico.textContent +=
-        `\n\nProbando: ${ruta}`;
-
-    try {
-
-        await import(ruta);
-
-        diagnostico.textContent +=
-            '\nOK';
-
-    } catch (error) {
-
-        diagnostico.textContent +=
-            `\nERROR: ${error.message}`;
-
-        break;
-    }
-}
-
-</script>
 </body>
 </html>
