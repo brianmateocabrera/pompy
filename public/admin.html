@@ -386,17 +386,46 @@
     document.body.insertAdjacentHTML(
         'afterbegin',
         `
-        <div style="
-            background:red;
-            color:white;
-            padding:20px;
-            font-size:20px;
-            font-weight:bold;
-        ">
-            JAVASCRIPT DEL ADMIN FUNCIONA
+        <div id="diagnostico-admin"
+             style="
+                background:red;
+                color:white;
+                padding:20px;
+                font-size:18px;
+                font-weight:bold;
+             ">
+            HTML JavaScript funciona
         </div>
         `
     );
+</script>
+
+<script type="module">
+    import('/js/admin.js')
+        .then(() => {
+
+            document.getElementById(
+                'diagnostico-admin'
+            ).textContent =
+                'admin.js cargó correctamente';
+
+        })
+        .catch(error => {
+
+            document.getElementById(
+                'diagnostico-admin'
+            ).style.background =
+                'darkred';
+
+            document.getElementById(
+                'diagnostico-admin'
+            ).innerHTML =
+                `
+                ERROR CARGANDO admin.js:
+                <br><br>
+                ${error.message}
+                `;
+        });
 </script>
 </body>
 </html>
