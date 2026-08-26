@@ -99,41 +99,6 @@ main {
     margin: 25px auto 40px;
 }
 
-/*
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f5f6f8;
-    color: #222;
-}
-
-header {
-    background: #111;
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0 0 8px;
-    font-size: 30px;
-}
-
-header p {
-    margin: 0;
-    color: #ccc;
-}
-
-main {
-    width: min(1200px, calc(100% - 30px));
-    margin: 25px auto 40px;
-}
-/*
-
 /* ------------------------------------------
    BANNERS / CARRUSEL
 ------------------------------------------ */
