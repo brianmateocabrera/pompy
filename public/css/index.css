@@ -517,3 +517,88 @@ main {
         height: 240px;
     }
 }
+
+/* ------------------------------------------
+   PRODUCTOS DESTACADOS
+------------------------------------------ */
+
+.destacados {
+    margin-bottom: 25px;
+}
+
+.destacados-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.destacados-titulo {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.destacados-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 12px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    cursor: grab;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.destacados-track.arrastrando {
+    cursor: grabbing;
+    scroll-snap-type: none;
+}
+
+.destacados-track > .card {
+    flex: 0 0 240px;
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.destacados-track .card:hover {
+    transform: translateY(-4px);
+}
+
+.destacados-vacio {
+    display: none;
+}
+
+@media (max-width: 550px) {
+
+    .destacados {
+        margin-bottom: 15px;
+    }
+
+    .destacados-header {
+        margin-bottom: 10px;
+    }
+
+    .destacados-titulo {
+        font-size: 19px;
+    }
+
+    .destacados-track {
+        gap: 12px;
+        padding-bottom: 10px;
+    }
+
+    .destacados-track > .card {
+        flex-basis: 200px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .destacados-track > .card {
+        flex-basis: 240px;
+    }
+}
