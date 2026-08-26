@@ -18,548 +18,505 @@
 
 <body>
 
-    <h1>Panel de Administración</h1>
+    <main>
 
+        <!-- ==============================
+             VISTA BANNERS
+        =============================== -->
 
-    <!-- ==========================================
-         VISTA BANNERS
-    =========================================== -->
-
-    <main
-        id="vistaBanners"
-        class="vista-admin"
-    >
-
-        <h2>Banners</h2>
-
-        <form id="bannerForm">
-
-            <h3 id="bannerFormTitle">
-                Agregar nuevo banner
-            </h3>
-
-            <input
-                type="hidden"
-                id="bannerEditIndex"
-                value="-1"
-            >
-
-
-            <label for="bannerImagenFile">
-                Imagen del banner
-            </label>
-
-            <input
-                type="file"
-                id="bannerImagenFile"
-                accept="image/*"
-            >
-
-
-            <div
-                id="bannerImagenPreview"
-                class="banner-imagen-preview"
-            ></div>
-
-
-            <label for="bannerTitulo">
-                Título
-            </label>
-
-            <input
-                type="text"
-                id="bannerTitulo"
-                placeholder="Título opcional"
-            >
-
-
-            <label for="bannerTexto">
-                Texto
-            </label>
-
-            <textarea
-                id="bannerTexto"
-                placeholder="Texto opcional"
-            ></textarea>
-
-
-            <label for="bannerEnlace">
-                Enlace
-            </label>
-
-            <input
-                type="text"
-                id="bannerEnlace"
-                placeholder="Ej.: /producto.html?slug=..."
-            >
-
-
-            <label for="bannerOrden">
-                Orden de aparición
-            </label>
-
-            <input
-                type="number"
-                id="bannerOrden"
-                min="0"
-                step="1"
-                value="0"
-            >
-
-
-            <label class="checkbox-label">
-
-                <input
-                    type="checkbox"
-                    id="bannerActivo"
-                    checked
-                >
-
-                Banner activo
-
-            </label>
-
-
-            <button
-                type="submit"
-                id="btnGuardarBanner"
-            >
-                Guardar Banner
-            </button>
-
-
-            <button
-                type="button"
-                id="btnCancelarBanner"
-                class="btn-cancelar"
-                style="display: none;"
-            >
-                Cancelar
-            </button>
-
-        </form>
-
-
-        <h2>Banners registrados</h2>
-
-
-        <p
-            id="bannerLoadingText"
-            class="loading"
-            style="display: none;"
-        ></p>
-
-
-        <div
-            id="listaBanners"
-            class="lista-banners"
+        <section
+            id="vistaBanners"
+            class="vista-admin activa"
         >
-            <p>
-                Cargando banners...
-            </p>
-        </div>
 
-    </main>
+            <h1>Banners</h1>
 
+            <form id="bannerForm">
 
-    <!-- ==========================================
-         VISTA INVENTARIO
-    =========================================== -->
+                <h2 id="bannerFormTitle">
+                    Agregar banner
+                </h2>
 
-    <main
-        id="vistaInventario"
-        class="vista-admin"
-        style="display: none;"
-    >
-
-        <h2>Inventario de Productos</h2>
-
-
-        <form id="prodForm">
-
-            <h2 id="formTitle">
-                Agregar Nuevo Producto
-            </h2>
-
-            <input
-                type="hidden"
-                id="editIndex"
-                value="-1"
-            >
-
-
-            <h3>Identificación</h3>
-
-            <input
-                type="text"
-                id="sku"
-                placeholder="SKU"
-            >
-
-            <input
-                type="text"
-                id="nombre"
-                placeholder="Nombre del producto"
-                required
-            >
-
-
-            <h3>Precios</h3>
-
-            <input
-                type="number"
-                id="precioCosto"
-                placeholder="Precio de costo ($)"
-                min="0"
-                step="0.01"
-            >
-
-            <input
-                type="number"
-                id="precio"
-                placeholder="Precio de venta ($)"
-                required
-                min="0"
-                step="0.01"
-            >
-
-            <input
-                type="number"
-                id="precioAnterior"
-                placeholder="Precio anterior ($)"
-                min="0"
-                step="0.01"
-            >
-
-
-            <h3>Información del producto</h3>
-
-            <textarea
-                id="descripcion"
-                placeholder="Descripción del producto"
-            ></textarea>
-
-
-            <div class="campo-lista">
-
-                <label for="categoria">
-                    Categorías
+                <label for="bannerTitulo">
+                    Título
                 </label>
 
-                <div class="lista-input">
+                <input
+                    type="text"
+                    id="bannerTitulo"
+                    placeholder="Título del banner"
+                >
 
-                    <input
-                        type="text"
-                        id="categoria"
-                        placeholder="Escribí una categoría"
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        class="btn-agregar-lista"
-                        data-lista="categoria"
-                    >
-                        Agregar
-                    </button>
-
-                </div>
-
-                <div
-                    id="categoriaLista"
-                    class="chips"
-                ></div>
-
-            </div>
-
-
-            <div class="campo-lista">
-
-                <label for="tags">
-                    Tags
+                <label for="bannerEnlace">
+                    Enlace
                 </label>
 
-                <div class="lista-input">
+                <input
+                    type="text"
+                    id="bannerEnlace"
+                    placeholder="/productos o https://..."
+                >
 
-                    <input
-                        type="text"
-                        id="tags"
-                        placeholder="Escribí un tag"
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        class="btn-agregar-lista"
-                        data-lista="tags"
-                    >
-                        Agregar
-                    </button>
-
-                </div>
-
-                <div
-                    id="tagsLista"
-                    class="chips"
-                ></div>
-
-            </div>
-
-
-            <div class="campo-lista">
-
-                <label for="badges">
-                    Badges
+                <label for="bannerOrden">
+                    Orden
                 </label>
 
-                <div class="lista-input">
+                <input
+                    type="number"
+                    id="bannerOrden"
+                    value="0"
+                    min="0"
+                    step="1"
+                >
+
+                <label class="checkbox-label">
 
                     <input
-                        type="text"
-                        id="badges"
-                        placeholder="Ej.: 20%, Nuevo, Oferta"
-                        autocomplete="off"
+                        type="checkbox"
+                        id="bannerActivo"
+                        checked
                     >
 
-                    <button
-                        type="button"
-                        class="btn-agregar-lista"
-                        data-lista="badges"
-                    >
-                        Agregar
-                    </button>
+                    Banner activo
 
-                </div>
-
-                <div
-                    id="badgesLista"
-                    class="chips"
-                ></div>
-
-            </div>
-
-
-            <h3>Stock y variantes</h3>
-
-            <input
-                type="number"
-                id="stock"
-                placeholder="Stock"
-                min="0"
-                step="1"
-            >
-
-
-            <div class="campo-lista">
-
-                <label for="talles">
-                    Talles
                 </label>
 
-                <div class="lista-input">
-
-                    <input
-                        type="text"
-                        id="talles"
-                        placeholder="Escribí un talle"
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        class="btn-agregar-lista"
-                        data-lista="talles"
-                    >
-                        Agregar
-                    </button>
-
-                </div>
-
-                <div
-                    id="tallesLista"
-                    class="chips"
-                ></div>
-
-            </div>
-
-
-            <div class="campo-lista">
-
-                <label for="colores">
-                    Colores
+                <label for="bannerImagen">
+                    Imagen del banner
                 </label>
 
-                <div class="lista-input">
-
-                    <input
-                        type="text"
-                        id="colores"
-                        placeholder="Escribí un color"
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        class="btn-agregar-lista"
-                        data-lista="colores"
-                    >
-                        Agregar
-                    </button>
-
-                </div>
+                <input
+                    type="file"
+                    id="bannerImagen"
+                    accept="image/*"
+                    required
+                >
 
                 <div
-                    id="coloresLista"
-                    class="chips"
+                    id="bannerImagenActual"
+                    class="banner-imagen-actual"
                 ></div>
 
-            </div>
+                <button
+                    type="submit"
+                    id="btnBannerGuardar"
+                >
+                    Agregar banner
+                </button>
+
+                <button
+                    type="button"
+                    id="btnBannerCancelar"
+                    class="btn-cancelar"
+                    style="display:none;"
+                >
+                    Cancelar
+                </button>
+
+            </form>
 
 
-            <h3>Imágenes</h3>
-
-            <label>
-                Agregar imágenes del producto
-            </label>
-
-            <input
-                type="file"
-                id="imagenFile"
-                accept="image/*"
-                multiple
-            >
+            <h2>Banners cargados</h2>
 
             <div
-                id="imagenesPreview"
-                class="imagenes-preview"
-            ></div>
+                id="listaBanners"
+                class="lista-banners"
+            >
+                <p>Cargando banners...</p>
+            </div>
+
+        </section>
 
 
-            <h3>Configuración</h3>
+        <!-- ==============================
+             VISTA PRODUCTOS
+        =============================== -->
 
-            <label class="checkbox-label">
+        <section
+            id="vistaProductos"
+            class="vista-admin"
+        >
+
+            <h1>Productos</h1>
+
+            <form id="prodForm">
+
+                <h2 id="formTitle">
+                    Agregar Nuevo Producto
+                </h2>
 
                 <input
-                    type="checkbox"
-                    id="activo"
-                    checked
+                    type="hidden"
+                    id="editIndex"
+                    value="-1"
                 >
 
-                Producto activo
-
-            </label>
-
-
-            <label class="checkbox-label">
+                <h3>Identificación</h3>
 
                 <input
-                    type="checkbox"
-                    id="destacado"
+                    type="text"
+                    id="sku"
+                    placeholder="SKU"
                 >
 
-                Producto destacado
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre del producto"
+                    required
+                >
 
-            </label>
+                <h3>Precios</h3>
 
+                <input
+                    type="number"
+                    id="precioCosto"
+                    placeholder="Precio de costo ($)"
+                    min="0"
+                    step="0.01"
+                >
 
-            <input
-                type="number"
-                id="orden"
-                placeholder="Orden de aparición"
-                min="0"
-                step="1"
-                value="0"
-            >
+                <input
+                    type="number"
+                    id="precio"
+                    placeholder="Precio de venta ($)"
+                    required
+                    min="0"
+                    step="0.01"
+                >
 
+                <input
+                    type="number"
+                    id="precioAnterior"
+                    placeholder="Precio anterior ($)"
+                    min="0"
+                    step="0.01"
+                >
 
-            <button
-                type="submit"
-                id="btnGuardar"
-            >
-                Guardar Producto
-            </button>
+                <h3>Información del producto</h3>
 
-
-            <button
-                type="button"
-                id="btnCancelar"
-                class="btn-cancelar"
-                style="display: none;"
-            >
-                Cancelar
-            </button>
-
-        </form>
-
-
-        <p
-            id="loadingText"
-            class="loading"
-            style="display: none;"
-        ></p>
-
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>SKU</th>
-                    <th>Costo</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-
-                </tr>
-
-            </thead>
+                <textarea
+                    id="descripcion"
+                    placeholder="Descripción del producto"
+                ></textarea>
 
 
-            <tbody id="tablaProductos">
+                <div class="campo-lista">
 
-                <tr>
-                    <td colspan="8">
-                        Cargando inventario...
-                    </td>
-                </tr>
+                    <label for="categoria">
+                        Categorías
+                    </label>
 
-            </tbody>
+                    <div class="lista-input">
 
-        </table>
+                        <input
+                            type="text"
+                            id="categoria"
+                            placeholder="Escribí una categoría"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-agregar-lista"
+                            data-lista="categoria"
+                        >
+                            Agregar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="categoriaLista"
+                        class="chips"
+                    ></div>
+
+                </div>
+
+
+                <div class="campo-lista">
+
+                    <label for="tags">
+                        Tags
+                    </label>
+
+                    <div class="lista-input">
+
+                        <input
+                            type="text"
+                            id="tags"
+                            placeholder="Escribí un tag"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-agregar-lista"
+                            data-lista="tags"
+                        >
+                            Agregar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="tagsLista"
+                        class="chips"
+                    ></div>
+
+                </div>
+
+
+                <div class="campo-lista">
+
+                    <label for="badges">
+                        Badges
+                    </label>
+
+                    <div class="lista-input">
+
+                        <input
+                            type="text"
+                            id="badges"
+                            placeholder="Ej.: 20%, Nuevo, Oferta"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-agregar-lista"
+                            data-lista="badges"
+                        >
+                            Agregar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="badgesLista"
+                        class="chips"
+                    ></div>
+
+                </div>
+
+
+                <h3>Stock y variantes</h3>
+
+                <input
+                    type="number"
+                    id="stock"
+                    placeholder="Stock"
+                    min="0"
+                    step="1"
+                >
+
+
+                <div class="campo-lista">
+
+                    <label for="talles">
+                        Talles
+                    </label>
+
+                    <div class="lista-input">
+
+                        <input
+                            type="text"
+                            id="talles"
+                            placeholder="Escribí un talle"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-agregar-lista"
+                            data-lista="talles"
+                        >
+                            Agregar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="tallesLista"
+                        class="chips"
+                    ></div>
+
+                </div>
+
+
+                <div class="campo-lista">
+
+                    <label for="colores">
+                        Colores
+                    </label>
+
+                    <div class="lista-input">
+
+                        <input
+                            type="text"
+                            id="colores"
+                            placeholder="Escribí un color"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-agregar-lista"
+                            data-lista="colores"
+                        >
+                            Agregar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="coloresLista"
+                        class="chips"
+                    ></div>
+
+                </div>
+
+
+                <h3>Imágenes</h3>
+
+                <label>
+                    Agregar imágenes del producto
+                </label>
+
+                <input
+                    type="file"
+                    id="imagenFile"
+                    accept="image/*"
+                    multiple
+                >
+
+                <div
+                    id="imagenesPreview"
+                    class="imagenes-preview"
+                ></div>
+
+
+                <h3>Configuración</h3>
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="activo"
+                        checked
+                    >
+
+                    Producto activo
+
+                </label>
+
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="destacado"
+                    >
+
+                    Producto destacado
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="orden"
+                    placeholder="Orden de aparición"
+                    min="0"
+                    step="1"
+                    value="0"
+                >
+
+
+                <button
+                    type="submit"
+                    id="btnGuardar"
+                >
+                    Guardar Producto
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnCancelar"
+                    class="btn-cancelar"
+                    style="display:none;"
+                >
+                    Cancelar
+                </button>
+
+            </form>
+
+
+            <h2>Inventario de Productos</h2>
+
+            <p
+                id="loadingText"
+                class="loading"
+                style="display:none;"
+            ></p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>SKU</th>
+                        <th>Costo</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaProductos">
+
+                    <tr>
+                        <td colspan="8">
+                            Cargando inventario...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
 
     </main>
 
 
-    <!-- ==========================================
+    <!-- ==============================
          NAVEGACIÓN INFERIOR
-    =========================================== -->
+    =============================== -->
 
-    <nav
-        class="admin-nav"
-        aria-label="Secciones administrativas"
-    >
+    <nav class="admin-nav">
 
         <button
             type="button"
-            class="admin-nav-btn activo"
-            data-vista="banners"
+            class="admin-nav-item activo"
+            data-vista="vistaBanners"
         >
-            <span>▣</span>
+            <span class="admin-nav-icon">▣</span>
             <span>Banners</span>
         </button>
 
-
         <button
             type="button"
-            class="admin-nav-btn"
-            data-vista="inventario"
+            class="admin-nav-item"
+            data-vista="vistaProductos"
         >
-            <span>▤</span>
-            <span>Inventario</span>
+            <span class="admin-nav-icon">▤</span>
+            <span>Productos</span>
         </button>
 
     </nav>
@@ -568,6 +525,16 @@
     <script
         type="module"
         src="/js/admin.js"
+    ></script>
+
+    <script
+        type="module"
+        src="/js/admin-banners.js"
+    ></script>
+
+    <script
+        type="module"
+        src="/js/admin-navegacion.js"
     ></script>
 
 </body>
