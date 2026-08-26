@@ -233,28 +233,31 @@
         }
 
         /* ------------------------------------------
-   BANNERS
+   BANNERS / CARRUSEL
 ------------------------------------------ */
 
 .banners {
     position: relative;
     width: 100%;
     margin-bottom: 25px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.banners-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.55s ease;
 }
 
 .banner {
     position: relative;
-    display: none;
+    flex: 0 0 100%;
+    min-width: 100%;
     overflow: hidden;
-    width: 100%;
-    border-radius: 10px;
     background: #eee;
     text-decoration: none;
     color: inherit;
-}
-
-.banner.banner-visible {
-    display: block;
 }
 
 .banner img {
@@ -283,22 +286,67 @@
     font-size: 24px;
 }
 
+
+/* INDICADORES */
+
+.banner-indicadores {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    z-index: 5;
+}
+
+.banner-indicador {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.banner-indicador:hover {
+    background: white;
+}
+
+.banner-indicador.activo {
+    background: white;
+    transform: scale(1.35);
+}
+
+
 @media (max-width: 550px) {
 
     .banners {
         margin-bottom: 15px;
-    }
-
-    .banner {
         border-radius: 8px;
     }
 
     .banner-info {
-        padding: 30px 14px 12px;
+        padding: 30px 14px 14px;
     }
 
     .banner-info h2 {
         font-size: 18px;
+    }
+
+    .banner-indicadores {
+        bottom: 8px;
+        gap: 6px;
+    }
+
+    .banner-indicador {
+        width: 7px;
+        height: 7px;
     }
 }
 
@@ -1314,7 +1362,7 @@ function renderizarBanners(
     }
 
 
-    banners.innerHTML =
+    const slides =
         lista.map(
             (banner, index) => {
 
@@ -1338,8 +1386,14 @@ function renderizarBanners(
                     <img
                         src="${imagen}"
                         alt="${titulo}"
-                        loading="${index === 0 ? 'eager' : 'lazy'}"
-                        onerror="this.closest('.banner').remove()"
+                        loading="${
+                            index === 0
+                                ? 'eager'
+                                : 'lazy'
+                        }"
+                        onerror="
+                            this.closest('.banner').remove()
+                        "
                     >
 
                     ${
@@ -1360,11 +1414,7 @@ function renderizarBanners(
 
                     return `
                         <a
-                            class="banner ${
-                                index === 0
-                                    ? 'banner-visible'
-                                    : ''
-                            }"
+                            class="banner"
                             href="${escaparHTML(enlace)}"
                         >
                             ${contenido}
@@ -1374,18 +1424,48 @@ function renderizarBanners(
 
 
                 return `
-                    <div
-                        class="banner ${
-                            index === 0
-                                ? 'banner-visible'
-                                : ''
-                        }"
-                    >
+                    <div class="banner">
                         ${contenido}
                     </div>
                 `;
             }
         ).join('');
+
+
+    const indicadores =
+        lista.length > 1
+            ? `
+                <div class="banner-indicadores">
+
+                    ${lista.map(
+                        (_, index) => `
+                            <button
+                                type="button"
+                                class="banner-indicador ${
+                                    index === 0
+                                        ? 'activo'
+                                        : ''
+                                }"
+                                data-banner-index="${index}"
+                                aria-label="Ir al banner ${index + 1}"
+                            ></button>
+                        `
+                    ).join('')}
+
+                </div>
+            `
+            : '';
+
+
+    banners.innerHTML = `
+
+        <div class="banners-track">
+            ${slides}
+        </div>
+
+        ${indicadores}
+
+    `;
 
 
     iniciarCarrusel(
@@ -1399,6 +1479,46 @@ function renderizarBanners(
 
 let intervaloCarrusel = null;
 let indiceBanner = 0;
+
+
+function mostrarBanner(
+    indice
+) {
+
+    const track =
+        banners.querySelector(
+            '.banners-track'
+        );
+
+    const indicadores =
+        banners.querySelectorAll(
+            '.banner-indicador'
+        );
+
+
+    if (!track) {
+        return;
+    }
+
+
+    indiceBanner =
+        indice;
+
+
+    track.style.transform =
+        `translateX(-${indice * 100}%)`;
+
+
+    indicadores.forEach(
+        (indicador, index) => {
+
+            indicador.classList.toggle(
+                'activo',
+                index === indice
+            );
+        }
+    );
+}
 
 
 function iniciarCarrusel(
@@ -1417,6 +1537,8 @@ function iniciarCarrusel(
 
     indiceBanner = 0;
 
+    mostrarBanner(0);
+
 
     if (cantidad <= 1) {
         return;
@@ -1427,40 +1549,86 @@ function iniciarCarrusel(
         setInterval(
             () => {
 
-                const elementos =
-                    banners.querySelectorAll(
-                        '.banner'
-                    );
-
-
-                if (!elementos.length) {
-                    return;
-                }
-
-
-                elementos[
-                    indiceBanner
-                ].classList.remove(
-                    'banner-visible'
-                );
-
-
-                indiceBanner =
+                const siguiente =
                     (
                         indiceBanner + 1
-                    ) % elementos.length;
+                    ) % cantidad;
 
 
-                elementos[
-                    indiceBanner
-                ].classList.add(
-                    'banner-visible'
+                mostrarBanner(
+                    siguiente
                 );
 
             },
             5000
         );
 }
+
+banners.addEventListener(
+    'click',
+    event => {
+
+        const indicador =
+            event.target.closest(
+                '.banner-indicador'
+            );
+
+
+        if (!indicador) {
+            return;
+        }
+
+
+        const indice =
+            Number(
+                indicador.dataset.bannerIndex
+            );
+
+
+        if (
+            Number.isNaN(indice)
+        ) {
+            return;
+        }
+
+
+        mostrarBanner(
+            indice
+        );
+
+
+        if (intervaloCarrusel) {
+
+            clearInterval(
+                intervaloCarrusel
+            );
+        }
+
+
+        const cantidad =
+            banners.querySelectorAll(
+                '.banner'
+            ).length;
+
+
+        intervaloCarrusel =
+            setInterval(
+                () => {
+
+                    const siguiente =
+                        (
+                            indiceBanner + 1
+                        ) % cantidad;
+
+                    mostrarBanner(
+                        siguiente
+                    );
+
+                },
+                5000
+            );
+    }
+);
 
         /* ------------------------------------------
            INICIO
