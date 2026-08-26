@@ -1,0 +1,452 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+header {
+    background: #111;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+header p {
+    margin: 0;
+    color: #ccc;
+}
+
+main {
+    width: min(1200px, calc(100% - 30px));
+    margin: 25px auto 40px;
+}
+
+
+/* ------------------------------------------
+   BANNERS / CARRUSEL
+------------------------------------------ */
+
+.banners {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #eee;
+}
+
+.banners-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.55s ease;
+    will-change: transform;
+}
+
+.banner {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    overflow: hidden;
+    background: #eee;
+    text-decoration: none;
+    color: inherit;
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+.banner-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 35px 20px 18px;
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.75)
+    );
+    color: white;
+    pointer-events: none;
+}
+
+.banner-info h2 {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    line-height: 1.25;
+}
+
+
+/* ------------------------------------------
+   INDICADORES DEL CARRUSEL
+------------------------------------------ */
+
+.banner-indicadores {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    z-index: 5;
+}
+
+.banner-indicador {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.banner-indicador:hover {
+    background: white;
+}
+
+.banner-indicador.activo {
+    background: white;
+    transform: scale(1.35);
+}
+
+
+/* ------------------------------------------
+   FILTROS
+------------------------------------------ */
+
+.filtros {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 2fr)
+        minmax(160px, 1fr)
+        minmax(130px, 1fr)
+        minmax(180px, 1fr);
+    gap: 12px;
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 25px;
+}
+
+.filtros input,
+.filtros select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font: inherit;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    outline: none;
+    border-color: #0070f3;
+}
+
+.resultado-info {
+    margin: 0 0 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+
+/* ------------------------------------------
+   CATÁLOGO
+------------------------------------------ */
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.07);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.11);
+}
+
+.card:focus {
+    outline: 2px solid #0070f3;
+    outline-offset: 2px;
+}
+
+.imagen-contenedor {
+    position: relative;
+    background: #eee;
+}
+
+.card-img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.badge-contenedor {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: #111;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.badge-destacado {
+    background: #d18b00;
+}
+
+.badge-sin-stock {
+    background: #777;
+}
+
+.card-info {
+    padding: 16px;
+}
+
+.card-title {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.card-price {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 10px;
+}
+
+.precio-actual {
+    font-size: 21px;
+    font-weight: bold;
+    color: #0070f3;
+}
+
+.precio-anterior {
+    color: #888;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.card-desc {
+    margin: 0 0 12px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.producto-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    color: #555;
+}
+
+.producto-meta strong {
+    color: #333;
+}
+
+
+/* ------------------------------------------
+   GALERÍA DE PRODUCTO
+------------------------------------------ */
+
+.galeria-mini {
+    display: flex;
+    gap: 5px;
+    padding: 8px 16px 0;
+    overflow-x: auto;
+}
+
+.galeria-mini img {
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+
+/* ------------------------------------------
+   ESTADOS
+------------------------------------------ */
+
+.sin-resultados {
+    grid-column: 1 / -1;
+    padding: 50px 20px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    color: #666;
+}
+
+.error {
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    color: #b00020;
+}
+
+
+/* ------------------------------------------
+   TABLET
+------------------------------------------ */
+
+@media (max-width: 850px) {
+
+    .filtros {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+/* ------------------------------------------
+   MÓVIL
+------------------------------------------ */
+
+@media (max-width: 550px) {
+
+    header {
+        padding: 24px 15px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    main {
+        width: min(
+            100% - 20px,
+            1200px
+        );
+        margin-top: 15px;
+    }
+
+    .banners {
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    .banner-info {
+        padding: 30px 14px 14px;
+    }
+
+    .banner-info h2 {
+        font-size: 18px;
+    }
+
+    .banner-indicadores {
+        bottom: 8px;
+        gap: 6px;
+    }
+
+    .banner-indicador {
+        width: 7px;
+        height: 7px;
+    }
+
+    .filtros {
+        grid-template-columns: 1fr;
+        padding: 14px;
+    }
+
+    .grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .card-img {
+        height: 190px;
+    }
+
+    .card-info {
+        padding: 12px;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .precio-actual {
+        font-size: 17px;
+    }
+
+    .precio-anterior {
+        font-size: 12px;
+    }
+
+    .card-desc {
+        font-size: 13px;
+    }
+}
+
+
+/* ------------------------------------------
+   MÓVIL PEQUEÑO
+------------------------------------------ */
+
+@media (max-width: 360px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-img {
+        height: 240px;
+    }
+}
