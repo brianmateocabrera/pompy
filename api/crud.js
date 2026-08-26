@@ -193,9 +193,9 @@ export default function handler(req, res) {
         // =========================================
 
         const rutasPermitidas = [
-    'data/productos.json',
-    'data/banners.json'
-];
+            'data/productos.json',
+            'data/banners.json'
+        ];
 
 
         const esImagenPermitida =
