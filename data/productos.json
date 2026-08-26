@@ -76,10 +76,10 @@
     ],
     "colores": [],
     "activo": true,
-    "destacado": true,
+    "destacado": false,
     "orden": 1,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-25T09:43:39.729Z"
+    "fechaActualizacion": "2026-08-26T15:29:09.401Z"
   },
   {
     "id": "prod-003",
