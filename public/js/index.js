@@ -1,7 +1,7 @@
 const API_URL = '/api/crud';
 const PATH_JSON = 'data/productos.json';
 const PATH_BANNERS = 'data/banners.json';
-const WHATSAPP_NUMERO = '549351818944';
+const WHATSAPP_NUMERO = '5493518189444';
 
 const MENSAJE_WHATSAPP =
     'Hola, quisiera consultar por este producto:';
