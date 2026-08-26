@@ -1,25 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-    document.body.insertAdjacentHTML(
-        'afterbegin',
-        `
-        <div style="
-            background:#ffeb3b;
-            color:#000;
-            padding:15px;
-            margin:10px;
-            font-size:18px;
-            font-weight:bold;
-            position:relative;
-            z-index:99999;
-        ">
-            admin.js fue cargado correctamente
-        </div>
-        `
-    );
-
-});
-
 import {
     cargarProductos,
     obtenerProductos,
@@ -63,7 +41,7 @@ const fileInput =
 // =================================================
 // CARGAR INVENTARIO
 // =================================================
-/*
+
 async function cargarInventario() {
 
     mostrarCargando(
@@ -97,87 +75,6 @@ async function cargarInventario() {
             'Error al conectar con la base de datos: ' +
             error.message
         );
-
-    } finally {
-
-        mostrarCargando(false);
-    }
-}
-*/
-
-async function cargarInventario() {
-
-    mostrarCargando(
-        true,
-        'Cargando inventario desde GitHub...'
-    );
-
-    const tabla =
-        document.getElementById('tablaProductos');
-
-    try {
-
-        tabla.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    Conectando con la API...
-                </td>
-            </tr>
-        `;
-
-        await cargarProductos();
-
-        tabla.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    Inventario recibido. Renderizando...
-                </td>
-            </tr>
-        `;
-
-        const productos =
-            obtenerProductos();
-
-        renderizarTabla(
-            productos,
-            iniciarEdicion,
-            iniciarEliminacion
-        );
-
-    } catch (error) {
-
-        const mensaje =
-            error?.message ||
-            String(error);
-
-        tabla.innerHTML = `
-            <tr>
-                <td colspan="8"
-                    style="
-                        color:red;
-                        font-weight:bold;
-                        padding:20px;
-                    ">
-                    ERROR AL CARGAR INVENTARIO:<br><br>
-                    ${mensaje}
-                </td>
-            </tr>
-        `;
-
-        console.error(
-            'ERROR CARGANDO INVENTARIO:',
-            error
-        );
-
-        const manejado =
-            await manejarErrorSesion(
-                error,
-                cargarInventario
-            );
-
-        if (manejado) {
-            return;
-        }
 
     } finally {
 
@@ -649,7 +546,7 @@ document
 // =================================================
 // INICIO
 // =================================================
-/*
+
 async function iniciar() {
 
     const autenticado =
@@ -678,53 +575,3 @@ async function iniciar() {
 
 
 iniciar();
-*/
-async function iniciar() {
-
-    alert('PRUEBA INICIAR 1');
-
-    const autenticado =
-        await autenticar();
-
-    alert(
-        'PRUEBA INICIAR 2: autenticado = ' +
-        autenticado
-    );
-
-    if (!autenticado) {
-
-        document.body.innerHTML =
-            '<h2>Acceso denegado.</h2>';
-
-        return;
-    }
-
-    alert('PRUEBA INICIAR 3');
-
-    configurarPrevisualizacion();
-
-    configurarGestionImagenes(
-        verificarAutenticacion,
-        manejarErrorSesion,
-        renderizarTabla,
-        iniciarEdicion,
-        iniciarEliminacion
-    );
-
-    alert('PRUEBA INICIAR 4: antes de cargarInventario');
-
-    await cargarInventario();
-
-    alert('PRUEBA INICIAR 5: carga terminada');
-}
-
-
-iniciar().catch(
-    error => {
-
-        alert(
-            'ERROR FATAL EN INICIAR:\n\n' +
-            (error?.message || error)
-        );
-    }
-);
