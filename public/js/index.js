@@ -479,9 +479,9 @@ function crearTarjeta(producto) {
 
 
     const mensajeWhatsApp =
-    encodeURIComponent(
-        `${MENSAJE_WHATSAPP} ${producto.nombre}`
-    );
+        encodeURIComponent(
+            `Hola, quisiera consultar por este producto: ${producto.nombre}`
+        );
 
 
     return `
@@ -532,7 +532,7 @@ function crearTarjeta(producto) {
 
                 <a
                     class="boton-whatsapp"
-                    href="https://wa.me/${whatsappNumero}?text=${mensajeWhatsApp}"
+                    href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWhatsApp}"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Consultar ${nombre} por WhatsApp"
