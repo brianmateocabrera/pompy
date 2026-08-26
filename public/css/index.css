@@ -13,11 +13,13 @@ header {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(8px);
     color: white;
-    /*padding: 15px 20px;*/
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* Forzamos a que el header mida exactamente lo mismo que el logo */
+    height: 60px; 
+    overflow: hidden;
 }
 
 .header-container {
@@ -26,32 +28,41 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* Asegura que los hijos ocupen el 100% de los 60px del header */
+    height: 100%; 
 }
 
 .logo {
-    max-height: 60px;
+    /* El logo define la altura máxima */
+    height: 60px; 
     width: auto;
-    object-fit: contain;
+    display: block;
 }
 
 .header-text {
     text-align: right;
+    /* Centra el bloque de texto verticalmente si es más pequeño que 60px */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 header h1 {
     margin: 0;
-    line-height: 1.1;
-    font-size: 26px;
+    line-height: 1;
+    /* Reducido ligeramente para controlar la altura total del texto */
+    font-size: 20px; 
     font-family: 'Tilt Neon', sans-serif;
     letter-spacing: 0.5px;
 }
 
 header p {
     margin: 0;
-    line-height: 1.1;
+    line-height: 1;
     color: #ccc;
     font-family: 'Meow Script', cursive;
-    font-size: 20px;
+    /* Reducido ligeramente para que no desborde los 60px */
+    font-size: 16px; 
 }
 
 main {
