@@ -52,7 +52,7 @@ header h1 {
     line-height: 1.1;
     font-size: 22px; 
     font-family: 'Tilt Neon', sans-serif;
-    letter-spacing: 1.5px; 
+    /*letter-spacing: 1.5px; */
     color: #fff; 
     text-shadow: 
         0 0 4px #fff,
