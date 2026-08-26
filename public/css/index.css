@@ -17,7 +17,6 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    /* Fijamos la nueva altura del header */
     height: 70px; 
     overflow: hidden;
 }
@@ -28,13 +27,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Mantiene los elementos acoplados a los 70px */
     height: 100%; 
-    padding: 0 15px; /* Añade un pequeño colchón a los lados */
+    padding: 0 15px;
 }
 
 .logo {
-    /* Tu logo ahora mide 70px de alto */
     height: 70px; 
     width: auto;
     display: block;
@@ -45,26 +42,36 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Controla que el bloque de texto no supere los 70px */
     height: 100%; 
 }
 
 header h1 {
     margin: 0;
     line-height: 1.1;
-    /* Subido a 22px gracias al nuevo espacio disponible */
     font-size: 22px; 
     font-family: 'Tilt Neon', sans-serif;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-shadow: 
+        0 0 4px #fff,
+        0 0 10px #D90718,
+        0 0 20px #D90718,
+        0 0 40px rgba(217, 7, 24, 0.8),
+        0 0 70px rgba(217, 7, 24, 0.5);
 }
 
 header p {
     margin: 0;
     line-height: 1.1;
-    color: #ccc;
     font-family: 'Meow Script', cursive;
-    /* Ajustado a 18px para mantener la proporción */
     font-size: 18px; 
+    
+    color: #ffe6e8; 
+    text-shadow: 
+        0 0 4px #ffe6e8,
+        0 0 10px rgba(217, 7, 24, 0.8),
+        0 0 30px rgba(217, 7, 24, 0.6),
+        0 0 50px rgba(217, 7, 24, 0.3);
 }
 
 main {
