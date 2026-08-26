@@ -613,7 +613,7 @@ document
 // =================================================
 // INICIO
 // =================================================
-
+/*
 async function iniciar() {
 
     const autenticado =
@@ -642,3 +642,53 @@ async function iniciar() {
 
 
 iniciar();
+*/
+async function iniciar() {
+
+    alert('PRUEBA INICIAR 1');
+
+    const autenticado =
+        await autenticar();
+
+    alert(
+        'PRUEBA INICIAR 2: autenticado = ' +
+        autenticado
+    );
+
+    if (!autenticado) {
+
+        document.body.innerHTML =
+            '<h2>Acceso denegado.</h2>';
+
+        return;
+    }
+
+    alert('PRUEBA INICIAR 3');
+
+    configurarPrevisualizacion();
+
+    configurarGestionImagenes(
+        verificarAutenticacion,
+        manejarErrorSesion,
+        renderizarTabla,
+        iniciarEdicion,
+        iniciarEliminacion
+    );
+
+    alert('PRUEBA INICIAR 4: antes de cargarInventario');
+
+    await cargarInventario();
+
+    alert('PRUEBA INICIAR 5: carga terminada');
+}
+
+
+iniciar().catch(
+    error => {
+
+        alert(
+            'ERROR FATAL EN INICIAR:\n\n' +
+            (error?.message || error)
+        );
+    }
+);
