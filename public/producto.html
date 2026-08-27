@@ -10,44 +10,107 @@
 
     <title>Producto</title>
 
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Meow+Script&family=Tinos:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
+
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Tinos', 'Segoe UI', Arial, sans-serif;
             background: #f5f6f8;
             color: #222;
         }
 
+
+        /* ------------------------------------------
+           HEADER
+        ------------------------------------------ */
+
         header {
-            background: #111;
+            background: #000;
             color: white;
-            padding: 22px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            height: 70px;
         }
 
-        header a {
+        .header-container {
+            width: min(1200px, calc(100% - 30px));
+            height: 100%;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .volver {
             color: white;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 15px;
+            transition: opacity 0.2s ease;
         }
 
+        .volver:hover {
+            opacity: 0.7;
+        }
+
+
+        /* ------------------------------------------
+           CONTENIDO
+        ------------------------------------------ */
+
         main {
-            width: min(1100px, calc(100% - 30px));
+            width: min(1200px, calc(100% - 30px));
             margin: 30px auto 50px;
         }
 
+
+        /* ------------------------------------------
+           PRODUCTO
+        ------------------------------------------ */
+
         .producto {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            grid-template-columns:
+                minmax(0, 1.1fr)
+                minmax(320px, 0.9fr);
+
             gap: 35px;
+
             background: white;
             padding: 25px;
+
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.07);
         }
+
+
+        /* ------------------------------------------
+           IMÁGENES
+        ------------------------------------------ */
 
         .imagen-principal-contenedor {
             background: #eee;
@@ -68,45 +131,62 @@
             gap: 8px;
             margin-top: 12px;
             overflow-x: auto;
+            padding-bottom: 3px;
         }
 
         .miniatura {
             width: 75px;
             height: 75px;
+
             flex: 0 0 75px;
+
             object-fit: cover;
+
             border: 2px solid transparent;
             border-radius: 6px;
+
             cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .miniatura:hover {
+            opacity: 0.8;
         }
 
         .miniatura.activa {
             border-color: #0070f3;
         }
 
+
+        /* ------------------------------------------
+           INFORMACIÓN
+        ------------------------------------------ */
+
+        .informacion {
+            display: flex;
+            flex-direction: column;
+        }
+
         .informacion h1 {
             margin: 0 0 15px;
-            font-size: 30px;
+            font-size: 32px;
+            line-height: 1.2;
         }
 
         .descripcion {
             color: #666;
             line-height: 1.6;
-            margin: 20px 0;
+            margin: 22px 0;
+            white-space: pre-line;
         }
 
-        .precio {
-            font-size: 30px;
-            font-weight: bold;
-            color: #0070f3;
-        }
 
-        .precio-anterior {
-            margin-left: 10px;
-            color: #888;
-            font-size: 17px;
-            text-decoration: line-through;
-        }
+        /* ------------------------------------------
+           BADGES
+        ------------------------------------------ */
 
         .badges {
             display: flex;
@@ -128,6 +208,79 @@
             background: #d18b00;
         }
 
+        .badge.sin-stock {
+            background: #777;
+        }
+
+
+        /* ------------------------------------------
+           PRECIO
+        ------------------------------------------ */
+
+        .precio {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0070f3;
+        }
+
+        .precio-anterior {
+            margin-left: 10px;
+            color: #888;
+            font-size: 17px;
+            text-decoration: line-through;
+        }
+
+
+        /* ------------------------------------------
+           WHATSAPP
+        ------------------------------------------ */
+
+        .boton-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            width: 100%;
+
+            margin-top: 10px;
+            padding: 13px 16px;
+
+            border-radius: 6px;
+
+            background: #25d366;
+            color: white;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .boton-whatsapp:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+        }
+
+        .boton-whatsapp:focus {
+            outline: 2px solid #0070f3;
+            outline-offset: 2px;
+        }
+
+        .boton-whatsapp.sin-stock {
+            background: #999;
+            pointer-events: none;
+        }
+
+
+        /* ------------------------------------------
+           METADATA
+        ------------------------------------------ */
+
         .meta {
             margin-top: 25px;
             padding-top: 20px;
@@ -143,6 +296,97 @@
             color: #222;
         }
 
+
+        /* ------------------------------------------
+           PRODUCTOS RELACIONADOS
+        ------------------------------------------ */
+
+        .relacionados {
+            margin-top: 40px;
+        }
+
+        .relacionados-titulo {
+            margin: 0 0 15px;
+            font-size: 24px;
+        }
+
+        .relacionados-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+        .relacionado {
+            display: flex;
+            flex-direction: column;
+
+            background: white;
+
+            border-radius: 10px;
+            overflow: hidden;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.07);
+
+            text-decoration: none;
+            color: inherit;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .relacionado:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.11);
+        }
+
+        .relacionado-imagen {
+            width: 100%;
+            height: 220px;
+
+            display: block;
+
+            object-fit: cover;
+
+            background: #eee;
+        }
+
+        .relacionado-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            padding: 14px;
+        }
+
+        .relacionado-nombre {
+            margin: 0 0 8px;
+
+            font-size: 17px;
+            line-height: 1.25;
+        }
+
+        .relacionado-precio {
+            margin: auto 0 0;
+
+            padding-top: 8px;
+
+            font-size: 19px;
+            font-weight: bold;
+
+            color: #0070f3;
+        }
+
+
+        /* ------------------------------------------
+           ERROR
+        ------------------------------------------ */
+
         .error {
             background: white;
             padding: 40px;
@@ -154,11 +398,21 @@
             color: #0070f3;
         }
 
+
+        /* ------------------------------------------
+           MÓVIL
+        ------------------------------------------ */
+
         @media (max-width: 750px) {
+
+            header {
+                height: 60px;
+            }
 
             .producto {
                 grid-template-columns: 1fr;
                 padding: 15px;
+                gap: 25px;
             }
 
             .imagen-principal {
@@ -172,7 +426,31 @@
             .precio {
                 font-size: 26px;
             }
+
+            .relacionados-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 12px;
+            }
+
+            .relacionado-imagen {
+                height: 190px;
+            }
+
+            .relacionado-info {
+                padding: 11px;
+            }
+
+            .relacionado-nombre {
+                font-size: 15px;
+            }
+
+            .relacionado-precio {
+                font-size: 17px;
+            }
         }
+
 
         @media (max-width: 450px) {
 
@@ -184,23 +462,54 @@
             .imagen-principal {
                 height: 300px;
             }
+
+            .informacion h1 {
+                font-size: 23px;
+            }
+
+            .relacionados {
+                margin-top: 30px;
+            }
+
+            .relacionados-titulo {
+                font-size: 21px;
+            }
+
+            .relacionado-imagen {
+                height: 160px;
+            }
         }
+
     </style>
 </head>
+
 
 <body>
 
     <header>
-        <a href="/">
-            ← Volver al catálogo
-        </a>
+
+        <div class="header-container">
+
+            <a
+                href="/"
+                class="volver"
+            >
+                ← Volver al catálogo
+            </a>
+
+        </div>
+
     </header>
 
+
     <main id="contenido">
+
         <div class="error">
             Cargando producto...
         </div>
+
     </main>
+
 
     <script>
 
@@ -216,6 +525,7 @@
                 .replaceAll('>', '&gt;')
                 .replaceAll('"', '&quot;')
                 .replaceAll("'", '&#039;');
+
         }
 
 
@@ -228,6 +538,7 @@
                     currency: 'ARS'
                 }
             ).format(Number(valor) || 0);
+
         }
 
 
@@ -239,121 +550,501 @@
                 );
 
             return parametros.get('slug');
+
         }
 
 
-        async function cargarProducto() {
+        async function cargarProductos() {
 
-            const contenido =
-                document.getElementById(
-                    'contenido'
+            const respuesta =
+                await fetch(
+                    API_URL,
+                    {
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json'
+                        },
+
+                        body:
+                            JSON.stringify({
+                                action: 'GET',
+                                path: PATH_JSON
+                            })
+                    }
                 );
 
 
-            const slug =
-                obtenerSlug();
+            const json =
+                await respuesta.json();
 
 
-            if (!slug) {
+            if (
+                !respuesta.ok ||
+                !json.success ||
+                !Array.isArray(json.data)
+            ) {
 
-                mostrarError(
-                    'No se indicó ningún producto.'
+                throw new Error(
+                    json.error ||
+                    'No se pudo cargar el catálogo.'
                 );
 
-                return;
             }
 
 
-            try {
+            return json.data;
 
-                const respuesta =
-                    await fetch(
-                        API_URL,
-                        {
-                            method: 'POST',
-
-                            headers: {
-                                'Content-Type':
-                                    'application/json'
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    action: 'GET',
-                                    path: PATH_JSON
-                                })
-                        }
-                    );
+        }
 
 
-                const json =
-                    await respuesta.json();
+        function obtenerImagen(producto) {
+
+            if (
+                producto.imagenPrincipal
+            ) {
+                return producto.imagenPrincipal;
+            }
 
 
-                if (
-                    !respuesta.ok ||
-                    !json.success ||
-                    !Array.isArray(json.data)
-                ) {
+            if (
+                producto.imagenes &&
+                Array.isArray(producto.imagenes)
+            ) {
 
-                    throw new Error(
-                        json.error ||
-                        'No se pudo cargar el catálogo.'
-                    );
-                }
-
-
-                const producto =
-                    json.data.find(
+                const imagen =
+                    producto.imagenes.find(
                         item =>
-                            item.slug === slug &&
-                            item.activo !== false
+                            item &&
+                            item.url
                     );
 
-
-                if (!producto) {
-
-                    mostrarError(
-                        'El producto no existe o no está disponible.'
-                    );
-
-                    return;
+                if (imagen) {
+                    return imagen.url;
                 }
 
-
-                document.title =
-                    producto.nombre ||
-                    'Producto';
+            }
 
 
-                renderizarProducto(
-                    producto
-                );
+            return producto.imagen ||
+                '/imagenes/no-image.webp';
+
+        }
 
 
-            } catch (error) {
+        function obtenerImagenes(producto) {
 
-                console.error(
-                    'Error cargando producto:',
-                    error
-                );
+            if (
+                Array.isArray(producto.imagenes)
+            ) {
+
+                const imagenes =
+                    producto.imagenes.filter(
+                        imagen =>
+                            imagen &&
+                            imagen.url
+                    );
+
+                if (imagenes.length) {
+                    return imagenes;
+                }
+
+            }
 
 
-                mostrarError(
-                    'Error al cargar el producto.'
+            const imagen =
+                obtenerImagen(producto);
+
+
+            return [
+                {
+                    url: imagen,
+                    alt: producto.nombre || ''
+                }
+            ];
+
+        }
+
+
+        function obtenerCategorias(producto) {
+
+            if (
+                Array.isArray(producto.categoria)
+            ) {
+                return producto.categoria;
+            }
+
+
+            if (producto.categoria) {
+                return [producto.categoria];
+            }
+
+
+            return [];
+
+        }
+
+
+        function generarLinkWhatsApp(producto) {
+
+            const nombre =
+                producto.nombre || 'producto';
+
+
+            const texto =
+                `Hola, quiero consultar por el producto "${nombre}".`;
+
+
+            return `https://wa.me/?text=${
+                encodeURIComponent(texto)
+            }`;
+
+        }
+
+
+        function renderizarBadges(producto, stock) {
+
+            const badges = [];
+
+
+            if (producto.destacado) {
+                badges.push(
+                    '<span class="badge destacado">Destacado</span>'
                 );
             }
+
+
+            if (Array.isArray(producto.badges)) {
+
+                producto.badges.forEach(
+                    badge => {
+
+                        badges.push(`
+                            <span class="badge">
+                                ${escaparHTML(badge)}
+                            </span>
+                        `);
+
+                    }
+                );
+
+            }
+
+
+            if (stock <= 0) {
+
+                badges.push(
+                    '<span class="badge sin-stock">Sin stock</span>'
+                );
+
+            }
+
+
+            if (!badges.length) {
+                return '';
+            }
+
+
+            return `
+                <div class="badges">
+                    ${badges.join('')}
+                </div>
+            `;
+
+        }
+
+
+        function renderizarMeta(producto, stock) {
+
+            const categorias =
+                obtenerCategorias(producto);
+
+
+            const talles =
+                Array.isArray(producto.talles)
+                    ? producto.talles.join(', ')
+                    : '';
+
+
+            const colores =
+                Array.isArray(producto.colores)
+                    ? producto.colores.join(', ')
+                    : '';
+
+
+            const tags =
+                Array.isArray(producto.tags)
+                    ? producto.tags.join(', ')
+                    : '';
+
+
+            return `
+
+                <div class="meta">
+
+                    <p>
+                        <strong>Stock:</strong>
+                        ${
+                            stock > 0
+                                ? stock
+                                : 'Sin stock'
+                        }
+                    </p>
+
+
+                    ${
+                        categorias.length
+                            ? `
+                                <p>
+                                    <strong>Categoría:</strong>
+                                    ${escaparHTML(
+                                        categorias.join(', ')
+                                    )}
+                                </p>
+                            `
+                            : ''
+                    }
+
+
+                    ${
+                        talles
+                            ? `
+                                <p>
+                                    <strong>Talles:</strong>
+                                    ${escaparHTML(talles)}
+                                </p>
+                            `
+                            : ''
+                    }
+
+
+                    ${
+                        colores
+                            ? `
+                                <p>
+                                    <strong>Colores:</strong>
+                                    ${escaparHTML(colores)}
+                                </p>
+                            `
+                            : ''
+                    }
+
+
+                    ${
+                        tags
+                            ? `
+                                <p>
+                                    <strong>Tags:</strong>
+                                    ${escaparHTML(tags)}
+                                </p>
+                            `
+                            : ''
+                    }
+
+                </div>
+
+            `;
+
+        }
+
+
+        function renderizarGaleria(producto) {
+
+            const imagenes =
+                obtenerImagenes(producto);
+
+
+            const principal =
+                obtenerImagen(producto);
+
+
+            const miniaturas =
+                imagenes
+                    .map(
+                        imagen => `
+
+                            <img
+                                src="${escaparHTML(imagen.url)}"
+                                alt="${escaparHTML(
+                                    imagen.alt ||
+                                    producto.nombre
+                                )}"
+                                class="miniatura ${
+                                    imagen.url === principal
+                                        ? 'activa'
+                                        : ''
+                                }"
+                                data-url="${escaparHTML(
+                                    imagen.url
+                                )}"
+                            >
+
+                        `
+                    )
+                    .join('');
+
+
+            return `
+
+                <div
+                    class="imagen-principal-contenedor"
+                >
+
+                    <img
+                        id="imagenPrincipal"
+                        src="${escaparHTML(principal)}"
+                        class="imagen-principal"
+                        alt="${escaparHTML(producto.nombre)}"
+                        onerror="
+                            this.src='/imagenes/no-image.webp'
+                        "
+                    >
+
+                </div>
+
+
+                ${
+                    imagenes.length > 1
+                        ? `
+                            <div class="galeria">
+                                ${miniaturas}
+                            </div>
+                        `
+                        : ''
+                }
+
+            `;
+
+        }
+
+
+        function renderizarRelacionados(
+            producto,
+            productos
+        ) {
+
+            const categorias =
+                obtenerCategorias(producto);
+
+
+            const relacionados =
+                productos
+                    .filter(
+                        item =>
+                            item.activo !== false &&
+                            item.slug !== producto.slug
+                    )
+                    .filter(
+                        item => {
+
+                            const categoriasItem =
+                                obtenerCategorias(item);
+
+                            return categorias.some(
+                                categoria =>
+                                    categoriasItem.includes(
+                                        categoria
+                                    )
+                            );
+
+                        }
+                    )
+                    .slice(0, 4);
+
+
+            if (!relacionados.length) {
+                return '';
+            }
+
+
+            const tarjetas =
+                relacionados
+                    .map(
+                        item => {
+
+                            const imagen =
+                                obtenerImagen(item);
+
+
+                            return `
+
+                                <a
+                                    class="relacionado"
+                                    href="/producto.html?slug=${encodeURIComponent(
+                                        item.slug
+                                    )}"
+                                >
+
+                                    <img
+                                        class="relacionado-imagen"
+                                        src="${escaparHTML(imagen)}"
+                                        alt="${escaparHTML(
+                                            item.nombre
+                                        )}"
+                                        onerror="
+                                            this.src='/imagenes/no-image.webp'
+                                        "
+                                    >
+
+
+                                    <div class="relacionado-info">
+
+                                        <h3
+                                            class="relacionado-nombre"
+                                        >
+                                            ${escaparHTML(
+                                                item.nombre
+                                            )}
+                                        </h3>
+
+
+                                        <p
+                                            class="relacionado-precio"
+                                        >
+                                            ${formatearPrecio(
+                                                item.precio
+                                            )}
+                                        </p>
+
+                                    </div>
+
+                                </a>
+
+                            `;
+
+                        }
+                    )
+                    .join('');
+
+
+            return `
+
+                <section class="relacionados">
+
+                    <h2 class="relacionados-titulo">
+                        También te puede interesar
+                    </h2>
+
+
+                    <div class="relacionados-grid">
+                        ${tarjetas}
+                    </div>
+
+                </section>
+
+            `;
+
         }
 
 
         function renderizarProducto(
-            producto
+            producto,
+            productos
         ) {
 
             const nombre =
-                escaparHTML(
-                    producto.nombre
-                );
+                escaparHTML(producto.nombre);
 
 
             const descripcion =
@@ -361,25 +1052,6 @@
                     producto.descripcion ||
                     'Sin descripción disponible.'
                 );
-
-
-            const imagenes =
-                Array.isArray(
-                    producto.imagenes
-                )
-                    ? producto.imagenes.filter(
-                        imagen =>
-                            imagen &&
-                            imagen.url
-                    )
-                    : [];
-
-
-            const imagenPrincipal =
-                producto.imagenPrincipal ||
-                imagenes[0]?.url ||
-                producto.imagen ||
-                '/imagenes/no-image.webp';
 
 
             const stock =
@@ -412,178 +1084,34 @@
                     : '';
 
 
-            const badges = [
-                ...(producto.destacado
-                    ? ['Destacado']
-                    : []),
-                ...(Array.isArray(producto.badges)
-                    ? producto.badges
-                    : [])
-            ];
+            const whatsapp =
+                generarLinkWhatsApp(producto);
 
 
-            const badgesHTML =
-                badges.length > 0
-                    ? `
-                        <div class="badges">
-                            ${badges
-                                .map(
-                                    badge => `
-                                        <span
-                                            class="badge ${
-                                                badge ===
-                                                'Destacado'
-                                                    ? 'destacado'
-                                                    : ''
-                                            }"
-                                        >
-                                            ${escaparHTML(
-                                                badge
-                                            )}
-                                        </span>
-                                    `
-                                )
-                                .join('')}
-                        </div>
-                    `
-                    : '';
+            const badges =
+                renderizarBadges(
+                    producto,
+                    stock
+                );
 
 
-            const categoria =
-                Array.isArray(
-                    producto.categoria
-                )
-                    ? producto.categoria.join(', ')
-                    : '';
+            const meta =
+                renderizarMeta(
+                    producto,
+                    stock
+                );
 
 
-            const tags =
-                Array.isArray(
-                    producto.tags
-                )
-                    ? producto.tags.join(', ')
-                    : '';
+            const relacionados =
+                renderizarRelacionados(
+                    producto,
+                    productos
+                );
 
 
-            const talles =
-                Array.isArray(
-                    producto.talles
-                )
-                    ? producto.talles.join(', ')
-                    : '';
-
-
-            const colores =
-                Array.isArray(
-                    producto.colores
-                )
-                    ? producto.colores.join(', ')
-                    : '';
-
-
-            const meta = `
-
-                <div class="meta">
-
-                    <p>
-                        <strong>Stock:</strong>
-                        ${
-                            stock > 0
-                                ? stock
-                                : 'Sin stock'
-                        }
-                    </p>
-
-                    ${
-                        categoria
-                            ? `
-                                <p>
-                                    <strong>Categoría:</strong>
-                                    ${escaparHTML(
-                                        categoria
-                                    )}
-                                </p>
-                            `
-                            : ''
-                    }
-
-                    ${
-                        talles
-                            ? `
-                                <p>
-                                    <strong>Talles:</strong>
-                                    ${escaparHTML(
-                                        talles
-                                    )}
-                                </p>
-                            `
-                            : ''
-                    }
-
-                    ${
-                        colores
-                            ? `
-                                <p>
-                                    <strong>Colores:</strong>
-                                    ${escaparHTML(
-                                        colores
-                                    )}
-                                </p>
-                            `
-                            : ''
-                    }
-
-                    ${
-                        tags
-                            ? `
-                                <p>
-                                    <strong>Tags:</strong>
-                                    ${escaparHTML(
-                                        tags
-                                    )}
-                                </p>
-                            `
-                            : ''
-                    }
-
-                </div>
-            `;
-
-
-            const galeriaHTML =
-                imagenes.length > 0
-                    ? `
-                        <div class="galeria">
-
-                            ${imagenes
-                                .map(
-                                    (imagen, index) => `
-                                        <img
-                                            src="${escaparHTML(
-                                                imagen.url
-                                            )}"
-                                            alt="${escaparHTML(
-                                                imagen.alt ||
-                                                producto.nombre
-                                            )}"
-                                            class="miniatura ${
-                                                imagen.url ===
-                                                imagenPrincipal
-                                                    ? 'activa'
-                                                    : ''
-                                            }"
-                                            data-url="${escaparHTML(
-                                                imagen.url
-                                            )}"
-                                            data-index="${index}"
-                                        >
-                                    `
-                                )
-                                .join('')}
-
-                        </div>
-                    `
-                    : '';
+            document.title =
+                producto.nombre ||
+                'Producto';
 
 
             document.getElementById(
@@ -594,71 +1122,93 @@
 
                     <section>
 
-                        <div
-                            class="imagen-principal-contenedor"
-                        >
-                            <img
-                                id="imagenPrincipal"
-                                src="${escaparHTML(
-                                    imagenPrincipal
-                                )}"
-                                class="imagen-principal"
-                                alt="${nombre}"
-                                onerror="
-                                    this.src='/imagenes/no-image.webp'
-                                "
-                            >
-                        </div>
-
-                        ${galeriaHTML}
+                        ${renderizarGaleria(producto)}
 
                     </section>
 
 
                     <section class="informacion">
 
-                        ${badgesHTML}
+                        ${badges}
+
 
                         <h1>
                             ${nombre}
                         </h1>
 
+
                         <div>
+
                             <span class="precio">
                                 ${precio}
                             </span>
 
                             ${precioAnterior}
+
                         </div>
+
 
                         <p class="descripcion">
                             ${descripcion}
                         </p>
+
+
+                        ${
+                            stock > 0
+                                ? `
+                                    <a
+                                        href="${escaparHTML(
+                                            whatsapp
+                                        )}"
+                                        class="boton-whatsapp"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Consultar por WhatsApp
+                                    </a>
+                                `
+                                : `
+                                    <div
+                                        class="boton-whatsapp sin-stock"
+                                    >
+                                        Producto sin stock
+                                    </div>
+                                `
+                        }
+
 
                         ${meta}
 
                     </section>
 
                 </article>
+
+
+                ${relacionados}
+
             `;
 
 
             activarGaleria();
+
         }
 
 
         function activarGaleria() {
 
-            const imagenPrincipal =
+            const principal =
                 document.getElementById(
                     'imagenPrincipal'
                 );
 
 
+            if (!principal) {
+                return;
+            }
+
+
             document
-                .querySelectorAll(
-                    '.miniatura'
-                )
+                .querySelectorAll('.miniatura')
                 .forEach(
                     miniatura => {
 
@@ -666,7 +1216,7 @@
                             'click',
                             () => {
 
-                                imagenPrincipal.src =
+                                principal.src =
                                     miniatura.dataset.url;
 
 
@@ -686,16 +1236,17 @@
                                 miniatura.classList.add(
                                     'activa'
                                 );
+
                             }
                         );
+
                     }
                 );
+
         }
 
 
-        function mostrarError(
-            mensaje
-        ) {
+        function mostrarError(mensaje) {
 
             document.getElementById(
                 'contenido'
@@ -707,6 +1258,7 @@
                         ${escaparHTML(mensaje)}
                     </h2>
 
+
                     <p>
                         <a href="/">
                             Volver al catálogo
@@ -714,7 +1266,74 @@
                     </p>
 
                 </div>
+
             `;
+
+        }
+
+
+        async function cargarProducto() {
+
+            const slug =
+                obtenerSlug();
+
+
+            if (!slug) {
+
+                mostrarError(
+                    'No se indicó ningún producto.'
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                const productos =
+                    await cargarProductos();
+
+
+                const producto =
+                    productos.find(
+                        item =>
+                            item.slug === slug &&
+                            item.activo !== false
+                    );
+
+
+                if (!producto) {
+
+                    mostrarError(
+                        'El producto no existe o no está disponible.'
+                    );
+
+                    return;
+
+                }
+
+
+                renderizarProducto(
+                    producto,
+                    productos
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Error cargando producto:',
+                    error
+                );
+
+
+                mostrarError(
+                    'Error al cargar el producto.'
+                );
+
+            }
+
         }
 
 
