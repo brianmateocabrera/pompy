@@ -458,5 +458,34 @@
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:11:42.487Z",
     "fechaActualizacion": "2026-08-27T12:11:42.487Z"
+  },
+  {
+    "id": "prod-mtbhhdcz-gbi0u2",
+    "sku": "",
+    "slug": "potenciador-sexy-pill",
+    "nombre": "POTENCIADOR SEXY PILL",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 1,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787832787972-1000545166.webp",
+        "alt": "POTENCIADOR SEXY PILL",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787832787972-1000545166.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-27T12:13:09.731Z",
+    "fechaActualizacion": "2026-08-27T12:13:09.731Z"
   }
 ]
