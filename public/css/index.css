@@ -769,4 +769,41 @@ footer-info p {
         width: 100%;
         max-width: 300px;
     }
+
+.footer-instagram {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 6px;
+    background: #e1306c;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.footer-instagram:hover {
+    background: #c1275b;
+    transform: translateY(-2px);
+}
+
+.footer-instagram:focus {
+    outline: 2px solid #ffb3b7;
+    outline-offset: 2px;
+}
+
+@media (max-width: 550px) {
+
+    .footer-instagram {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
 }
