@@ -43,53 +43,6 @@
     "fechaActualizacion": "2026-08-26T15:28:42.849Z"
   },
   {
-    "id": "prod-mt6wq4kw-1fapxv",
-    "sku": "PRUEBA",
-    "slug": "tubos-de-neon",
-    "nombre": "Tubos de neón",
-    "descripcion": "Productos de prueba",
-    "precioCosto": 0,
-    "precio": 25000,
-    "precioAnterior": 29000,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787557072584-1000536552.webp",
-        "alt": "Producto1",
-        "orden": 0
-      },
-      {
-        "url": "/imagenes/1787556060255-1000536641.webp",
-        "alt": "Producto1",
-        "orden": 1
-      },
-      {
-        "url": "/imagenes/1787648538895-1000538961.webp",
-        "alt": "Durazno/corazón",
-        "orden": 2
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787556060255-1000536641.webp",
-    "categoria": [
-      "Prueba"
-    ],
-    "tags": [],
-    "badges": [],
-    "stock": 1,
-    "talles": [
-      "Corazón",
-      "Durazno",
-      "Círculo"
-    ],
-    "colores": [
-      "Rojo"
-    ],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-24T07:21:01.616Z",
-    "fechaActualizacion": "2026-08-25T09:46:57.477Z"
-  },
-  {
     "id": "prod-mt76709g-q2q6qh",
     "sku": "SEX-003",
     "slug": "massage-stick",
