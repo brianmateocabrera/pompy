@@ -667,7 +667,7 @@ main {
 .footer-info h2 {
     margin: 0 0 4px;
     font-family: 'Tilt Neon', sans-serif;
-    font-size: 2.5rem;
+    font-size: 24px;
     letter-spacing: 1px;
     color: #ffb3b7;
     text-shadow:
@@ -683,7 +683,7 @@ main {
 }
 
 .footer-info .footer-frase {
-    margin-top: 7px;
+    /*margin-top: 7px;*/
     font-family: 'Meow Script', cursive;
     font-size: 17px;
     color: #ffccd0;
