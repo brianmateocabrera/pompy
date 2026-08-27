@@ -1,18 +1,82 @@
 [
   {
-    "id": "banner-mta6ysuj-66rjb7",
-    "imagen": "/imagenes/1787754659381-1000540619.webp",
-    "titulo": "",
-    "enlace": "https://www.instagram.com/pom.py2",
+    "id": "banner-prod-001",
+    "imagen": "/imagenes/1787833019976-1000545167.webp",
+    "titulo": "MEDIAS SOQUETE PACK X3",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20MEDIAS%20SOQUETE%20PACK%20X3",
     "activo": true,
     "orden": 0
   },
   {
-    "id": "banner-mta77qkd-ksermb",
-    "imagen": "/imagenes/1787755076519-1000546615.webp",
-    "titulo": "",
-    "enlace": "https://www.instagram.com/pom.py2",
+    "id": "banner-prod-mt76709g-q2q6qh",
+    "imagen": "/imagenes/1787571963880-1000545154.webp",
+    "titulo": "Massage Stick",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20Massage%20Stick",
     "activo": true,
     "orden": 1
+  },
+  {
+    "id": "banner-prod-mt8g40v2-4yyte8",
+    "imagen": "/imagenes/1787649087259-1000545163.webp",
+    "titulo": "TANGA ENCAJE VALENTINA SECRET",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20TANGA%20ENCAJE%20VALENTINA%20SECRET",
+    "activo": true,
+    "orden": 2
+  },
+  {
+    "id": "banner-prod-mt8hxje2-0wps1j",
+    "imagen": "/imagenes/1787652143709-1000545178.webp",
+    "titulo": "VIBRATOR",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20VIBRATOR",
+    "activo": true,
+    "orden": 3
+  },
+  {
+    "id": "banner-prod-mtbhcwc6-kujhbc",
+    "imagen": "/imagenes/1787832579496-1000546627.webp",
+    "titulo": "GEL INTIMO SEXITIVE",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20GEL%20INTIMO%20SEXITIVE",
+    "activo": true,
+    "orden": 4
+  },
+  {
+    "id": "banner-prod-mtbhekgn-gu37wy",
+    "imagen": "/imagenes/1787832657015-1000546624.webp",
+    "titulo": "ACEITE INTIMO SEXITIVE",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20ACEITE%20INTIMO%20SEXITIVE",
+    "activo": true,
+    "orden": 5
+  },
+  {
+    "id": "banner-prod-mtbhfi1j-tck7bo",
+    "imagen": "/imagenes/1787832701091-1000545170.webp",
+    "titulo": "GEL INTIMO LUBE",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20GEL%20INTIMO%20LUBE",
+    "activo": true,
+    "orden": 6
+  },
+  {
+    "id": "banner-prod-mtbhhdcz-gbi0u2",
+    "imagen": "/imagenes/1787832787972-1000545166.webp",
+    "titulo": "POTENCIADOR SEXY PILL",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20POTENCIADOR%20SEXY%20PILL",
+    "activo": true,
+    "orden": 7
+  },
+  {
+    "id": "banner-prod-mtbho8ny-60i0x6",
+    "imagen": "/imagenes/1787833108892-1000545158.webp",
+    "titulo": "MINI WAND PREMIUM",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20MINI%20WAND%20PREMIUM",
+    "activo": true,
+    "orden": 8
+  },
+  {
+    "id": "banner-prod-mtbhq6ld-k2460j",
+    "imagen": "/imagenes/1787833199274-1000545176.webp",
+    "titulo": "VIOLET EMOTION",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20VIOLET%20EMOTION",
+    "activo": true,
+    "orden": 9
   }
 ]
