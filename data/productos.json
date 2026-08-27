@@ -274,5 +274,36 @@
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:13:09.731Z",
     "fechaActualizacion": "2026-08-27T12:13:09.731Z"
+  },
+  {
+    "id": "prod-mtbho8ny-60i0x6",
+    "sku": "",
+    "slug": "mini-wand-premium",
+    "nombre": "MINI WAND PREMIUM",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 1,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787833108892-1000545158.webp",
+        "alt": "MINI WAND PREMIUM",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787833108892-1000545158.webp",
+    "categoria": [
+      "Sex-shop"
+    ],
+    "tags": [],
+    "badges": [],
+    "stock": 2,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-27T12:18:30.238Z",
+    "fechaActualizacion": "2026-08-27T12:18:30.238Z"
   }
 ]
