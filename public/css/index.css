@@ -97,11 +97,18 @@ header p {
 }
 
 main {
-    width: min(1200px, calc(100% - 30px));
-    margin: 25px auto 40px;
+    width: 100%;
+    margin: 0 auto 40px;
 }
 
-
+.destacados,
+.catalogo-sticky,
+.resultado-info,
+.grid {
+    width: min(1200px, calc(100% - 30px));
+    margin-left: auto;
+    margin-right: auto;
+}
 /* ------------------------------------------
    BANNERS / CARRUSEL
 ------------------------------------------ */
@@ -109,10 +116,10 @@ main {
 .banners {
     position: relative;
     width: 100%;
-    margin-bottom: 25px;
+    margin: 0 0 25px;
     overflow: hidden;
-    border-radius: 10px;
-    background: #eee;
+    border-radius: 0;
+    background: #000;
 }
 
 .banners-track {
@@ -638,6 +645,18 @@ main {
     .destacados-track > .card {
         flex-basis: 240px;
     }
+
+    main {
+    width: 100%;
+    margin-top: 0;
+}
+
+.destacados,
+.catalogo-sticky,
+.resultado-info,
+.grid {
+    width: min(100% - 20px, 1200px);
+}
 }
 
 
