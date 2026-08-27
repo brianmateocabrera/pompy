@@ -8,14 +8,8 @@
     "precioCosto": 0,
     "precio": 7990,
     "precioAnterior": 9990,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787237189706-1000541450.webp",
-        "alt": "MEDIAS SOQUETE PACK X3",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787237189706-1000541450.webp",
+    "imagenes": [],
+    "imagenPrincipal": "",
     "categoria": [
       "Lencería"
     ],
@@ -40,7 +34,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-26T15:28:42.849Z"
+    "fechaActualizacion": "2026-08-27T12:14:40.031Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
