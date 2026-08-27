@@ -10,8 +10,7 @@ body {
 }
 
 header {
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(8px);
+    background: #000;
     color: white;
     position: sticky;
     top: 0;
