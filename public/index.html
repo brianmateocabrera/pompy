@@ -1,103 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POMPY Lencería y sex-shop</title>
-    
-    <!-- Google Fonts: Tilt Neon y Meow Script -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Meow+Script&family=Tilt+Neon&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>POMPY Lencería y sex-shop</title>
 
-    <link rel="stylesheet" href="/css/index.css">
-</head>
+        <!-- Google Fonts: Tilt Neon y Meow Script -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Meow+Script&family=Tilt+Neon&display=swap"
+            rel="stylesheet"
+        />
 
-<body>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <header>
-        <div class="header-container">
-            <img src="/imagenes/logo.webp" alt="Logo POMPY" class="logo">
-            <div class="header-text">
-                <h1>Bienvenid@</h1>
-                <p><i>Animate a probar algo nuevo.</i></p>
+        <link rel="stylesheet" href="/css/index.css" />
+    </head>
+
+    <body>
+        <header>
+            <div class="header-container">
+                <img src="/imagenes/logo.webp" alt="Logo POMPY" class="logo" />
+                <div class="header-text">
+                    <h1>Bienvenid@</h1>
+                    <p><i>Animate a probar algo nuevo.</i></p>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main>
-        <section
-    id="banners"
-    class="banners"
-></section>
+        <main>
+            <section id="banners" class="banners"></section>
 
-<section
-    id="destacados"
-    class="destacados"
-    aria-label="Productos destacados"
-></section>
+            <section id="destacados" class="destacados" aria-label="Productos destacados"></section>
 
-        <section class="filtros">
+            <section class="filtros">
+                <input type="search" id="busqueda" placeholder="Buscar producto..." autocomplete="off" />
 
-            <input
-                type="search"
-                id="busqueda"
-                placeholder="Buscar producto..."
-                autocomplete="off"
-            >
+                <select id="categoria">
+                    <option value="">Todas las categorías</option>
+                </select>
 
-            <select id="categoria">
-                <option value="">Todas las categorías</option>
-            </select>
+                <select id="disponibilidad">
+                    <option value="">Toda disponibilidad</option>
+                    <option value="disponible">Disponible</option>
+                    <option value="agotado">Sin stock</option>
+                </select>
 
-            <select id="disponibilidad">
-                <option value="">Toda disponibilidad</option>
-                <option value="disponible">
-                    Disponible
-                </option>
-                <option value="agotado">
-                    Sin stock
-                </option>
-            </select>
+                <select id="ordenamiento">
+                    <option value="orden">Orden predeterminado</option>
+                    <option value="precio-menor">Precio: menor a mayor</option>
+                    <option value="precio-mayor">Precio: mayor a menor</option>
+                    <option value="nombre">Nombre: A-Z</option>
+                </select>
+            </section>
 
-            <select id="ordenamiento">
-                <option value="orden">
-                    Orden predeterminado
-                </option>
-                <option value="precio-menor">
-                    Precio: menor a mayor
-                </option>
-                <option value="precio-mayor">
-                    Precio: mayor a menor
-                </option>
-                <option value="nombre">
-                    Nombre: A-Z
-                </option>
-            </select>
+            <p id="resultadoInfo" class="resultado-info"></p>
 
-        </section>
+            <section id="catalogo" class="grid">
+                <p class="sin-resultados">Cargando productos...</p>
+            </section>
+        </main>
 
-
-        <p
-            id="resultadoInfo"
-            class="resultado-info"
-        ></p>
-
-
-        <section
-            id="catalogo"
-            class="grid"
-        >
-            <p class="sin-resultados">
-                Cargando productos...
-            </p>
-        </section>
-
-    </main>
-
-<script src="/js/index.js"></script>
-</body>
+        <script src="/js/index.js"></script>
+    </body>
 </html>
