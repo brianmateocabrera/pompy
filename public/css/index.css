@@ -667,7 +667,7 @@ main {
 .footer-info h2 {
     margin: 0 0 4px;
     font-family: 'Tilt Neon', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     letter-spacing: 1px;
     color: #ffb3b7;
     text-shadow:
@@ -687,7 +687,7 @@ main {
     font-family: 'Meow Script', cursive;
     font-size: 17px;
     color: #ffccd0;
-    transform: rotate(-35deg);
+    transform: rotate(-5deg);
 }
 
 .footer-whatsapp {
