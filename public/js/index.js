@@ -1,5 +1,5 @@
 const API_URL = '/api/crud';
-const PATH_JSON = 'data/productos.json';
+const PATH_PRODUCTOS = 'data/productos.json';
 const PATH_BANNERS = 'data/banners.json';
 const WHATSAPP_NUMERO = '5493518189444';
 
@@ -93,7 +93,7 @@ async function cargar() {
                     body:
                         JSON.stringify({
                             action: 'GET',
-                            path: PATH_JSON
+                            path: PATH_PRODUCTOS
                         })
                 }
             );
