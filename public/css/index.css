@@ -661,10 +661,14 @@ main {
 }
 
 .footer-info {
-    flex: 1;
-}
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:1px;
+    }
 
-footer-info h2 {
+.footer-info h2 {
     margin: 0;
     line-height: 1.1;
     font-size: 22px;
@@ -680,7 +684,7 @@ footer-info h2 {
     white-space: nowrap;
 }
 
-footer-info p {
+.footer-info p {
     margin: 0;
     line-height: 1.1;
     font-family: 'Meow Script', cursive;
@@ -758,7 +762,11 @@ footer-info p {
     }
 
     .footer-info {
-        flex: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:1px;
     }
 
     .footer-info h2 {
