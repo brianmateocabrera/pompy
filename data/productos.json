@@ -43,45 +43,6 @@
     "fechaActualizacion": "2026-08-26T15:28:42.849Z"
   },
   {
-    "id": "prod-002",
-    "sku": "LEN-002",
-    "slug": "colaless-fashion-strass",
-    "nombre": "COLALESS FASHION STRASS",
-    "descripcion": "Bombacha Tanga Colaless Con Strass Invisible. BOMBACHA TANGA INVISIBLE PACK X 3. Diseño con strass. Super cómodas.",
-    "precioCosto": 0,
-    "precio": 2500,
-    "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787253617352-1000542256.webp",
-        "alt": "Colaless Fashion Strass",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787253617352-1000542256.webp",
-    "categoria": [
-      "Lencería"
-    ],
-    "tags": [
-      "colaless",
-      "tanga",
-      "strass",
-      "ropa-interior"
-    ],
-    "badges": [],
-    "stock": 10,
-    "talles": [
-      "S",
-      "M"
-    ],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 1,
-    "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-26T15:29:09.401Z"
-  },
-  {
     "id": "prod-003",
     "sku": "SEX-001",
     "slug": "mini-wand-vibrator",
