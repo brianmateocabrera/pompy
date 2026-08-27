@@ -665,7 +665,7 @@ main {
 }
 
 .footer-info h2 {
-    margin: 0 0 4px;
+    /*margin: 0 0 4px;*/
     font-family: 'Tilt Neon', sans-serif;
     font-size: 24px;
     letter-spacing: 1px;
@@ -676,11 +676,11 @@ main {
         0 0 20px rgba(255, 0, 21, 0.6);
 }
 
-.footer-info p {
+/*.footer-info p {
     margin: 2px 0;
     color: #ccc;
     font-size: 14px;
-}
+}*/
 
 .footer-info .footer-frase {
     /*margin-top: 7px;*/
@@ -757,7 +757,7 @@ main {
     }
 
     .footer-info h2 {
-        font-size: 19px;
+        font-size: 24px;
     }
 
     .footer-whatsapp {
