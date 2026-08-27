@@ -14,7 +14,10 @@
         />
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
 
         <link rel="stylesheet" href="/css/index.css" />
     </head>
@@ -22,7 +25,12 @@
     <body>
         <header>
             <div class="header-container">
-                <img src="/imagenes/logo.webp" alt="Logo POMPY" class="logo" />
+                <img
+                    src="/imagenes/logo.webp"
+                    alt="Logo POMPY"
+                    class="logo"
+                />
+
                 <div class="header-text">
                     <h1>Bienvenid@</h1>
                     <p><i>Animate a probar algo nuevo.</i></p>
@@ -31,40 +39,110 @@
         </header>
 
         <main>
-            <section id="banners" class="banners"></section>
 
-            <section id="destacados" class="destacados" aria-label="Productos destacados"></section>
+            <section
+                id="banners"
+                class="banners"
+            ></section>
 
-            <section id="filtros" class="filtros">
-                <input type="search" id="busqueda" placeholder="Buscar producto..." autocomplete="off" />
 
-                <select id="categoria">
-                    <option value="">Todas las categorías</option>
-                </select>
+            <section
+                id="destacados"
+                class="destacados"
+                aria-label="Productos destacados"
+            ></section>
 
-                <select id="disponibilidad">
-                    <option value="">Toda disponibilidad</option>
-                    <option value="disponible">Disponible</option>
-                    <option value="agotado">Sin stock</option>
-                </select>
 
-                <select id="ordenamiento">
-                    <option value="orden">Orden predeterminado</option>
-                    <option value="precio-menor">Precio: menor a mayor</option>
-                    <option value="precio-mayor">Precio: mayor a menor</option>
-                    <option value="nombre">Nombre: A-Z</option>
-                </select>
+            <!-- CABECERA STICKY DE PRODUCTOS -->
+            <section class="catalogo-sticky">
+
+                <div class="catalogo-header">
+                    <h2 class="catalogo-titulo">
+                        Nuestros productos
+                    </h2>
+                </div>
+
+
+                <section
+                    id="filtros"
+                    class="filtros"
+                    aria-label="Filtros de productos"
+                >
+
+                    <input
+                        type="search"
+                        id="busqueda"
+                        placeholder="Buscar producto..."
+                        autocomplete="off"
+                    />
+
+
+                    <select id="categoria">
+                        <option value="">
+                            Todas las categorías
+                        </option>
+                    </select>
+
+
+                    <select id="disponibilidad">
+
+                        <option value="">
+                            Toda disponibilidad
+                        </option>
+
+                        <option value="disponible">
+                            Disponible
+                        </option>
+
+                        <option value="agotado">
+                            Sin stock
+                        </option>
+
+                    </select>
+
+
+                    <select id="ordenamiento">
+
+                        <option value="orden">
+                            Orden predeterminado
+                        </option>
+
+                        <option value="precio-menor">
+                            Precio: menor a mayor
+                        </option>
+
+                        <option value="precio-mayor">
+                            Precio: mayor a menor
+                        </option>
+
+                        <option value="nombre">
+                            Nombre: A-Z
+                        </option>
+
+                    </select>
+
+                </section>
+
             </section>
 
-            <section class="catalogo-header">
-    <h2 class="catalogo-titulo">Nuestros productos</h2>
-</section>
-            <p id="resultadoInfo" class="resultado-info"></p>
 
-            <section id="catalogo" class="grid">
-                <p class="sin-resultados">Cargando productos...</p>
+            <p
+                id="resultadoInfo"
+                class="resultado-info"
+            ></p>
+
+
+            <section
+                id="catalogo"
+                class="grid"
+            >
+                <p class="sin-resultados">
+                    Cargando productos...
+                </p>
             </section>
+
         </main>
+
 
         <script src="/js/index.js"></script>
     </body>
