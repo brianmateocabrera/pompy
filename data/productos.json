@@ -43,46 +43,6 @@
     "fechaActualizacion": "2026-08-26T15:28:42.849Z"
   },
   {
-    "id": "prod-mt6rxamq-y77dgl",
-    "sku": "SEX-002",
-    "slug": "gel-lubricante-luxuria",
-    "nombre": "GEL LUBRICANTE LUXURIA",
-    "descripcion": "Gel Lubricante Intimo LUXURIA. Natural. 250ml.",
-    "precioCosto": 0,
-    "precio": 5000,
-    "precioAnterior": 7500,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787547996918-1000544897.webp",
-        "alt": "GEL LUBRICANTE LUXURIA",
-        "orden": 0
-      },
-      {
-        "url": "/imagenes/1787548095190-1000543985.webp",
-        "alt": "GEL LUBRICANTE LUXURIA",
-        "orden": 1
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787547996918-1000544897.webp",
-    "categoria": [],
-    "tags": [
-      "Gel",
-      "Lubricante",
-      "Natural"
-    ],
-    "badges": [
-      "NUEVO"
-    ],
-    "stock": 5,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": true,
-    "orden": 0,
-    "fechaCreacion": "2026-08-24T05:06:37.968Z",
-    "fechaActualizacion": "2026-08-26T18:01:51.334Z"
-  },
-  {
     "id": "prod-mt6uubsz-k6ai48",
     "sku": "LEN-003",
     "slug": "conjunto-lenceria-vaquita",
