@@ -43,52 +43,6 @@
     "fechaActualizacion": "2026-08-26T15:28:42.849Z"
   },
   {
-    "id": "prod-mt6uubsz-k6ai48",
-    "sku": "LEN-003",
-    "slug": "conjunto-lenceria-vaquita",
-    "nombre": "CONJUNTO LENCERÍA VAQUITA",
-    "descripcion": "Conjunto de lencería estampado animal print. Dos piezas más accesorios.",
-    "precioCosto": 0,
-    "precio": 25000,
-    "precioAnterior": 30000,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787552896923-1000544899.webp",
-        "alt": "CONJUNTO LENCERÍA VAQUITA SEXY",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787552896923-1000544899.webp",
-    "categoria": [
-      "Lencería",
-      "Sex-shop"
-    ],
-    "tags": [
-      "Disfraz",
-      "Bikini",
-      "Conjunto",
-      "Animal print"
-    ],
-    "badges": [
-      "Nuevo"
-    ],
-    "stock": 2,
-    "talles": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "colores": [
-      "Blanco y negro"
-    ],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-24T06:28:18.370Z",
-    "fechaActualizacion": "2026-08-26T12:00:45.662Z"
-  },
-  {
     "id": "prod-mt6wq4kw-1fapxv",
     "sku": "PRUEBA",
     "slug": "tubos-de-neon",
