@@ -246,6 +246,18 @@ main {
    CATÁLOGO
 ------------------------------------------ */
 
+.catalogo-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.catalogo-titulo {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
 .grid {
     display: grid;
     grid-template-columns:
@@ -508,6 +520,14 @@ main {
     .filtros {
         grid-template-columns: 1fr;
         padding: 14px;
+    }
+
+    .catalogo-header {
+        margin-bottom: 10px;
+    }
+
+    .catalogo-titulo {
+        font-size: 19px;
     }
 
     .grid {
