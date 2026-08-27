@@ -201,6 +201,37 @@ main {
 
 
 /* ------------------------------------------
+   CABECERA STICKY DEL CATÁLOGO
+------------------------------------------ */
+
+.catalogo-sticky {
+    position: sticky;
+    top: 70px;
+    z-index: 900;
+    background: #f5f6f8;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
+
+/* ------------------------------------------
+   TÍTULO DEL CATÁLOGO
+------------------------------------------ */
+
+.catalogo-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.catalogo-titulo {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+
+/* ------------------------------------------
    FILTROS
 ------------------------------------------ */
 
@@ -216,7 +247,7 @@ main {
     padding: 18px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    margin-bottom: 25px;
+    margin-bottom: 0;
 }
 
 .filtros input,
@@ -245,18 +276,6 @@ main {
 /* ------------------------------------------
    CATÁLOGO
 ------------------------------------------ */
-
-.catalogo-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.catalogo-titulo {
-    margin: 0;
-    font-size: 22px;
-    line-height: 1.2;
-}
 
 .grid {
     display: grid;
@@ -517,9 +536,13 @@ main {
         height: 7px;
     }
 
-    .filtros {
-        grid-template-columns: 1fr;
-        padding: 14px;
+
+    /* Sticky móvil */
+
+    .catalogo-sticky {
+        top: 70px;
+        padding-top: 3px;
+        padding-bottom: 6px;
     }
 
     .catalogo-header {
@@ -529,6 +552,13 @@ main {
     .catalogo-titulo {
         font-size: 19px;
     }
+
+    .filtros {
+        grid-template-columns: 1fr;
+        padding: 14px;
+        gap: 10px;
+    }
+
 
     .grid {
         grid-template-columns:
