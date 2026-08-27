@@ -61,6 +61,7 @@ header h1 {
         0 0 75px #ff0015;
     white-space: nowrap;
     animation: neon-flicker 6s infinite alternate;
+    transform: rotate(-5deg);
 }
 
 header p {
@@ -75,6 +76,7 @@ header p {
         0 0 30px rgba(255, 0, 21, 0.8),
         0 0 50px rgba(255, 0, 21, 0.5);
     white-space: nowrap;
+    transform: rotate(-5deg);
 }
 
 @keyframes neon-flicker {
