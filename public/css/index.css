@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    font-family: 'Tinos','Segoe UI', Arial, sans-serif;
+    font-family: 'Tinos', 'Segoe UI', Arial, sans-serif;
     background: #f5f6f8;
     color: #222;
 }
@@ -296,6 +296,9 @@ main {
         transform 0.2s,
         box-shadow 0.2s;
     cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -346,6 +349,10 @@ main {
 
 .card-info {
     padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .card-title {
@@ -385,7 +392,7 @@ main {
     align-items: center;
     gap: 8px;
     width: 100%;
-    margin-top: 14px;
+    margin-top: auto;
     padding: 10px 12px;
     border-radius: 6px;
     background: #25d366;
@@ -560,7 +567,6 @@ main {
         gap: 10px;
     }
 
-
     .grid {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
@@ -634,6 +640,7 @@ main {
     }
 }
 
+
 /* ------------------------------------------
    FOOTER
 ------------------------------------------ */
@@ -663,12 +670,12 @@ main {
 }
 
 .footer-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap:1px;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+}
 
 .footer-info h2 {
     margin: 0;
@@ -730,6 +737,34 @@ main {
     outline-offset: 2px;
 }
 
+.footer-instagram {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 6px;
+    background: #e1306c;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.footer-instagram:hover {
+    background: #c1275b;
+    transform: translateY(-2px);
+}
+
+.footer-instagram:focus {
+    outline: 2px solid #ffb3b7;
+    outline-offset: 2px;
+}
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -769,52 +804,16 @@ main {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap:1px;
+        gap: 1px;
     }
 
     .footer-info h2 {
         font-size: 24px;
     }
 
-    .footer-whatsapp {
-        width: 100%;
-        max-width: 300px;
-    }
-
-.footer-instagram {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 11px 16px;
-    border-radius: 6px;
-    background: #e1306c;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-    white-space: nowrap;
-}
-
-.footer-instagram:hover {
-    background: #c1275b;
-    transform: translateY(-2px);
-}
-
-.footer-instagram:focus {
-    outline: 2px solid #ffb3b7;
-    outline-offset: 2px;
-}
-
-@media (max-width: 550px) {
-
+    .footer-whatsapp,
     .footer-instagram {
         width: 100%;
         max-width: 300px;
     }
-}
-
 }
