@@ -43,45 +43,6 @@
     "fechaActualizacion": "2026-08-26T15:28:42.849Z"
   },
   {
-    "id": "prod-003",
-    "sku": "SEX-001",
-    "slug": "mini-wand-vibrator",
-    "nombre": "MINI WAND VIBRATOR",
-    "descripcion": "Juguete erotico para compartir con tu pareja.",
-    "precioCosto": 0,
-    "precio": 24500,
-    "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787253699898-1000540768.webp",
-        "alt": "Mini Wand Vibrator",
-        "orden": 0
-      },
-      {
-        "url": "/imagenes/1787253651807-1000540755.webp",
-        "alt": "Mini Wand Vibrator",
-        "orden": 1
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787253651807-1000540755.webp",
-    "categoria": [
-      "Sex-shop"
-    ],
-    "tags": [
-      "vibrador",
-      "mini-wand"
-    ],
-    "badges": [],
-    "stock": 1,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 2,
-    "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-26T14:01:43.328Z"
-  },
-  {
     "id": "prod-mt6rxamq-y77dgl",
     "sku": "SEX-002",
     "slug": "gel-lubricante-luxuria",
