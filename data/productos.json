@@ -305,5 +305,34 @@
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:18:30.238Z",
     "fechaActualizacion": "2026-08-27T12:18:30.238Z"
+  },
+  {
+    "id": "prod-mtbhq6ld-k2460j",
+    "sku": "",
+    "slug": "violet-emotion",
+    "nombre": "VIOLET EMOTION",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 1,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787833199274-1000545176.webp",
+        "alt": "VIOLET EMOTION",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787833199274-1000545176.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 1,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-27T12:20:00.865Z",
+    "fechaActualizacion": "2026-08-27T12:20:00.865Z"
   }
 ]
