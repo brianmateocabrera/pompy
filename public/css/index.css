@@ -14,53 +14,51 @@ body {
     color: #222;
 }
 
-
-/* ------------------------------------------
-   HEADER
------------------------------------------- */
+/* HEADER */
 
 header {
-    background: #000;
-    color: white;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     height: 70px;
     overflow: hidden;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
 }
 
 .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: min(1200px, 100%);
     height: 100%;
+    margin: 0 auto;
     padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo {
-    height: 70px;
-    width: auto;
     display: block;
+    width: auto;
+    height: 70px;
     flex-shrink: 0;
 }
 
 .header-text {
-    text-align: right;
+    height: 100%;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
-    min-width: 0;
+    text-align: right;
 }
 
-header h1 {
+header h1,
+.footer-info h2 {
     margin: 0;
     line-height: 1.1;
-    font-size: 22px;
     font-family: 'Tinos', serif;
+    font-size: 22px;
     letter-spacing: 1.5px;
     color: #ffb3b7;
     text-shadow:
@@ -70,11 +68,15 @@ header h1 {
         0 0 45px #ff0015,
         0 0 75px #ff0015;
     white-space: nowrap;
-    animation: neon-flicker 6s infinite alternate;
     transform: rotate(-5deg);
 }
 
-header p {
+header h1 {
+    animation: neon-flicker 6s infinite alternate;
+}
+
+header p,
+.footer-info p {
     margin: 0;
     line-height: 1.1;
     font-family: 'Meow Script', cursive;
@@ -83,8 +85,8 @@ header p {
     text-shadow:
         0 0 4px #ff3344,
         0 0 10px #ff0015,
-        0 0 30px rgba(255, 0, 21, 0.8),
-        0 0 50px rgba(255, 0, 21, 0.5);
+        0 0 30px rgba(255, 0, 21, .8),
+        0 0 50px rgba(255, 0, 21, .5);
     white-space: nowrap;
     transform: rotate(-5deg);
 }
@@ -101,43 +103,29 @@ header p {
     }
 
     20%, 24%, 55% {
-        text-shadow: 0 0 4px rgba(255, 0, 21, 0.4);
-        opacity: 0.8;
+        text-shadow: 0 0 4px rgba(255, 0, 21, .4);
+        opacity: .8;
     }
 }
 
-
-/* ------------------------------------------
-   MAIN
------------------------------------------- */
+/* MAIN */
 
 main {
     width: 100%;
     margin: 0 auto 40px;
 }
 
-
-/* ------------------------------------------
-   BANNERS / CARRUSEL
------------------------------------------- */
+/* BANNERS / CARRUSEL */
 
 .banners {
     position: relative;
-
-    /* Fuerza ancho completo de pantalla */
     width: 100vw;
     max-width: 100vw;
-
-    /* Elimina cualquier separación lateral del contenedor padre */
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-
-    /* Pegado al header */
-    margin-top: 0;
-    margin-bottom: 25px;
-
+    margin:
+        0
+        calc(50% - 50vw)
+        25px;
     padding: 0;
-
     overflow: hidden;
     border-radius: 0;
     background: #000;
@@ -146,8 +134,7 @@ main {
 .banners-track {
     display: flex;
     width: 100%;
-
-    transition: transform 0.55s ease;
+    transition: transform .55s ease;
     will-change: transform;
 }
 
@@ -156,128 +143,97 @@ main {
     flex: 0 0 100%;
     width: 100%;
     min-width: 100%;
-
     overflow: hidden;
-
     background: #000;
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 .banner img {
     display: block;
-
     width: 100%;
     height: auto;
     max-width: 100%;
-
     margin: 0;
     padding: 0;
 }
 
 .banner-info {
     position: absolute;
-    left: 0;
     right: 0;
     bottom: 0;
-
+    left: 0;
     padding: 35px 20px 18px;
-
-    background: linear-gradient(
-        transparent,
-        rgba(0, 0, 0, 0.75)
-    );
-
-    color: white;
+    background: linear-gradient(transparent, rgba(0, 0, 0, .75));
+    color: #fff;
     pointer-events: none;
 }
 
 .banner-info h2 {
     margin: 0;
-    color: white;
+    color: #fff;
     font-size: 24px;
     line-height: 1.25;
 }
 
-
-/* ------------------------------------------
-   INDICADORES
------------------------------------------- */
+/* INDICADORES */
 
 .banner-indicadores {
     position: absolute;
-    left: 0;
     right: 0;
     bottom: 12px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-
+    left: 0;
     z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
 }
 
 .banner-indicador {
     width: 8px;
     height: 8px;
-
     padding: 0;
-    border: none;
+    border: 0;
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.55);
-
+    background: rgba(255, 255, 255, .55);
     cursor: pointer;
-
     transition:
-        transform 0.2s ease,
-        background 0.2s ease;
+        transform .2s ease,
+        background .2s ease;
 }
 
-.banner-indicador:hover {
-    background: white;
+.banner-indicador:hover,
+.banner-indicador.activo {
+    background: #fff;
 }
 
 .banner-indicador.activo {
-    background: white;
     transform: scale(1.35);
 }
 
-
-/* ------------------------------------------
-   CONTENEDORES DEL CATÁLOGO
------------------------------------------- */
+/* CONTENEDORES */
 
 .destacados,
 .catalogo-sticky,
 .resultado-info,
-.grid {
+.grid,
+.footer-container {
     width: min(1200px, calc(100% - 30px));
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
 }
 
-
-/* ------------------------------------------
-   CABECERA STICKY DEL CATÁLOGO
------------------------------------------- */
+/* CATÁLOGO STICKY */
 
 .catalogo-sticky {
     position: sticky;
     top: 70px;
     z-index: 900;
-
-    background: #f5f6f8;
-
     padding-top: 4px;
     padding-bottom: 8px;
+    background: #f5f6f8;
 }
-
-
-/* ------------------------------------------
-   TÍTULO DEL CATÁLOGO
------------------------------------------- */
 
 .catalogo-header {
     display: flex;
@@ -291,102 +247,70 @@ main {
     line-height: 1.2;
 }
 
-
-/* ------------------------------------------
-   FILTROS
------------------------------------------- */
+/* FILTROS */
 
 .filtros {
     display: grid;
-
     grid-template-columns:
         minmax(220px, 2fr)
         minmax(160px, 1fr)
         minmax(130px, 1fr)
         minmax(180px, 1fr);
-
     gap: 12px;
-
-    background: white;
-
-    padding: 18px;
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.06);
-
     margin-bottom: 0;
+    padding: 18px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
 }
 
 .filtros input,
 .filtros select {
     width: 100%;
-
     padding: 11px 12px;
-
     border: 1px solid #ccc;
     border-radius: 6px;
-
-    background: white;
-
+    background: #fff;
     font: inherit;
 }
 
 .filtros input:focus,
 .filtros select:focus {
-    outline: none;
+    outline: 0;
     border-color: #0070f3;
 }
 
 .resultado-info {
     margin: 0 0 15px;
-
     color: #666;
     font-size: 14px;
 }
 
-
-/* ------------------------------------------
-   CATÁLOGO
------------------------------------------- */
+/* CATÁLOGO */
 
 .grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(240px, 1fr));
-
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
 }
 
 .card {
     position: relative;
-
-    background: white;
-
-    border-radius: 10px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.07);
-
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-
-    cursor: pointer;
-
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .07);
+    cursor: pointer;
+    transition:
+        transform .2s,
+        box-shadow .2s;
 }
 
 .card:hover {
     transform: translateY(-4px);
-
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.11);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .11);
 }
 
 .card:focus {
@@ -401,35 +325,26 @@ main {
 
 .card-img {
     display: block;
-
     width: 100%;
     height: 260px;
-
     object-fit: cover;
 }
 
 .badge-contenedor {
     position: absolute;
-
     top: 10px;
     left: 10px;
-
     display: flex;
     flex-wrap: wrap;
-
     gap: 5px;
 }
 
 .badge {
     display: inline-block;
-
     padding: 5px 8px;
-
     border-radius: 5px;
-
     background: #111;
-    color: white;
-
+    color: #fff;
     font-size: 11px;
     font-weight: bold;
 }
@@ -438,84 +353,58 @@ main {
     background: #777;
 }
 
-
-/* ------------------------------------------
-   INFORMACIÓN DE TARJETA
------------------------------------------- */
+/* INFORMACIÓN DE TARJETA */
 
 .card-info {
-    padding: 16px;
-
     display: flex;
-    flex-direction: column;
-
     flex: 1;
+    flex-direction: column;
+    padding: 16px;
 }
 
 .card-title {
     margin: 0 0 8px;
-
     font-size: 18px;
     line-height: 1.25;
 }
 
 .card-price {
     display: flex;
-    align-items: center;
-
     flex-wrap: wrap;
-
+    align-items: center;
     gap: 8px;
-
     margin: 0;
 }
 
 .precio-actual {
+    color: #0070f3;
     font-size: 21px;
     font-weight: bold;
-
-    color: #0070f3;
 }
 
 .precio-anterior {
     color: #888;
-
     font-size: 14px;
-
     text-decoration: line-through;
 }
 
-
-/* ------------------------------------------
-   WHATSAPP
------------------------------------------- */
+/* WHATSAPP */
 
 .boton-whatsapp {
     display: flex;
-
-    justify-content: center;
     align-items: center;
-
-    gap: 8px;
-
+    justify-content: center;
     width: 100%;
-
     margin-top: auto;
-
     padding: 10px 12px;
-
+    gap: 8px;
     border-radius: 6px;
-
     background: #25d366;
-    color: white;
-
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
-
     text-decoration: none;
-
-    transition:
-        background 0.2s ease;
+    transition: background .2s ease;
 }
 
 .boton-whatsapp:hover {
@@ -527,41 +416,27 @@ main {
     outline-offset: 2px;
 }
 
+/* ESTADOS */
 
-/* ------------------------------------------
-   ESTADOS
------------------------------------------- */
+.sin-resultados,
+.error {
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    color: #666;
+}
 
 .sin-resultados {
     grid-column: 1 / -1;
-
     padding: 50px 20px;
-
-    text-align: center;
-
-    background: white;
-
-    border-radius: 10px;
-
-    color: #666;
 }
 
 .error {
     padding: 30px;
-
-    background: white;
-
-    border-radius: 10px;
-
-    text-align: center;
-
     color: #b00020;
 }
 
-
-/* ------------------------------------------
-   PRODUCTOS DESTACADOS
------------------------------------------- */
+/* DESTACADOS */
 
 .destacados {
     margin-bottom: 25px;
@@ -569,188 +444,92 @@ main {
 
 .destacados-header {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     gap: 15px;
-
     margin-bottom: 12px;
 }
 
 .destacados-titulo {
     margin: 0;
-
     font-size: 22px;
     line-height: 1.2;
 }
 
 .destacados-track {
     display: flex;
-
     gap: 20px;
-
     overflow-x: auto;
     overflow-y: hidden;
-
     padding: 4px 2px 12px;
-
     scroll-snap-type: x proximity;
-
     scrollbar-width: thin;
-
     cursor: grab;
-
     user-select: none;
-
     -webkit-overflow-scrolling: touch;
 }
 
 .destacados-track.arrastrando {
     cursor: grabbing;
-
     scroll-snap-type: none;
 }
 
 .destacados-track > .card {
     flex: 0 0 240px;
-
     min-width: 0;
-
     scroll-snap-align: start;
 }
 
-.destacados-track .card:hover {
-    transform: translateY(-4px);
-}
-
-
-/* ------------------------------------------
-   FOOTER
------------------------------------------- */
+/* FOOTER */
 
 .footer {
     margin-top: 50px;
-
     background: #0a0a0a;
-    color: white;
-
-    box-shadow:
-        0 -4px 20px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, .08);
 }
 
 .footer-container {
-    width: min(1200px, calc(100% - 30px));
-
-    margin: 0 auto;
-
-    padding: 35px 15px 30px;
-
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     gap: 30px;
+    padding: 35px 15px 30px;
 }
 
 .footer-logo {
+    display: block;
     width: 90px;
     height: auto;
-
-    display: block;
-
     flex-shrink: 0;
 }
 
 .footer-info {
     display: flex;
-
     flex-direction: column;
-
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     gap: 1px;
 }
 
-.footer-info h2 {
-    margin: 0;
-
-    line-height: 1.1;
-
-    font-size: 22px;
-
-    font-family: 'Tinos', serif;
-
-    letter-spacing: 1.5px;
-
-    color: #ffb3b7;
-
-    text-shadow:
-        0 0 4px #ff3344,
-        0 0 10px #ff0015,
-        0 0 25px #ff0015,
-        0 0 45px #ff0015,
-        0 0 75px #ff0015;
-
-    white-space: nowrap;
-
-    transform: rotate(-5deg);
-}
-
-.footer-info p {
-    margin: 0;
-
-    line-height: 1.1;
-
-    font-family: 'Meow Script', cursive;
-
-    font-size: 18px;
-
-    color: #ffccd0;
-
-    text-shadow:
-        0 0 4px #ff3344,
-        0 0 10px #ff0015,
-        0 0 30px rgba(255, 0, 21, 0.8),
-        0 0 50px rgba(255, 0, 21, 0.5);
-
-    white-space: nowrap;
-
-    transform: rotate(-5deg);
-}
-
-
-/* ------------------------------------------
-   BOTONES FOOTER
------------------------------------------- */
+/* BOTONES FOOTER */
 
 .footer-whatsapp,
 .footer-instagram {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 8px;
-
     padding: 11px 16px;
-
     border-radius: 6px;
-
-    color: white;
-
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
-
     text-decoration: none;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-
     white-space: nowrap;
+    transition:
+        background .2s ease,
+        transform .2s ease;
 }
 
 .footer-whatsapp {
@@ -778,41 +557,28 @@ main {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-    text-align: center;
-
     padding: 14px 15px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    text-align: center;
 }
 
 .footer-bottom p {
     margin: 0;
-
     color: #888;
-
     font-size: 12px;
 }
 
-
-/* ------------------------------------------
-   TABLET
------------------------------------------- */
+/* TABLET */
 
 @media (max-width: 850px) {
-
     .filtros {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-
-/* ------------------------------------------
-   MÓVIL
------------------------------------------- */
+/* MÓVIL */
 
 @media (max-width: 550px) {
-
     header {
         padding: 24px 15px;
     }
@@ -821,22 +587,11 @@ main {
         font-size: 25px;
     }
 
-    /*
-       El banner sigue ocupando todo el ancho
-       incluso en móvil.
-    */
-
     .banners {
-        width: 100vw;
-        max-width: 100vw;
-
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
-
-        margin-top: 0;
-        margin-bottom: 15px;
-
-        border-radius: 0;
+        margin:
+            0
+            calc(50% - 50vw)
+            15px;
     }
 
     .banner-info {
@@ -857,11 +612,6 @@ main {
         height: 7px;
     }
 
-
-    /* ------------------------------------------
-       CATÁLOGO MÓVIL
-    ------------------------------------------ */
-
     .destacados,
     .catalogo-sticky,
     .resultado-info,
@@ -870,8 +620,6 @@ main {
     }
 
     .catalogo-sticky {
-        top: 70px;
-
         padding-top: 3px;
         padding-bottom: 6px;
     }
@@ -880,22 +628,19 @@ main {
         margin-bottom: 10px;
     }
 
-    .catalogo-titulo {
+    .catalogo-titulo,
+    .destacados-titulo {
         font-size: 19px;
     }
 
     .filtros {
         grid-template-columns: 1fr;
-
-        padding: 14px;
-
         gap: 10px;
+        padding: 14px;
     }
 
     .grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
 
@@ -920,15 +665,9 @@ main {
     }
 
     .boton-whatsapp {
-        font-size: 13px;
-
         padding: 9px 8px;
+        font-size: 13px;
     }
-
-
-    /* ------------------------------------------
-       DESTACADOS MÓVIL
-    ------------------------------------------ */
 
     .destacados {
         margin-bottom: 15px;
@@ -938,13 +677,8 @@ main {
         margin-bottom: 10px;
     }
 
-    .destacados-titulo {
-        font-size: 19px;
-    }
-
     .destacados-track {
         gap: 12px;
-
         padding-bottom: 10px;
     }
 
@@ -952,38 +686,19 @@ main {
         flex-basis: 200px;
     }
 
-
-    /* ------------------------------------------
-       FOOTER MÓVIL
-    ------------------------------------------ */
-
     .footer {
         margin-top: 35px;
     }
 
     .footer-container {
         flex-direction: column;
-
-        text-align: center;
-
         padding: 30px 15px 25px;
-
         gap: 18px;
+        text-align: center;
     }
 
     .footer-logo {
         width: 80px;
-    }
-
-    .footer-info {
-        display: flex;
-
-        flex-direction: column;
-
-        justify-content: center;
-        align-items: center;
-
-        gap: 1px;
     }
 
     .footer-info h2 {
@@ -997,13 +712,9 @@ main {
     }
 }
 
-
-/* ------------------------------------------
-   MÓVIL PEQUEÑO
------------------------------------------- */
+/* MÓVIL PEQUEÑO */
 
 @media (max-width: 360px) {
-
     .grid {
         grid-template-columns: 1fr;
     }
