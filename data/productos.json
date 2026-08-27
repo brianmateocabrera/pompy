@@ -6,10 +6,16 @@
     "nombre": "MEDIAS SOQUETE PACK X3",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
-    "precio": 7990,
-    "precioAnterior": 9990,
-    "imagenes": [],
-    "imagenPrincipal": "",
+    "precio": 1,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1787833019976-1000545167.webp",
+        "alt": "MEDIAS SOQUETE PACK X3",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1787833019976-1000545167.webp",
     "categoria": [
       "Lencería"
     ],
@@ -18,9 +24,7 @@
       "soquete",
       "algodon"
     ],
-    "badges": [
-      "20%"
-    ],
+    "badges": [],
     "stock": 10,
     "talles": [
       "Único"
@@ -34,7 +38,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-27T12:14:40.031Z"
+    "fechaActualizacion": "2026-08-27T12:17:01.563Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
