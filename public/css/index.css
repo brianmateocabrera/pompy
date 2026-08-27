@@ -684,6 +684,7 @@ main {
         0 0 45px #ff0015,
         0 0 75px #ff0015;
     white-space: nowrap;
+    transform: rotate(-5deg);
 }
 
 .footer-info p {
