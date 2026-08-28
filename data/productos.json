@@ -43,9 +43,9 @@
   {
     "id": "prod-mt76709g-q2q6qh",
     "sku": "SEX-003",
-    "slug": "massage-stick",
-    "nombre": "Massage Stick",
-    "descripcion": "Silicona hipoalergénica. Vibración potente y silencioso.",
+    "slug": "vibrador-doble-recargable-usb",
+    "nombre": "VIBRADOR DOBLE RECARGABLE USB",
+    "descripcion": "DOBLE ESTIMULACION PARA LEVAR TU PLACER A UN NUEVO NIVEL\nDescubrí una experiencia de bienestar intimo superior con el masajeador de doble cabezal. Diseñado estratégicamente para ofrecer estimulacion simultanea, este dispositivo combina potencia, elegancia y una textura increiblemente suave para adaptarse a tus deseos y hacerte conectar con tus sensaciones mas intensas.\n------------------------------\n¿POR QUE ELEGIRLO?\n\n* Doble estimulacion simultanea: Su innovador diseno de doble cabezal te permite explorar nuevas sensaciones, maximizando el placer en cada encuentro, ya sea a solas o en pareja.\n* Control total de tu placer: Cuenta con multiples modos de vibracion y niveles de velocidad totalmente ajustables. Personaliza la intensidad segun tu estado de animo, desde un suave masaje hasta las pulsaciones mas intensas.\n* Silicona Premium Ultra Suave: Fabricado con silicona hipoalergénica de alta calidad y ABS seguro para el cuerpo. Su textura sedosa es delicada al tacto, brindando un deslizamiento comodo y sumamente placentero.\n* Companero ideal para la ducha: Es resistente al agua, lo que te permite llevar tus momentos de relajacion a la banera o la ducha para multiplicar las sensaciones.\n* Discreción y Autonomia: Su motor de alta tecnologia esta diseñado para un trabajo pesado pero con un funcionamiento sorprendentemente silencioso. Ademas, es recargable por USB, olvidate de las pilas y disfruta de hasta 1.5 horas de uso continuo.\n\n------------------------------\nESPECIFICACIONES TECNICAS\n\n* Modelo: A-17612-9\n* Material: Silicona medica hipoalergénica de primera calidad.\n* Medidas: 22 cm de longitud total / 5 cm de diámetro.\n* Alimentacion: Recargable mediante cable USB (incluido).\n* Autonomia: Hasta 90 minutos de uso continuo por carga.\n* Resistencia al agua: Si (apto para salpicaduras y lavado higienico).\n\n------------------------------\nCONSEJOS DE CARGA E HIGIENE\n\n* Higiene: Lavar antes y de despues de cada uso unicamente con agua tibia y jabon neutro (blanco de pan). Evitar cualquier limpiador o sanitizante que contenga alcohol o fragancias para preservar la vida util de la silicona.\n* Carga: Para proteger la bateria, realizar la carga inicial de aproximadamente 1 hora conectando el cable USB a una PC, Smart TV encendido o bateria externa (Powerbank). No se recomienda el uso de cargadores rapidos de celulares o tabletas, ya que su alta potencia puede danar el circuito interno del producto.\n* Encendido y Apagado: Mantener presionado el boton principal durante 5 segundos para encender o apagar el dispositivo.",
     "precioCosto": 0,
     "precio": 35000,
     "precioAnterior": 42000,
@@ -54,6 +54,16 @@
         "url": "/imagenes/1787571963880-1000545154.webp",
         "alt": "Massage Stick",
         "orden": 0
+      },
+      {
+        "url": "/imagenes/1787951607093-1000548442.webp",
+        "alt": "VIBRADOR DOBLE RECARGABLE USB",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1787951609005-1000548441.webp",
+        "alt": "VIBRADOR DOBLE RECARGABLE USB",
+        "orden": 2
       }
     ],
     "imagenPrincipal": "/imagenes/1787571963880-1000545154.webp",
@@ -63,19 +73,32 @@
     "tags": [
       "Vibrador",
       "Consolador",
-      "Clítoris"
+      "Clítoris",
+      "Punto G",
+      "Resistente al agua",
+      "Agua",
+      "Silicona",
+      "Suave",
+      "Estimulación",
+      "Placer",
+      "Mujer",
+      "Doble",
+      "Recargable",
+      "USB",
+      "Stick",
+      "San Valentín"
     ],
     "badges": [],
-    "stock": 3,
+    "stock": 2,
     "talles": [],
     "colores": [
-      "Rojo"
+      "Rosa"
     ],
     "activo": true,
-    "destacado": false,
+    "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-24T11:46:05.713Z",
-    "fechaActualizacion": "2026-08-25T09:31:26.282Z"
+    "fechaActualizacion": "2026-08-28T21:13:29.996Z"
   },
   {
     "id": "prod-mt8g40v2-4yyte8",
