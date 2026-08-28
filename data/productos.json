@@ -51,12 +51,12 @@
     "precioAnterior": 42000,
     "imagenes": [
       {
-        "url": "/imagenes/1787951607093-1000548442.webp",
+        "url": "/imagenes/1787951609005-1000548441.webp",
         "alt": "VIBRADOR DOBLE RECARGABLE USB",
         "orden": 0
       },
       {
-        "url": "/imagenes/1787951609005-1000548441.webp",
+        "url": "/imagenes/1787951607093-1000548442.webp",
         "alt": "VIBRADOR DOBLE RECARGABLE USB",
         "orden": 1
       }
@@ -93,7 +93,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-24T11:46:05.713Z",
-    "fechaActualizacion": "2026-08-28T21:14:14.326Z"
+    "fechaActualizacion": "2026-08-28T21:15:58.368Z"
   },
   {
     "id": "prod-mt8g40v2-4yyte8",
