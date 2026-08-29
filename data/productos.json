@@ -8,14 +8,8 @@
     "precioCosto": 0,
     "precio": 24000,
     "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1788013315440-2.webp",
-        "alt": "Baby Abierto Atrás",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1788013315440-2.webp",
+    "imagenes": [],
+    "imagenPrincipal": "",
     "categoria": [
       "LENCERIA"
     ],
@@ -28,7 +22,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-29T13:56:48.909Z",
-    "fechaActualizacion": "2026-08-29T14:24:17.245Z"
+    "fechaActualizacion": "2026-08-29T22:26:39.847Z"
   },
   {
     "id": "2",
