@@ -2,14 +2,25 @@
   {
     "id": "1",
     "sku": "Art. 204",
-    "slug": "baby-abierto-atras",
-    "nombre": "Baby Abierto Atrás",
-    "descripcion": "Baby Abierto Atrás",
+    "slug": "babydoll-abierto-atras",
+    "nombre": "Babydoll Abierto Atrás",
+    "descripcion": "Baby Doll con espalda abierta\nElastizado y ajustable - Talle único\nLos breteles son regulables.\n\nNO INCLUYE LA TANGA",
     "precioCosto": 0,
     "precio": 24000,
     "precioAnterior": null,
-    "imagenes": [],
-    "imagenPrincipal": "",
+    "imagenes": [
+      {
+        "url": "/imagenes/1788042561223-1000549838.webp",
+        "alt": "Babydoll Abierto Atrás",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788042562826-1000549837.webp",
+        "alt": "Babydoll Abierto Atrás",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788042561223-1000549838.webp",
     "categoria": [
       "LENCERIA"
     ],
@@ -22,7 +33,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-29T13:56:48.909Z",
-    "fechaActualizacion": "2026-08-29T22:26:39.847Z"
+    "fechaActualizacion": "2026-08-29T22:29:23.897Z"
   },
   {
     "id": "2",
