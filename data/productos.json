@@ -1522,5 +1522,59 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:20:02.624Z",
     "fechaActualizacion": "2026-08-30T21:20:02.624Z"
+  },
+  {
+    "id": "prod-mtgbfyei-5u37uu",
+    "sku": "",
+    "slug": "be-crema-corporal-perfumada-200g",
+    "nombre": "BE Crema Corporal Perfumada - 200g",
+    "descripcion": "Mostrá una piel radiante, suave y deliciosamente provocativa con BE Crema Corporal, una fórmula creada para despertar los sentidos y potenciar tu magnetismo natural.\n\nEnriquecida con feromonas y un delicado toque de glitter, esta crema deja un brillo seductor que realza cada curva de tu cuerpo.\n\nSu fragancia combina melocotón dulce, flores de cerezo y jazmín blanco, envolviéndote en un aroma frutal–floral irresistible que acompaña cada movimiento, cada caricia y cada momento especial.\n\n \n\n✔ Hidrata profundamente\n✔ Deja la piel luminosa con glitter\n✔ Aroma sensual y cautivador\n✔ Fórmula con feromonas para potenciar tu atracción",
+    "precioCosto": 0,
+    "precio": 21000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788124969767-be_464acd94450faff53616971217323156_640_0.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788124970965-crema_be2_4f340c7200aaf06d1417628803507723_1024_1024.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788124972031-cremabe_f0ed751fd4e8b1b6a517271916592583_640_0.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788124973188-img_9548_3b39d11ccb12ac38cd16976334258229_640_0.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788124974483-img_9769_327e29c02918b5051216976334331483_1024_1024.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 4
+      },
+      {
+        "url": "/imagenes/1788124975845-img_9773_35e36028ba9db00fa4169763343758161_e6a84f448906ef476d16976335030241_1024_1024.webp",
+        "alt": "BE Crema Corporal Perfumada - 200g",
+        "orden": 5
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788124969767-be_464acd94450faff53616971217323156_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:22:56.874Z",
+    "fechaActualizacion": "2026-08-30T21:22:56.874Z"
   }
 ]
