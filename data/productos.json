@@ -1054,5 +1054,54 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:03:51.669Z",
     "fechaActualizacion": "2026-08-30T19:05:47.818Z"
+  },
+  {
+    "id": "prod-mtg6m41j-ophpmd",
+    "sku": "",
+    "slug": "lubricante-lube-supreme-retardante-130ml",
+    "nombre": "Lubricante Lube Supreme Retardante - 130ml",
+    "descripcion": "Más tiempo, más control, más placer.\nLÜBE Supreme Retardante es un gel lubricante especialmente formulado para quienes desean disfrutar encuentros más prolongados, cómodos y estimulantes. Su textura ligera y sedosa facilita el deslizamiento, mientras que su fórmula refrescante aporta una agradable sensación de frío que intensifica el placer.\n\nEl efecto retardante sensorial brinda una sensación de mayor control, ayudando a extender los momentos íntimos de manera natural y placentera.\n\nIngredientes destacados\n❄️ Mentol\nAporta un efecto frío inmediato, refrescante y estimulante que potencia la sensibilidad y el disfrute.\n\n💧 Base gel premium\nDe textura suave, deslizante y de rápida absorción, sin sensación pegajosa.\n\nBeneficios principales\n✔ Sensación retardante sensorial, ideal para prolongar la experiencia\n✔ Efecto frío estimulante, que refresca y aporta un toque vibrante\n✔ Textura sedosa y lubricación superior\n✔ Ideal para uso en pareja o solo\n✔ Fácil de aplicar, no mancha y no deja residuos\n✔ Compatible con preservativos\n\nUna experiencia más prolongada, fresca y llena de placer\n \n\nLÜBE Supreme Retardante combina frescura, suavidad y control sensorial para que disfrutes tus encuentros con mayor intensidad y duración… de forma cómoda y completamente placentera.",
+    "precioCosto": 0,
+    "precio": 10000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788116858972-img_9325_9ec72956edf5a2c76416971253105603_1024_1024.webp",
+        "alt": "Lubricante Lube Supreme Retardante - 130ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788116860348-img_9437_0fb6d160a829d33a7516971253173359_1024_1024.webp",
+        "alt": "Lubricante Lube Supreme Retardante - 130ml",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788116861972-lubesupreme2_0a81e4cf8fb8d46bbd17628802704459_1024_1024.webp",
+        "alt": "Lubricante Lube Supreme Retardante - 130ml",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788116863450-lubesupreme_883ccec720802ccff417628802689380_1024_1024.webp",
+        "alt": "Lubricante Lube Supreme Retardante - 130ml",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788116864900-premium1_5af6f4336963f72f4716576388387996_640_0.webp",
+        "alt": "Lubricante Lube Supreme Retardante - 130ml",
+        "orden": 4
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788116858972-img_9325_9ec72956edf5a2c76416971253105603_1024_1024.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T19:07:46.039Z",
+    "fechaActualizacion": "2026-08-30T19:07:46.039Z"
   }
 ]
