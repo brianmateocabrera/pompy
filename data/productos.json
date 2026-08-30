@@ -1902,5 +1902,54 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:14:01.291Z",
     "fechaActualizacion": "2026-08-30T23:14:01.291Z"
+  },
+  {
+    "id": "prod-mtgfhxmv-djrla8",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-frutilla-30-ml",
+    "nombre": "Aceite Comestible Love Potion Frutilla - 30 ml",
+    "descripcion": "Besos más dulces. Momentos más intensos.\n\nLove Potion Frutilla es un aceite corporal íntimo diseñado para elevar la sensualidad en cada caricia. Su delicioso sabor a frutilla y su leve efecto calor hacen que los besos íntimos se vuelvan irresistibles, potenciando el juego previo y creando una experiencia de placer única.\n\nSu textura suave y sedosa se desliza perfectamente sobre la piel, mientras que su aroma dulce despierta los sentidos y convierte cualquier momento en una fantasía de sabor y conexión.\n\n¿Por qué te va a encantar?\n💋 Comestible: ideal para besos, juegos y exploración.\n🔥 Leve efecto calor: intensifica la sensibilidad y el placer.\n🍓 Sabor a frutilla: dulce, tentador e irresistible.\n✨ Textura suave y deslizante: sensación sensual en cada toque.\n❤️ Perfecto para parejas que quieren sumar dulzura y excitación a sus encuentros.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788131781361-img_9563_ff8cec56372e775b7a16976331565186_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788131782543-love21_bd7c55384c92e9558d16226493395777_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788131783692-lovepotion_frutilla2_a5f8c38fb56e40eeda17628813126522_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788131785064-lovepotion_frutilla_e501cbd8119ccd235c17628813127072_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788131786505-love_potion_fruti1_9f80a924bbcfb4840c16430521828909_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
+        "orden": 4
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788131781361-img_9563_ff8cec56372e775b7a16976331565186_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:16:27.655Z",
+    "fechaActualizacion": "2026-08-30T23:16:27.655Z"
   }
 ]
