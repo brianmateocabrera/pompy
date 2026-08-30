@@ -78,5 +78,13 @@
     "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20VIOLET%20EMOTION",
     "activo": true,
     "orden": 6
+  },
+  {
+    "id": "banner-mtf8yrgz-gdk83w",
+    "imagen": "/imagenes/1788060347586-1000550010.webp",
+    "titulo": "KIT BDSM",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20KIT%20BDSM",
+    "activo": true,
+    "orden": 0
   }
 ]
