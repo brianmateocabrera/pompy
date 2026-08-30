@@ -693,5 +693,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T06:16:43.057Z",
     "fechaActualizacion": "2026-08-30T06:16:43.057Z"
+  },
+  {
+    "id": "prod-mtfgfabs-enm6o8",
+    "sku": "P016",
+    "slug": "pasionel-disfraz-fantasia-policia",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Puños negros.\nGorra en espuma forrada con vicera y estampa plateada.\nVestido con mangas, cuello y corbata negra, con estampa de policía plateada de frente.\nColaless y doble tutú negro.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788072870905-1000551101.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788072872712-1000551102.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788072874578-1000551103.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788072876220-1000551104.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788072870905-1000551101.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T06:54:37.575Z",
+    "fechaActualizacion": "2026-08-30T06:54:37.575Z"
   }
 ]
