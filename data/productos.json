@@ -1683,5 +1683,44 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:28:01.701Z",
     "fechaActualizacion": "2026-08-30T21:28:01.701Z"
+  },
+  {
+    "id": "prod-mtgbo41q-63uk7h",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-banana-30-ml",
+    "nombre": "Aceite Comestible Love Potion Banana – 30 ml",
+    "descripcion": "Endulzá cada momento íntimo con Love Potion Hot Kisses Banana, el aceite corporal comestible que transforma besos y caricias en una experiencia cálida, deliciosa y totalmente irresistible. Su sabor exquisito a banana y su suave efecto calor despiertan los sentidos, potenciando el juego previo y elevando el disfrute de cada contacto.\n\nUna combinación perfecta de sabor, calor y sensualidad\n✔ Sabor a banana, dulce, vibrante y adictivo\n✔ Leve efecto calor, ideal para intensificar zonas sensibles\n✔ Textura sedosa y comestible, perfecta para recorrer la piel con la boca\n✔ Ideal para juegos previos, besos íntimos y momentos de exploración sensual\n✔ Formato práctico de 30 ml, elegante, cómodo y fácil de usar\n\n¿Por qué te va a encantar?\n✨ Hace cada beso más profundo, cálido y tentador\n✨ Agrega un toque dulce y juguetón que enciende el deseo\n✨ Perfecto para sorprender, seducir y disfrutar en pareja\n✨ Aporta intensidad sin ser invasivo: solo placer y suavidad\n\nLove Potion: donde el sabor y el calor se encuentran\nConvertí cada caricia en un momento inolvidable.\nLove Potion Hot Kisses Banana es tu nueva fórmula para encender la pasión con gusto… y con ganas.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788125354091-img_9559_cb3eb7f619d2c352a916976338056022_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Banana – 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788125355228-lovepotion_banana2_8d9448d7561d00c70d17628774795991_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Banana – 30 ml",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788125356442-lovepotion_banana_5b3decd73907b140dc17628774795110_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Banana – 30 ml",
+        "orden": 2
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788125354091-img_9559_cb3eb7f619d2c352a916976338056022_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:29:17.438Z",
+    "fechaActualizacion": "2026-08-30T21:29:17.438Z"
   }
 ]
