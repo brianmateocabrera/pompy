@@ -855,14 +855,8 @@
     "precioCosto": 0,
     "precio": 38000,
     "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1788073418983-1000551122.webp",
-        "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1788073418983-1000551122.webp",
+    "imagenes": [],
+    "imagenPrincipal": "",
     "categoria": [],
     "tags": [],
     "badges": [],
@@ -873,7 +867,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T07:03:40.667Z",
-    "fechaActualizacion": "2026-08-30T07:10:19.534Z"
+    "fechaActualizacion": "2026-08-30T07:10:22.389Z"
   },
   {
     "id": "prod-mtfgtkf4-8a8xni",
