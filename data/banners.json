@@ -134,5 +134,13 @@
     "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20CONJUNTOS%20LENCERIA%20BODY%20RED",
     "activo": true,
     "orden": 0
+  },
+  {
+    "id": "banner-mtf9el8y-zss3k1",
+    "imagen": "/imagenes/1788061085903-1000550022.webp",
+    "titulo": "CONJUNTOS LENCERÍA FANTASÍAS QUEEN",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20CONJUNTOS%20LENCERÍA%20FANTASÍAS%20QUEEN",
+    "activo": true,
+    "orden": 0
   }
 ]
