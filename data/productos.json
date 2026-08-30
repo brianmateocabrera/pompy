@@ -2081,5 +2081,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:43:40.126Z",
     "fechaActualizacion": "2026-08-30T23:43:40.126Z"
+  },
+  {
+    "id": "prod-mtggiq1n-ujctiz",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-policia-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY POLICÍA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 4 piezas:\n\n2 Puños negros.\nGorra con vicera de espuma forrada y estampa plateada.\nVestido con mangas, cuello y corbata negra y estampa policía.\nColaless.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133501913-1027_1116_fantasy_policia_queen_disfraz_2_1a2c6a93d2fb7729fc17533713604628_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY POLICÍA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133503094-1027_1116_fantasy_policia_queen_disfraz_675318ce947432d4e617533713604196_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY POLICÍA QUEEN",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133501913-1027_1116_fantasy_policia_queen_disfraz_2_1a2c6a93d2fb7729fc17533713604628_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:45:04.091Z",
+    "fechaActualizacion": "2026-08-30T23:45:04.091Z"
   }
 ]
