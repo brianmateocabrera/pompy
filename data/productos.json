@@ -2013,5 +2013,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:40:43.226Z",
     "fechaActualizacion": "2026-08-30T23:40:43.226Z"
+  },
+  {
+    "id": "prod-mtggfequ-33fq6g",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-colegiala-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY COLEGIALA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 4 piezas:\n\nCuello con detalle de corbata escocesa.\n2 Colitas escocesas para cabello.\nVestido combinado blanco con vivos escoces.\nColaless blanca.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133347377-1027_1103_pasionel_colegiala_queen_disfraz_1a2cd5bb9d8d1d835b17528756200196_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY COLEGIALA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133348580-1027_1103_pasionel_colegiala_queen_disfraz_2_5a1600182b446185db17528756200199_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY COLEGIALA QUEEN",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133347377-1027_1103_pasionel_colegiala_queen_disfraz_1a2cd5bb9d8d1d835b17528756200196_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:42:29.478Z",
+    "fechaActualizacion": "2026-08-30T23:42:29.478Z"
   }
 ]
