@@ -1985,5 +1985,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:22:46.058Z",
     "fechaActualizacion": "2026-08-30T23:22:46.058Z"
+  },
+  {
+    "id": "prod-mtgfre6h-xkbvar",
+    "sku": "",
+    "slug": "secret-game-juego-de-dados",
+    "nombre": "Secret game - Juego de dados",
+    "descripcion": "Secret Game es el juego perfecto para quienes quieren sumar sorpresa, misterio y mucha excitación a sus encuentros.\nIncluye tres dados que deciden:\n\n🕒 Tiempo\n🔥 Acción\n📍 Lugar\n\nSolo tenés que lanzarlos y dejar que el azar escriba la escena de tu próxima aventura. Cada combinación propone un nuevo desafío, creando momentos inesperados, divertidos y súper sensuales.\n\n \n\n💗 Ideal para parejas que quieren mantener la chispa encendida y descubrir placeres ocultos.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788132226269-inlube2_683e15be06431c679c17628764330751_640_0.webp",
+        "alt": "Secret game - Juego de dados",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788132227815-inlube_fafd4aa7d7245973f717628764329771_1024_1024.webp",
+        "alt": "Secret game - Juego de dados",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788132226269-inlube2_683e15be06431c679c17628764330751_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:23:49.001Z",
+    "fechaActualizacion": "2026-08-30T23:23:49.001Z"
   }
 ]
