@@ -1800,5 +1800,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:09:33.363Z",
     "fechaActualizacion": "2026-08-30T23:09:33.363Z"
+  },
+  {
+    "id": "prod-mtgfa59u-krvtlf",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-frutos-rojos-30-ml",
+    "nombre": "Aceite Comestible Love Potion Frutos Rojos - 30 ml",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788131421855-lovepotion_frutosrojos2_fa6aa2e052cfed1bee17628813685926_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Frutos Rojos - 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788131423314-lovepotion_frutosrojos_6ebfb0e4fc7142f55617628813685454_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Frutos Rojos - 30 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788131421855-lovepotion_frutosrojos2_fa6aa2e052cfed1bee17628813685926_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:10:24.306Z",
+    "fechaActualizacion": "2026-08-30T23:10:24.306Z"
   }
 ]
