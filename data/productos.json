@@ -1269,5 +1269,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:18:16.336Z",
     "fechaActualizacion": "2026-08-30T19:18:16.336Z"
+  },
+  {
+    "id": "prod-mtg718zk-q9waih",
+    "sku": "",
+    "slug": "gel-lubricante-wet-neutro-75-ml",
+    "nombre": "Gel Lubricante Wet Neutro - 75 ml",
+    "descripcion": "Hidratación pura. Placer sin distracciones.\nWet Neutro es el lubricante íntimo ideal para quienes buscan sensaciones naturales, fluidas y absolutamente cómodas. Su textura sedosa, de base acuosa, se desliza con suavidad perfecta, creando un movimiento continuo que acompaña el ritmo del encuentro sin interrumpir el momento.\n\n \n\nFormulado sin fragancia, sin azúcar y pensado para respetar al máximo tu piel, ofrece una lubricación limpia, ligera y completamente libre de residuos.\nNo mancha, no irrita, no altera sensaciones: solo potencia lo que ya está sucediendo.\n\n¿Por qué te va a encantar?\n💧 Neutro y suave: ideal para pieles sensibles y experiencias sin perfume.\n✨ Textura sedosa y ultra deslizante: fluye con naturalidad.\n🛡 Seguro y compatible con preservativos: confiable en cualquier momento.\n💦 Hidratante y de base acuosa: sensación fresca, ligera y cómoda.\n✔ No mancha y no deja residuos: limpio, práctico y fácil de usar.\n\nUn gel que acompaña, potencia y respeta tu cuerpo\nWet Neutro es la elección perfecta para quienes buscan lubricación natural, placer sin complicaciones y sensaciones puras.",
+    "precioCosto": 0,
+    "precio": 10000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788117570061-wet_neutro2new_df92192a25a3de260f17872307553087_640_0.webp",
+        "alt": "Gel Lubricante Wet Neutro - 75 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788117571270-wet_neutronew_52e84f468bbb8e018017872307552895_1024_1024.webp",
+        "alt": "Gel Lubricante Wet Neutro - 75 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788117570061-wet_neutro2new_df92192a25a3de260f17872307553087_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T19:19:32.288Z",
+    "fechaActualizacion": "2026-08-30T19:19:32.288Z"
   }
 ]
