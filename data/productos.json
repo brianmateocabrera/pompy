@@ -352,5 +352,59 @@
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:20:00.865Z",
     "fechaActualizacion": "2026-08-27T12:20:00.865Z"
+  },
+  {
+    "id": "prod-mtfajrjj-q3w3nx",
+    "sku": "BDSM7",
+    "slug": "kit-bdsm-10-piezas",
+    "nombre": "KIT BDSM 10 PIEZAS",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 44000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788062993920-1000550236.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788062996265-1000550243.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788062998223-1000550244.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788063000030-1000550245.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788063005199-1000550246.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 4
+      },
+      {
+        "url": "/imagenes/1788063007274-1000550247.webp",
+        "alt": "KIT BDSM 10 PIEZAS",
+        "orden": 5
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788062993920-1000550236.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 10,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T04:10:08.814Z",
+    "fechaActualizacion": "2026-08-30T04:10:08.814Z"
   }
 ]
