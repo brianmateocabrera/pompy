@@ -176,35 +176,6 @@
     "fechaActualizacion": "2026-08-26T15:29:20.808Z"
   },
   {
-    "id": "prod-mtbhfi1j-tck7bo",
-    "sku": "",
-    "slug": "gel-intimo-lube",
-    "nombre": "GEL INTIMO LUBE",
-    "descripcion": "",
-    "precioCosto": 0,
-    "precio": 1,
-    "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787832701091-1000545170.webp",
-        "alt": "GEL INTIMO LUBE",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787832701091-1000545170.webp",
-    "categoria": [],
-    "tags": [],
-    "badges": [],
-    "stock": 2,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-27T12:11:42.487Z",
-    "fechaActualizacion": "2026-08-27T12:20:47.043Z"
-  },
-  {
     "id": "prod-mtbhhdcz-gbi0u2",
     "sku": "",
     "slug": "potenciador-sexy-pill",
