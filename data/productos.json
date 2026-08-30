@@ -1400,5 +1400,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:14:00.628Z",
     "fechaActualizacion": "2026-08-30T21:14:26.792Z"
+  },
+  {
+    "id": "prod-mtgb7efy-ylwkz0",
+    "sku": "",
+    "slug": "sexy-pill-blue-4-capsulas",
+    "nombre": "SEXY PILL BLUE - 4 Cápsulas",
+    "descripcion": "Sexy Pill Blue es un suplemento dietario creado especialmente para hombres que buscan elevar su deseo, fortalecer su vigor y optimizar su rendimiento sexual. Su fórmula avanzada combina Ginseng, Guaraná, Ginkgo Biloba, vitaminas, minerales y L-Arginina (250 mg), un aminoácido clave para favorecer la circulación y potenciar la respuesta sexual.\n\nCada comprimido está diseñado para estimular la energía, incrementar la libido y promover encuentros más intensos, firmes y placenteros.\n\n¿Qué beneficios ofrece?\n \n\n🔥 Aumenta la libido y el deseo sexual\n💪 Mejora la energía y el rendimiento\n🩸 L-Arginina para favorecer la circulación\n🌿 Con Ginseng, Guaraná y Ginkgo Biloba\n⚡ Perfecto para momentos en los que querés dar lo mejor de vos",
+    "precioCosto": 0,
+    "precio": 18000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788124573342-bluesexypill_9e7192510096f0863917272712629276_640_0.webp",
+        "alt": "SEXY PILL BLUE - 4 Cápsulas",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788124574439-sexypills_blue2_9484d0f3bd517a2f6e17628810248239_1024_1024.webp",
+        "alt": "SEXY PILL BLUE - 4 Cápsulas",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788124575572-sexypills_blue3_789077b444af2169db17628810249951_640_0.webp",
+        "alt": "SEXY PILL BLUE - 4 Cápsulas",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788124576685-sexypills_blue_38803a81e73b7425bc17628810248615_640_0.webp",
+        "alt": "SEXY PILL BLUE - 4 Cápsulas",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788124573342-bluesexypill_9e7192510096f0863917272712629276_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:16:17.758Z",
+    "fechaActualizacion": "2026-08-30T21:16:17.758Z"
   }
 ]
