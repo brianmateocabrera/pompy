@@ -2242,5 +2242,34 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:51:10.731Z",
     "fechaActualizacion": "2026-08-30T23:51:10.731Z"
+  },
+  {
+    "id": "prod-mtggs4xj-a5ieyi",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-mama-noel-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY MAMÁ NOEL QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 3 piezas:\n\nDos brazaletes para los brazos.\nVestido combinado blanco y rojo.\nGorrito.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133942362-1027_1155_pasionel_mama_noel_4_piezas_disfraz_sexy_regulable_talle_unico_xxl_fantasy_926da1ed6efe5fac1917344536639161_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY MAMÁ NOEL QUEEN",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133942362-1027_1155_pasionel_mama_noel_4_piezas_disfraz_sexy_regulable_talle_unico_xxl_fantasy_926da1ed6efe5fac1917344536639161_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:52:23.287Z",
+    "fechaActualizacion": "2026-08-30T23:52:23.287Z"
   }
 ]
