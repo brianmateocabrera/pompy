@@ -649,5 +649,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T06:11:26.894Z",
     "fechaActualizacion": "2026-08-30T06:11:26.894Z"
+  },
+  {
+    "id": "prod-mtff2jap-mf1qmx",
+    "sku": "P004",
+    "slug": "pasionel-disfraz-fantasia-caperucita",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones cortos rojos con detalle de tull.\nCapa con capucha roja.\nVestido con manguitas combinando blanco con negro, detalle de pasacinta en rojo al frente.\nColaless y doble Tutú rojo\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788070595969-1000551089.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788070597859-1000551090.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788070600060-1000551091.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788070601688-1000551092.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788070595969-1000551089.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T06:16:43.057Z",
+    "fechaActualizacion": "2026-08-30T06:16:43.057Z"
   }
 ]
