@@ -2047,5 +2047,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:42:29.478Z",
     "fechaActualizacion": "2026-08-30T23:42:29.478Z"
+  },
+  {
+    "id": "prod-mtgggx9a-3qhy6c",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-diablita-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY DIABLITA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 5 piezas:\n\n2 Mangas rojas con detalles de tull.\nCuernitos de espuma forrados en rojo con vincha plástica.\nVestido con detalle de cuello de espuma forrado.\nEnagua de tull y colaless.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133417998-1027_1128_pasionel_diablita_queen_disfraz_2_94ee2eb5a810ca0bc517528747288954_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY DIABLITA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133419214-1027_1128_pasionel_diablita_queen_disfraz_baca9c3823250b9bbe17528747289560_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY DIABLITA QUEEN",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133417998-1027_1128_pasionel_diablita_queen_disfraz_2_94ee2eb5a810ca0bc517528747288954_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:43:40.126Z",
+    "fechaActualizacion": "2026-08-30T23:43:40.126Z"
   }
 ]
