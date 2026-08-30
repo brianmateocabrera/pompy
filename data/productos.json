@@ -2164,5 +2164,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:48:29.733Z",
     "fechaActualizacion": "2026-08-30T23:48:29.733Z"
+  },
+  {
+    "id": "prod-mtggp4ub-f54pxg",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-mujer-maravilla",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA MUJER MARAVILLA",
+    "descripcion": "Disfraz fantasía inspirado en la icónica heroína, diseñado para un look audaz, seguro y atractivo. Este conjunto combina un corset con pollera y accesorios que completan una estética poderosa y llamativa. Ideal para quienes buscan una propuesta temática con presencia y estilo dentro de la lencería erótica.\n\nCaracteristicas\nDisfraz fantasía estilo heroína.\nConjunto de 4 piezas.\nIncluye corset de tela con pollera integrada, mini capa, vincha y 1 par de muñequeras.\nDiseño llamativo y temático\nMedidas\nTalle único regulable.\n¿Cuáles son los beneficios del Pasionel Disfraz Gatita?\nLook temático completo en un solo conjunto.\nIdeal para juegos de rol o ocasiones especiales.\nDiseño llamativo que destaca y rompe con lo clásico.\nAjuste adaptable que facilita el calce.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133798859-1_11c60cc9716da4a22617752385483351_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUJER MARAVILLA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133799973-1_a6df790383c9fb977c17746418488786_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUJER MARAVILLA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788133800980-2_24cd683caf1298e4ed17746418493325_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUJER MARAVILLA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788133802312-3_ce4f3d8962ce715b7c17746418485162_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUJER MARAVILLA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133798859-1_11c60cc9716da4a22617752385483351_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:50:03.203Z",
+    "fechaActualizacion": "2026-08-30T23:50:03.203Z"
   }
 ]
