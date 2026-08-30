@@ -796,5 +796,54 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T06:58:43.420Z",
     "fechaActualizacion": "2026-08-30T06:58:43.420Z"
+  },
+  {
+    "id": "prod-mtfgnxgd-3eikt2",
+    "sku": "P021?",
+    "slug": "pasionel-disfraz-fantasia-superchica",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Brazaletes.\nTop con estampa dorada al frente con Capa incluida, con estampado dorado detrás.\nPollerita roja con Tutú.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788073271691-1000551112.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788073273687-1000551113.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788073275555-1000551114.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788073277471-1000551115.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788073279433-1000551116.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
+        "orden": 4
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788073271691-1000551112.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T07:01:20.797Z",
+    "fechaActualizacion": "2026-08-30T07:01:20.797Z"
   }
 ]
