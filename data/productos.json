@@ -1935,5 +1935,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:25:07.581Z",
     "fechaActualizacion": "2026-08-30T23:25:07.581Z"
+  },
+  {
+    "id": "prod-mtggbbbk-j5rjsh",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-bebota",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
+    "descripcion": "Conjunto de 5 (cinco) piezas:\n\n2 Colita para cabello.\nCuello doble blanco.\nChupete con cinta de reaso.\nVestido de cuadrillé rosa con moño blanco al frente y colaless con estampa chupete bebota rosa y Tutú blanco.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133154238-1_8d8c28c894a3b0915217750770450896_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133155392-1027_045_pasionel_bebota_disfraz_2_e738cfd80b8850949b17519154206719_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788133156554-1027_045_pasionel_bebota_disfraz_3_11d8698d8ccbc4b8e417519154207349_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788133157548-1027_045_pasionel_bebota_disfraz_c701cf6d0f4371052f17519154206815_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133154238-1_8d8c28c894a3b0915217750770450896_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:39:18.416Z",
+    "fechaActualizacion": "2026-08-30T23:39:18.416Z"
   }
 ]
