@@ -1337,5 +1337,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:20:32.888Z",
     "fechaActualizacion": "2026-08-30T19:20:32.888Z"
+  },
+  {
+    "id": "prod-mtg74feh-tw0k4x",
+    "sku": "",
+    "slug": "gel-lubricante-wet-ice-fresh-extra-time-75-ml",
+    "nombre": "Gel Lubricante Wet Ice Fresh EXTRA TIME - 75 ml",
+    "descripcion": "❄️ Frescura que despierta. Placer que dura más.\nWet Ice Fresh EXTRA TIME es el lubricante ideal para quienes buscan sensaciones nuevas, frescas y prolongadas. Su efecto frío enciende la piel de una manera distinta: refresca, estimula y potencia cada movimiento, creando un contraste delicioso que eleva el deseo.\n\nSu textura sedosa y de base acuosa se desliza con naturalidad, hidratando y acompañando el ritmo del encuentro sin interrumpir el momento. No mancha, no contiene azúcar y es completamente compatible con preservativos: puro placer, sin complicaciones.\n\n¿Por qué te va a encantar?\n❄️ Efecto frío refrescante: despierta la piel y amplifica la sensibilidad.\n⏳ EXTRA TIME: prolonga la experiencia, manteniendo el placer por más tiempo.\n✨ Textura ultra deslizante: suave, sedosa y placentera al tacto.\n💧 Base acuosa: ligera, limpia y fácil de retirar.\n🧊 Sensación revitalizante: perfecta para juegos previos y encuentros intensos.\n🔒 Seguro y práctico: compatible con preservativos y libre de azúcar.\n\nUn lubricante para quienes quieren algo distinto\nWet Ice Fresh EXTRA TIME convierte la frescura en erotismo, el deslizamiento en caricia y el tiempo en un aliado.",
+    "precioCosto": 0,
+    "precio": 10000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788117718278-wet_ice3_a8f437ea2f1830e57817872307373780_1024_1024.webp",
+        "alt": "Gel Lubricante Wet Ice Fresh EXTRA TIME - 75 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788117719514-wet_ice4_2d64ef88f8ed3cd25d17872307373770_640_0.webp",
+        "alt": "Gel Lubricante Wet Ice Fresh EXTRA TIME - 75 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788117718278-wet_ice3_a8f437ea2f1830e57817872307373780_1024_1024.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T19:22:00.569Z",
+    "fechaActualizacion": "2026-08-30T19:22:00.569Z"
   }
 ]
