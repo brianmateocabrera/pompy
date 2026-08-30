@@ -1868,5 +1868,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:12:29.371Z",
     "fechaActualizacion": "2026-08-30T23:12:29.371Z"
+  },
+  {
+    "id": "prod-mtgfesp7-bsu7ac",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-champagne-y-frambuesa-30-ml",
+    "nombre": "Aceite Comestible Love Potion Champagne y Frambuesa - 30 ml",
+    "descripcion": "Besos más chispeantes. Momentos más intensos.\nLove Potion Champagne & Frambuesa es un aceite corporal íntimo diseñado para elevar la sensualidad en cada caricia. Su exquisita combinación de champagne burbujeante y frambuesa dulce, junto con su leve efecto calor, hace que los besos íntimos se vuelvan irresistibles, potenciando el juego previo y creando una experiencia de placer única.\n\nSu textura suave y sedosa se desliza perfectamente sobre la piel, mientras que su aroma afrutado y sofisticado despierta los sentidos, convirtiendo cualquier momento en una fantasía de sabor, conexión y deseo.\n\n¿Por qué te va a encantar?\n💋 Comestible: ideal para besos, juegos y exploración.\n🔥 Leve efecto calor: intensifica la sensibilidad y el placer.\n🥂 Sabor Champagne & Frambuesa: elegante, dulce y absolutamente tentador.\n✨ Textura suave y deslizante: sensación sensual en cada toque.\n❤️ Perfecto para parejas que quieren sumar dulzura, chispa y excitación a sus encuentros.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788131638870-lovepotion_champagne2_936d7e89a1eac9f37b17628813390592_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Champagne y Frambuesa - 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788131640213-lovepotion_champagne_739ab3ae3a1c3ad9ff17628813390329_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Champagne y Frambuesa - 30 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788131638870-lovepotion_champagne2_936d7e89a1eac9f37b17628813390592_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:14:01.291Z",
+    "fechaActualizacion": "2026-08-30T23:14:01.291Z"
   }
 ]
