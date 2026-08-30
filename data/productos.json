@@ -737,5 +737,64 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T06:54:37.575Z",
     "fechaActualizacion": "2026-08-30T06:54:37.575Z"
+  },
+  {
+    "id": "prod-mtfghqi5-kj99vg",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-reina-de-corazones",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+    "descripcion": "Conjunto de 2 (dos) piezas:\n\nCorona rígida con estampa de corazón rojo.\nVestido con cuello rígido en forma de pétalos blanco y combinación de colores negro, rojo y blanco.\nDetalle de estampa en tres corazones de mayor a menor tamaño, colaless y tutú.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788072978922-1000551105.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788072981057-1000551106.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788072983135-1000551107.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788072984976-1000551108.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788072986600-1000551109.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 4
+      },
+      {
+        "url": "/imagenes/1788072988469-1000551110.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 5
+      },
+      {
+        "url": "/imagenes/1788072990519-1000551111.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
+        "orden": 6
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788072978922-1000551105.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T06:56:31.853Z",
+    "fechaActualizacion": "2026-08-30T06:56:31.853Z"
   }
 ]
