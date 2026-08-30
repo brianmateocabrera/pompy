@@ -1235,5 +1235,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:14:40.427Z",
     "fechaActualizacion": "2026-08-30T19:14:40.427Z"
+  },
+  {
+    "id": "prod-mtg6zmds-enyzpv",
+    "sku": "",
+    "slug": "gel-lubricante-wet-like-a-virgin-75ml",
+    "nombre": "Gel Lubricante Wet Like a Virgin 75ml",
+    "descripcion": "Sensibilidad renovada. Placer intensificado.\nWet Like a Virgin es un gel íntimo diseñado para quienes desean sentir más, con mayor intensidad y frescura en cada encuentro. Su fórmula exclusiva combina el poder astringente de Hamamelis Virginiana con la hidratación profunda del Ácido Hialurónico, creando un efecto “tightening” que tonifica y rejuvenece la zona íntima.\n\n \n\nEl resultado: una sensación de estrechamiento temporal, mayor sensibilidad y un placer intensificado que transforma por completo la experiencia íntima.\n\n¿Por qué te va a encantar?\n \n\n💗 Efecto tightening: sensación de mayor firmeza y ajuste.\n💗 Astringente natural (Hamamelis): ayuda a tonificar la zona íntima.\n💗 Hidratación profunda: gracias al Ácido Hialurónico, aporta suavidad y elasticidad.\n💗 Aumenta la sensibilidad: intensifica las sensaciones durante el encuentro.\n💗 Gel sedoso y seguro: base acuosa, cómodo y fácil de usar.\n\nUna nueva forma de sentir\nWet Like a Virgin es ideal para quienes buscan vivir el placer con frescura, firmeza y una sensibilidad potenciada.\nUn gel que redefine la experiencia íntima… y eleva cada momento al máximo.",
+    "precioCosto": 0,
+    "precio": 10000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788117494209-wet_likevirgin2_cceb88485f718a089017628817182952_640_0.webp",
+        "alt": "Gel Lubricante Wet Like a Virgin 75ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788117495373-wet_likevirgin_540d5293038f6ce1d617628817184206_1024_1024.webp",
+        "alt": "Gel Lubricante Wet Like a Virgin 75ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788117494209-wet_likevirgin2_cceb88485f718a089017628817182952_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T19:18:16.336Z",
+    "fechaActualizacion": "2026-08-30T19:18:16.336Z"
   }
 ]
