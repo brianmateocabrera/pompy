@@ -1444,5 +1444,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:16:17.758Z",
     "fechaActualizacion": "2026-08-30T21:16:17.758Z"
+  },
+  {
+    "id": "prod-mtgbam0l-taxlxg",
+    "sku": "",
+    "slug": "gel-intimo-sens-bomb-maca-70-gr",
+    "nombre": "Gel Intimo Sens Bomb Maca - 70 gr",
+    "descripcion": "✨ Energía que despierta el deseo. Sensaciones que elevan el placer.\nSens Bomb Maca es el gel íntimo creado para mujeres que quieren sentirse más vivas, más encendidas y más conectadas con su deseo. Enriquecido con el poder afrodisíaco de la maca, este gel estimula, activa y potencia la sensibilidad íntima, transformando cada caricia en una experiencia más profunda y placentera.\n\nSu textura sedosa se desliza sin esfuerzo, mientras su efecto vigorizante amplifica cada toque, cada beso y cada momento.\n\n¿Por qué te va a encantar?\n🌿 Concentrado de Maca: un afrodisíaco natural que potencia la libido femenina.\n✨ Textura suave y deslizante: ideal para el juego previo y encuentros intensos.\n💗 Activa y energiza: ayuda a sentir más, disfrutar más y entregarte al momento.\n🌸 Perfecto para mujeres que quieren reconectar con su deseo y vivir encuentros más profundos y apasionados.\n\nUna chispa que enciende todo tu cuerpo\nSens Bomb Maca no solo acompaña…\ndespierta, impulsa y transforma la manera en que vivís el placer.",
+    "precioCosto": 0,
+    "precio": 9000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788124725404-sensbombgel_maca_0b2c6b0d3847d0e56417628816117571_1024_1024.webp",
+        "alt": "Gel Intimo Sens Bomb Maca - 70 gr",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788124726486-sensbombgel_maca2_a05a7e4796a838703617628816117122_640_0.webp",
+        "alt": "Gel Intimo Sens Bomb Maca - 70 gr",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788124725404-sensbombgel_maca_0b2c6b0d3847d0e56417628816117571_1024_1024.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:18:47.541Z",
+    "fechaActualizacion": "2026-08-30T21:18:47.541Z"
   }
 ]
