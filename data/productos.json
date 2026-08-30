@@ -2120,5 +2120,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:46:14.155Z",
     "fechaActualizacion": "2026-08-30T23:46:14.155Z"
+  },
+  {
+    "id": "prod-mtggn4px-8ya4fz",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-gatita",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA GATITA",
+    "descripcion": "Disfraz erótico fantasía gatita diseñado para un look juguetón, sensual y provocador. Este conjunto combina un enterito ajustado con accesorios que completan la estética felina, logrando un outfit llamativo y divertido. Ideal para quienes buscan una propuesta diferente dentro de la lencería temática.\n\nCaracteristicas\nDisfraz erótico temático de gatita.\nConjunto de 3 piezas.\nIncluye antifaz suave color negro, vincha con orejitas y enterito completo.\nDiseño con cola tipo pompón\nMedidas\nTalle único regulable.\n¿Cuáles son los beneficios del Pasionel Disfraz Gatita?\nLook temático completo en un solo conjunto.\nIdeal para juegos de rol o ocasiones especiales.\nDiseño llamativo que destaca y rompe con lo clásico.\nAjuste adaptable que facilita el calce.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133704923-1_7f7a8ec93e4aff04eb17752380236246_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133706317-1_40586dab4b2464e93e17746394239305_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788133707408-2_3143f1b25be3268ef017746394240658_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788133708658-3_dc2143583360d914ed17746394239565_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133704923-1_7f7a8ec93e4aff04eb17752380236246_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:48:29.733Z",
+    "fechaActualizacion": "2026-08-30T23:48:29.733Z"
   }
 ]
