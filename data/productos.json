@@ -1356,5 +1356,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:22:59.914Z",
     "fechaActualizacion": "2026-08-30T21:10:52.673Z"
+  },
+  {
+    "id": "prod-mtgb4gms-mt35rk",
+    "sku": "",
+    "slug": "sexy-pill-pink-4-capsulas",
+    "nombre": "SEXY PILL PINK - 4 Cápsulas",
+    "descripcion": "",
+    "precioCosto": 0,
+    "precio": 18000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788124436231-pink_pi1_d452a1b61758df38d216400296085030_640_0.webp",
+        "alt": "SEXY PILL PINK - 4 Cápsulas",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788124437496-sexypills_pink2_695b76e225ffda408b17628816715775_1024_1024.webp",
+        "alt": "SEXY PILL PINK - 4 Cápsulas",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788124438601-sexypills_pink3_7706050d73ac9b30f317628816715271_640_0.webp",
+        "alt": "SEXY PILL PINK - 4 Cápsulas",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788124439622-sexypills_pink_41d2184d3c3158404717628816716231_640_0.webp",
+        "alt": "SEXY PILL PINK - 4 Cápsulas",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788124436231-pink_pi1_d452a1b61758df38d216400296085030_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:14:00.628Z",
+    "fechaActualizacion": "2026-08-30T21:14:00.628Z"
   }
 ]
