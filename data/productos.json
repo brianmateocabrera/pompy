@@ -2019,5 +2019,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:23:49.001Z",
     "fechaActualizacion": "2026-08-30T23:23:49.001Z"
+  },
+  {
+    "id": "prod-mtgft2t9-17v1ds",
+    "sku": "",
+    "slug": "love-play-juego-de-dados",
+    "nombre": "Love Play - Juego de dados",
+    "descripcion": "Love Play es el juego ideal para quienes quieren sumar diversión, ritmo y sorpresa a sus momentos íntimos.\nIncluye tres dados que deciden:\n\n⚡ Velocidad\n📍 Lugar\n🔥 Posición\n\nSolo lanzalos y dejá que el azar marque cómo, dónde y a qué ritmo comienza la acción. Cada tirada propone una combinación distinta, creando experiencias únicas, sensuales y llenas de espontaneidad.\n\n \n\n💗 Perfecto para parejas que buscan explorar, jugar y disfrutar sin reglas.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788132305275-loveplay2_f78c80d35c4b23c7e717628805598420_640_0.webp",
+        "alt": "Love Play - Juego de dados",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788132306590-loveplay_805aee1470fbc6122b17628805598210_1024_1024.webp",
+        "alt": "Love Play - Juego de dados",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788132305275-loveplay2_f78c80d35c4b23c7e717628805598420_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:25:07.581Z",
+    "fechaActualizacion": "2026-08-30T23:25:07.581Z"
   }
 ]
