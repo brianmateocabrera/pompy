@@ -1766,5 +1766,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:32:05.645Z",
     "fechaActualizacion": "2026-08-30T23:08:00.721Z"
+  },
+  {
+    "id": "prod-mtgf91yr-za6s5s",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-chocolate-30-ml",
+    "nombre": "Aceite Comestible Love Potion Chocolate - 30 ml",
+    "descripcion": "Besos más dulces. Momentos más intensos.\nLove Potion Chocolate es un aceite corporal íntimo creado para transformar cada beso en una experiencia cálida, deliciosa y profundamente sensual. Su sabor a chocolate —intenso, dulce y totalmente irresistible— convierte el juego previo en un momento de pura tentación, elevando la conexión y encendiendo los sentidos.\n\nSu textura suave y sedosa se desliza sobre la piel como un toque cálido, mientras su aroma envolvente despierta fantasías y convierte cualquier instante en un ritual de placer.\n\n¿Por qué te va a encantar?\n💋 Comestible: perfecto para besos, juegos y exploración sin límites.\n🔥 Leve efecto calor: realza la sensibilidad y aumenta el disfrute.\n🍫 Sabor a chocolate: intenso, dulce y totalmente adictivo.\n✨ Textura suave y deslizante: sensual y placentera al tacto.\n❤️ Ideal para parejas que quieren sumar pasión, sabor y complicidad a sus encuentros.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788131370895-lovepotion_chocolate2_c4d0db402250c7e9cf17628813869857_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Chocolate - 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788131372177-lovepotion_chocolate_ccbe051a6e6e84815717628813869940_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Chocolate - 30 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788131370895-lovepotion_chocolate2_c4d0db402250c7e9cf17628813869857_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:09:33.363Z",
+    "fechaActualizacion": "2026-08-30T23:09:33.363Z"
   }
 ]
