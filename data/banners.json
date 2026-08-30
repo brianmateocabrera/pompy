@@ -126,5 +126,13 @@
     "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20CONJUNTOS%20FANTASIAS",
     "activo": true,
     "orden": 0
+  },
+  {
+    "id": "banner-mtf9c3hr-yiqmn2",
+    "imagen": "/imagenes/1788060969898-1000550024.webp",
+    "titulo": "CONJUNTOS LENCERÍA BODY RED",
+    "enlace": "https://wa.me/5493518189444?text=Hola%20quisiera%20consultar%20sobre%20CONJUNTOS%20LENCERIA%20BODY%20RED",
+    "activo": true,
+    "orden": 0
   }
 ]
