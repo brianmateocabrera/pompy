@@ -2115,5 +2115,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:45:04.091Z",
     "fechaActualizacion": "2026-08-30T23:45:04.091Z"
+  },
+  {
+    "id": "prod-mtggk83v-6hmd9y",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-conejita-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY CONEJITA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 5 piezas:\n\n2 Puños blancos.\nCuello negro con detalle de moño.\nOrejas negras y vincha plástica.\nVestido combinado negro con blanco, detalle de 3 moños al frente, lazo y pompón de peluche en la cola.\nColaless.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133572142-1027_1112_fantasy_conejita_queen_disfraz_2_22beca31712c44b0d417533727541152_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY CONEJITA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133573216-1027_1112_fantasy_conejita_queen_disfraz_9b74c2cb988089c3fc17533727542074_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY CONEJITA QUEEN",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133572142-1027_1112_fantasy_conejita_queen_disfraz_2_22beca31712c44b0d417533727541152_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:46:14.155Z",
+    "fechaActualizacion": "2026-08-30T23:46:14.155Z"
   }
 ]
