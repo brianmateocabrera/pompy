@@ -2271,5 +2271,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:52:23.287Z",
     "fechaActualizacion": "2026-08-30T23:52:23.287Z"
+  },
+  {
+    "id": "prod-mtggu1uq-lfmo8a",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-colegiala",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA COLEGIALA",
+    "descripcion": "Conjunto de 2 (dos) piezas:\n\nCorbatín cuadrillé.\nVestido blanco con cuadrillé.\nTalle único regulable.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788134028089-1_eb25723cdc4d9b4fbd17752382663387_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA COLEGIALA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788134029410-1027_003_pasionel_colegiala_disfraz_2_6fa957f3c18d8d3a2317511225869037_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA COLEGIALA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788134030579-1027_003_pasionel_colegiala_disfraz_3_a2c1c5bbdb0b7d132a17511225872631_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA COLEGIALA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788134031702-1027_003_pasionel_colegiala_disfraz_b3ff7b3fd1016e39c917511225867536_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA COLEGIALA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788134028089-1_eb25723cdc4d9b4fbd17752382663387_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:53:52.610Z",
+    "fechaActualizacion": "2026-08-30T23:53:52.610Z"
   }
 ]
