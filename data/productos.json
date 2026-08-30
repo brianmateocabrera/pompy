@@ -1266,12 +1266,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788117630902-wet_calor2_c9bfd8b9b67687572f17630566564963_640_0.webp",
+        "url": "/imagenes/1788117632002-wet_calor_6b9d954df1f7a3b95917628814933145_1024_1024.webp",
         "alt": "Gel Lubricante Wet Calor- 75 ml",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788117632002-wet_calor_6b9d954df1f7a3b95917628814933145_1024_1024.webp",
+        "url": "/imagenes/1788117630902-wet_calor2_c9bfd8b9b67687572f17630566564963_640_0.webp",
         "alt": "Gel Lubricante Wet Calor- 75 ml",
         "orden": 1
       }
@@ -1287,7 +1287,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:20:32.888Z",
-    "fechaActualizacion": "2026-08-30T19:20:32.888Z"
+    "fechaActualizacion": "2026-08-30T21:10:29.152Z"
   },
   {
     "id": "prod-mtg74feh-tw0k4x",
