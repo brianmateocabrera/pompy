@@ -857,17 +857,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788073416997-1000551121.webp",
-        "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
-        "orden": 0
-      },
-      {
         "url": "/imagenes/1788073418983-1000551122.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
-        "orden": 1
+        "orden": 0
       }
     ],
-    "imagenPrincipal": "/imagenes/1788073416997-1000551121.webp",
+    "imagenPrincipal": "/imagenes/1788073418983-1000551122.webp",
     "categoria": [],
     "tags": [],
     "badges": [],
@@ -878,7 +873,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T07:03:40.667Z",
-    "fechaActualizacion": "2026-08-30T07:10:15.979Z"
+    "fechaActualizacion": "2026-08-30T07:10:19.534Z"
   },
   {
     "id": "prod-mtfgtkf4-8a8xni",
