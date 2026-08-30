@@ -1232,12 +1232,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788117570061-wet_neutro2new_df92192a25a3de260f17872307553087_640_0.webp",
+        "url": "/imagenes/1788117571270-wet_neutronew_52e84f468bbb8e018017872307552895_1024_1024.webp",
         "alt": "Gel Lubricante Wet Neutro - 75 ml",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788117571270-wet_neutronew_52e84f468bbb8e018017872307552895_1024_1024.webp",
+        "url": "/imagenes/1788117570061-wet_neutro2new_df92192a25a3de260f17872307553087_640_0.webp",
         "alt": "Gel Lubricante Wet Neutro - 75 ml",
         "orden": 1
       }
@@ -1253,7 +1253,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:19:32.288Z",
-    "fechaActualizacion": "2026-08-30T19:19:32.288Z"
+    "fechaActualizacion": "2026-08-30T21:10:13.196Z"
   },
   {
     "id": "prod-mtg72jqw-3ange2",
