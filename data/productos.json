@@ -1834,5 +1834,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:10:24.306Z",
     "fechaActualizacion": "2026-08-30T23:10:47.297Z"
+  },
+  {
+    "id": "prod-mtgfctrv-ox4t4u",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-dulce-de-leche-30-ml",
+    "nombre": "Aceite Comestible Love Potion Dulce de Leche - 30 ml",
+    "descripcion": "Besos más dulces. Momentos más intensos.\nLove Potion Dulce de Leche es un aceite corporal íntimo diseñado para elevar la sensualidad en cada caricia. Su delicioso y cremoso sabor a dulce de leche, junto con su leve efecto calor, hace que los besos íntimos se vuelvan irresistibles, potenciando el juego previo y creando una experiencia de placer única.\n\nSu textura suave y sedosa se desliza perfectamente sobre la piel, mientras que su aroma dulce despierta los sentidos y convierte cualquier encuentro en una fantasía cargada de sabor, deseo y conexión.\n\n¿Por qué te va a encantar?\n💋 Comestible: ideal para besos, juegos y exploración.\n🔥 Leve efecto calor: intensifica la sensibilidad y el placer.\n🍯 Sabor dulce de leche: cremoso, tentador e imposible de resistir.\n✨ Textura suave y deslizante: sensualidad en cada toque.\n❤️ Perfecto para parejas que buscan sumar dulzura, intimidad y excitación a sus encuentros.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788131547146-lovepotion_ddl2_1cca139f4dcccd547317628813519067_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Dulce de Leche - 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788131548272-lovepotion_ddl_e22dc966d86ab090e317628813519359_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Dulce de Leche - 30 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788131547146-lovepotion_ddl2_1cca139f4dcccd547317628813519067_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:12:29.371Z",
+    "fechaActualizacion": "2026-08-30T23:12:29.371Z"
   }
 ]
