@@ -899,5 +899,59 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T07:03:40.667Z",
     "fechaActualizacion": "2026-08-30T07:03:40.667Z"
+  },
+  {
+    "id": "prod-mtfgtkf4-8a8xni",
+    "sku": "P025",
+    "slug": "pasionel-disfraz-fantasia-minnie",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\nVincha c/orejas y moño grande con estampa a lunares.\nVestido con manguitas combinando blanco con negro y rojo detalle de pasacintas en frente.\nColaless, estampa a lunares y detalle de colita de ratón y Tutú.\nMitones.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788073533044-1000551123.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788073534795-1000551124.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788073537022-1000551125.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788073538741-1000551129.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788073540520-1000551130.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 4
+      },
+      {
+        "url": "/imagenes/1788073542421-1000551131.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MINNIE",
+        "orden": 5
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788073533044-1000551123.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T07:05:43.840Z",
+    "fechaActualizacion": "2026-08-30T07:05:43.840Z"
   }
 ]
