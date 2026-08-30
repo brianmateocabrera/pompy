@@ -1742,6 +1742,16 @@
         "url": "/imagenes/1788125524447-lovepotion_algodon_b66fbe2c6b3aeb59fe17628775091015_1024_1024.webp",
         "alt": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
         "orden": 1
+      },
+      {
+        "url": "/imagenes/1788125559405-1024x1024_lovepotion4_c529239f581b30ec0b17855195419312_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788125561042-1024x1024_lovepotion_f8ac4a1f9f3fcdd86c17855195419736_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
+        "orden": 3
       }
     ],
     "imagenPrincipal": "/imagenes/1788125523245-lovepotion_algodon2_42cbc1dc5e5c35251217628775092333_640_0.webp",
@@ -1755,6 +1765,6 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:32:05.645Z",
-    "fechaActualizacion": "2026-08-30T21:32:05.645Z"
+    "fechaActualizacion": "2026-08-30T21:32:42.147Z"
   }
 ]
