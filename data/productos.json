@@ -2315,5 +2315,54 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:53:52.610Z",
     "fechaActualizacion": "2026-08-30T23:53:52.610Z"
+  },
+  {
+    "id": "prod-mtggwpwe-mm16s6",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-secretaria",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+    "descripcion": "Conjunto de 3 (tres) piezas:\n\n2 Puños blancos.\nVestido negro con rayas blancas.\nCuello, tul blanco.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788134151287-1_64622fda4b2259689a17750714543375_640_0___copia.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788134152575-1_64622fda4b2259689a17750714543375_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788134153678-2_67190f8a996011cd7b17750714548619_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788134154840-1027_027_pasionel_secretaria_disfraz_2_3fde968aed3eda9d2017511238645997_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788134155971-1027_027_pasionel_secretaria_disfraz_dc215b797b48bb125617511238647534_640_0___copia.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
+        "orden": 4
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788134151287-1_64622fda4b2259689a17750714543375_640_0___copia.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:55:57.086Z",
+    "fechaActualizacion": "2026-08-30T23:55:57.086Z"
   }
 ]
