@@ -862,24 +862,19 @@
         "orden": 0
       },
       {
-        "url": "/imagenes/1788073413463-1000551119.webp",
+        "url": "/imagenes/1788073415069-1000551120.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
         "orden": 1
       },
       {
-        "url": "/imagenes/1788073415069-1000551120.webp",
+        "url": "/imagenes/1788073416997-1000551121.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
         "orden": 2
       },
       {
-        "url": "/imagenes/1788073416997-1000551121.webp",
-        "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
-        "orden": 3
-      },
-      {
         "url": "/imagenes/1788073418983-1000551122.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
-        "orden": 4
+        "orden": 3
       }
     ],
     "imagenPrincipal": "/imagenes/1788073411628-1000551118.webp",
@@ -893,7 +888,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T07:03:40.667Z",
-    "fechaActualizacion": "2026-08-30T07:10:06.085Z"
+    "fechaActualizacion": "2026-08-30T07:10:09.285Z"
   },
   {
     "id": "prod-mtfgtkf4-8a8xni",
