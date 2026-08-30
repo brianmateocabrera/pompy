@@ -1661,12 +1661,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788125279667-lovepotiondragon2r_e288cfd3759e2e788a17863895249209_640_0.webp",
+        "url": "/imagenes/1788125280710-lovepotiondragonr_b9bb2b74839ab0f46a17863895249205_1024_1024.webp",
         "alt": "Aceite Comestible Love Potion Dragon Fruit- 30 ml",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788125280710-lovepotiondragonr_b9bb2b74839ab0f46a17863895249205_1024_1024.webp",
+        "url": "/imagenes/1788125279667-lovepotiondragon2r_e288cfd3759e2e788a17863895249209_640_0.webp",
         "alt": "Aceite Comestible Love Potion Dragon Fruit- 30 ml",
         "orden": 1
       }
@@ -1682,7 +1682,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:28:01.701Z",
-    "fechaActualizacion": "2026-08-30T21:28:01.701Z"
+    "fechaActualizacion": "2026-08-30T23:07:16.717Z"
   },
   {
     "id": "prod-mtgbo41q-63uk7h",
