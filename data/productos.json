@@ -176,35 +176,6 @@
     "fechaActualizacion": "2026-08-26T15:29:20.808Z"
   },
   {
-    "id": "prod-mtbhekgn-gu37wy",
-    "sku": "",
-    "slug": "aceite-intimo-sexitive",
-    "nombre": "ACEITE INTIMO SEXITIVE",
-    "descripcion": "",
-    "precioCosto": 0,
-    "precio": 1,
-    "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1787832657015-1000546624.webp",
-        "alt": "ACEITE INTIMO SEXITIVE",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1787832657015-1000546624.webp",
-    "categoria": [],
-    "tags": [],
-    "badges": [],
-    "stock": 2,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-27T12:10:58.967Z",
-    "fechaActualizacion": "2026-08-27T12:20:33.735Z"
-  },
-  {
     "id": "prod-mtbhfi1j-tck7bo",
     "sku": "",
     "slug": "gel-intimo-lube",
