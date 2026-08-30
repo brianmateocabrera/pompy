@@ -1534,12 +1534,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788124969767-be_464acd94450faff53616971217323156_640_0.webp",
+        "url": "/imagenes/1788124970965-crema_be2_4f340c7200aaf06d1417628803507723_1024_1024.webp",
         "alt": "BE Crema Corporal Perfumada - 200g",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788124970965-crema_be2_4f340c7200aaf06d1417628803507723_1024_1024.webp",
+        "url": "/imagenes/1788124969767-be_464acd94450faff53616971217323156_640_0.webp",
         "alt": "BE Crema Corporal Perfumada - 200g",
         "orden": 1
       },
@@ -1575,7 +1575,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:22:56.874Z",
-    "fechaActualizacion": "2026-08-30T21:22:56.874Z"
+    "fechaActualizacion": "2026-08-30T23:06:24.282Z"
   },
   {
     "id": "prod-mtgbhfxi-sxqbvz",
