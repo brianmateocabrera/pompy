@@ -953,5 +953,52 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T07:05:43.840Z",
     "fechaActualizacion": "2026-08-30T07:05:43.840Z"
+  },
+  {
+    "id": "prod-mtfgx42v-nf4byc",
+    "sku": "Q102",
+    "slug": "pasionel-fantasy-enfermera-queen",
+    "nombre": "PASIONEL FANTASY ENFERMERA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 4 piezas:\n\n2 Mitones blancos.\nCofia blanca con vivos rojos y estampa.\nVestido blanco enfermera con estampa enfermera en forma de corazón y vivos rojos.\nColaless incluida.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788073702647-1000551132.webp",
+        "alt": "PASIONEL FANTASY ENFERMERA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788073704370-1000551133.webp",
+        "alt": "PASIONEL FANTASY ENFERMERA QUEEN",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788073705992-1000551134.webp",
+        "alt": "PASIONEL FANTASY ENFERMERA QUEEN",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788073708191-1000551135.webp",
+        "alt": "PASIONEL FANTASY ENFERMERA QUEEN",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788073702647-1000551132.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [
+      "Blanco",
+      "Negro"
+    ],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T07:08:29.287Z",
+    "fechaActualizacion": "2026-08-30T07:08:29.287Z"
   }
 ]
