@@ -1201,5 +1201,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T19:09:17.657Z",
     "fechaActualizacion": "2026-08-30T19:12:42.030Z"
+  },
+  {
+    "id": "prod-mtg6uzsb-ircaaw",
+    "sku": "",
+    "slug": "gel-lubricante-wet-anal-75-ml",
+    "nombre": "Gel Lubricante Wet Anal - 75 ml",
+    "descripcion": "Comodidad total. Deslizamiento absoluto.\nWet Anal es un lubricante íntimo especialmente formulado para brindar una experiencia suave, segura y mucho más placentera. Su textura sedosa de base acuosa ofrece un deslizamiento superior que reduce la fricción y aumenta el confort desde el primer contacto.\n\nDiseñado para quienes buscan explorar con más confianza y sin molestias, este gel hidrata, protege y acompaña cada movimiento de manera natural y fluida.\n\n¿Por qué te va a encantar?\n💜 Base acuosa ultra deslizante: textura suave y fluida que facilita el deslizamiento.\n💜 Hidratante y confortable: cuida la piel y evita molestias.\n💜 No mancha y no deja residuos: sensación limpia y liviana.\n💜 Sin azúcar y seguro: compatible con preservativos.\n💜 Ideal para quienes desean una experiencia más suave, cómoda y placentera.\n\n \nUn aliado perfecto para explorar sin tensión\nWet Anal está pensado para acompañarte con suavidad, cuidando cada detalle para que disfrutes con total seguridad y comodidad.\nUna textura que fluye, una sensación que libera y una experiencia que se adapta a vos.",
+    "precioCosto": 0,
+    "precio": 10000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788117277967-wet_anal2_0a4324ff2faf8545b917628817044171_640_0.webp",
+        "alt": "Gel Lubricante Wet Anal - 75 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788117279407-wet_anal_6dcb4e9b7fdd073b0017628817044139_1024_1024.webp",
+        "alt": "Gel Lubricante Wet Anal - 75 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788117277967-wet_anal2_0a4324ff2faf8545b917628817044171_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T19:14:40.427Z",
+    "fechaActualizacion": "2026-08-30T19:14:40.427Z"
   }
 ]
