@@ -528,5 +528,77 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T05:57:25.926Z",
     "fechaActualizacion": "2026-08-30T05:57:25.926Z"
+  },
+  {
+    "id": "prod-mtfekt9k-phui0k",
+    "sku": "P002",
+    "slug": "pasionel-disfraz-fantasia-enfermera",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones cortos blancos con detalle de tull y estampa enfermera.\nCofia blanca con vivos rojos y estampa enfermera.\nVestido blanco con estampa enfermera y vivos rojos.\nColales y Tutú rojo.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788069760019-1000551071.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788069761986-1000551069.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788069763872-1000551068.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788069765757-1000551070.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788069767423-1000551072.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 4
+      },
+      {
+        "url": "/imagenes/1788069769286-1000551073.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 5
+      },
+      {
+        "url": "/imagenes/1788069770950-1000551074.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 6
+      },
+      {
+        "url": "/imagenes/1788069773127-1000551075.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 7
+      },
+      {
+        "url": "/imagenes/1788069775096-1000551076.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
+        "orden": 8
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788069760019-1000551071.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [
+      "Blanco",
+      "Negro"
+    ],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T06:02:56.168Z",
+    "fechaActualizacion": "2026-08-30T06:02:56.168Z"
   }
 ]
