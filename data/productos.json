@@ -2208,5 +2208,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:50:03.203Z",
     "fechaActualizacion": "2026-08-30T23:50:03.203Z"
+  },
+  {
+    "id": "prod-mtggqky4-9swsh1",
+    "sku": "",
+    "slug": "pasionel-linea-fantasy-bruja-queen",
+    "nombre": "PASIONEL LÍNEA FANTASY BRUJA QUEEN",
+    "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 4 Piezas:\n\nSombrero rígido de bruja con detalles de tull azul Francia.\n2 Mangas lasrgas con frunce y corte lateral.\nVestido con cuello rígido con pollera terminación irregular.\nColaless y tutú negro.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
+    "precioCosto": 0,
+    "precio": 36000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788133868642-1027_1150_pasionel_fantasy_bruja_queen_1a893c9224b173006117558797321989_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY BRUJA QUEEN",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788133869772-1027_1150_pasionel_fantasy_bruja_queen_2_f444bc27202f84c96317558797320454_640_0.webp",
+        "alt": "PASIONEL LÍNEA FANTASY BRUJA QUEEN",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788133868642-1027_1150_pasionel_fantasy_bruja_queen_1a893c9224b173006117558797321989_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T23:51:10.731Z",
+    "fechaActualizacion": "2026-08-30T23:51:10.731Z"
   }
 ]
