@@ -435,5 +435,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T04:20:14.886Z",
     "fechaActualizacion": "2026-08-30T04:20:14.886Z"
+  },
+  {
+    "id": "prod-mtfea3bn-25q1ko",
+    "sku": "P015",
+    "slug": "pasionel-disfraz-fantasia-mucamita",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
+    "descripcion": "Conjunto de 5 (cinco) piezas:\n\n2 Puños negros con detalle de blanco.\nGargantilla de tul blanco con vivo negro.\nCofia de tul blanco con vivo negro.\nVestido negro con mangas y detalles de tul blanco, vivos y delantal blanco, Tutú y colaless blanca.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788069269497-1000551059.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788069271447-1000551060.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788069273059-1000551061.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788069274662-1000551062.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788069269497-1000551059.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T05:54:35.986Z",
+    "fechaActualizacion": "2026-08-30T05:54:35.986Z"
   }
 ]
