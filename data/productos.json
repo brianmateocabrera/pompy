@@ -290,35 +290,6 @@
     "fechaActualizacion": "2026-08-30T04:10:08.814Z"
   },
   {
-    "id": "prod-mtfawr6u-sgrulq",
-    "sku": "P003",
-    "slug": "disfraz-colegiala-tiradores-pasionel",
-    "nombre": "DISFRAZ COLEGIALA TIRADORES PASIONEL",
-    "descripcion": "Incluye (3 piezas)\n\nColitas para pelo (2)\nCorbata para el cuello\nVestido con tutu, corbatin y colaless\n\nTalle M (abarca del 85 al 100)\n\nNo incluye medias!",
-    "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
-    "imagenes": [
-      {
-        "url": "/imagenes/1788063613548-1000550254.webp",
-        "alt": "DISFRAZ COLEGIALA TIRADORES PASIONEL",
-        "orden": 0
-      }
-    ],
-    "imagenPrincipal": "/imagenes/1788063613548-1000550254.webp",
-    "categoria": [],
-    "tags": [],
-    "badges": [],
-    "stock": 0,
-    "talles": [],
-    "colores": [],
-    "activo": true,
-    "destacado": false,
-    "orden": 0,
-    "fechaCreacion": "2026-08-30T04:20:14.886Z",
-    "fechaActualizacion": "2026-08-30T04:20:14.886Z"
-  },
-  {
     "id": "prod-mtfea3bn-25q1ko",
     "sku": "P015",
     "slug": "pasionel-disfraz-fantasia-mucamita",
