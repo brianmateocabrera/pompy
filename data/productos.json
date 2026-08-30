@@ -1722,5 +1722,39 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:29:17.438Z",
     "fechaActualizacion": "2026-08-30T21:29:17.438Z"
+  },
+  {
+    "id": "prod-mtgbrpu5-hduflz",
+    "sku": "",
+    "slug": "aceite-comestible-love-potion-algodon-de-azucar-30-ml",
+    "nombre": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
+    "descripcion": "Endulzá tus momentos más íntimos con Love Potion Hot Kisses Algodón de Azúcar, el aceite corporal comestible diseñado para transformar cada beso y cada caricia en una experiencia cálida, suave y deliciosamente tentadora. Su sabor dulce y nostálgico, combinado con un leve efecto calor, despierta los sentidos y ayuda a intensificar el juego previo.\n\nUna experiencia sensorial dulce, cálida y adictiva\n✔ Sabor a algodón de azúcar, suave, dulce y encantador\n✔ Leve efecto calor que realza zonas sensibles y aumenta el disfrute\n✔ Textura sedosa y comestible, ideal para recorrer la piel con la boca\n✔ Perfecto para juegos previos, besos íntimos y momentos de conexión profunda\n✔ Formato de 30 ml, práctico, elegante y fácil de usar\n\n¿Por qué te va a gustar?\n✨ Hace cada beso más cálido, dulce y memorable\n✨ Aporta un toque juguetón y sexy que enciende la pasión\n✨ Agrega nuevas sensaciones sin incomodar: solo placer y suavidad\n✨ Ideal para sorprender y elevar la química en pareja\n\nLove Potion: sabor, calor y pura magia\nConvertí cada contacto en un momento irresistible.\nLove Potion Hot Kisses Algodón de Azúcar es el toque perfecto para elevar el deseo… con sabor a dulce tentación.",
+    "precioCosto": 0,
+    "precio": 12000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788125523245-lovepotion_algodon2_42cbc1dc5e5c35251217628775092333_640_0.webp",
+        "alt": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788125524447-lovepotion_algodon_b66fbe2c6b3aeb59fe17628775091015_1024_1024.webp",
+        "alt": "Aceite Comestible Love Potion Algodón de azúcar – 30 ml",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788125523245-lovepotion_algodon2_42cbc1dc5e5c35251217628775092333_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:32:05.645Z",
+    "fechaActualizacion": "2026-08-30T21:32:05.645Z"
   }
 ]
