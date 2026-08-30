@@ -600,5 +600,54 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T06:02:56.168Z",
     "fechaActualizacion": "2026-08-30T06:02:56.168Z"
+  },
+  {
+    "id": "prod-mtfevrcg-a9ibkd",
+    "sku": "P038",
+    "slug": "pasionel-disfraz-fantasia-novia",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+    "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones blancos.\nTocado de tul c/detalle de moños.\nVestido tipo corset c/detalle central de moños y volados, colaless y doble tutú blanco.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788070277284-1000551081.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788070279441-1000551082.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788070281729-1000551083.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788070283590-1000551084.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+        "orden": 3
+      },
+      {
+        "url": "/imagenes/1788070285609-1000551085.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA NOVIA",
+        "orden": 4
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788070277284-1000551081.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T06:11:26.894Z",
+    "fechaActualizacion": "2026-08-30T06:11:26.894Z"
   }
 ]
