@@ -1478,5 +1478,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T21:18:47.541Z",
     "fechaActualizacion": "2026-08-30T21:18:47.541Z"
+  },
+  {
+    "id": "prod-mtgbc7y8-5udpby",
+    "sku": "",
+    "slug": "gel-intimo-sens-bomb-sandalo-rojo-70-gr",
+    "nombre": "Gel Intimo Sens Bomb Sandalo Rojo - 70 gr",
+    "descripcion": "🔥 Un calor que despierta el deseo. Un aroma que lo enciende todo.\nSens Bomb Sándalo Rojo es un gel íntimo creado para quienes quieren sentir más, disfrutar más y vivir el momento con intensidad. Su fórmula estimulante, potenciada con el sensual y afrodisíaco Sándalo Rojo, transforma cada caricia en una ola de placer cálido y envolvente.\n\nSu textura suave y deslizante se funde con el cuerpo, mientras su aroma cálido y seductor crea un ambiente irresistible.\n\n¿Por qué te va a encantar?\n🌹 Sándalo Rojo afrodisíaco: aroma cálido, sensual y profundamente erótico.\n✨ Textura suave y deslizante: perfecta para el juego previo y el momento íntimo.\n💗 Aumenta la sensibilidad: cada toque se siente más intenso.\n🔥 Ideal para quienes buscan emoción, conexión y sensaciones más fuertes.\n\nUn gel que eleva el encuentro\n\nSens Bomb Sándalo Rojo no solo acompaña el momento… lo transforma.\nLo vuelve más cálido, más profundo, más cargado de energía sexual.",
+    "precioCosto": 0,
+    "precio": 9000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788124797948-gel_sandalorojo2_009d77d4c4a8883b2417272722633166_640_0.webp",
+        "alt": "Gel Intimo Sens Bomb Sandalo Rojo - 70 gr",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788124799189-gel_sandalorojo_2cb3ded07942f7be5d17272716841647_640_0.webp",
+        "alt": "Gel Intimo Sens Bomb Sandalo Rojo - 70 gr",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788124800332-sensbombgel_sandalo2_8d4d9fba72e923ef4c17628815813782_640_0.webp",
+        "alt": "Gel Intimo Sens Bomb Sandalo Rojo - 70 gr",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788124801588-sensbombgel_sandalo_60586434ae1695368917628815814311_1024_1024.webp",
+        "alt": "Gel Intimo Sens Bomb Sandalo Rojo - 70 gr",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788124797948-gel_sandalorojo2_009d77d4c4a8883b2417272722633166_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-30T21:20:02.624Z",
+    "fechaActualizacion": "2026-08-30T21:20:02.624Z"
   }
 ]
