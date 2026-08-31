@@ -1,7 +1,7 @@
 [
   {
     "id": "prod-001",
-    "sku": "SOC-KP",
+    "sku": "SOQ-KP",
     "slug": "pack-x-3-medias-invisibles-de-algodon-kp-unisex-talle-adulto",
     "nombre": "Pack x 3 Medias invisibles de algodón KP Unisex Talle Adulto",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
@@ -59,7 +59,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T21:46:40.968Z"
+    "fechaActualizacion": "2026-08-31T21:46:44.277Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
