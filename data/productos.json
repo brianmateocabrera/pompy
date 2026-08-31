@@ -1479,8 +1479,8 @@
     "nombre": "Crema para masajes Sensual massage Coconut - 200g",
     "descripcion": "Dejá que el toque tropical del coco transforme cualquier momento en una experiencia sensorial única.\nSuave, envolvente y deliciosamente perfumada, Sensual Massage Coconut está formulada para deslizarse sobre la piel con facilidad, potenciando masajes sensuales, relajantes y llenos de conexión.\n\n🥥 Aroma: Coco fresco y cremoso\n💆‍♀️ Sensación: Textura sedosa ideal para masajes\n🔥 Momento: Perfecta para elevar la intimidad y el bienestar\n\nConvertí cada caricia en un viaje cálido y tropical.",
     "precioCosto": 0,
-    "precio": 21000,
-    "precioAnterior": null,
+    "precio": 18000,
+    "precioAnterior": 21000,
     "imagenes": [
       {
         "url": "/imagenes/1788125042694-crema_coco2_d24072362d5306ef3717628806874505_1024_1024.webp",
@@ -1509,7 +1509,7 @@
     "destacado": false,
     "orden": 501,
     "fechaCreacion": "2026-08-30T21:24:06.246Z",
-    "fechaActualizacion": "2026-08-30T21:24:06.246Z"
+    "fechaActualizacion": "2026-08-31T22:12:05.429Z"
   },
   {
     "id": "prod-mtgbl23h-qj6bay",
