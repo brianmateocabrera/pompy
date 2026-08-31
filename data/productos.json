@@ -102,8 +102,8 @@
     "nombre": "TANGA ENCAJE VALENTINA SECRET",
     "descripcion": "Encaje floral traslúcido, super suave al tacto y cómodo para todo el día.",
     "precioCosto": 0,
-    "precio": 4500,
-    "precioAnterior": null,
+    "precio": 3000,
+    "precioAnterior": 3750,
     "imagenes": [
       {
         "url": "/imagenes/1787649087259-1000545163.webp",
@@ -121,9 +121,10 @@
       "Encaje"
     ],
     "badges": [],
-    "stock": 12,
+    "stock": 25,
     "talles": [
-      "Único"
+      "Único",
+      "Regulable"
     ],
     "colores": [
       "Rojo",
@@ -139,7 +140,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-25T09:11:28.861Z",
-    "fechaActualizacion": "2026-08-25T09:44:43.063Z"
+    "fechaActualizacion": "2026-08-31T01:02:44.999Z"
   },
   {
     "id": "prod-mt8hxje2-0wps1j",
