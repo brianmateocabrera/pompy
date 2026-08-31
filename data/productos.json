@@ -2562,5 +2562,36 @@
     "orden": 900,
     "fechaCreacion": "2026-08-31T21:46:12.931Z",
     "fechaActualizacion": "2026-08-31T21:46:12.931Z"
+  },
+  {
+    "id": "prod-mtht77si-zs8byo",
+    "sku": "",
+    "slug": "camison-babydoll-de-encaje-sexy-leg-avenue",
+    "nombre": "Camisón Babydoll De Encaje Sexy Leg Avenue",
+    "descripcion": "Camisón babydoll de lencería Leg Avenue, una opción dulce y sexy. Está confeccionado en un encaje rosa transparente hermoso, con cuello redondo, breteles finitos y terminación ondulada. Es el look ideal para una noche especial y un básico súper cómodo para el fin de semana en casa.El paquete incluye: Camisón (no incluye bombacha).Material: Encaje elastizado y respirable.Detalles: Breteles finitos y ruedo con terminación ondulada.",
+    "precioCosto": 0,
+    "precio": 24000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788215267261-8717_001_01.webp",
+        "alt": "Camisón Babydoll De Encaje Sexy Leg Avenue",
+        "orden": 0
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788215267261-8717_001_01.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 10,
+    "talles": [],
+    "colores": [
+      "Negro"
+    ],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-31T22:27:48.402Z",
+    "fechaActualizacion": "2026-08-31T22:27:48.402Z"
   }
 ]
