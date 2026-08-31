@@ -10,27 +10,22 @@
     "precioAnterior": 2500,
     "imagenes": [
       {
-        "url": "/imagenes/1787833019976-1000545167.webp",
-        "alt": "MEDIAS SOQUETE PACK X3",
-        "orden": 0
-      },
-      {
         "url": "/imagenes/1788167540768-d_q_np_902850_mla91531647479_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
-        "orden": 1
+        "orden": 0
       },
       {
         "url": "/imagenes/1788167542667-d_q_np_614191_mla91138256496_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
-        "orden": 2
+        "orden": 1
       },
       {
         "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
-        "orden": 3
+        "orden": 2
       }
     ],
-    "imagenPrincipal": "/imagenes/1787833019976-1000545167.webp",
+    "imagenPrincipal": "/imagenes/1788167540768-d_q_np_902850_mla91531647479_092025_f.webp",
     "categoria": [
       "Lencería",
       "Medias",
@@ -59,7 +54,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T09:12:26.189Z"
+    "fechaActualizacion": "2026-08-31T09:12:41.571Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
