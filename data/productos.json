@@ -1,33 +1,54 @@
 [
   {
     "id": "prod-001",
-    "sku": "LEN-001",
-    "slug": "medias-soquete-pack-x3",
-    "nombre": "MEDIAS SOQUETE PACK X3",
+    "sku": "SOC-KP",
+    "slug": "medias-soquetes-kp-unisex-talle-adulto",
+    "nombre": "Medias Soquetes KP Unisex Talle Adulto",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
     "precio": 1700,
-    "precioAnterior": null,
+    "precioAnterior": 2500,
     "imagenes": [
       {
         "url": "/imagenes/1787833019976-1000545167.webp",
         "alt": "MEDIAS SOQUETE PACK X3",
         "orden": 0
+      },
+      {
+        "url": "/imagenes/1788167540768-d_q_np_902850_mla91531647479_092025_f.webp",
+        "alt": "Medias Soquetes KP Unisex Talle Adulto",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788167542667-d_q_np_614191_mla91138256496_092025_f.webp",
+        "alt": "Medias Soquetes KP Unisex Talle Adulto",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
+        "alt": "Medias Soquetes KP Unisex Talle Adulto",
+        "orden": 3
       }
     ],
     "imagenPrincipal": "/imagenes/1787833019976-1000545167.webp",
     "categoria": [
-      "Lencería"
+      "Lencería",
+      "Medias",
+      "Soquete"
     ],
     "tags": [
       "medias",
       "soquete",
       "algodon"
     ],
-    "badges": [],
+    "badges": [
+      "32%"
+    ],
     "stock": 12,
     "talles": [
-      "Único"
+      "Único",
+      "Adulto",
+      "Unisex"
     ],
     "colores": [
       "Blanco",
@@ -38,7 +59,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T00:58:23.133Z"
+    "fechaActualizacion": "2026-08-31T09:12:26.189Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
