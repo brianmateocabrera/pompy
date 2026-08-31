@@ -6,7 +6,7 @@
     "nombre": "MEDIAS SOQUETE PACK X3",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
-    "precio": 1,
+    "precio": 1700,
     "precioAnterior": null,
     "imagenes": [
       {
@@ -25,7 +25,7 @@
       "algodon"
     ],
     "badges": [],
-    "stock": 10,
+    "stock": 12,
     "talles": [
       "Único"
     ],
@@ -35,10 +35,10 @@
       "Negro"
     ],
     "activo": true,
-    "destacado": true,
+    "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-27T12:17:01.563Z"
+    "fechaActualizacion": "2026-08-31T00:58:23.133Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
