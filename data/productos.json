@@ -2030,12 +2030,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788133417998-1027_1128_pasionel_diablita_queen_disfraz_2_94ee2eb5a810ca0bc517528747288954_640_0.webp",
+        "url": "/imagenes/1788133419214-1027_1128_pasionel_diablita_queen_disfraz_baca9c3823250b9bbe17528747289560_640_0.webp",
         "alt": "PASIONEL LÍNEA FANTASY DIABLITA QUEEN",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788133419214-1027_1128_pasionel_diablita_queen_disfraz_baca9c3823250b9bbe17528747289560_640_0.webp",
+        "url": "/imagenes/1788133417998-1027_1128_pasionel_diablita_queen_disfraz_2_94ee2eb5a810ca0bc517528747288954_640_0.webp",
         "alt": "PASIONEL LÍNEA FANTASY DIABLITA QUEEN",
         "orden": 1
       }
@@ -2051,7 +2051,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:43:40.126Z",
-    "fechaActualizacion": "2026-08-30T23:43:40.126Z"
+    "fechaActualizacion": "2026-08-31T00:54:30.224Z"
   },
   {
     "id": "prod-mtggiq1n-ujctiz",
