@@ -213,12 +213,12 @@
     "precioAnterior": 28750,
     "imagenes": [
       {
-        "url": "/imagenes/1788211348304-1000552601.webp",
+        "url": "/imagenes/1788211350224-1000552602.webp",
         "alt": "MINI WAND PREMIUM",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788211350224-1000552602.webp",
+        "url": "/imagenes/1788211348304-1000552601.webp",
         "alt": "MINI WAND PREMIUM",
         "orden": 1
       },
@@ -244,7 +244,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:18:30.238Z",
-    "fechaActualizacion": "2026-08-31T21:23:49.479Z"
+    "fechaActualizacion": "2026-08-31T21:23:53.063Z"
   },
   {
     "id": "prod-mtbhq6ld-k2460j",
