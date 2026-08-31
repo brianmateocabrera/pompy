@@ -2,8 +2,8 @@
   {
     "id": "prod-001",
     "sku": "SOC-KP",
-    "slug": "medias-soquetes-kp-unisex-talle-adulto",
-    "nombre": "Medias Soquetes KP Unisex Talle Adulto",
+    "slug": "pack-x-3-medias-invisibles-de-algodon-kp-unisex-talle-adulto",
+    "nombre": "Pack x 3 Medias invisibles de algodón KP Unisex Talle Adulto",
     "descripcion": "Medias de algodón estilo soquete. Presentación pack x 3.",
     "precioCosto": 0,
     "precio": 1700,
@@ -23,6 +23,11 @@
         "url": "/imagenes/1788167540768-d_q_np_902850_mla91531647479_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
         "orden": 2
+      },
+      {
+        "url": "/imagenes/1788167958874-art_99_kaury_dia_2716340_2_bf54713e5d36d6652617160600273739_1024_1024.webp",
+        "alt": "Pack x 3 Medias invisibles de algodón KP Unisex Talle Adulto",
+        "orden": 3
       }
     ],
     "imagenPrincipal": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
@@ -54,7 +59,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T09:13:08.736Z"
+    "fechaActualizacion": "2026-08-31T09:19:20.265Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
