@@ -2064,12 +2064,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788133501913-1027_1116_fantasy_policia_queen_disfraz_2_1a2c6a93d2fb7729fc17533713604628_640_0.webp",
+        "url": "/imagenes/1788133503094-1027_1116_fantasy_policia_queen_disfraz_675318ce947432d4e617533713604196_640_0.webp",
         "alt": "PASIONEL LÍNEA FANTASY POLICÍA QUEEN",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788133503094-1027_1116_fantasy_policia_queen_disfraz_675318ce947432d4e617533713604196_640_0.webp",
+        "url": "/imagenes/1788133501913-1027_1116_fantasy_policia_queen_disfraz_2_1a2c6a93d2fb7729fc17533713604628_640_0.webp",
         "alt": "PASIONEL LÍNEA FANTASY POLICÍA QUEEN",
         "orden": 1
       }
@@ -2085,7 +2085,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:45:04.091Z",
-    "fechaActualizacion": "2026-08-30T23:45:04.091Z"
+    "fechaActualizacion": "2026-08-31T00:54:51.452Z"
   },
   {
     "id": "prod-mtggk83v-6hmd9y",
