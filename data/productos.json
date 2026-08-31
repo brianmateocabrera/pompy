@@ -2364,5 +2364,44 @@
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:55:57.086Z",
     "fechaActualizacion": "2026-08-30T23:55:57.086Z"
+  },
+  {
+    "id": "prod-mtgh2351-qwriz6",
+    "sku": "",
+    "slug": "pasionel-disfraz-fantasia-conejita",
+    "nombre": "PASIONEL DISFRAZ FANTASÍA CONEJITA",
+    "descripcion": "Disfraz erótico fantasía conejita diseñado para un look clásico, provocador y altamente atractivo. Su estética icónica combina sensualidad y juego, creando un outfit ideal para destacar en ocasiones especiales o momentos íntimos. Una propuesta infaltable dentro de la lencería temática.\n\nCaracteristicas\nDisfraz erótico temático de conejita.\nDiseño sensual y llamativo.\nMaterial adaptable al cuerpo.\nMarca: Pasionel.\nMedidas\nTalle único.\n¿Cuales son los beneficios de utilizar el Disfraz Pasionel Gatita?\nLook icónico y fácilmente reconocible.\nIdeal para juegos de rol y ocasiones especiales.\nEstética sensual sin necesidad de combinar otras prendas.\nConjunto completo que simplifica la elección.",
+    "precioCosto": 0,
+    "precio": 38000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788134403802-1_bfb03b68708069d82e17750805412960_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CONEJITA",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788134405053-2_9d64445e179b298b5517750805414289_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CONEJITA",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788134406192-1027_012_pasionel_conejita_disfraz_4b624f0f4631ab7f9617533709146714_640_0.webp",
+        "alt": "PASIONEL DISFRAZ FANTASÍA CONEJITA",
+        "orden": 2
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788134403802-1_bfb03b68708069d82e17750805412960_640_0.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 0,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-31T00:00:07.525Z",
+    "fechaActualizacion": "2026-08-31T00:00:07.525Z"
   }
 ]
