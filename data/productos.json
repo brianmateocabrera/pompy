@@ -183,8 +183,8 @@
     "nombre": "MINI WAND PREMIUM",
     "descripcion": "",
     "precioCosto": 0,
-    "precio": 1,
-    "precioAnterior": null,
+    "precio": 23000,
+    "precioAnterior": 28750,
     "imagenes": [
       {
         "url": "/imagenes/1787833108892-1000545158.webp",
@@ -200,12 +200,15 @@
     "badges": [],
     "stock": 2,
     "talles": [],
-    "colores": [],
+    "colores": [
+      "Violeta",
+      "Rosa"
+    ],
     "activo": true,
-    "destacado": false,
+    "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-27T12:18:30.238Z",
-    "fechaActualizacion": "2026-08-27T12:18:30.238Z"
+    "fechaActualizacion": "2026-08-31T01:07:34.589Z"
   },
   {
     "id": "prod-mtbhq6ld-k2460j",
