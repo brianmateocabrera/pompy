@@ -2404,5 +2404,49 @@
     "orden": 0,
     "fechaCreacion": "2026-08-31T00:00:07.525Z",
     "fechaActualizacion": "2026-08-31T00:57:20.786Z"
+  },
+  {
+    "id": "prod-mth03fnw-72ox70",
+    "sku": "",
+    "slug": "stainless-steel-anal-plug-small",
+    "nombre": "STAINLESS STEEL ANAL PLUG SMALL",
+    "descripcion": "Plug anal de acero inoxidable, suave, sobrio y diseñado especialmente para la mejor dilatación anal. Este pequeño accesorio te acompañará en todas tus aventuras, cuando y donde quieras.\n\nCaracterísticas:\n\nAcero inoxidable macizo.\nTextura suave.\nBase strass.\nBolsa de terciopelo negro.\nPeso: 145 gr.\nMedidas: 7 cm x 2,8 cm",
+    "precioCosto": 0,
+    "precio": 16000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788166376119-ap_al001_l_2_min1_b43b9279c80977508615626211667961_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG SMALL",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788166378108-ap_al001_m_1_221_a0426d208d8a82360215626211712963_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG SMALL",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788166379952-ap_al001_s_1_min1_ebcd32fba29ba712f215626211753252_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG SMALL",
+        "orden": 2
+      },
+      {
+        "url": "/imagenes/1788166381968-ap_al001_s_2_min1_02c7aca66657e775b315626211793654_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG SMALL",
+        "orden": 3
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788166376119-ap_al001_l_2_min1_b43b9279c80977508615626211667961_1024_1024.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 10,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-31T08:53:03.114Z",
+    "fechaActualizacion": "2026-08-31T08:53:03.114Z"
   }
 ]
