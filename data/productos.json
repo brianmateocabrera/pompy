@@ -177,6 +177,11 @@
         "url": "/imagenes/1787652143709-1000545178.webp",
         "alt": "VIBRATOR",
         "orden": 0
+      },
+      {
+        "url": "/imagenes/1788211314010-1000552604.webp",
+        "alt": "VIBRATOR",
+        "orden": 1
       }
     ],
     "imagenPrincipal": "/imagenes/1787652143709-1000545178.webp",
@@ -195,7 +200,7 @@
     "destacado": true,
     "orden": 0,
     "fechaCreacion": "2026-08-25T10:02:25.514Z",
-    "fechaActualizacion": "2026-08-31T01:04:09.262Z"
+    "fechaActualizacion": "2026-08-31T21:21:55.414Z"
   },
   {
     "id": "prod-mtbho8ny-60i0x6",
