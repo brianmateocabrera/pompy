@@ -2523,5 +2523,44 @@
     "orden": 0,
     "fechaCreacion": "2026-08-31T08:55:13.867Z",
     "fechaActualizacion": "2026-08-31T08:55:13.867Z"
+  },
+  {
+    "id": "prod-mthrpq9v-u9ore2",
+    "sku": "",
+    "slug": "vestido-de-vinilo-arnes-laterales-abiertos-pasionel-verona",
+    "nombre": "Vestido De Vinilo Arnes Laterales Abiertos Pasionel Verona",
+    "descripcion": "Este producto es el vestido de vinilo modelo «Verona» (Art. 4510) de Pasionel, el cual destaca por sus tiras superiores estilo arnés y sus laterales abiertos con elásticos cruzados.",
+    "precioCosto": 0,
+    "precio": 39500,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788212768962-d_nq_np_2x_637448_mla85350896272_062025_f.webp",
+        "alt": "Vestido De Vinilo Arnes Laterales Abiertos Pasionel Verona",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788212770415-d_nq_np_2x_713545_mla77708334296_072024_f.webp",
+        "alt": "Vestido De Vinilo Arnes Laterales Abiertos Pasionel Verona",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788212771767-d_nq_np_2x_914350_mla107812611325_022026_f.webp",
+        "alt": "Vestido De Vinilo Arnes Laterales Abiertos Pasionel Verona",
+        "orden": 2
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788212768962-d_nq_np_2x_637448_mla85350896272_062025_f.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 10,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-31T21:46:12.931Z",
+    "fechaActualizacion": "2026-08-31T21:46:12.931Z"
   }
 ]
