@@ -2327,32 +2327,27 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788134151287-1_64622fda4b2259689a17750714543375_640_0___copia.webp",
+        "url": "/imagenes/1788134152575-1_64622fda4b2259689a17750714543375_640_0.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788134152575-1_64622fda4b2259689a17750714543375_640_0.webp",
+        "url": "/imagenes/1788134153678-2_67190f8a996011cd7b17750714548619_640_0.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
         "orden": 1
       },
       {
-        "url": "/imagenes/1788134153678-2_67190f8a996011cd7b17750714548619_640_0.webp",
+        "url": "/imagenes/1788134154840-1027_027_pasionel_secretaria_disfraz_2_3fde968aed3eda9d2017511238645997_640_0.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
         "orden": 2
       },
       {
-        "url": "/imagenes/1788134154840-1027_027_pasionel_secretaria_disfraz_2_3fde968aed3eda9d2017511238645997_640_0.webp",
-        "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
-        "orden": 3
-      },
-      {
         "url": "/imagenes/1788134155971-1027_027_pasionel_secretaria_disfraz_dc215b797b48bb125617511238647534_640_0___copia.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA SECRETARIA",
-        "orden": 4
+        "orden": 3
       }
     ],
-    "imagenPrincipal": "/imagenes/1788134151287-1_64622fda4b2259689a17750714543375_640_0___copia.webp",
+    "imagenPrincipal": "/imagenes/1788134152575-1_64622fda4b2259689a17750714543375_640_0.webp",
     "categoria": [],
     "tags": [],
     "badges": [],
@@ -2363,7 +2358,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:55:57.086Z",
-    "fechaActualizacion": "2026-08-30T23:55:57.086Z"
+    "fechaActualizacion": "2026-08-31T00:56:44.636Z"
   },
   {
     "id": "prod-mtgh2351-qwriz6",
