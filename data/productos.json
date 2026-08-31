@@ -2132,12 +2132,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788133704923-1_7f7a8ec93e4aff04eb17752380236246_640_0.webp",
+        "url": "/imagenes/1788133706317-1_40586dab4b2464e93e17746394239305_640_0.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788133706317-1_40586dab4b2464e93e17746394239305_640_0.webp",
+        "url": "/imagenes/1788133704923-1_7f7a8ec93e4aff04eb17752380236246_640_0.webp",
         "alt": "PASIONEL DISFRAZ FANTASÍA GATITA",
         "orden": 1
       },
@@ -2163,7 +2163,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:48:29.733Z",
-    "fechaActualizacion": "2026-08-30T23:48:29.733Z"
+    "fechaActualizacion": "2026-08-31T00:55:29.675Z"
   },
   {
     "id": "prod-mtggp4ub-f54pxg",
