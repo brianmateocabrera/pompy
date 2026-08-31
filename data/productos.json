@@ -2448,5 +2448,44 @@
     "orden": 0,
     "fechaCreacion": "2026-08-31T08:53:03.114Z",
     "fechaActualizacion": "2026-08-31T08:53:03.114Z"
+  },
+  {
+    "id": "prod-mth068jv-kwjbqr",
+    "sku": "",
+    "slug": "stainless-steel-anal-plug-medium",
+    "nombre": "STAINLESS STEEL ANAL PLUG MEDIUM",
+    "descripcion": "Plug anal de acero inoxidable, suave, sobrio y diseñado especialmente para la mejor dilatación anal. Este pequeño accesorio te acompañará en todas tus aventuras, cuando y donde quieras.\n\nCaracterísticas:\n\nAcero inoxidable macizo.\nTextura suave.\nBase strass.\nBolsa de terciopelo negro.\nPeso: 265 gr.\nMedidas: 8,2 cm x 3,4 cm",
+    "precioCosto": 0,
+    "precio": 18000,
+    "precioAnterior": null,
+    "imagenes": [
+      {
+        "url": "/imagenes/1788166508028-ap_al001_m_6_21_6533d9c936dca0249115626213425429_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG MEDIUM",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788166509966-ap_al001_m_1_21_a0426d208d8a82360215626213466794_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG MEDIUM",
+        "orden": 1
+      },
+      {
+        "url": "/imagenes/1788166512221-ap_al001_m_3_min1_3d83c10e1249847e4415626213509757_1024_1024.webp",
+        "alt": "STAINLESS STEEL ANAL PLUG MEDIUM",
+        "orden": 2
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788166508028-ap_al001_m_6_21_6533d9c936dca0249115626213425429_1024_1024.webp",
+    "categoria": [],
+    "tags": [],
+    "badges": [],
+    "stock": 10,
+    "talles": [],
+    "colores": [],
+    "activo": true,
+    "destacado": false,
+    "orden": 0,
+    "fechaCreacion": "2026-08-31T08:55:13.867Z",
+    "fechaActualizacion": "2026-08-31T08:55:13.867Z"
   }
 ]
