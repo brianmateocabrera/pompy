@@ -1890,8 +1890,19 @@
     "precioCosto": 0,
     "precio": 12000,
     "precioAnterior": null,
-    "imagenes": [],
-    "imagenPrincipal": "",
+    "imagenes": [
+      {
+        "url": "/imagenes/1788213609069-secretgame2_73e912bfe1c440c63b17628806149201_640_0.webp",
+        "alt": "Secret game - Juego de dados",
+        "orden": 0
+      },
+      {
+        "url": "/imagenes/1788213610484-secretgame_c3a88cc113b9c9e62317628806148161_1024_1024.webp",
+        "alt": "Secret game - Juego de dados",
+        "orden": 1
+      }
+    ],
+    "imagenPrincipal": "/imagenes/1788213609069-secretgame2_73e912bfe1c440c63b17628806149201_640_0.webp",
     "categoria": [],
     "tags": [],
     "badges": [],
@@ -1902,7 +1913,7 @@
     "destacado": false,
     "orden": 701,
     "fechaCreacion": "2026-08-30T23:23:49.001Z",
-    "fechaActualizacion": "2026-08-31T21:59:45.856Z"
+    "fechaActualizacion": "2026-08-31T22:00:11.798Z"
   },
   {
     "id": "prod-mtgft2t9-17v1ds",
