@@ -10,13 +10,13 @@
     "precioAnterior": 2500,
     "imagenes": [
       {
-        "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
-        "alt": "Medias Soquetes KP Unisex Talle Adulto",
+        "url": "/imagenes/1788167958874-art_99_kaury_dia_2716340_2_bf54713e5d36d6652617160600273739_1024_1024.webp",
+        "alt": "Pack x 3 Medias invisibles de algodón KP Unisex Talle Adulto",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788167958874-art_99_kaury_dia_2716340_2_bf54713e5d36d6652617160600273739_1024_1024.webp",
-        "alt": "Pack x 3 Medias invisibles de algodón KP Unisex Talle Adulto",
+        "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
+        "alt": "Medias Soquetes KP Unisex Talle Adulto",
         "orden": 1
       },
       {
@@ -59,7 +59,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T21:46:38.216Z"
+    "fechaActualizacion": "2026-08-31T21:46:40.968Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
