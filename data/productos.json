@@ -1767,12 +1767,12 @@
     "precioAnterior": null,
     "imagenes": [
       {
-        "url": "/imagenes/1788131781361-img_9563_ff8cec56372e775b7a16976331565186_640_0.webp",
+        "url": "/imagenes/1788131785064-lovepotion_frutilla_e501cbd8119ccd235c17628813127072_1024_1024.webp",
         "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788131785064-lovepotion_frutilla_e501cbd8119ccd235c17628813127072_1024_1024.webp",
+        "url": "/imagenes/1788131781361-img_9563_ff8cec56372e775b7a16976331565186_640_0.webp",
         "alt": "Aceite Comestible Love Potion Frutilla - 30 ml",
         "orden": 1
       },
@@ -1803,7 +1803,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-30T23:16:27.655Z",
-    "fechaActualizacion": "2026-08-31T00:52:02.840Z"
+    "fechaActualizacion": "2026-08-31T00:52:05.352Z"
   },
   {
     "id": "prod-mtgfq1m2-ozw0w9",
