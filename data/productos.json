@@ -10,12 +10,12 @@
     "precioAnterior": 2500,
     "imagenes": [
       {
-        "url": "/imagenes/1788167542667-d_q_np_614191_mla91138256496_092025_f.webp",
+        "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
         "orden": 0
       },
       {
-        "url": "/imagenes/1788167544668-d_q_np_870104_mla91531567671_092025_f.webp",
+        "url": "/imagenes/1788167542667-d_q_np_614191_mla91138256496_092025_f.webp",
         "alt": "Medias Soquetes KP Unisex Talle Adulto",
         "orden": 1
       },
@@ -54,7 +54,7 @@
     "destacado": false,
     "orden": 0,
     "fechaCreacion": "2026-08-21T00:00:00.000Z",
-    "fechaActualizacion": "2026-08-31T09:12:54.610Z"
+    "fechaActualizacion": "2026-08-31T09:12:59.330Z"
   },
   {
     "id": "prod-mt76709g-q2q6qh",
