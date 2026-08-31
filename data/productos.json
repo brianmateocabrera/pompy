@@ -1303,8 +1303,8 @@
     "nombre": "SEXY PILL BLUE - 4 Cápsulas",
     "descripcion": "Sexy Pill Blue es un suplemento dietario creado especialmente para hombres que buscan elevar su deseo, fortalecer su vigor y optimizar su rendimiento sexual. Su fórmula avanzada combina Ginseng, Guaraná, Ginkgo Biloba, vitaminas, minerales y L-Arginina (250 mg), un aminoácido clave para favorecer la circulación y potenciar la respuesta sexual.\n\nCada comprimido está diseñado para estimular la energía, incrementar la libido y promover encuentros más intensos, firmes y placenteros.\n\n¿Qué beneficios ofrece?\n \n\n🔥 Aumenta la libido y el deseo sexual\n💪 Mejora la energía y el rendimiento\n🩸 L-Arginina para favorecer la circulación\n🌿 Con Ginseng, Guaraná y Ginkgo Biloba\n⚡ Perfecto para momentos en los que querés dar lo mejor de vos",
     "precioCosto": 0,
-    "precio": 18000,
-    "precioAnterior": null,
+    "precio": 16000,
+    "precioAnterior": 18000,
     "imagenes": [
       {
         "url": "/imagenes/1788124574439-sexypills_blue2_9484d0f3bd517a2f6e17628810248239_1024_1024.webp",
@@ -1338,7 +1338,7 @@
     "destacado": false,
     "orden": 401,
     "fechaCreacion": "2026-08-30T21:16:17.758Z",
-    "fechaActualizacion": "2026-08-30T23:05:30.984Z"
+    "fechaActualizacion": "2026-08-31T22:10:56.130Z"
   },
   {
     "id": "prod-mtgbam0l-taxlxg",
