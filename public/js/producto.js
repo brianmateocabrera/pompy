@@ -1,27 +1,22 @@
 /* ------------------------------------------
    PRODUCTO.JS
    Lógica de la vista individual de producto
-   Extraído de producto.html
 ------------------------------------------ */
+
+import {
+    escaparHTML,
+    formatearPrecio,
+    WHATSAPP_NUMERO,
+    addToCart,
+    actualizarBadgeCarrito,
+    renderizarCarrito,
+    activarCarritoBotones,
+    enviarCarritoWhatsApp,
+    obtenerCarrito
+} from './index-tarjetas.js';
 
 const API_URL = '/api/crud';
 const PATH_JSON = 'data/productos.json';
-
-function escaparHTML(texto) {
-    return String(texto ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-}
-
-function formatearPrecio(valor) {
-    return new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS'
-    }).format(Number(valor) || 0);
-}
 
 function obtenerSlug() {
     const parametros = new URLSearchParams(window.location.search);
@@ -71,7 +66,7 @@ function obtenerCategorias(producto) {
 function generarLinkWhatsApp(producto) {
     const nombre = producto.nombre || 'producto';
     const texto = `Hola, quiero consultar por el producto "${nombre}".`;
-    return `https://wa.me/?text=${encodeURIComponent(texto)}`;
+    return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
 }
 
 function renderizarBadges(producto, stock) {
@@ -178,20 +173,33 @@ function renderizarProducto(producto, productos) {
     const meta = renderizarMeta(producto, stock);
     const relacionados = renderizarRelacionados(producto, productos);
 
+    // Datos para el botón de carrito
+    const cartData = escaparHTML(JSON.stringify({
+        slug: producto.slug,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        imagen: obtenerImagen(producto)
+    }));
+
     document.title = producto.nombre || 'Producto';
 
+    // Layout reordenado: galería → precio + botones → descripción → meta
     document.getElementById('contenido').innerHTML = `
         <article class="producto">
-            <section>${renderizarGaleria(producto)}</section>
+            <section class="galeria-seccion">${renderizarGaleria(producto)}</section>
             <section class="informacion">
                 ${badges}
                 <h1>${nombre}</h1>
-                <div><span class="precio">${precio}</span>${precioAnterior}</div>
+                <div class="precio-contenedor"><span class="precio">${precio}</span>${precioAnterior}</div>
+                <div class="botones-accion">
+                    <button class="boton-agregar" data-cart-producto="${cartData}" ${stock <= 0 ? 'disabled' : ''}>
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                    </button>
+                    <a href="${escaparHTML(whatsapp)}" class="boton-whatsapp" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+                    </a>
+                </div>
                 <p class="descripcion">${descripcion}</p>
-                ${stock > 0
-                    ? `<a href="${escaparHTML(whatsapp)}" class="boton-whatsapp" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>`
-                    : `<div class="boton-whatsapp sin-stock">Producto sin stock</div>`
-                }
                 ${meta}
             </section>
         </article>
@@ -199,6 +207,25 @@ function renderizarProducto(producto, productos) {
     `;
 
     activarGaleria();
+    activarBotonCarrito();
+
+    // Actualizar badge al renderizar
+    actualizarBadgeCarrito();
+}
+
+function activarBotonCarrito() {
+    const btn = document.querySelector('.boton-agregar');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        try {
+            const producto = JSON.parse(btn.dataset.cartProducto);
+            addToCart(producto);
+        } catch (e) {
+            console.error('Error al agregar al carrito:', e);
+        }
+    });
 }
 
 function activarGaleria() {
@@ -207,7 +234,21 @@ function activarGaleria() {
 
     document.querySelectorAll('.miniatura').forEach(miniatura => {
         miniatura.addEventListener('click', () => {
-            principal.src = miniatura.dataset.url;
+            // Efecto de deslizamiento suave: opacidad → cambiar src → opacidad
+            principal.style.opacity = '0';
+            principal.style.transform = 'translateX(20px)';
+
+            setTimeout(() => {
+                principal.src = miniatura.dataset.url;
+                principal.style.transform = 'translateX(-20px)';
+
+                // Forzar reflow para que la transición funcue
+                principal.offsetHeight;
+
+                principal.style.transform = 'translateX(0)';
+                principal.style.opacity = '1';
+            }, 200);
+
             document.querySelectorAll('.miniatura').forEach(elemento => {
                 elemento.classList.remove('activa');
             });
@@ -215,6 +256,51 @@ function activarGaleria() {
         });
     });
 }
+
+/* ---------- DRAWER CARRITO ---------- */
+
+const overlay = document.getElementById('overlay');
+
+function abrirCarrito() {
+    const drawer = document.getElementById('drawer-cart');
+    if (drawer) {
+        drawer.classList.add('abierto');
+        overlay.classList.add('visible');
+        renderizarCarrito();
+        activarCarritoBotones();
+    }
+}
+
+function cerrarDrawers() {
+    document.querySelectorAll('.drawer.abierto').forEach(d => d.classList.remove('abierto'));
+    overlay.classList.remove('visible');
+}
+
+// Eventos del header
+document.getElementById('btnCart').addEventListener('click', abrirCarrito);
+document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', cerrarDrawers);
+});
+overlay.addEventListener('click', cerrarDrawers);
+document.getElementById('btnCheckout').addEventListener('click', enviarCarritoWhatsApp);
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') cerrarDrawers();
+});
+
+// Re-renderizar carrito al abrir el drawer
+const cartDrawer = document.getElementById('drawer-cart');
+if (cartDrawer) {
+    const observer = new MutationObserver(() => {
+        if (cartDrawer.classList.contains('abierto')) {
+            renderizarCarrito();
+            activarCarritoBotones();
+        }
+    });
+    observer.observe(cartDrawer, { attributes: true, attributeFilter: ['class'] });
+}
+
+/* ---------- ERRORES ---------- */
 
 function mostrarError(mensaje) {
     document.getElementById('contenido').innerHTML = `
@@ -224,6 +310,8 @@ function mostrarError(mensaje) {
         </div>
     `;
 }
+
+/* ---------- CARGAR PRODUCTO ---------- */
 
 async function cargarProducto() {
     const slug = obtenerSlug();
@@ -246,4 +334,6 @@ async function cargarProducto() {
     }
 }
 
+// Inicializar badge y cargar producto
+actualizarBadgeCarrito();
 cargarProducto();
