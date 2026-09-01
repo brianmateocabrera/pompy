@@ -103,7 +103,8 @@ header {
 .drawer {
     position: fixed;
     top: 0;
-    bottom: 0;
+    
+bottom: 0;
     width: 300px;
     max-width: 85vw;
     z-index: 1100;
@@ -228,7 +229,8 @@ header {
 }
 
 .cart-item-precio {
-    margin: 0 0 6px;
+    margin: 0 
+0 6px;
     color: #0070f3;
     font-size: 14px;
     font-weight: bold;
@@ -343,7 +345,8 @@ header {
 
 /* ------------------------------------------
    CONTENIDO
------------------------------------------- */
+------------------------------------------ *
+/
 
 main {
     width: min(1200px, calc(100% - 30px));
@@ -568,7 +571,8 @@ main {
 .meta {
     margin-top: 0;
     padding-top: 20px;
-    border-top: 1px solid #eee;
+    border
+-top: 1px solid #eee;
 }
 
 .meta p {
@@ -771,4 +775,30 @@ main {
     .relacionado-imagen {
         height: 160px;
     }
+}
+/* BOTON FAVORITO EN PRODUCTO */
+.btn-fav-producto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform .2s ease, color .2s ease, border-color .2s ease, background .2s ease;
+}
+.btn-fav-producto:hover {
+    transform: scale(1.1);
+    color: #ff0040;
+    border-color: #ff0040;
+}
+.btn-fav-producto.activo {
+    color: #ff0040;
+    border-color: #ff0040;
+    background: rgba(255, 0, 64, .05);
 }

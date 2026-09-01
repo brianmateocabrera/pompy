@@ -12,7 +12,10 @@ import {
     renderizarCarrito,
     activarCarritoBotones,
     enviarCarritoWhatsApp,
-    obtenerCarrito
+    obtenerCarrito,
+    toggleFav,
+    esFavorito,
+    actualizarBadgeFavoritos
 } from './index-tarjetas.js';
 
 const API_URL = '/api/crud';
@@ -110,7 +113,8 @@ function renderizarGaleria(producto) {
 
     return `
         <div class="imagen-principal-contenedor">
-            <img id="imagenPrincipal" src="${escaparHTML(principal)}" class="imagen-principal"
+ 
+           <img id="imagenPrincipal" src="${escaparHTML(principal)}" class="imagen-principal"
                 alt="${escaparHTML(producto.nombre)}" onerror="this.src='/imagenes/no-image.webp'">
         </div>
         ${imagenes.length > 1 ? `<div class="galeria">${miniaturas}</div>` : ''}
@@ -195,6 +199,9 @@ function renderizarProducto(producto, productos) {
                     <button class="boton-agregar" data-cart-producto="${cartData}" ${stock <= 0 ? 'disabled' : ''}>
                         <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
                     </button>
+                    <button class="btn-fav-producto${esFavorito(producto.slug) ? ' activo' : ''}" data-fav-slug="${escaparHTML(producto.slug)}" aria-label="Favorito">
+                        <i class="fa-${esFavorito(producto.slug) ? 'solid' : 'regular'} fa-heart"></i>
+                    </button>
                     <a href="${escaparHTML(whatsapp)}" class="boton-whatsapp" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
                     </a>
@@ -208,9 +215,11 @@ function renderizarProducto(producto, productos) {
 
     activarGaleria();
     activarBotonCarrito();
+    activarBotonFav();
 
     // Actualizar badge al renderizar
     actualizarBadgeCarrito();
+    actualizarBadgeFavoritos();
 }
 
 function activarBotonCarrito() {
@@ -225,6 +234,15 @@ function activarBotonCarrito() {
         } catch (e) {
             console.error('Error al agregar al carrito:', e);
         }
+    });
+}
+
+function activarBotonFav() {
+    const btn = document.querySelector('.btn-fav-producto');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        const slug = btn.dataset.favSlug;
+        if (slug) toggleFav(slug);
     });
 }
 

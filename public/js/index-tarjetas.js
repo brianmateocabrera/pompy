@@ -28,6 +28,28 @@ export function obtenerImagenPrincipal(producto) {
         '/imagenes/no-image.webp';
 }
 
+/* ---------- TOAST (notificacion sutil) ---------- */
+
+let toastTimeout = null;
+
+export function mostrarToast(mensaje, tipo = 'info') {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = mensaje;
+    toast.className = 'toast toast-' + tipo;
+    toast.classList.add('toast-visible');
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove('toast-visible');
+    }, 2500);
+}
+
 /* ---------- FAVORITOS (localStorage) ---------- */
 
 function obtenerFavoritos() {
@@ -42,21 +64,31 @@ function guardarFavoritos(lista) {
     localStorage.setItem('pompy-favoritos', JSON.stringify(lista));
 }
 
-function esFavorito(slug) {
+export function esFavorito(slug) {
     return obtenerFavoritos().includes(slug);
 }
 
 export function toggleFav(slug) {
     if (!slug) return;
     let favs = obtenerFavoritos();
-    if (favs.includes(slug)) {
+    const estaba = favs.includes(slug);
+    if (estaba) {
         favs = favs.filter(s => s !== slug);
     } else {
         favs.push(slug);
     }
     guardarFavoritos(favs);
     actualizarBadgeFavoritos();
+    mostrarToast(estaba ? 'Eliminado de favoritos' : 'Agregado a favoritos', estaba ? 'info' : 'fav');
     document.querySelectorAll(`.card[data-slug="${slug}"] .btn-fav`).forEach(btn => {
+        const activo = favs.includes(slug);
+        btn.classList.toggle('activo', activo);
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = activo ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+        }
+    });
+    document.querySelectorAll('.btn-fav-producto').forEach(btn => {
         const activo = favs.includes(slug);
         btn.classList.toggle('activo', activo);
         const icon = btn.querySelector('i');
@@ -71,6 +103,7 @@ export function actualizarBadgeFavoritos() {
     const count = obtenerFavoritos().length;
     if (badge) {
  
+
        badge.textContent = count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
@@ -137,7 +170,8 @@ export function actualizarBadgeCarrito() {
     const carrito = obtenerCarrito();
     const count = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
     if (badge) {
-        badge.textContent =
+        badge.textContent 
+=
  count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
@@ -282,7 +316,8 @@ export function crearTarjeta(producto) {
                 </p>
                 <div class="card-botones">
                     <a class="boton-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWhatsApp}"
-                        target="_blank" rel="noopener noreferrer" aria-label="Consultar ${nombre} por WhatsApp">
+                        target="_blank" rel="noopener noreferrer" 
+aria-label="Consultar ${nombre} por WhatsApp">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                     <button class="btn-add-cart" data-cart-producto="${cartData}" aria-label="Agregar al carrito">

@@ -119,6 +119,10 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
+    // Skeleton mientras carga
+    catalogo.innerHTML = Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-line-short"></div><div class="skeleton-line skeleton-line-price"></div></div>').join('');
+    resultadoInfo.textContent = 'Cargando...';
+
     try {
         const respuesta = await fetch(API_URL, {
             method: 'POST',
@@ -262,20 +266,19 @@ function renderizarFavoritos() {
         favs = [];
     }
 
-    if (favs.length === 0) {
-        alert('No tienes favoritos aún. Toca el corazón en cualquier producto para guardarlo aquí.');
-        return;
-    }
-
     setBusquedaValue('');
     setCategoriaValue('');
     setDisponibilidadValue('');
-
+    if (favs.length === 0) {
+        resultadoInfo.textContent = '0 favoritos';
+        catalogo.innerHTML = '<div class="favoritos-vacio"><i class="fa-regular fa-heart"></i><h2>No tienes favoritos aún</h2><p>Toca el <i class="fa-solid fa-heart"></i> en cualquier producto para guardarlo aquí.</p></div>';
+        document.querySelector('.catalogo-sticky').scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
     const listaFavs = productos.filter(p => favs.includes(p.slug));
     resultadoInfo.textContent = listaFavs.length === 1 ? '1 favorito' : `${listaFavs.length} favoritos`;
-
     if (listaFavs.length === 0) {
-        catalogo.innerHTML = '<div class="sin-resultados">No tienes productos favoritos guardados.</div>';
+        catalogo.innerHTML = '<div class="sin-resultados">Tus productos favoritos ya no están disponibles.</div>';
     } else {
         catalogo.innerHTML = listaFavs.map(p => crearTarjeta(p)).join('');
         activarGalerias();
@@ -399,6 +402,18 @@ const badge1 = document.getElementById('cartBadge');
 if (badge1) {
     const badgeObserver = new MutationObserver(sincronizarBadges);
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
+}
+
+/* ---------- BOTON VOLVER ARRIBA ---------- */
+
+const btnTop = document.getElementById('btnTop');
+if (btnTop) {
+    window.addEventListener('scroll', () => {
+        btnTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    btnTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
 /* ---------- INICIALIZACIÓN ---------- */
