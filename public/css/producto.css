@@ -1,0 +1,464 @@
+/* ------------------------------------------
+   PRODUCTO.CSS
+   Estilos para la vista individual de producto
+   Extraídos de producto.html
+------------------------------------------ */
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Tinos', 'Segoe UI', Arial, sans-serif;
+            background: #f5f6f8;
+            color: #222;
+        }
+
+
+        /* ------------------------------------------
+           HEADER
+        ------------------------------------------ */
+
+        header {
+            background: #000;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            height: 70px;
+        }
+
+        .header-container {
+            width: min(1200px, calc(100% - 30px));
+            height: 100%;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .volver {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: opacity 0.2s ease;
+        }
+
+        .volver:hover {
+            opacity: 0.7;
+        }
+
+
+        /* ------------------------------------------
+           CONTENIDO
+        ------------------------------------------ */
+
+        main {
+            width: min(1200px, calc(100% - 30px));
+            margin: 30px auto 50px;
+        }
+
+
+        /* ------------------------------------------
+           PRODUCTO
+        ------------------------------------------ */
+
+       
+ .producto {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1.1fr)
+                minmax(320px, 0.9fr);
+
+            gap: 35px;
+
+            background: white;
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+
+        /* ------------------------------------------
+           IMÁGENES
+        ------------------------------------------ */
+
+        .imagen-principal-contenedor {
+            background: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .imagen-principal {
+            display: block;
+            width: 100%;
+            height: 520px;
+            object-fit: contain;
+            background: #eee;
+        }
+
+        .galeria {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            overflow-x: auto;
+            padding-bottom: 3px;
+        }
+
+        .miniatura {
+            width: 75px;
+            height: 75px;
+
+            flex: 0 0 75px;
+
+            object-fit: cover;
+
+            border: 2px solid transparent;
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .miniatura:hover {
+            opacity: 0.8;
+        }
+
+        .miniatura.activa {
+            border-color: #0070f3;
+        }
+
+
+        /* ------------------------------------------
+           INFORMACIÓN
+        ------------------------------------------ */
+
+        .informacion {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .informacion h1 {
+            margin: 0 0 15px;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .descripcion {
+            color: #666;
+            line-height: 1.6;
+            margin: 22px 0;
+            white-space: pre-line;
+        }
+
+
+        /* -------------------
+-----------------------
+           BADGES
+        ------------------------------------------ */
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            padding: 6px 9px;
+            border-radius: 5px;
+            background: #111;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge.destacado {
+            background: #d18b00;
+        }
+
+        .badge.sin-stock {
+            background: #777;
+        }
+
+
+        /* ------------------------------------------
+           PRECIO
+        ------------------------------------------ */
+
+        .precio {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0070f3;
+        }
+
+        .precio-anterior {
+            margin-left: 10px;
+            color: #888;
+            font-size: 17px;
+            text-decoration: line-through;
+        }
+
+
+        /* ------------------------------------------
+           WHATSAPP
+        ------------------------------------------ */
+
+        .boton-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            width: 100%;
+
+            margin-top: 10px;
+            padding: 13px 16px;
+
+            border-radius: 6px;
+
+            background: #25d366;
+            color: white;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .boton-whatsapp:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+        }
+
+        .boton-whatsapp:focus {
+            outline: 2px solid #0070f3;
+            outline-offset: 2px;
+        }
+
+        .boton-whatsapp.sin-stock {
+            background: #999;
+            pointer-events: none;
+        }
+
+
+
+        /* ------------------------------------------
+           METADATA
+        ------------------------------------------ */
+
+        .meta {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .meta p {
+            margin: 9px 0;
+            color: #555;
+        }
+
+        .meta strong {
+            color: #222;
+        }
+
+
+        /* ------------------------------------------
+           PRODUCTOS RELACIONADOS
+        ------------------------------------------ */
+
+        .relacionados {
+            margin-top: 40px;
+        }
+
+        .relacionados-titulo {
+            margin: 0 0 15px;
+            font-size: 24px;
+        }
+
+        .relacionados-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+        .relacionado {
+            display: flex;
+            flex-direction: column;
+
+            background: white;
+
+            border-radius: 10px;
+            overflow: hidden;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.07);
+
+            text-decoration: none;
+            color: inherit;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .relacionado:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.11);
+        }
+
+        .relacionado-imagen {
+            width: 100%;
+            height: 220px;
+
+            display: block;
+
+            object-fit: cover;
+
+            background: #eee;
+        }
+
+        .relacionado-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            padding: 14px;
+        }
+
+        .relacionado-nombre {
+            margin: 0 0 8px;
+
+            font-size: 17px;
+            line-height: 1.25;
+        }
+
+        .relacionado-precio {
+            margin: auto 0 0;
+
+
+            padding-top: 8px;
+
+            font-size: 19px;
+            font-weight: bold;
+
+            color: #0070f3;
+        }
+
+
+        /* ------------------------------------------
+           ERROR
+        ------------------------------------------ */
+
+        .error {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .error a {
+            color: #0070f3;
+        }
+
+
+        /* ------------------------------------------
+           MÓVIL
+        ------------------------------------------ */
+
+        @media (max-width: 750px) {
+
+            header {
+                height: 60px;
+            }
+
+            .producto {
+                grid-template-columns: 1fr;
+                padding: 15px;
+                gap: 25px;
+            }
+
+            .imagen-principal {
+                height: 380px;
+            }
+
+            .informacion h1 {
+                font-size: 25px;
+            }
+
+            .precio {
+                font-size: 26px;
+            }
+
+            .relacionados-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 12px;
+            }
+
+            .relacionado-imagen {
+                height: 190px;
+            }
+
+            .relacionado-info {
+                padding: 11px;
+            }
+
+            .relacionado-nombre {
+                font-size: 15px;
+            }
+
+            .relacionado-precio {
+                font-size: 17px;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            main {
+                width: calc(100% - 20px);
+                margin-top: 15px;
+            }
+
+            .imagen-principal {
+                height: 300px;
+            }
+
+            .informacion h1 {
+                font-size: 23px;
+            }
+
+            .relacionados {
+                margin-top: 30px;
+            }
+
+            .relacionados-titulo {
+                font-siz
+e: 21px;
+            }
+
+            .relacionado-imagen {
+                height: 160px;
+            }
+        }
+
