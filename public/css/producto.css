@@ -104,6 +104,7 @@ header {
     position: fixed;
     top: 0;
     
+
 bottom: 0;
     width: 300px;
     max-width: 85vw;
@@ -229,7 +230,8 @@ bottom: 0;
 }
 
 .cart-item-precio {
-    margin: 0 
+    margin: 0
+ 
 0 6px;
     color: #0070f3;
     font-size: 14px;
@@ -345,7 +347,8 @@ bottom: 0;
 
 /* ------------------------------------------
    CONTENIDO
------------------------------------------- *
+------------------------------------------
+ *
 /
 
 main {
@@ -458,7 +461,8 @@ main {
 
 .botones-accion {
     display: flex;
-    flex-direction: column;
+    flex
+-direction: column;
     gap: 10px;
     margin-bottom: 22px;
 }
@@ -800,3 +804,27 @@ main {
     border-color: #d63384;
     background: rgba(214, 51, 132, 0.05);
 }
+
+/* Breadcrumbs */
+.breadcrumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #999; padding: 12px 0 0; flex-wrap: wrap;
+}
+.breadcrumbs a { color: #d63384; text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs i { font-size: 9px; }
+.breadcrumbs span { color: #666; font-weight: 500; }
+
+/* Zoom de imagen */
+.imagen-principal-contenedor { position: relative; cursor: zoom-in; touch-action: pinch-zoom; }
+.imagen-principal.zoom-activa { cursor: zoom-out; }
+.imagen-principal { transform-origin: center center; transition: transform 0.3s ease, opacity .25s ease; }
+.imagen-principal-contenedor.zooming .imagen-principal { transition: none; }
+.zoom-indicador {
+    position: absolute; bottom: 8px; right: 8px;
+    background: rgba(0,0,0,0.5); color: #fff; border-radius: 50%;
+    width: 32px; height: 32px; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; pointer-events: none;
+    transition: opacity 0.3s;
+}
+.imagen-principal-contenedor.zooming .zoom-indicador { opacity: 0; }

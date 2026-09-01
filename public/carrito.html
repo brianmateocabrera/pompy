@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito — POMPY</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/carrito.css" />
+</head>
+<body>
+    <header class="header-carrito">
+        <a href="/" class="carrito-back" aria-label="Volver">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="carrito-title">Mi carrito</h1>
+        <button class="header-fav-cart" id="btnCart" aria-label="Carrito">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span id="cartBadge" class="badge-contador" style="display:none"></span>
+        </button>
+    </header>
+
+    <div class="drawer" id="drawer-cart">
+        <div class="drawer-header">
+            <h2>Tu carrito</h2>
+            <button class="drawer-close" data-close aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="drawer-body" id="cartItems"></div>
+        <div class="drawer-footer">
+            <div class="checkout-datos">
+                <input type="text" id="checkoutNombre" placeholder="Tu nombre" autocomplete="name" />
+                <input type="text" id="checkoutDireccion" placeholder="Dirección de envío (opcional)" autocomplete="street-address" />
+            </div>
+            <div class="cart-total">Total: <span id="cartTotal">$0</span></div>
+            <button class="btn-checkout" id="btnCheckout">Enviar por WhatsApp</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main class="contenedor-carrito">
+        <nav class="breadcrumbs">
+            <a href="/index.html">Inicio</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Carrito</span>
+        </nav>
+
+        <div id="pagina-carrito" class="carrito-pagina">
+            <div class="carrito-layout">
+                <div class="carrito-items-seccion">
+                    <h2 class="seccion-titulo">Productos</h2>
+                    <div id="carritoItemsLista" class="carrito-items-lista"></div>
+                </div>
+                <aside class="carrito-resumen">
+                    <h2 class="seccion-titulo">Resumen del pedido</h2>
+                    <div class="resumen-linea">
+                        <span>Subtotal</span>
+                        <span id="resumenSubtotal">$0</span>
+                    </div>
+                    <div class="resumen-linea">
+                        <span>Envío</span>
+                        <span id="resumenEnvio">A calcular</span>
+                    </div>
+                    <div class="resumen-linea descuento-linea" id="descuentoLinea" style="display:none">
+                        <span>Descuento</span>
+                        <span id="resumenDescuento">$0</span>
+                    </div>
+                    <div class="resumen-linea resumen-total">
+                        <span>Total</span>
+                        <span id="resumenTotal">$0</span>
+                    </div>
+
+                    <div class="cupon-seccion">
+                        <label for="cuponInput">Código de descuento</label>
+                        <div class="cupon-input-group">
+                            <input type="text" id="cuponInput" placeholder="Ingresa tu código" />
+                            <button id="btnAplicarCupon" class="btn-aplicar-cupon">Aplicar</button>
+                        </div>
+                        <p class="cupon-mensaje" id="cuponMensaje"></p>
+                    </div>
+
+                    <div class="envio-seccion">
+                        <label>Opciones de envío</label>
+                        <div class="envio-opciones">
+                            <label class="envio-opcion">
+                                <input type="radio" name="envio" value="retiro" checked />
+                                <div class="envio-info">
+                                    <i class="fa-solid fa-store"></i>
+                                    <div>
+                                        <span class="envio-nombre">Retiro en tienda</span>
+                                        <span class="envio-precio">Gratis</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="envio-opcion">
+                                <input type="radio" name="envio" value="domicilio" />
+                                <div class="envio-info">
+                                    <i class="fa-solid fa-truck"></i>
+                                    <div>
+                                        <span class="envio-nombre">Envío a domicilio</span>
+                                        <span class="envio-precio">$2.500</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="checkout-datos checkout-datos-pagina">
+                        <input type="text" id="checkoutNombrePagina" placeholder="Tu nombre" autocomplete="name" />
+                        <input type="text" id="checkoutDireccionPagina" placeholder="Dirección de envío (opcional)" autocomplete="street-address" />
+                    </div>
+
+                    <button id="btnCheckoutPagina" class="btn-checkout-pagina">
+                        <i class="fa-brands fa-whatsapp"></i> Enviar pedido por WhatsApp
+                    </button>
+                    <a href="/index.html" class="btn-seguir-comprando">
+                        <i class="fa-solid fa-arrow-left"></i> Seguir comprando
+                    </a>
+                </aside>
+            </div>
+        </div>
+
+        <div id="carrito-vacio" class="carrito-vacio" style="display:none">
+            <i class="fa-solid fa-cart-shopping" style="font-size:48px;color:#ddd"></i>
+            <h3>Tu carrito está vacío</h3>
+            <p>Explora el catálogo y agrega los productos que te gusten.</p>
+            <a href="/index.html" class="btn-ir-catalogo"><i class="fa-solid fa-store"></i> Ir al catálogo</a>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/index.html" class="bottom-nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="/favoritos.html" class="bottom-nav-item">
+            <i class="fa-solid fa-heart"></i>
+            <span>Favoritos</span>
+            <span id="favBadge" class="badge-contador" style="display:none"></span>
+        </a>
+        <a href="/carrito.html" class="bottom-nav-item activo">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Carrito</span>
+            <span id="cartBadge2" class="badge-contador" style="display:none"></span>
+        </a>
+        <a href="/blog.html" class="bottom-nav-item">
+            <i class="fa-solid fa-blog"></i>
+            <span>Blog</span>
+        </a>
+    </nav>
+
+    <script type="module" src="/js/carrito.js"></script>
+</body>
+</html>

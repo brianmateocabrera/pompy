@@ -67,7 +67,8 @@ function obtenerCategorias(producto) {
 }
 
 function generarLinkWhatsApp(producto) {
-    const nombre = producto.nombre || 'producto';
+  
+  const nombre = producto.nombre || 'producto';
     const texto = `Hola, quiero consultar por el producto "${nombre}".`;
     return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
 }
@@ -111,7 +112,8 @@ function renderizarGaleria(producto) {
             class="miniatura ${imagen.url === principal ? 'activa' : ''}" data-url="${escaparHTML(imagen.url)}">
     `).join('');
 
-    return `
+   
+ return `
         <div class="imagen-principal-contenedor">
  
            <img id="imagenPrincipal" src="${escaparHTML(principal)}" class="imagen-principal"
@@ -189,6 +191,7 @@ function renderizarProducto(producto, productos) {
 
     // Layout reordenado: galería → precio + botones → descripción → meta
     document.getElementById('contenido').innerHTML = `
+        <nav class="breadcrumbs">${renderizarBreadcrumbs(producto)}</nav>
         <article class="producto">
             <section class="galeria-seccion">${renderizarGaleria(producto)}</section>
             <section class="informacion">
@@ -241,32 +244,101 @@ function activarGaleria() {
 
     document.querySelectorAll('.miniatura').forEach(miniatura => {
         miniatura.addEventListener('click', () => {
-            // Efecto de deslizamiento suave: opacidad → cambiar src → opacidad
             principal.style.opacity = '0';
             principal.style.transform = 'translateX(20px)';
-
             setTimeout(() => {
                 principal.src = miniatura.dataset.url;
                 principal.style.transform = 'translateX(-20px)';
-
-                // Forzar reflow para que la transición funcue
                 principal.offsetHeight;
-
                 principal.style.transform = 'translateX(0)';
                 principal.style.opacity = '1';
             }, 200);
-
-            document.querySelectorAll('.miniatura').forEach(elemento => {
-                elemento.classList.remove('activa');
-            });
+            document.querySelectorAll('.miniatura').forEach(elemento => elemento.classList.remove('activa'));
             miniatura.classList.add('activa');
         });
+    });
+
+    // Zoom de imagen: tap para ampliar, pinch en móvil
+    const contenedor = principal.closest('.imagen-principal-contenedor');
+    if (!contenedor) return;
+
+    let scale = 1, translateX = 0, translateY = 0;
+    let startX = 0, startY = 0, startTX = 0, startTY = 0;
+    let pinchStartScale = 1, initialDistance = 0;
+    let zoomActivo = false;
+
+    const indicador = document.createElement('div');
+    indicador.className = 'zoom-indicador';
+    indicador.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+    contenedor.appendChild(indicador);
+
+    function setTransform() {
+        principal.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px) scale(' + scale + ')';
+    }
+    function resetZoom() {
+        zoomActivo = false; scale = 1; translateX = 0; translateY = 0;
+        principal.style.transition = 'transform 0.3s ease, opacity .25s ease';
+        principal.style.transform = 'translate(0,0) scale(1)';
+        contenedor.classList.remove('zooming');
+        principal.classList.remove('zoom-activa');
+    }
+    function getDistance(t1, t2) {
+        const dx = t1.clientX - t2.clientX, dy = t1.clientY - t2.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    // Tap / click para toggle zoom (desktop)
+    principal.addEventListener('click', (e) => {
+        if (zoomActivo) { resetZoom(); return; }
+        zoomActivo = true; scale = 2;
+        contenedor.classList.add('zooming');
+        principal.classList.add('zoom-activa');
+        const r = principal.getBoundingClientRect();
+        translateX = -((e.clientX - r.left - r.width / 2) * (scale - 1));
+        translateY = -((e.clientY - r.top - r.height / 2) * (scale - 1));
+        setTransform();
+    });
+    principal.addEventListener('dblclick', resetZoom);
+
+    // Pinch zoom (móvil)
+    contenedor.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            initialDistance = getDistance(e.touches[0], e.touches[1]);
+            pinchStartScale = scale;
+        } else if (e.touches.length === 1 && zoomActivo) {
+            startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+            startTX = translateX; startTY = translateY;
+        }
+        principal.style.transition = 'none';
+    }, { passive: false });
+
+    contenedor.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const d = getDistance(e.touches[0], e.touches[1]);
+            scale = Math.max(1, Math.min(4, pinchStartScale * (d / initialDistance)));
+            contenedor.classList.add('zooming');
+            if (scale > 1) principal.classList.add('zoom-activa');
+            setTransform();
+        } else if (e.touches.length === 1 && zoomActivo) {
+            e.preventDefault();
+            translateX = startTX + (e.touches[0].clientX - startX);
+            translateY = startTY + (e.touches[0].clientY - startY);
+            setTransform();
+        }
+    }, { passive: false });
+
+    contenedor.addEventListener('touchend', () => {
+        if (scale <= 1.05) resetZoom();
+        else zoomActivo = true;
     });
 }
 
 /* ---------- DRAWER CARRITO ---------- */
 
-const overlay = document.getElementById('overlay');
+const overlay = document.getElementById('overlay'
+);
 
 function abrirCarrito() {
     const drawer = document.getElementById('drawer-cart');
@@ -331,7 +403,8 @@ async function cargarProducto() {
         const productos = await cargarProductos();
         const producto = productos.find(item => item.slug === slug && item.activo !== false);
         if (!producto) {
-            mostrarError('El producto no existe o no está disponible.');
+            mostrarError('El producto no existe o no est
+á disponible.');
             return;
         }
         renderizarProducto(producto, productos);
@@ -349,4 +422,12 @@ function activarBotonFav(producto) {
     const btn = document.querySelector('.btn-fav-producto');
     if (!btn) return;
     btn.addEventListener('click', () => toggleFav(producto.slug));
+}
+
+function renderizarBreadcrumbs(producto) {
+    const cats = obtenerCategorias(producto);
+    const catLink = cats.length > 0
+        ? '<a href="/index.html?categoria=' + encodeURIComponent(cats[0]) + '">' + escaparHTML(cats[0]) + '</a><i class="fa-solid fa-chevron-right"></i>'
+        : '';
+    return '<a href="/index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i>' + catLink + '<span>' + escaparHTML(producto.nombre || 'Producto') + '</span>';
 }

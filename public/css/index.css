@@ -224,6 +224,7 @@ main {
     background: #000;
     color: inherit;
     text-decoration
+
 : none;
 }
 
@@ -464,7 +465,8 @@ main {
 
 .btn-fav:hover {
     transform: scale(1.15);
-    color: #ff0040;
+    
+color: #ff0040;
 }
 
 .btn-fav.activo {
@@ -594,7 +596,8 @@ main {
     color: #b00020;
 }
 
-/* DESTACADOS
+/* DESTACAD
+OS
  */
 
 .destacados {
@@ -718,7 +721,8 @@ main {
 }
 
 .menu-link {
-    display: flex;
+  
+  display: flex;
     align-items: center;
     gap: 12px;
     padding: 14px 12px;
@@ -838,7 +842,8 @@ main {
 }
 
 .radio-opcion:hover {
-    background: #f5f6f8;
+    background: 
+#f5f6f8;
 }
 
 .radio-opcion input {
@@ -958,6 +963,7 @@ main {
     border-radius: 8px;
     background: #f8f9fa;
 }
+
 
 .cart-item-img {
     width: 60px;
@@ -1079,7 +1085,8 @@ main {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 14px;
+   
+ padding: 14px;
     border: 0;
     border-radius: 8px;
     background: #25d366;
@@ -1307,7 +1314,8 @@ main {
         border-radius: 6px;
         background: #fff;
         font: inherit;
-    }
+  
+  }
 
     .filtros-desktop select:focus {
         outline: 0;
@@ -1639,3 +1647,23 @@ main {
     color: #999;
     font-size: 14px;
 }
+
+/* Animación de badge (pop) */
+.badge-contador.badge-pop {
+    animation: badge-pop-anim 0.4s ease;
+}
+@keyframes badge-pop-anim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #999; flex-wrap: wrap;
+}
+.breadcrumbs a { color: #d63384; text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs i { font-size: 9px; }
+.breadcrumbs span { color: #666; font-weight: 500; }

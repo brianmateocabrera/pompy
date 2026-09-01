@@ -127,12 +127,17 @@ export function addToCart(producto) {
     }
     guardarCarrito(carrito);
     actualizarBadgeCarrito();
-    const drawer = document.getElementById('drawer-cart');
-    if (drawer) {
-        drawer.classList.add('abierto');
-        const overlayEl = document.getElementById('overlay');
-        if (overlayEl) overlayEl.classList.add('visible');
-    }
+    animarBadgeCarrito();
+    mostrarToast(existente ? 'Cantidad actualizada en el carrito' : 'Producto agregado al carrito');
+}
+
+export function animarBadgeCarrito() {
+    document.querySelectorAll('.badge-contador').forEach(badge => {
+        if (badge.id === 'favBadge') return;
+        badge.classList.remove('badge-pop');
+        void badge.offsetWidth;
+        badge.classList.add('badge-pop');
+    });
 }
 
 export function removeFromCart(slug) {
@@ -191,7 +196,8 @@ export function renderizarCarrito() {
                     <div class="cart-item-cantidad">
                         <button class="btn-cantidad" data-action="restar" data-slug="${escaparHTML(item.slug)}" aria-label="Restar">-</button>
                         <span>${item.cantidad || 1}</span>
-                        <button class="btn-cantidad" data-action="sumar" data-slug="${escaparHTML(item.slug)}" aria-label="Sumar">+</button>
+        
+                <button class="btn-cantidad" data-action="sumar" data-slug="${escaparHTML(item.slug)}" aria-label="Sumar">+</button>
                     </div>
                 </div>
                 <button class="cart-item-eliminar" data-action="eliminar" data-slug="${escaparHTML(item.slug)}" aria-label="Eliminar">
@@ -236,7 +242,8 @@ export function activarCarritoBotones() {
         btn.addEventListener('click', () => {
             const action = btn.dataset.action;
             const slug = btn.dataset.slug;
-            if (action === 'sumar') cambiarCantidadCarrito(slug, 1);
+            if (action === 'sumar') cambiarCantidadCarrito(slug, 
+1);
             else if (action === 'restar') cambiarCantidadCarrito(slug, -1);
             else if (action === 'eliminar') removeFromCart(slug);
         });
@@ -293,6 +300,7 @@ export function crearTarjeta(producto) {
                 <img src="${imagenPrincipal}" class="card-img" alt="${nombre}" loading="lazy"
                     onerror="this.src='/imagenes/no-image.webp'">
                 <div class="badge-contenedor">${badges}${sinStock}</div>
+
                 <button class="btn-fav${favActivo}" data-fav-slug="${slug}" aria-label="Favorito">
                     <i class="fa-${favActivo.trim() ? 'solid' : 'regular'} fa-heart"></i>
                 </button>
@@ -341,7 +349,8 @@ export function activarTarjetas() {
     });
 
     document.querySelectorAll('.btn-fav[data-fav-slug]').forEach(btn => {
-        btn.addEventListener('click', event => {
+        btn.addEventListener('click'
+, event => {
             event.stopPropagation();
             const slug = btn.dataset.favSlug;
             if (slug) toggleFav(slug);

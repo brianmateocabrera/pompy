@@ -51,6 +51,7 @@ function renderizarFavoritos() {
     catalogo.innerHTML = listaFavs.map(p => crearTarjeta(p)).join('');
     activarGalerias();
     activarTarjetas();
+
 }
 
 const drawerCart = document.getElementById('drawer-cart');

@@ -119,7 +119,8 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
-    // Mostrar skeleton mientras carga
+    // Mostrar skele
+ton mientras carga
     catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
 
     try {
@@ -172,7 +173,8 @@ function cargarCategorias() {
     const menuCategorias = document.getElementById('menuCategoriasLista');
     if (menuCategorias) {
         menuCategorias.innerHTML = lista.map(nombre =>
-            `<a href="#" class="menu-categoria-link" data-categoria="${escaparHTML(nombre)}">${escaparHTML(nombre)}</a>`
+            `<a href="#" class="menu-categoria-link" data-categoria="${escaparHTM
+L(nombre)}">${escaparHTML(nombre)}</a>`
         ).join('');
 
         menuCategorias.querySelectorAll('.menu-categoria-link').forEach(link => {
@@ -233,7 +235,8 @@ function obtenerProductosFiltrados() {
             resultado.sort((a, b) => (Number(a.orden) || 0) - (Number(b.orden) || 0));
     }
 
-    return resultado;
+   
+ return resultado;
 }
 
 /* ---------- RENDERIZAR ---------- */
@@ -294,7 +297,8 @@ function renderizarFavoritos() {
 if (busqueda) busqueda.addEventListener('input', renderizar);
 if (busquedaMobile) busquedaMobile.addEventListener('input', () => {
     if (busqueda) busqueda.value = busquedaMobile.value;
-    renderizar();
+    renderizar()
+;
 });
 
 // Filtros móvil (drawers)
@@ -405,7 +409,8 @@ if (badge1) {
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
 }
 
-/* ---------- INICIALIZACIÓN ---------- */
+/* ---------- INICIALIZACIÓN -
+--------- */
 
 configurarIndicadoresBanners(banners);
 cargarBanners(banners);
