@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favoritos — POMPY</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/favoritos.css" />
+</head>
+<body>
+    <header class="header-fav">
+        <a href="/index.html" class="header-fav-back" aria-label="Volver">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="header-fav-title">Favoritos</h1>
+        <button class="header-fav-cart" id="btnCart" aria-label="Carrito">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span id="cartBadge" class="badge-contador" style="display:none"></span>
+        </button>
+    </header>
+
+    <div class="drawer" id="drawer-cart">
+        <div class="drawer-header">
+            <h2>Tu carrito</h2>
+            <button class="drawer-close" data-close aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="drawer-body" id="cartItems"></div>
+        <div class="drawer-footer">
+            <div class="checkout-datos">
+                <input type="text" id="checkoutNombre" placeholder="Tu nombre" autocomplete="name" />
+                <input type="text" id="checkoutDireccion" placeholder="Dirección de envío (opcional)" autocomplete="street-address" />
+            </div>
+            <div class="cart-total">Total: <span id="cartTotal">$0</span></div>
+            <button class="btn-checkout" id="btnCheckout">Enviar por WhatsApp</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main class="contenedor-fav">
+        <div class="favoritos-header">
+            <h2>Mis favoritos</h2>
+            <p class="favoritos-sub">Los productos que guardaste para después</p>
+        </div>
+        <div id="catalogo" class="catalogo-grid"></div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/index.html" class="bottom-nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="/favoritos.html" class="bottom-nav-item activo">
+            <i class="fa-solid fa-heart"></i>
+            <span>Favoritos</span>
+            <span id="favBadge" class="badge-contador" style="display:none"></span>
+        </a>
+        <button class="bottom-nav-item" id="navCart">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Carrito</span>
+            <span id="cartBadge2" class="badge-contador" style="display:none"></span>
+        </button>
+        <a href="/blog.html" class="bottom-nav-item">
+            <i class="fa-solid fa-blog"></i>
+            <span>Blog</span>
+        </a>
+    </nav>
+
+    <script type="module" src="/js/favoritos.js"></script>
+</body>
+</html>

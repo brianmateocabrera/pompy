@@ -119,9 +119,8 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
-    // Skeleton mientras carga
-    catalogo.innerHTML = Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line skeleton-line-short"></div><div class="skeleton-line skeleton-line-price"></div></div>').join('');
-    resultadoInfo.textContent = 'Cargando...';
+    // Mostrar skeleton mientras carga
+    catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
 
     try {
         const respuesta = await fetch(API_URL, {
@@ -266,19 +265,21 @@ function renderizarFavoritos() {
         favs = [];
     }
 
+    if (favs.length === 0) {
+        catalogo.innerHTML = '<div class="favoritos-vacio"><i class="fa-regular fa-heart" style="font-size:48px;color:#ddd"></i><h3>Tus favoritos aparecerán aquí</h3><p>Toca el corazón en cualquier producto para guardarlo.</p></div>';
+        resultadoInfo.textContent = '';
+        return;
+    }
+
     setBusquedaValue('');
     setCategoriaValue('');
     setDisponibilidadValue('');
-    if (favs.length === 0) {
-        resultadoInfo.textContent = '0 favoritos';
-        catalogo.innerHTML = '<div class="favoritos-vacio"><i class="fa-regular fa-heart"></i><h2>No tienes favoritos aún</h2><p>Toca el <i class="fa-solid fa-heart"></i> en cualquier producto para guardarlo aquí.</p></div>';
-        document.querySelector('.catalogo-sticky').scrollIntoView({ behavior: 'smooth' });
-        return;
-    }
+
     const listaFavs = productos.filter(p => favs.includes(p.slug));
     resultadoInfo.textContent = listaFavs.length === 1 ? '1 favorito' : `${listaFavs.length} favoritos`;
+
     if (listaFavs.length === 0) {
-        catalogo.innerHTML = '<div class="sin-resultados">Tus productos favoritos ya no están disponibles.</div>';
+        catalogo.innerHTML = '<div class="sin-resultados">No tienes productos favoritos guardados.</div>';
     } else {
         catalogo.innerHTML = listaFavs.map(p => crearTarjeta(p)).join('');
         activarGalerias();
@@ -340,14 +341,14 @@ document.getElementById('navCatalogo').addEventListener('click', () => {
     abrirDrawer('drawer-filtros');
 });
 document.getElementById('navCart').addEventListener('click', () => abrirDrawer('drawer-cart'));
-document.getElementById('navFavoritos').addEventListener('click', renderizarFavoritos);
+document.getElementById('navFavoritos').addEventListener('click', (e) => { e.preventDefault(); window.location.href = '/favoritos.html'; });
 
 // Menú favoritos
 const menuFav = document.getElementById('menuFavoritos');
 if (menuFav) menuFav.addEventListener('click', (event) => {
     event.preventDefault();
     cerrarDrawers();
-    renderizarFavoritos();
+    window.location.href = '/favoritos.html';
 });
 
 // Cerrar drawers
@@ -404,18 +405,6 @@ if (badge1) {
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
 }
 
-/* ---------- BOTON VOLVER ARRIBA ---------- */
-
-const btnTop = document.getElementById('btnTop');
-if (btnTop) {
-    window.addEventListener('scroll', () => {
-        btnTop.classList.toggle('visible', window.scrollY > 400);
-    });
-    btnTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
 /* ---------- INICIALIZACIÓN ---------- */
 
 configurarIndicadoresBanners(banners);
@@ -423,3 +412,66 @@ cargarBanners(banners);
 actualizarBadgeCarrito();
 actualizarBadgeFavoritos();
 cargar();
+
+// Botón volver arriba
+const btnTop = document.getElementById('btnTop');
+if (btnTop) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            btnTop.classList.add('visible');
+        } else {
+            btnTop.classList.remove('visible');
+        }
+    });
+    btnTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+
+// Autocompletado de búsqueda
+function activarAutocompletado() {
+    const inputs = [
+        document.getElementById('busqueda'),
+        document.getElementById('busquedaMobile')
+    ].filter(Boolean);
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            const query = input.value.trim().toLowerCase();
+            const cont = document.getElementById('searchSugerencias');
+            if (!cont) return;
+            if (query.length < 2) {
+                cont.innerHTML = '';
+                return;
+            }
+            const sugerencias = productos
+                .filter(p => p.nombre && p.nombre.toLowerCase().includes(query))
+                .slice(0, 5);
+            if (sugerencias.length === 0) {
+                cont.innerHTML = '<div class="search-sugerencia-empty">Sin resultados para "' + escaparHTML(query) + '"</div>';
+                return;
+            }
+            cont.innerHTML = sugerencias.map(p => {
+                const img = (p.imagenes && p.imagenes[0]) || p.imagen || '';
+                const precio = p.precio ? formatearPrecio(p.precio) : '';
+                return '<a href="/producto.html?slug=' + encodeURIComponent(p.slug) + '" class="search-sugerencia">' +
+                    (img ? '<img src="' + escaparHTML(img) + '" alt="" loading="lazy">' : '<div class="sug-img-placeholder"><i class="fa-solid fa-image"></i></div>') +
+                    '<div><div class="sug-nombre">' + escaparHTML(p.nombre) + '</div>' +
+                    (precio ? '<div class="sug-precio">' + precio + '</div>' : '') + '</div></a>';
+            }).join('');
+        });
+    });
+    const btnCerrar = document.getElementById('btnCerrarSearch');
+    if (btnCerrar) {
+        btnCerrar.addEventListener('click', () => {
+            const cont = document.getElementById('searchSugerencias');
+            if (cont) cont.innerHTML = '';
+        });
+    }
+}
+
+const _cargarOriginal = cargar;
+cargar = async function() {
+    await _cargarOriginal();
+    activarAutocompletado();
+};

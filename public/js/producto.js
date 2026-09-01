@@ -199,12 +199,12 @@ function renderizarProducto(producto, productos) {
                     <button class="boton-agregar" data-cart-producto="${cartData}" ${stock <= 0 ? 'disabled' : ''}>
                         <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
                     </button>
-                    <button class="btn-fav-producto${esFavorito(producto.slug) ? ' activo' : ''}" data-fav-slug="${escaparHTML(producto.slug)}" aria-label="Favorito">
-                        <i class="fa-${esFavorito(producto.slug) ? 'solid' : 'regular'} fa-heart"></i>
-                    </button>
                     <a href="${escaparHTML(whatsapp)}" class="boton-whatsapp" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
                     </a>
+                    <button class="btn-fav-producto${esFavorito(producto.slug) ? ' activo' : ''}" data-slug="${escaparHTML(producto.slug)}" aria-label="Favorito">
+                        <i class="fa${esFavorito(producto.slug) ? '-solid' : '-regular'} fa-heart"></i>
+                    </button>
                 </div>
                 <p class="descripcion">${descripcion}</p>
                 ${meta}
@@ -215,11 +215,9 @@ function renderizarProducto(producto, productos) {
 
     activarGaleria();
     activarBotonCarrito();
-    activarBotonFav();
 
     // Actualizar badge al renderizar
     actualizarBadgeCarrito();
-    actualizarBadgeFavoritos();
 }
 
 function activarBotonCarrito() {
@@ -234,15 +232,6 @@ function activarBotonCarrito() {
         } catch (e) {
             console.error('Error al agregar al carrito:', e);
         }
-    });
-}
-
-function activarBotonFav() {
-    const btn = document.querySelector('.btn-fav-producto');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-        const slug = btn.dataset.favSlug;
-        if (slug) toggleFav(slug);
     });
 }
 
@@ -355,3 +344,9 @@ async function cargarProducto() {
 // Inicializar badge y cargar producto
 actualizarBadgeCarrito();
 cargarProducto();
+
+function activarBotonFav(producto) {
+    const btn = document.querySelector('.btn-fav-producto');
+    if (!btn) return;
+    btn.addEventListener('click', () => toggleFav(producto.slug));
+}

@@ -776,29 +776,27 @@ main {
         height: 160px;
     }
 }
-/* BOTON FAVORITO EN PRODUCTO */
+/* Botón favorito en detalle de producto */
 .btn-fav-producto {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #eee;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    background: #fff;
-    color: #888;
-    font-size: 20px;
     cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ccc;
+    font-size: 20px;
     flex-shrink: 0;
-    transition: transform .2s ease, color .2s ease, border-color .2s ease, background .2s ease;
 }
 .btn-fav-producto:hover {
-    transform: scale(1.1);
-    color: #ff0040;
-    border-color: #ff0040;
+    border-color: #d63384;
 }
 .btn-fav-producto.activo {
-    color: #ff0040;
-    border-color: #ff0040;
-    background: rgba(255, 0, 64, .05);
+    color: #d63384;
+    border-color: #d63384;
+    background: rgba(214, 51, 132, 0.05);
 }

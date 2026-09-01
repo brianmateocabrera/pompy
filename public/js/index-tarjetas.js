@@ -28,28 +28,6 @@ export function obtenerImagenPrincipal(producto) {
         '/imagenes/no-image.webp';
 }
 
-/* ---------- TOAST (notificacion sutil) ---------- */
-
-let toastTimeout = null;
-
-export function mostrarToast(mensaje, tipo = 'info') {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        toast.className = 'toast';
-        document.body.appendChild(toast);
-    }
-    toast.textContent = mensaje;
-    toast.className = 'toast toast-' + tipo;
-    toast.classList.add('toast-visible');
-
-    if (toastTimeout) clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-        toast.classList.remove('toast-visible');
-    }, 2500);
-}
-
 /* ---------- FAVORITOS (localStorage) ---------- */
 
 function obtenerFavoritos() {
@@ -64,22 +42,35 @@ function guardarFavoritos(lista) {
     localStorage.setItem('pompy-favoritos', JSON.stringify(lista));
 }
 
-export function esFavorito(slug) {
+function esFavorito(slug) {
     return obtenerFavoritos().includes(slug);
+}
+
+export function mostrarToast(mensaje) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = mensaje;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('toast-show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('toast-show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
 }
 
 export function toggleFav(slug) {
     if (!slug) return;
     let favs = obtenerFavoritos();
-    const estaba = favs.includes(slug);
-    if (estaba) {
+    const eraFav = favs.includes(slug);
+    if (eraFav) {
         favs = favs.filter(s => s !== slug);
+        mostrarToast('Quitado de favoritos');
     } else {
         favs.push(slug);
+        mostrarToast('Agregado a favoritos');
     }
     guardarFavoritos(favs);
     actualizarBadgeFavoritos();
-    mostrarToast(estaba ? 'Eliminado de favoritos' : 'Agregado a favoritos', estaba ? 'info' : 'fav');
     document.querySelectorAll(`.card[data-slug="${slug}"] .btn-fav`).forEach(btn => {
         const activo = favs.includes(slug);
         btn.classList.toggle('activo', activo);
@@ -89,11 +80,8 @@ export function toggleFav(slug) {
         }
     });
     document.querySelectorAll('.btn-fav-producto').forEach(btn => {
-        const activo = favs.includes(slug);
-        btn.classList.toggle('activo', activo);
-        const icon = btn.querySelector('i');
-        if (icon) {
-            icon.className = activo ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+        if (btn.dataset.slug === slug) {
+            btn.classList.toggle('activo', !eraFav);
         }
     });
 }
