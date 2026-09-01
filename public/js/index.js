@@ -5,6 +5,7 @@
 ------------------------------------------ */
 
 import {
+    escaparHTML,
     crearTarjeta,
     activarTarjetas,
     activarGalerias
@@ -93,6 +94,7 @@ fy({
         productos =
             json.data.filter(
                 producto =>
+
                     producto.activo !== false
             );
 
@@ -202,6 +204,7 @@ function obtenerProductosFiltrados() {
 
 
     const disponibilidadSeleccionada =
+
         disponibilidad.value;
 
 
@@ -293,7 +296,8 @@ function obtenerProductosFiltrados() {
 
             resultado.sort(
                 (a, b) =>
-                    Number(b.precio) -
+       
+             Number(b.precio) -
                     Number(a.precio)
             );
 
@@ -409,7 +413,8 @@ ordenamiento.addEventListener(
 
 /* ------------------------------------------
    INICIO
------------------------------------------- */
+------------------------
+------------------ */
 
 configurarIndicadoresBanners(banners);
 cargarBanners(banners);
