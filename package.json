@@ -1,0 +1,30 @@
+{
+  "name": "pompy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tienda online de lencería y sex-shop POMPY. Catálogo dinámico con panel de administración, desplegado en Vercel con almacenamiento en GitHub.",
+  "license": "UNLICENSED",
+  "author": "Brian Cabrera <brianmateocabrera>",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "lint": "eslint api/ public/js/"
+  },
+  "keywords": [
+    "pompy",
+    "e-commerce",
+    "lenceria",
+    "sex-shop",
+    "vercel",
+    "serverless",
+    "catalogo"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
