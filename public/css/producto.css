@@ -282,6 +282,30 @@ header {
     background: rgba(176, 0, 32, .1);
 }
 
+
+/* CHECKOUT DATOS */
+
+.checkout-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.checkout-datos input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 14px;
+}
+
+.checkout-datos input:focus {
+    outline: 0;
+    border-color: #0070f3;
+}
+
 .cart-total {
     display: flex;
     justify-content: space-between;

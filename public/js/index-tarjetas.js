@@ -70,7 +70,8 @@ export function actualizarBadgeFavoritos() {
     const badge = document.getElementById('favBadge');
     const count = obtenerFavoritos().length;
     if (badge) {
-        badge.textContent = count > 0 ? String(count) : '';
+ 
+       badge.textContent = count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
@@ -136,7 +137,8 @@ export function actualizarBadgeCarrito() {
     const carrito = obtenerCarrito();
     const count = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
     if (badge) {
-        badge.textContent = count > 0 ? String(count) : '';
+        badge.textContent =
+ count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
@@ -185,7 +187,18 @@ export function renderizarCarrito() {
 export function enviarCarritoWhatsApp() {
     const carrito = obtenerCarrito();
     if (carrito.length === 0) return;
+
+    const inputNombre = document.getElementById('checkoutNombre');
+    const inputDireccion = document.getElementById('checkoutDireccion');
+    const nombre = inputNombre ? inputNombre.value.trim() : '';
+    const direccion = inputDireccion ? inputDireccion.value.trim() : '';
+
     let mensaje = 'Hola! Quiero hacer el siguiente pedido:\n\n';
+
+    if (nombre) mensaje += `Nombre: ${nombre}\n`;
+    if (direccion) mensaje += `Dirección: ${direccion}\n`;
+    if (nombre || direccion) mensaje += '\n';
+
     carrito.forEach(item => {
         mensaje += `*${item.nombre}* x${item.cantidad || 1} - ${formatearPrecio((Number(item.precio) || 0) * (item.cantidad || 1))}\n`;
     });
@@ -234,7 +247,8 @@ export function crearTarjeta(producto) {
         ).join('')
         : '';
 
-    const sinStock = stock <= 0
+  
+  const sinStock = stock <= 0
         ? `<span class="badge badge-sin-stock">Sin stock</span>`
         : '';
 

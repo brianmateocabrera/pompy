@@ -64,7 +64,7 @@
                     <a href="/" class="menu-link"><i class="fa-solid fa-house"></i> Inicio</a>
                     <a href="#catalogo" class="menu-link" data-close="drawer-menu"><i class="fa-solid fa-store"></i> Productos</a>
                     <a href="#" class="menu-link" id="menuFavoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
-                    <a href="#" class="menu-link menu-link-disabled"><i class="fa-solid fa-blog"></i> Blog <span class="prox">(próximamente)</span></a>
+                    <a href="/blog.html" class="menu-link"><i class="fa-solid fa-blog"></i> Blog</a>
                 </nav>
                 <div class="menu-categorias">
                     <h4>Categorías</h4>
@@ -125,7 +125,8 @@
                     <input type="radio" name="orden" value="nombre">
                     <span>Nombre: A-Z</span>
                 </label>
-            </div>
+ 
+           </div>
         </div>
 
         <!-- DRAWER CARRITO (derecha) -->
@@ -140,6 +141,10 @@
                 <div id="cartItems" class="cart-items"></div>
             </div>
             <div class="drawer-footer">
+                <div class="checkout-datos">
+                    <input type="text" id="checkoutNombre" placeholder="Tu nombre" autocomplete="name" />
+                    <input type="text" id="checkoutDireccion" placeholder="Dirección de envío (opcional)" autocomplete="street-address" />
+                </div>
                 <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotal">$0</span>
@@ -249,7 +254,7 @@
                 <span>Carrito</span>
                 <span id="cartBadge2" class="badge-contador" style="display:none"></span>
             </button>
-            <a href="#" class="bottom-nav-item bottom-nav-item-disabled">
+            <a href="/blog.html" class="bottom-nav-item">
                 <i class="fa-solid fa-blog"></i>
                 <span>Blog</span>
             </a>

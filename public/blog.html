@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blog — POMPY</title>
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&family=Meow+Script&display=swap"
+            rel="stylesheet"
+        />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+
+        <link rel="stylesheet" href="/css/blog.css" />
+    </head>
+
+    <body>
+        <header>
+            <div class="header-container">
+                <a href="/" class="volver">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="volver-texto">Volver</span>
+                </a>
+                <div class="header-titulo">
+                    <h1><i>POMPY</i></h1>
+                    <p>Blog</p>
+                </div>
+                <button id="btnCart" class="header-btn header-btn-cart" aria-label="Carrito">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cartBadge" class="badge-contador" style="display:none"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- DRAWER CARRITO (derecha) -->
+        <div id="drawer-cart" class="drawer drawer-derecha">
+            <div class="drawer-header">
+                <h3>Carrito</h3>
+                <button class="drawer-cerrar" data-close="drawer-cart" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <div id="cartItems" class="cart-items"></div>
+            </div>
+            <div class="drawer-footer">
+                <div class="checkout-datos">
+                    <input type="text" id="checkoutNombre" placeholder="Tu nombre" autocomplete="name" />
+                    <input type="text" id="checkoutDireccion" placeholder="Dirección de envío (opcional)" autocomplete="street-address" />
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0</span>
+                </div>
+                <button id="btnCheckout" class="btn-checkout">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar pedido
+                </button>
+            </div>
+        </div>
+
+        <!-- OVERLAY -->
+        <div id="overlay" class="overlay"></div>
+
+        <main id="contenido">
+            <div class="blog-cargando">Cargando artículos...</div>
+        </main>
+
+        <script type="module" src="/js/blog.js"></script>
+    </body>
+</html>
