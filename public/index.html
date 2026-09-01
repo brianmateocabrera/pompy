@@ -10,7 +10,7 @@
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
-        <!-- Google Fonts: Tilt Neon y Meow Script -->
+        <!-- Google Fonts: Tinos y Meow Script -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -30,13 +30,138 @@
     <body>
         <header>
             <div class="header-container">
+                <button id="btnMenu" class="header-btn" aria-label="Menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <img src="/imagenes/logo.webp" alt="Logo POMPY" class="logo" />
                 <div class="header-text">
                     <h1><i>POMPY</i></h1>
                     <p><i>lencería y sex-shop</i></p>
                 </div>
+                <div class="header-actions">
+                    <input type="search" id="busqueda" class="busqueda-desktop" placeholder="Buscar producto..." autocomplete="off" />
+                    <button id="btnSearch" class="header-btn header-btn-search-mobile" aria-label="Buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button id="btnCart" class="header-btn header-btn-cart" aria-label="Carrito">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cartBadge" class="badge-contador" style="display:none"></span>
+                    </button>
+                </div>
             </div>
         </header>
+
+        <!-- DRAWER MENÚ (izquierda) -->
+        <div id="drawer-menu" class="drawer drawer-izquierda">
+            <div class="drawer-header">
+                <h3>Menú</h3>
+                <button class="drawer-cerrar" data-close="drawer-menu" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <nav class="menu-nav">
+                    <a href="/" class="menu-link"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="#catalogo" class="menu-link" data-close="drawer-menu"><i class="fa-solid fa-store"></i> Productos</a>
+                    <a href="#" class="menu-link" id="menuFavoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
+                    <a href="#" class="menu-link menu-link-disabled"><i class="fa-solid fa-blog"></i> Blog <span class="prox">(próximamente)</span></a>
+                </nav>
+                <div class="menu-categorias">
+                    <h4>Categorías</h4>
+                    <div id="menuCategoriasLista"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRAWER FILTROS (izquierda) -->
+        <div id="drawer-filtros" class="drawer drawer-izquierda">
+            <div class="drawer-header">
+                <h3>Filtros</h3>
+                <button class="drawer-cerrar" data-close="drawer-filtros" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <div class="filtro-grupo">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="disponibilidad">Disponibilidad</label>
+                    <select id="disponibilidad">
+                        <option value="">Toda disponibilidad</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="agotado">Sin stock</option>
+                    </select>
+                </div>
+                <button class="btn-filtros-limpiar" id="btnLimpiarFiltros">Limpiar filtros</button>
+            </div>
+        </div>
+
+        <!-- DRAWER ORDEN (izquierda) -->
+        <div id="drawer-orden" class="drawer drawer-izquierda">
+            <div class="drawer-header">
+                <h3>Ordenar por</h3>
+                <button class="drawer-cerrar" data-close="drawer-orden" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <label class="radio-opcion">
+                    <input type="radio" name="orden" value="orden" checked>
+                    <span>Orden predeterminado</span>
+                </label>
+                <label class="radio-opcion">
+                    <input type="radio" name="orden" value="precio-menor">
+                    <span>Precio: menor a mayor</span>
+                </label>
+                <label class="radio-opcion">
+                    <input type="radio" name="orden" value="precio-mayor">
+                    <span>Precio: mayor a menor</span>
+                </label>
+                <label class="radio-opcion">
+                    <input type="radio" name="orden" value="nombre">
+                    <span>Nombre: A-Z</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- DRAWER CARRITO (derecha) -->
+        <div id="drawer-cart" class="drawer drawer-derecha">
+            <div class="drawer-header">
+                <h3>Carrito</h3>
+                <button class="drawer-cerrar" data-close="drawer-cart" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <div id="cartItems" class="cart-items"></div>
+            </div>
+            <div class="drawer-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0</span>
+                </div>
+                <button id="btnCheckout" class="btn-checkout">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar pedido
+                </button>
+            </div>
+        </div>
+
+        <!-- OVERLAY -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- OVERLAY DE BÚSQUEDA (móvil) -->
+        <div id="searchOverlay" class="search-overlay">
+            <div class="search-overlay-content">
+                <input type="search" id="busquedaMobile" placeholder="Buscar producto..." autocomplete="off" />
+                <button class="search-cerrar" id="btnCerrarSearch" aria-label="Cerrar búsqueda">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
 
         <main>
             <section id="banners" class="banners"></section>
@@ -49,26 +174,33 @@
                     <h2 class="catalogo-titulo">Nuestros productos</h2>
                 </div>
 
-                <section id="filtros" class="filtros" aria-label="Filtros de productos">
-                    <input type="search" id="busqueda" placeholder="Buscar producto..." autocomplete="off" />
-
-                    <select id="categoria">
+                <!-- FILTROS DESKTOP (inline, ocultos en móvil) -->
+                <section id="filtrosDesktop" class="filtros filtros-desktop" aria-label="Filtros de productos">
+                    <select id="categoriaDesktop">
                         <option value="">Todas las categorías</option>
                     </select>
-
-                    <select id="disponibilidad">
+                    <select id="disponibilidadDesktop">
                         <option value="">Toda disponibilidad</option>
                         <option value="disponible">Disponible</option>
                         <option value="agotado">Sin stock</option>
                     </select>
-
-                    <select id="ordenamiento">
+                    <select id="ordenamientoDesktop">
                         <option value="orden">Orden predeterminado</option>
                         <option value="precio-menor">Precio: menor a mayor</option>
                         <option value="precio-mayor">Precio: mayor a menor</option>
                         <option value="nombre">Nombre: A-Z</option>
                     </select>
                 </section>
+
+                <!-- TOOLBAR MÓVIL (Filtrar / Ordenar, oculta en desktop) -->
+                <div class="toolbar">
+                    <button class="toolbar-btn" id="btnFiltrar">
+                        <i class="fa-solid fa-filter"></i> Filtrar
+                    </button>
+                    <button class="toolbar-btn" id="btnOrdenar">
+                        <i class="fa-solid fa-arrow-down-wide-short"></i> Ordenar
+                    </button>
+                </div>
             </section>
 
             <p id="resultadoInfo" class="resultado-info"></p>
@@ -96,6 +228,32 @@
                 <p>&copy; 2026 Desarrollado por Brian Mateo. Todos los derechos reservados.</p>
             </div>
         </footer>
+
+        <!-- BARRA INFERIOR (solo móvil) -->
+        <nav class="bottom-nav">
+            <a href="/" class="bottom-nav-item activo">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+            <button class="bottom-nav-item" id="navCatalogo">
+                <i class="fa-solid fa-store"></i>
+                <span>Catálogo</span>
+            </button>
+            <button class="bottom-nav-item" id="navFavoritos">
+                <i class="fa-solid fa-heart"></i>
+                <span>Favoritos</span>
+                <span id="favBadge" class="badge-contador" style="display:none"></span>
+            </button>
+            <button class="bottom-nav-item" id="navCart">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Carrito</span>
+                <span id="cartBadge2" class="badge-contador" style="display:none"></span>
+            </button>
+            <a href="#" class="bottom-nav-item bottom-nav-item-disabled">
+                <i class="fa-solid fa-blog"></i>
+                <span>Blog</span>
+            </a>
+        </nav>
 
         <script type="module" src="/js/index.js"></script>
     </body>
