@@ -96,7 +96,8 @@ function activarBotonesCarritoPagina() {
                 if (action === 'sumar') {
                     item.cantidad = (item.cantidad || 1) + 1;
                 } else if (action === 'restar') {
-                    item.cantidad = (item.cantidad || 1) - 1;
+   
+                 item.cantidad = (item.cantidad || 1) - 1;
                     if (item.cantidad <= 0) {
                         const idx = carrito.findIndex(i => i.slug === slug);
                         carrito.splice(idx, 1);
@@ -145,6 +146,7 @@ if (btnAplicarCupon) {
             descuentoAplicado = CUPONES[codigo];
             cuponAplicado = codigo;
             cuponMensaje.textContent = '¡Cupón aplicado! ' + (descuentoAplicado * 100) + '% de descuento';
+
             cuponMensaje.className = 'cupon-mensaje exito';
         } else {
             descuentoAplicado = 0;
@@ -195,7 +197,8 @@ const btnCheckout = document.getElementById('btnCheckout');
 if (btnCheckout) btnCheckout.addEventListener('click', enviarCarritoWhatsApp);
 
 function sincronizarBadges() {
-    const badge1 = document.getElementById('cartBadge');
+    const badge1 = document.getElementById('cartB
+adge');
     const badge2 = document.getElementById('cartBadge2');
     if (badge1 && badge2) {
         badge2.textContent = badge1.textContent;

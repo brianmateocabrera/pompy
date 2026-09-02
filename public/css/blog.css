@@ -349,7 +349,8 @@ header {
     color: #fff;
     font: inherit;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 600
+;
     cursor: pointer;
     transition: background .2s ease;
 }

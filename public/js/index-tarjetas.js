@@ -135,7 +135,8 @@ export function animarBadgeCarrito() {
     document.querySelectorAll('.badge-contador').forEach(badge => {
         if (badge.id === 'favBadge') return;
         badge.classList.remove('badge-pop');
-        void badge.offsetWidth;
+        void
+ badge.offsetWidth;
         badge.classList.add('badge-pop');
     });
 }
@@ -239,7 +240,8 @@ export function activarCarritoBotones() {
     const contenedor = document.getElementById('cartItems');
     if (!contenedor) return;
     contenedor.querySelectorAll('[data-action]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click'
+, () => {
             const action = btn.dataset.action;
             const slug = btn.dataset.slug;
             if (action === 'sumar') cambiarCantidadCarrito(slug, 
@@ -297,7 +299,8 @@ export function crearTarjeta(producto) {
     return `
         <article class="card" data-slug="${slug}" role="link" tabindex="0">
             <div class="imagen-contenedor">
-                <img src="${imagenPrincipal}" class="card-img" alt="${nombre}" loading="lazy"
+                <img src="${imagenPrincipal}" class="card-img" alt
+="${nombre}" loading="lazy"
                     onerror="this.src='/imagenes/no-image.webp'">
                 <div class="badge-contenedor">${badges}${sinStock}</div>
 
@@ -343,7 +346,8 @@ export function activarTarjetas() {
         card.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                abrir();
+   
+             abrir();
             }
         });
     });

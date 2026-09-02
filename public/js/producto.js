@@ -68,6 +68,7 @@ function obtenerCategorias(producto) {
 
 function generarLinkWhatsApp(producto) {
   
+
   const nombre = producto.nombre || 'producto';
     const texto = `Hola, quiero consultar por el producto "${nombre}".`;
     return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
@@ -112,7 +113,8 @@ function renderizarGaleria(producto) {
             class="miniatura ${imagen.url === principal ? 'activa' : ''}" data-url="${escaparHTML(imagen.url)}">
     `).join('');
 
-   
+  
+ 
  return `
         <div class="imagen-principal-contenedor">
  
@@ -162,7 +164,8 @@ function renderizarProducto(producto, productos) {
     const nombre = escaparHTML(producto.nombre);
     const descripcion = escaparHTML(producto.descripcion || 'Sin descripción disponible.');
     const stock = Number(producto.stock) || 0;
-    const precio = formatearPrecio(producto.precio);
+    const precio = formatearPrecio(producto
+.precio);
 
     const tienePrecioAnterior =
         producto.precioAnterior !== null &&

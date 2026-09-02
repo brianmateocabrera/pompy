@@ -411,9 +411,7 @@ if (badge1) {
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
 }
 
-/* ---------- INICIALIZACI
-ÓN -
---------- */
+/* ---------- INICIALIZACIÓN ---------- */
 
 configurarIndicadoresBanners(banners);
 cargarBanners(banners);
@@ -477,4 +475,3 @@ function activarAutocompletado() {
         });
     }
 }
-
