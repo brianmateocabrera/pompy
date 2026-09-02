@@ -553,8 +553,12 @@ document
 
 async function iniciar() {
 
+    alert('PASO 1: admin.js se está ejecutando');
+
     const autenticado =
         await autenticar();
+
+    alert('PASO 2: autenticar() terminó. Resultado: ' + autenticado);
 
     if (!autenticado) {
 
@@ -574,7 +578,11 @@ async function iniciar() {
         iniciarEliminacion
     );
 
-    await cargarInventario();
+    alert('PASO 3: voy a cargar el inventario');
+
+await cargarInventario();
+
+alert('PASO 4: cargarInventario() terminó');
 }
 
 
