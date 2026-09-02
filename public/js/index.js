@@ -119,8 +119,8 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
-    // Mostrar skele
-ton mientras carga    catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
+    // Mostrar skeleton mientras carga
+    catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
 
     try {
         const respuesta = await fetch(API_URL, {
@@ -232,11 +232,6 @@ function obtenerProductosFiltrados() {
         default:
             resultado.sort((a, b) => (Number(a.orden) || 0) - (Number(b.orden) || 0));
     }
-
- 
-
-
-  
  return resultado;
 }
 
@@ -347,7 +342,6 @@ document.getElementById('navCatalogo').addEventListener('click', () => {
 document.getElementById('navCart').addEventListener('click', () => abrirDrawer('drawer-cart'));
 document.getElementById('navFavoritos').addEventListener('click', (e) => 
 {
-
  e.preventDefault(); window.location.href = '/favoritos.html'; });
 
 // Menú favoritos
@@ -412,9 +406,7 @@ if (badge1) {
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
 }
 
-/* ---------- INICIALIZA
-
-CIÓN ---------- */
+/* ---------- INICIALIZACIÓN ---------- */
 
 configurarIndicadoresBanners(banners);
 cargarBanners(banners);
@@ -464,9 +456,7 @@ function activarAutocompletado() {
                 const img = (p.imagenes && p.imagenes[0]) || p.imagen || '';
                 const precio = p.precio ? formatearPrecio(p.precio) : '';
                 return '<a href="/producto.html?slug=' + encodeURIComponent(p.slug) + '" class="search-sugerencia">' +
-                    (img ? '<img src="' + escaparHTML(img) + '" alt="" loading="lazy">' : '<div class="sug-img-placeholder"><i class="fa-solid fa-image"></i></div>')
-
- +
+                    (img ? '<img src="' + escaparHTML(img) + '" alt="" loading="lazy">' : '<div class="sug-img-placeholder"><i class="fa-solid fa-image"></i></div>') +
                     '<div><div class="sug-nombre">' + escaparHTML(p.nombre) + '</div>' +
                     (precio ? '<div class="sug-precio">' + precio + '</div>' : '') + '</div></a>';
             }).join('');

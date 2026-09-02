@@ -90,7 +90,6 @@ export function actualizarBadgeFavoritos() {
     const badge = document.getElementById('favBadge');
     const count = obtenerFavoritos().length;
     if (badge) {
-
         badge.textContent = count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
@@ -134,8 +133,7 @@ export function animarBadgeCarrito() {
     document.querySelectorAll('.badge-contador').forEach(badge => {
         if (badge.id === 'favBadge') return;
         badge.classList.remove('badge-pop');
-        void 
-badge.offsetWidth;
+        void badge.offsetWidth;
         badge.classList.add('badge-pop');
     });
 }
@@ -194,8 +192,7 @@ export function renderizarCarrito() {
                     <div class="cart-item-cantidad">
                         <button class="btn-cantidad" data-action="restar" data-slug="${escaparHTML(item.slug)}" aria-label="Restar">-</button>
                         <span>${item.cantidad || 1}</span>
-        
-                <button class="btn-cantidad" data-action="sumar" data-slug="${escaparHTML(item.slug)}" aria-label="Sumar">+</button>
+                        <button class="btn-cantidad" data-action="sumar" data-slug="${escaparHTML(item.slug)}" aria-label="Sumar">+</button>
                     </div>
                 </div>
                 <button class="cart-item-eliminar" data-action="eliminar" data-slug="${escaparHTML(item.slug)}" aria-label="Eliminar">
@@ -237,8 +234,7 @@ export function activarCarritoBotones() {
     const contenedor = document.getElementById('cartItems');
     if (!contenedor) return;
     contenedor.querySelectorAll('[data-action]').forEach(btn => {
-        btn.addEventListener('click', (
-) => {
+        btn.addEventListener('click', () => {
             const action = btn.dataset.action;
             const slug = btn.dataset.slug;
             if (action === 'sumar') cambiarCantidadCarrito(slug, 1);
@@ -274,8 +270,7 @@ export function crearTarjeta(producto) {
         ).join('')
         : '';
 
-  
-  const sinStock = stock <= 0
+    const sinStock = stock <= 0
         ? `<span class="badge badge-sin-stock">Sin stock</span>`
         : '';
 
@@ -295,8 +290,7 @@ export function crearTarjeta(producto) {
     return `
         <article class="card" data-slug="${slug}" role="link" tabindex="0">
             <div class="imagen-contenedor">
-                <img src="${imagenPrincipal}" class="card-img" alt="${
-nombre}" loading="lazy"
+                <img src="${imagenPrincipal}" class="card-img" alt="${nombre}" loading="lazy"
                     onerror="this.src='/imagenes/no-image.webp'">
                 <div class="badge-contenedor">${badges}${sinStock}</div>
 
@@ -311,8 +305,8 @@ nombre}" loading="lazy"
                 </p>
                 <div class="card-botones">
                     <a class="boton-whatsapp" href="https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWhatsApp}"
-                        target="_blank" rel="noopener noreferrer" 
-aria-label="Consultar ${nombre} por WhatsApp">
+                        target="_blank" rel="noopener noreferrer"
+                        aria-label="Consultar ${nombre} por WhatsApp">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                     <button class="btn-add-cart" data-cart-producto="${cartData}" aria-label="Agregar al carrito">
@@ -342,10 +336,7 @@ export function activarTarjetas() {
         card.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-
-   
-  
-           abrir();
+                abrir();
             }
         });
     });
