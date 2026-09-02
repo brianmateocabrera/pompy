@@ -471,10 +471,7 @@ export function configurarGestionImagenes(    verificarAutenticacion,
             // ELIMINAR
             // =========================================
 
-            if (                boton.classList.contains(
-                    'btn-eliminar
--imagen'                )
-            ) {
+            if (boton.classList.contains('btn-eliminar-imagen')) {
 
                 if (
                     !confirm(
