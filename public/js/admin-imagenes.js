@@ -9,19 +9,16 @@ import {
 } from './ui.js';
 
 
-const fileInput =
-    document.getElementById('imagenFile');
+const fileInput =    document.getElementById('imagenFile');
 
-const preview =
-    document.getElementById('imagenesPreview');
+const preview =    document.getElementById('imagenesPreview');
 
 
 // =================================================
 // VALIDAR IMÁGENES
 // =================================================
 
-export function validarArchivosImagen(
-    archivos
+export function validarArchivosImagen(    archivos
 ) {
 
     for (const archivo of archivos) {
@@ -50,8 +47,7 @@ export function validarArchivosImagen(
 // PREVISUALIZAR ARCHIVOS NUEVOS
 // =================================================
 
-export function mostrarPrevisualizacionArchivos(
-    archivos,
+export function mostrarPrevisualizacionArchivos(    archivos,
     agregar = false
 ) {
 
@@ -59,45 +55,35 @@ export function mostrarPrevisualizacionArchivos(
         preview.innerHTML = '';
     }
 
-    archivos.forEach(
-        archivo => {
+    archivos.forEach(        archivo => {
 
             const reader =
                 new FileReader();
 
-            reader.onload =
-                event => {
+            reader.onload =                event => {
 
-                    const item =
-                        document.createElement(
-                            'div'
-                        );
+                    const item =                        document.createElement(
+                            'div'                        );
 
                     item.className =
                         'imagen-preview-item';
 
-                    const img =
-                        document.createElement(
-                            'img'
-                        );
+                    const img =                        document.createElement(
+                            'img'                        );
 
-                    img.src =
-                        event.target.result;
+                    img.src =                        event.target.result;
 
-                    img.alt =
-                        archivo.name;
+                    img.alt =                        archivo.name;
 
-                    const label =
-                        document.createElement(
-                            'p'
-                        );
+                    const label =                        document.createElement(
+                            'p'                        );
 
      
+
                label.className =
                         'imagen-label';
 
-                    label.textContent =
-                        archivo.name;
+                    label.textContent =                        archivo.name;
 
                     item.appendChild(img);
                     item.appendChild(label);
@@ -105,8 +91,7 @@ export function mostrarPrevisualizacionArchivos(
                     preview.appendChild(item);
                 };
 
-            reader.readAsDataURL(
-                archivo
+            reader.readAsDataURL(                archivo
             );
         }
     );
@@ -117,15 +102,13 @@ export function mostrarPrevisualizacionArchivos(
 // ACTUALIZAR ORDEN LOCAL
 // =================================================
 
-function actualizarOrdenLocal(
-    imagenes
+function actualizarOrdenLocal(    imagenes
 ) {
 
     imagenes.forEach(
         (imagen, index) => {
 
-            imagen.orden =
-                index;
+            imagen.orden =                index;
         }
     );
 }
@@ -135,13 +118,10 @@ function actualizarOrdenLocal(
 // OBTENER IMÁGENES DEL PRODUCTO
 // =================================================
 
-function obtenerImagenesProducto(
-    producto
+function obtenerImagenesProducto(    producto
 ) {
 
-    if (
-        Array.isArray(
-            producto.imagenes
+    if (        Array.isArray(            producto.imagenes
         )
     ) {
 
@@ -150,8 +130,7 @@ function obtenerImagenesProducto(
         ];
     }
 
-    if (
-        producto.imagen
+    if (        producto.imagen
     ) {
 
         return [{
@@ -174,39 +153,34 @@ function obtenerImagenesProducto(
 // GUARDAR CAMBIOS DE IMÁGENES
 // =================================================
 
-async function guardarOrdenImagenes(
-    indexProducto,
+async function guardarOrdenImagenes(    indexProducto,
     imagenes,
     imagenPrincipal,
     mensaje,
     alGuardar
 ) {
 
-    mostrarCargando(
-        true,
+    mostrarCargando(        true,
         mensaje
     );
 
     try {
 
-        actualizarOrdenLocal(
-            imagenes
+        actualizarOrdenLocal(            imagenes
         );
 
-        await actualizarImagenes(
-            indexProducto,
+        await actualizarImagenes(            indexProducto,
             imagenes,
             imagenPrincipal
         );
 
-        const productoActualizado =
-            obtenerProductos()[
+        const productoActualizado =            obtenerProductos()[
                 indexProducto
             ];
 
-        renderizarImagenesFormulario(
-            productoActualizado
+        renderizarImagenesFormulario(            productoActualizado
         );
+
 
  
        if (typeof alGuardar === 'function') {
@@ -234,27 +208,22 @@ export function configurarPrevisualizacion() {
         'change',
         () => {
 
-            const archivos =
-                Array.from(
-                    fileInput.files
+            const archivos =                Array.from(                    fileInput.files
                 );
 
-            if (
-                archivos.length === 0
+            if (                archivos.length === 0
             ) {
                 return;
             }
 
             try {
 
-                validarArchivosImagen(
-                    archivos
+                validarArchivosImagen(                    archivos
                 );
 
             } catch (error) {
 
-                alert(
-                    error.message
+                alert(                    error.message
                 );
 
                 fileInput.value = '';
@@ -262,36 +231,29 @@ export function configurarPrevisualizacion() {
                 return;
             }
 
-            const index =
-                parseInt(
-                    document.getElementById(
-                        'editIndex'
-                    ).value,
+            const index =                parseInt(                    document.getElementById(
+                        'editIndex'                    ).value,
                     10
                 );
 
             if (index === -1) {
 
-                mostrarPrevisualizacionArchivos(
-                    archivos
+                mostrarPrevisualizacionArchivos(                    archivos
                 );
 
                 return;
             }
 
-            const producto =
-                obtenerProductos()[index];
+            const producto =                obtenerProductos()[index];
 
             if (!producto) {
                 return;
             }
 
-            renderizarImagenesFormulario(
-                producto
+            renderizarImagenesFormulario(                producto
             );
 
-            mostrarPrevisualizacionArchivos(
-                archivos,
+            mostrarPrevisualizacionArchivos(                archivos,
                 true
             );
         }
@@ -303,8 +265,7 @@ export function configurarPrevisualizacion() {
 // CONFIGURAR GESTIÓN DE IMÁGENES
 // =================================================
 
-export function configurarGestionImagenes(
-    verificarAutenticacion,
+export function configurarGestionImagenes(    verificarAutenticacion,
     manejarErrorSesion,
     renderizarTabla,
     iniciarEdicion,
@@ -315,10 +276,8 @@ export function configurarGestionImagenes(
         'click',
         async event => {
 
-            const boton =
-                event.target.closest(
-                    'button'
-                );
+            const boton =                event.target.closest(
+                    'button'                );
 
             if (!boton) {
                 return;
@@ -331,25 +290,19 @@ export function configurarGestionImagenes(
                 return;
             }
 
-            const indexProducto =
-                parseInt(
-                    document.getElementById(
-                        'editIndex'
-                    ).value,
+            const indexProducto =                parseInt(                    document.getElementById(
+                        'editIndex'                    ).value,
                     10
                 );
 
-            if (
-                Number.isNaN(
-                    indexProducto
+            if (                Number.isNaN(                    indexProducto
                 ) ||
                 indexProducto < 0
             ) {
                 return;
             }
 
-            const producto =
-                obtenerProductos()[
+            const producto =                obtenerProductos()[
                     indexProducto
                 ];
 
@@ -357,19 +310,14 @@ export function configurarGestionImagenes(
                 return;
             }
 
-            const imagenes =
-                obtenerImagenesProducto(
-                    producto
+            const imagenes =                obtenerImagenesProducto(                    producto
                 );
 
-            const indexImagen =
-                parseInt(
-                    boton.dataset.imagenIndex,
+            const indexImagen =                parseInt(                    boton.dataset.imagenIndex,
                     10
                 );
 
-            if (
-                Number.isNaN(indexImagen) ||
+            if (                Number.isNaN(indexImagen) ||
                 indexImagen < 0 ||
                 indexImagen >= imagenes.length
             ) {
@@ -381,24 +329,21 @@ export function configurarGestionImagenes(
             // HACER PRINCIPAL
             // =========================================
 
-            if (
-                boton.classList.contains(
-                    'btn-imagen-principal'
-                )
+            if (                boton.classList.contains(
+                    'btn-imagen-principal'                )
             ) {
 
                 try {
 
-                    await guardarOrdenImagenes(
-                        indexProducto,
+                    await guardarOrdenImagenes(                        indexProducto,
                         imagenes,
                         imagenes[indexImagen].url,
                         'Guardando imagen principal...',
-           
+         
+  
              async () => {
 
-                            renderizarTabla(
-                                obtenerProductos(),
+                            renderizarTabla(                                obtenerProductos(),
                                 iniciarEdicion,
                                 iniciarEliminacion
                             );
@@ -412,8 +357,7 @@ export function configurarGestionImagenes(
                         error.message
                     );
 
-                    await manejarErrorSesion(
-                        error
+                    await manejarErrorSesion(                        error
                     );
                 }
 
@@ -425,14 +369,11 @@ export function configurarGestionImagenes(
             // SUBIR
             // =========================================
 
-            if (
-                boton.classList.contains(
-                    'btn-subir-imagen'
-                )
+            if (                boton.classList.contains(
+                    'btn-subir-imagen'                )
             ) {
 
-                if (
-                    indexImagen === 0
+                if (                    indexImagen === 0
                 ) {
                     return;
                 }
@@ -447,15 +388,13 @@ export function configurarGestionImagenes(
 
                 try {
 
-                    await guardarOrdenImagenes(
-                        indexProducto,
+                    await guardarOrdenImagenes(                        indexProducto,
                         imagenes,
                         producto.imagenPrincipal,
                         'Reordenando imágenes...',
                         async () => {
 
-                            renderizarTabla(
-                                obtenerProductos(),
+                            renderizarTabla(                                obtenerProductos(),
                                 iniciarEdicion,
                                 iniciarEliminacion
                             );
@@ -466,12 +405,10 @@ export function configurarGestionImagenes(
 
                     alert(
                         'Error al actualizar las imágenes: ' +
-                        error.m
-essage
+                        error.message
                     );
 
-                    await manejarErrorSesion(
-                        error
+                    await manejarErrorSesion(                        error
                     );
                 }
 
@@ -483,15 +420,11 @@ essage
             // BAJAR
             // =========================================
 
-            if (
-                boton.classList.contains(
-                    'btn-bajar-imagen'
-                )
+            if (                boton.classList.contains(
+                    'btn-bajar-imagen'                )
             ) {
 
-                if (
-                    indexImagen >=
-                    imagenes.length - 1
+                if (                    indexImagen >=                    imagenes.length - 1
                 ) {
                     return;
                 }
@@ -506,15 +439,13 @@ essage
 
                 try {
 
-                    await guardarOrdenImagenes(
-                        indexProducto,
+                    await guardarOrdenImagenes(                        indexProducto,
                         imagenes,
                         producto.imagenPrincipal,
                         'Reordenando imágenes...',
                         async () => {
 
-                            renderizarTabla(
-                                obtenerProductos(),
+                            renderizarTabla(                                obtenerProductos(),
                                 iniciarEdicion,
                                 iniciarEliminacion
                             );
@@ -528,8 +459,7 @@ essage
                         error.message
                     );
 
-                    await manejarErrorSesion(
-                        error
+                    await manejarErrorSesion(                        error
                     );
                 }
 
@@ -541,57 +471,45 @@ essage
             // ELIMINAR
             // =========================================
 
-            if (
-                boton.classList.contains(
-                    'btn-eliminar-ima
-gen'
-                )
+            if (                boton.classList.contains(
+                    'btn-eliminar
+-imagen'                )
             ) {
 
                 if (
                     !confirm(
-                        '¿Eliminar esta imagen del producto?'
-                    )
+                        '¿Eliminar esta imagen del producto?'                    )
                 ) {
                     return;
                 }
 
-                const imagenEliminada =
-                    imagenes[indexImagen];
+                const imagenEliminada =                    imagenes[indexImagen];
 
-                imagenes.splice(
-                    indexImagen,
+                imagenes.splice(                    indexImagen,
                     1
                 );
 
-                actualizarOrdenLocal(
-                    imagenes
+                actualizarOrdenLocal(                    imagenes
                 );
 
-                let imagenPrincipal =
-                    producto.imagenPrincipal;
+                let imagenPrincipal =                    producto.imagenPrincipal;
 
-                if (
-                    imagenPrincipal ===
-                    imagenEliminada.url
+                if (                    imagenPrincipal ===                    imagenEliminada.url
                 ) {
 
-                    imagenPrincipal =
-                        imagenes[0]?.url ||
+                    imagenPrincipal =                        imagenes[0]?.url ||
                         '';
                 }
 
                 try {
 
-                    await guardarOrdenImagenes(
-                        indexProducto,
+                    await guardarOrdenImagenes(                        indexProducto,
                         imagenes,
                         imagenPrincipal,
                         'Eliminando imagen...',
                         async () => {
 
-                            renderizarTabla(
-                                obtenerProductos(),
+                            renderizarTabla(                                obtenerProductos(),
                                 iniciarEdicion,
                                 iniciarEliminacion
                             );
@@ -605,8 +523,7 @@ gen'
                         error.message
                     );
 
-                    await manejarErrorSesion(
-                        error
+                    await manejarErrorSesion(                        error
                     );
                 }
             }

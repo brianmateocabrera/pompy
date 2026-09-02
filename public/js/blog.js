@@ -67,6 +67,7 @@ function renderizarLista(articulos) {
                 <h2>Nuestro blog está en preparación</h2>
                 <p>Pronto compartiremos guías, tips y novedades sobre lencería y sex-shop.</p>
              
+
    <a href="/" class="blog-vacio-btn">
                     <i class="fa-solid fa-store"></i> Ver productos
                 </a>
@@ -88,8 +89,7 @@ function renderizarLista(articulos) {
             return `
                 <article class="blog-card" data-slug="${slug}">
                     <div class="blog-card-imagen-contenedor">
-                        <img src="${imagen}" alt="${titulo}" class="blog-card-imagen" loading="lazy"
-                            onerror="this.src='/imagenes/no-image.webp'">
+                        <img src="${imagen}" alt="${titulo}" class="blog-card-imagen" loading="lazy"                            onerror="this.src='/imagenes/no-image.webp'">
                     </div>
                     <div class="blog-card-body">
                         ${fecha ? `<span class="blog-card-fecha"><i class="fa-regular fa-calendar"></i> ${fecha}</span>` : ''}
@@ -112,7 +112,8 @@ function renderizarLista(articulos) {
     // Activar clicks en tarjetas
     document.querySelectorAll('.blog-card[data-slug]').forEach(card => {
         card.addEventListener('click', () => {
-    
+   
+ 
         const slug = card.dataset.slug;
             if (slug) {
                 window.location.href = `/blog.html?slug=${encodeURIComponent(slug)}`;
@@ -127,8 +128,7 @@ function renderizarArticulo(articulo, articulos) {
     const contenido = document.getElementById('contenido');
     const titulo = escaparHTML(articulo.titulo || '');
     const texto = (articulo.contenido || '').split('\n').map(parrafo =>
-        parrafo.trim() ? `<p>${escaparHTML(parrafo)}</p>` : ''
-    ).join('');
+        parrafo.trim() ? `<p>${escaparHTML(parrafo)}</p>` : ''    ).join('');
     const imagen = escaparHTML(articulo.imagen || '/imagenes/no-image.webp');
     const fecha = formatearFecha(articulo.fecha);
     const autor = escaparHTML(articulo.autor || 'POMPY');
@@ -156,11 +156,11 @@ function renderizarArticulo(articulo, articulos) {
                 <i class="fa-solid fa-arrow-left"></i> Volver al blog
             </a>
             <div class="blog-articulo-imagen-contenedor">
-                <img src="${imagen}" alt="${titulo}" class="blog-articulo-imagen"
-                    onerror="this.src='/imagenes/no-image.webp'">
+                <img src="${imagen}" alt="${titulo}" class="blog-articulo-imagen"                    onerror="this.src='/imagenes/no-image.webp'">
             </div>
             <div class="blog-articulo-body">
-                ${fecha ? `<
+                ${fecha ? 
+`<
 span class="blog-articulo-fecha"><i class="fa-regular fa-calendar"></i> ${fecha}</span>` : ''}
                 <h1>${titulo}</h1>
                 <span class="blog-articulo-autor"><i class="fa-regular fa-user"></i> Por ${autor}</span>

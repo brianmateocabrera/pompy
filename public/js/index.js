@@ -119,8 +119,8 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
-    // Mostrar skeleton mientras carga
-    catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
+    // Mostrar skele
+ton mientras carga    catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
 
     try {
         const respuesta = await fetch(API_URL, {
@@ -235,6 +235,7 @@ function obtenerProductosFiltrados() {
 
  
 
+
   
  return resultado;
 }
@@ -346,6 +347,7 @@ document.getElementById('navCatalogo').addEventListener('click', () => {
 document.getElementById('navCart').addEventListener('click', () => abrirDrawer('drawer-cart'));
 document.getElementById('navFavoritos').addEventListener('click', (e) => 
 {
+
  e.preventDefault(); window.location.href = '/favoritos.html'; });
 
 // Menú favoritos
@@ -411,6 +413,7 @@ if (badge1) {
 }
 
 /* ---------- INICIALIZA
+
 CIÓN ---------- */
 
 configurarIndicadoresBanners(banners);
@@ -462,6 +465,7 @@ function activarAutocompletado() {
                 const precio = p.precio ? formatearPrecio(p.precio) : '';
                 return '<a href="/producto.html?slug=' + encodeURIComponent(p.slug) + '" class="search-sugerencia">' +
                     (img ? '<img src="' + escaparHTML(img) + '" alt="" loading="lazy">' : '<div class="sug-img-placeholder"><i class="fa-solid fa-image"></i></div>')
+
  +
                     '<div><div class="sug-nombre">' + escaparHTML(p.nombre) + '</div>' +
                     (precio ? '<div class="sug-precio">' + precio + '</div>' : '') + '</div></a>';

@@ -56,12 +56,10 @@ function generarSlug(nombre) {
         .normalize('NFD')
         .replace(
             /[\u0300-\u036f]/g,
-            ''
-        )
+            ''        )
         .replace(
             /[^a-z0-9]+/g,
-            '-'
-        )
+            '-'        )
         .replace(
             /^-+|-+$/g,
             '');
@@ -82,8 +80,7 @@ function convertirLista(texto) {
 
     return String(texto)
         .split(',')
-        .map(
-            item => item.trim()
+        .map(            item => item.trim()
         )
         .filter(Boolean);
 }
@@ -93,38 +90,31 @@ function convertirLista(texto) {
    VALIDACIÓN
 ------------------------------------------ */
 
-function validarProducto(
-    datos,
+function validarProducto(    datos,
     indexActual = -1
 ) {
 
-    const nombre =
-        String(
-            datos.nombre || ''
-        ).trim();
+    const nombre =        String(            datos.nombre || ''        ).trim();
 
 
     if (!nombre) {
 
         throw new Error(
-            'El nombre del producto es obligatorio.'
-        );
+            'El nombre del producto es obligatorio.'        );
     }
 
 
-    if (
-        nombre.length < 2
+    if (        nombre.length < 2
     ) {
 
         throw new Error(
             'El nombre del producto debe tener al
- menos 2 caracteres.'
-        );
+
+ menos 2 caracteres.'        );
     }
 
 
-    const precio =
-        Number(datos.precio);
+    const precio =        Number(datos.precio);
 
 
     if (
@@ -133,19 +123,16 @@ function validarProducto(
     ) {
 
         throw new Error(
-            'El precio de venta no es válido.'
-        );
+            'El precio de venta no es válido.'        );
     }
 
 
-    if (
-        datos.precioCosto !== '' &&
+    if (        datos.precioCosto !== '' &&
         datos.precioCosto !== undefined &&
         datos.precioCosto !== null
     ) {
 
-        const precioCosto =
-            Number(datos.precioCosto);
+        const precioCosto =            Number(datos.precioCosto);
 
 
         if (
@@ -154,20 +141,17 @@ function validarProducto(
         ) {
 
             throw new Error(
-                'El precio de costo no es válido.'
-            );
+                'El precio de costo no es válido.'            );
         }
     }
 
 
-    if (
-        datos.precioAnterior !== '' &&
+    if (        datos.precioAnterior !== '' &&
         datos.precioAnterior !== undefined &&
         datos.precioAnterior !== null
     ) {
 
-        const precioAnterior =
-            Number(datos.precioAnterior);
+        const precioAnterior =            Number(datos.precioAnterior);
 
 
         if (
@@ -176,20 +160,17 @@ function validarProducto(
         ) {
 
             throw new Error(
-                'El precio anterior no es válido.'
-            );
+                'El precio anterior no es válido.'            );
         }
     }
 
 
-    if (
-        datos.stock !== '' &&
+    if (        datos.stock !== '' &&
         datos.stock !== undefined &&
         datos.stock !== null
     ) {
 
-        const stock =
-            Number(datos.stock);
+        const stock =            Number(datos.stock);
 
 
         if (
@@ -198,20 +179,17 @@ function validarProducto(
         ) {
 
             throw new Error(
-                'El stock debe ser un número entero mayor o igual a 0.'
-            );
+                'El stock debe ser un número entero mayor o igual a 0.'            );
         }
     }
 
 
-    if (
-        datos.orden !== '' &&
+    if (        datos.orden !== '' &&
         datos.orden !== undefined &&
         datos.orden !== null
     ) {
 
-        const orden =
-            Number(datos.orden);
+        const orden =            Number(datos.orden);
 
 
         if (
@@ -220,33 +198,24 @@ function validarProducto(
         ) {
 
             throw new Error(
-                'El orden debe ser un número entero mayor o igual a 0.'
-            );
+                'El orden debe ser un número entero mayor o igual a 0.'            );
         }
     }
 
 
-    const sku =
-        String(
-            datos.sku || ''
-        )
+    const sku =        String(            datos.sku || ''        )
             .trim()
-            .toLowerC
-ase();
+            .toLowerCase();
 
 
     if (sku) {
 
-        const duplicado =
-            listaProductos.some(
-                (
-                    producto,
+        const duplicado =            listaProductos.some(
+                (                    producto,
                     index
                 ) =>
                     index !== indexActual &&
-                    String(
-                        producto.sku || ''
-                    )
+                    String(                        producto.sku || ''                    )
                         .trim()
                         .toLowerCase() === sku
             );
@@ -266,25 +235,20 @@ ase();
    NORMALIZAR PRODUCTO
 ------------------------------------------ */
 
-function normalizarProducto(
-    datos,
+function normalizarProducto(    datos,
     imagenes,
     imagenPrincipal,
     productoAnterior = null
 ) {
 
-    const ahora =
-        obtenerFechaActual();
+    const ahora =        obtenerFechaActual();
 
 
-    const id =
-        productoAnterior?.id ||
+    const id =        productoAnterior?.id ||
         generarId();
 
 
-    const slug =
-        generarSlug(
-            datos.nombre
+    const slug =        generarSlug(            datos.nombre
         );
 
 
@@ -293,30 +257,22 @@ function normalizarProducto(
         id,
 
         sku:
-            String(
-                datos.sku || ''
-            ).trim(),
+            String(                datos.sku || ''            ).trim(),
 
         slug,
 
         nombre:
-            String(
-                datos.nombre || ''
-            ).trim(),
+            String(                datos.nombre || ''            ).trim(),
 
         descripcion:
-            String(
-                datos.descripcion || ''
-            ).trim(),
+            String(                datos.descripcion || ''            ).trim(),
 
         precioCosto:
-            Number(
-                datos.precioCosto
+            Number(                datos.precioCosto
             ) || 0,
 
         precio:
-            Number(
-                datos.precio
+            Number(                datos.precio
             ) || 0,
 
         precioAnterior:
@@ -324,14 +280,12 @@ function normalizarProducto(
             datos.precioAnterior === null ||
             datos.precioAnterior === undefined
                 ? null
-                : Number(
-                    datos.precioAnterior
+                : Number(                    datos.precioAnterior
                 ),
 
         imagenes:
             imagenes.map(
-                (
-                    imagen,
+                (                    imagen,
                     index
                 ) => ({
 
@@ -351,33 +305,27 @@ function normalizarProducto(
             imagenPrincipal || '',
 
         categoria:
-            convertirLista(
-                datos.categoria
+            convertirLista(                datos.categoria
             ),
 
         tags:
-            convertirLista(
-                datos.tags
+            convertirLista(                datos.tags
             ),
 
         badges:
-            convertirLista(
-                datos.badges
+            convertirLista(                datos.badges
             ),
 
         stock:
-            Number(
-                datos.stock
+            Number(                datos.stock
             ) || 0,
 
         talles:
-            convertirLista(
-                datos.talles
+            convertirLista(                datos.talles
             ),
 
         colores:
-            convertirLista(
-                datos.colores
+            convertirLista(                datos.colores
             ),
 
         activo:
@@ -387,8 +335,7 @@ function normalizarProducto(
             datos.destacado === true,
 
         orden:
-            Number(
-                datos.orden
+            Number(                datos.orden
             ) || 0,
 
         fechaCreacion:
@@ -405,13 +352,11 @@ function normalizarProducto(
    CREAR PRODUCTO
 ------------------------------------------ */
 
-export async function crearProducto(
-    datos,
+export async function crearProducto(    datos,
     archivosImagen
 ) {
 
-    validarProducto(
-        datos
+    validarProducto(        datos
     );
 
 
@@ -421,8 +366,7 @@ export async function crearProducto(
     ) {
 
         throw new Error(
-            'Debes seleccionar al menos una imagen.'
-        );
+            'Debes seleccionar al menos una imagen.'        );
     }
 
 
@@ -434,8 +378,7 @@ export async function crearProducto(
     ) {
 
         const url =
-            await procesarImagen(
-                archivo
+            await procesarImagen(                archivo
             );
 
 
@@ -452,30 +395,24 @@ export async function crearProducto(
     }
 
 
-    const producto =
-        normalizarProducto(
-            datos,
+    const producto =        normalizarProducto(            datos,
             imagenes,
-            imagenes[0]?.url || ''
-        );
+            imagenes[0]?.url || ''        );
 
 
-    listaProductos.push(
-        producto
+    listaProductos.push(        producto
     );
 
 
     const resultado =
-        await guardarProductos(
-            listaProductos,
+        await guardarProductos(            listaProductos,
             `Crear producto: ${producto.nombre}`
         );
 
 
     if (!resultado.success) {
 
-        throw new Error(
-            resultado.error
+        throw new Error(            resultado.error
         );
     }
 
@@ -488,36 +425,29 @@ export async function crearProducto(
    EDITAR PRODUCTO
 ------------------------------------------ */
 
-export async function editarProducto(
-    index,
+export async function editarProducto(    index,
     datos,
     archivosImagen
 ) {
 
-    if (
-        index < 0 ||
+    if (        index < 0 ||
         index >= listaProductos.length
     ) {
 
         throw new Error(
-            'Producto no encontrado.'
-        );
+            'Producto no encontrado.'        );
     }
 
 
-    validarProducto(
-        datos,
+    validarProducto(        datos,
         index
     );
 
 
-    const productoAnterior =
-        listaProductos[index];
+    const productoAnterior =        listaProductos[index];
 
 
-    const imagenes =
-        Array.isArray(
-            productoAnterior.imagenes
+    const imagenes =        Array.isArray(            productoAnterior.imagenes
         )
             ? [
                 ...productoAnterior.imagenes
@@ -525,8 +455,7 @@ export async function editarProducto(
             : [];
 
 
-    const archivos =
-        archivosImagen || [];
+    const archivos =        archivosImagen || [];
 
 
     for (
@@ -534,8 +463,7 @@ export async function editarProducto(
     ) {
 
         const url =
-            await procesarImagen(
-                archivo
+            await procesarImagen(                archivo
             );
 
 
@@ -552,50 +480,40 @@ export async function editarProducto(
     }
 
 
-    let imagenPrincipal =
-        productoAnterior.imagenPrincipal ||
+    let imagenPrincipal =        productoAnterior.imagenPrincipal ||
         imagenes[0]?.url ||
         '';
 
 
     if (
-        !imagenes.some(
-            imagen =>
-                imagen.url ===
-                imagenPrincipal
+        !imagenes.some(            imagen =>
+                imagen.url ===                imagenPrincipal
         )
     ) {
 
-        imagenPrincipal =
-            imagenes[0]?.url || '';
+        imagenPrincipal =            imagenes[0]?.url || '';
     }
 
 
-    const productoActualizado =
-        normalizarProducto(
-            datos,
+    const productoActualizado =        normalizarProducto(            datos,
             imagenes,
             imagenPrincipal,
             productoAnterior
         );
 
 
-    listaProductos[index] =
-        productoActualizado;
+    listaProductos[index] =        productoActualizado;
 
 
     const resultado =
-        await guardarProductos(
-            listaProductos,
-            `Actualizar
- producto: ${productoActualizado.nombre}`
+        await guardarProductos(            listaProductos,
+            `Actualizar producto: ${productoActualizado.nombre}`
         );
 
 
     if (!resultado.success) {
 
-        throw new Error(
-            resultado.error
+        throw new Error(            resultado.error
         );
     }
 
@@ -608,31 +526,25 @@ export async function editarProducto(
    ACTUALIZAR IMÁGENES
 ------------------------------------------ */
 
-export async function actualizarImagenes(
-    index,
+export async function actualizarImagenes(    index,
     imagenes,
     imagenPrincipal
 ) {
 
-    if (
-        index < 0 ||
+    if (        index < 0 ||
         index >= listaProductos.length
     ) {
 
         throw new Error(
-            'Producto no encontrado.'
-        );
+            'Producto no encontrado.'        );
     }
 
 
-    const producto =
-        listaProductos[index];
+    const producto =        listaProductos[index];
 
 
-    const nuevasImagenes =
-        imagenes.map(
-            (
-                imagen,
+    const nuevasImagenes =        imagenes.map(
+            (                imagen,
                 posicion
             ) => ({
 
@@ -649,31 +561,26 @@ export async function actualizarImagenes(
         );
 
 
-    producto.imagenes =
-        nuevasImagenes;
+    producto.imagenes =        nuevasImagenes;
 
 
-    producto.imagenPrincipal =
-        imagenPrincipal ||
+    producto.imagenPrincipal =        imagenPrincipal ||
         nuevasImagenes[0]?.url ||
         '';
 
 
-    producto.fechaActualizacion =
-        obtenerFechaActual();
+    producto.fechaActualizacion =        obtenerFechaActual();
 
 
     const resultado =
-        await guardarProductos(
-            listaProductos,
+        await guardarProductos(            listaProductos,
             `Actualizar imágenes: ${producto.nombre}`
         );
 
 
     if (!resultado.success) {
 
-        throw new Error(
-            resultado.error
+        throw new Error(            resultado.error
         );
     }
 
@@ -686,34 +593,28 @@ export async function actualizarImagenes(
    ELIMINAR PRODUCTO
 ------------------------------------------ */
 
-export async function eliminarProducto(
-    index
+export async function eliminarProducto(    index
 ) {
 
-    if (
-        index < 0 ||
+    if (        index < 0 ||
         index >= listaProductos.length
     ) {
 
         throw new Error(
-            'Producto no encontrado.'
-        );
+            'Producto no encontrado.'        );
     }
 
 
-    const producto =
-        listaProductos[index];
+    const producto =        listaProductos[index];
 
 
-    listaProductos.splice(
-        index,
+    listaProductos.splice(        index,
         1
     );
 
 
     const resultado =
-        await guardarProductos(
-            listaProductos,
+        await guardarProductos(            listaProductos,
 
             `Eliminar producto: ${producto.nombre}`
         );
@@ -721,8 +622,7 @@ export async function eliminarProducto(
 
     if (!resultado.success) {
 
-        throw new Error(
-            resultado.error
+        throw new Error(            resultado.error
         );
     }
 

@@ -17,20 +17,14 @@ import {
 } from './admin-auth.js';
 
 
-const formulario =
-    document.getElementById(
-        'bannerForm'
-    );
+const formulario =    document.getElementById(
+        'bannerForm'    );
 
-const lista =
-    document.getElementById(
-        'listaBanners'
-    );
+const lista =    document.getElementById(
+        'listaBanners'    );
 
-const fileInput =
-    document.getElementById(
-        'bannerImagen'
-    );
+const fileInput =    document.getElementById(
+        'bannerImagen'    );
 
 
 let indexEditando = -1;
@@ -40,13 +34,10 @@ let indexEditando = -1;
    ESCAPAR HTML
 ------------------------------------------ */
 
-function escaparHTML(
-    texto
+function escaparHTML(    texto
 ) {
 
-    return String(
-        texto ?? ''
-    )
+    return String(        texto ?? ''    )
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
@@ -61,8 +52,7 @@ function escaparHTML(
 
 function renderizarBanners() {
 
-    const banners =
-        obtenerBanners();
+    const banners =        obtenerBanners();
 
 
     if (!banners.length) {
@@ -74,8 +64,7 @@ function renderizarBanners() {
     }
 
 
-    const ordenados =
-        banners
+    const ordenados =        banners
             .map(
                 (banner, index) => ({
                     ...banner,
@@ -88,32 +77,25 @@ function renderizarBanners() {
             );
 
 
-    lista.innerHTML =
-        ordenados.map(
+    lista.innerHTML =        ordenados.map(
             (banner, posicion) => `
 
                 <article
                     class="banner-admin-card"
                 >
 
-                    <img
-                        src="${escaparHTML(banner.imagen)}"
-                        alt="${escaparHTML(
-                            banner.titulo ||
-                            'Banner'
-                        )}"
+                    <img                        src="${escaparHTML(banner.imagen)}"                        alt="${escaparHTML(                            banner.titulo ||
+                            'Banner'                        )}"
                         class="banner-admin-
-image"
-                        onerror="this.src='/imagenes/no-image.webp'"
+
+image"                        onerror="this.src='/imagenes/no-image.webp'"
                     >
 
                     <div class="banner-admin-info">
 
                         <strong>
-                            ${escaparHTML(
-                                banner.titulo ||
-                                'Sin título'
-                            )}
+                            ${escaparHTML(                                banner.titulo ||
+                                'Sin título'                            )}
                         </strong>
 
                         <span>
@@ -137,8 +119,7 @@ image"
                                 ? `
                                     <span>
                                         Enlace: ${
-                                            escaparHTML(
-                                                banner.enlace
+                                            escaparHTML(                                                banner.enlace
                                             )
                                         }
                                     </span>
@@ -150,20 +131,17 @@ image"
 
                     <div class="banner-admin-actions">
 
-                        <button
-                            type="button"
-                            class="btn-banner-subir"
-                            data-index="${banner._index}"
+                        <button                            type="button"
+                            class="btn-banner-subir"                            data-index="${banner._index}"
                             ${posicion === 0 ? 'disabled' : ''}
                         >
                             Subir
                         </button>
 
-                        <button
-                            type="button"
+                        <button                            type="button
+"
 
-                            class="btn-banner-bajar"
-                            data-index="${banner._index}"
+                            class="btn-banner-bajar"                            data-index="${banner._index}"
                             ${
                                 posicion === ordenados.length - 1
                                     ? 'disabled'
@@ -173,18 +151,14 @@ image"
                             Bajar
                         </button>
 
-                        <button
-                            type="button"
-                            class="btn-banner-editar"
-                            data-index="${banner._index}"
+                        <button                            type="button"
+                            class="btn-banner-editar"                            data-index="${banner._index}"
                         >
                             Editar
                         </button>
 
-                        <button
-                            type="button"
-                            class="btn-banner-toggle"
-                            data-index="${banner._index}"
+                        <button                            type="button"
+                            class="btn-banner-toggle"                            data-index="${banner._index}"
                         >
                             ${
                                 banner.activo
@@ -193,10 +167,8 @@ image"
                             }
                         </button>
 
-                        <button
-                            type="button"
-                            class="btn-banner-eliminar"
-                            data-index="${banner._index}"
+                        <button                            type="button"
+                            class="btn-banner-eliminar"                            data-index="${banner._index}"
                         >
                             Eliminar
                         </button>
@@ -223,32 +195,26 @@ function limpiarFormulario() {
 
 
     document.getElementById(
-        'bannerFormTitle'
-    ).textContent =
+        'bannerFormTitle'    ).textContent =
         'Agregar banner';
 
 
     document.getElementById(
-        'btnBannerGuardar'
-    ).textContent =
+        'btnBannerGuardar'    ).textContent =
         'Agregar banner';
 
 
     document.getElementById(
-        'btnBannerC
-ancelar'
-    ).style.display =
+        'btnBannerCancelar'    ).style.display =
         'none';
 
 
     document.getElementById(
-        'bannerImagenActual'
-    ).innerHTML =
+        'bannerImagenActual'    ).innerHTML =
         '';
 
 
-    fileInput.required =
-        true;
+    fileInput.required =        true;
 }
 
 
@@ -256,12 +222,10 @@ ancelar'
    EDITAR
 ------------------------------------------ */
 
-function editarBanner(
-    index
+function editarBanner(    index
 ) {
 
-    const banner =
-        obtenerBanners()[index];
+    const banner =        obtenerBanners()[index];
 
 
     if (!banner) {
@@ -269,64 +233,47 @@ function editarBanner(
     }
 
 
-    indexEditando =
-        index;
+    indexEditando =        index;
 
 
     document.getElementById(
-        'bannerTitulo'
-    ).value =
-        banner.titulo || '';
+        'bannerTitulo'    ).value =        banner.titulo || '';
 
 
     document.getElementById(
-        'bannerEnlace'
-    ).value =
-        banner.enlace || '';
+        'bannerEnlace'    ).value =        banner.enlace || '';
 
 
     document.getElementById(
-        'bannerOrden'
-    ).value =
-        banner.orden ?? 0;
+        'bannerOrden'    ).value =        banner.orden ?? 0;
 
 
     document.getElementById(
-        'bannerActivo'
-    ).checked =
-        banner.activo !== false;
+        'bannerActivo'    ).checked =        banner.activo !== false;
 
 
     document.getElementById(
-        'bannerFormTitle'
-    ).textContent =
+        'bannerFormTitle'    ).textContent =
         'Editar banner';
 
 
     document.getElementById(
-        'btnBannerGuardar'
-    ).textContent =
+        'btnBannerGuardar'    ).textContent =
         'Guardar cambios';
 
 
     document.getElementById(
-        'btnBannerCancelar'
-    ).style.display =
+        'btnBannerCancelar'    ).style.display =
         'inline-block';
 
 
-    fileInput.required =
-        false;
+    fileInput.required =        false;
 
 
     document.getElementById(
-        'bannerImagenActual'
-    ).innerHTML = `
-        <img
-            src="${escaparHTML(banner.imagen)}"
-            alt="Imagen actual"
-            class="banner-imagen-actual"
-            onerror="this.src='/imagenes/no-image.webp'"
+        'bannerImagenActual'    ).innerHTML = `
+        <img            src="${escaparHTML(banner.imagen)}"            alt="Imagen actual"
+            class="banner-imagen-actual"            onerror="this.src='/imagenes/no-image.webp'"
         >
     `;
 
@@ -353,8 +300,7 @@ async function iniciar() {
     } catch (error) {
 
         const manejado =
-            await manejarErrorSesion(
-                error,
+            await manejarErrorSesion(                error,
                 iniciar
             );
 
@@ -390,18 +336,15 @@ formulario.addEventListener(
         }
 
 
-        const archivo =
-            fileInput.files[0];
+        const archivo =            fileInput.files[0];
 
 
-        if (
-            indexEditando === -1 &&
+        if (            indexEditando === -1 &&
             !archivo
         ) {
 
             alert(
-                'Seleccioná una imagen para el banner.'
-            );
+                'Seleccioná una imagen para el banner.'            );
 
             return;
         }
@@ -413,55 +356,46 @@ formulario.addEventListener(
 
                 titulo:
                     document.getElementById(
-                        'bannerTitulo'
-                    ).value.trim(),
+                        'bannerTitulo'                    ).value.trim(),
 
                 enlace:
                     document.getElementById(
-                        'bannerEnlace'
-                    ).value.trim(),
+                        'bannerEnlace'                    ).value.trim(),
 
                 orden:
-                    Number(
-                        document.getElementById(
-                            'bannerOrden'
-                        ).value
+                    Number(                        document.getElementById(
+                            'bannerOrden'                        ).value
                     ) || 0,
 
                 activo:
                     document.getElementById(
-                        'bannerActivo'
-                    ).checked
+                        'bannerActivo'                    ).checked
             };
 
 
             if (archivo) {
 
                 datos.imagen =
-                    await procesarImagen(
-                        archivo
+                    await procesarImagen(                        archivo
                     );
             }
 
 
             if (indexEditando === -1) {
 
-                await crearBanner(
-                    datos
+                await crearBanner(                    datos
                 );
 
             } else {
 
-                await actualizarBanner(
-                    indexEditando,
+                await actualizarBanner(                    indexEditando,
                     datos
                 );
             }
 
 
             alert(
-                'Banner guardado correctamente.'
-            );
+                'Banner guardado correctamente.'            );
 
 
             limpiarFormulario();
@@ -476,8 +410,7 @@ formulario.addEventListener(
                 error.message
             );
 
-            await manejarErrorSesion(
-                error,
+            await manejarErrorSesion(                error,
                 iniciar
             );
         }
@@ -493,24 +426,19 @@ lista.addEventListener(
     'click',
     async event => {
 
-        const boton =
-            event.target.closest(
-                'button'
-            );
+        const boton =            event.target.closest(
+                'button'            );
 
         if (!boton) {
             return;
         }
 
 
-        const index =
-            Number(
-                boton.dataset.index
+        const index =            Number(                boton.dataset.index
             );
 
 
-        if (
-            Number.isNaN(index)
+        if (            Number.isNaN(index)
         ) {
             return;
         }
@@ -528,14 +456,11 @@ lista.addEventListener(
 
             /* SUBIR */
 
-            if (
-                boton.classList.contains(
-                    'btn-banner-subir'
-                )
+            if (                boton.classList.contains(
+                    'btn-banner-subir'                )
             ) {
 
-                await moverBanner(
-                    index,
+                await moverBanner(                    index,
                     -1
                 );
 
@@ -547,14 +472,11 @@ lista.addEventListener(
 
             /* BAJAR */
 
-            if (
-                boton.classList.contains(
-                    'btn-banner-bajar'
-                )
+            if (                boton.classList.contains(
+                    'btn-banner-bajar'                )
             ) {
 
-                await moverBanner(
-                    index,
+                await moverBanner(                    index,
                     1
                 );
 
@@ -566,10 +488,8 @@ lista.addEventListener(
 
             /* EDITAR */
 
-            if (
-                boton.classList.contains(
-                    'btn-banner-editar'
-                )
+            if (                boton.classList.contains(
+                    'btn-banner-editar'                )
             ) {
 
                 editarBanner(index);
@@ -580,15 +500,13 @@ lista.addEventListener(
 
             /* ACTIVAR / DESACTIVAR */
 
-            if (
-                boton.classList.contains(
-                    'btn-banner-toggle'
-                )
+            if (                boton.classList.contains(
+                    'btn-banner-toggle'                )
             ) {
 
-      
-          const banner =
-                    obtenerBanners()[index];
+  
+    
+          const banner =                    obtenerBanners()[index];
 
 
                 if (!banner) {
@@ -596,8 +514,7 @@ lista.addEventListener(
                 }
 
 
-                await actualizarBanner(
-                    index,
+                await actualizarBanner(                    index,
                     {
                         activo:
                             !banner.activo
@@ -613,14 +530,11 @@ lista.addEventListener(
 
             /* ELIMINAR */
 
-            if (
-                boton.classList.contains(
-                    'btn-banner-eliminar'
-                )
+            if (                boton.classList.contains(
+                    'btn-banner-eliminar'                )
             ) {
 
-                const banner =
-                    obtenerBanners()[index];
+                const banner =                    obtenerBanners()[index];
 
 
                 if (!banner) {
@@ -640,8 +554,7 @@ lista.addEventListener(
                 }
 
 
-                await eliminarBanner(
-                    index
+                await eliminarBanner(                    index
                 );
 
 
@@ -655,8 +568,7 @@ lista.addEventListener(
                 error.message
             );
 
-            await manejarErrorSesion(
-                error,
+            await manejarErrorSesion(                error,
                 iniciar
             );
         }
@@ -670,8 +582,7 @@ lista.addEventListener(
 
 document
     .getElementById(
-        'btnBannerCancelar'
-    )
+        'btnBannerCancelar'    )
     .addEventListener(
         'click',
         limpiarFormulario
