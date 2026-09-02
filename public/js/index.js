@@ -119,8 +119,7 @@ function setOrdenValue(val) {
 /* ---------- CARGAR CATÁLOGO ---------- */
 
 async function cargar() {
-    // Mostrar skele
-ton mientras carga
+    // Mostrar skeleton mientras carga
     catalogo.innerHTML = Array(8).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>').join('');
 
     try {
@@ -173,7 +172,8 @@ function cargarCategorias() {
     const menuCategorias = document.getElementById('menuCategoriasLista');
     if (menuCategorias) {
         menuCategorias.innerHTML = lista.map(nombre =>
-            `<a href="#" class="menu-categoria-link" data-categoria="${escaparHTM
+            `<a href="#" class="menu-categoria-link" data-categoria="${escaparHT
+M
 L(nombre)}">${escaparHTML(nombre)}</a>`
         ).join('');
 
@@ -235,7 +235,8 @@ function obtenerProductosFiltrados() {
             resultado.sort((a, b) => (Number(a.orden) || 0) - (Number(b.orden) || 0));
     }
 
-   
+ 
+  
  return resultado;
 }
 
@@ -345,7 +346,8 @@ document.getElementById('navCatalogo').addEventListener('click', () => {
     abrirDrawer('drawer-filtros');
 });
 document.getElementById('navCart').addEventListener('click', () => abrirDrawer('drawer-cart'));
-document.getElementById('navFavoritos').addEventListener('click', (e) => { e.preventDefault(); window.location.href = '/favoritos.html'; });
+document.getElementById('navFavoritos').addEventListener('click', (e) => {
+ e.preventDefault(); window.location.href = '/favoritos.html'; });
 
 // Menú favoritos
 const menuFav = document.getElementById('menuFavoritos');
@@ -409,14 +411,15 @@ if (badge1) {
     badgeObserver.observe(badge1, { attributes: true, childList: true, characterData: true, subtree: true });
 }
 
-/* ---------- INICIALIZACIÓN -
+/* ---------- INICIALIZACI
+ÓN -
 --------- */
 
 configurarIndicadoresBanners(banners);
 cargarBanners(banners);
 actualizarBadgeCarrito();
 actualizarBadgeFavoritos();
-cargar();
+cargar().then(() => activarAutocompletado());
 
 // Botón volver arriba
 const btnTop = document.getElementById('btnTop');
@@ -475,8 +478,3 @@ function activarAutocompletado() {
     }
 }
 
-const _cargarOriginal = cargar;
-cargar = async function() {
-    await _cargarOriginal();
-    activarAutocompletado();
-};
