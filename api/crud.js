@@ -224,13 +224,19 @@ export default function handler(req, res) {
 
         if (action === 'GET') {
 
-            return obtenerArchivo(
-                path,
-                token,
-                repo,
-                res
-            );
-        }
+    console.log('GET GitHub:', {
+        path,
+        repo,
+        tokenExiste: !!token
+    });
+
+    return obtenerArchivo(
+        path,
+        token,
+        repo,
+        res
+    );
+}
 
 
         // =========================================
