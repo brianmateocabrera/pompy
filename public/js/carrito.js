@@ -61,7 +61,8 @@ function renderizarCarritoPagina() {
     paginaCarrito.style.display = 'block';
     carritoVacio.style.display = 'none';
 
-    carritoItemsLista.innerHTML = carrito.map(item => {
+    carritoItemsLista.innerHTML = ca
+rrito.map(item => {
         const img = item.imagen || '/imagenes/no-image.webp';
         const subtotalItem = (item.precio * (item.cantidad || 1));
         return '<div class="carrito-item-pagina" data-slug="' + escaparHTML(item.slug) + '">' +
@@ -97,6 +98,7 @@ function activarBotonesCarritoPagina() {
                     item.cantidad = (item.cantidad || 1) + 1;
                 } else if (action === 'restar') {
    
+
                  item.cantidad = (item.cantidad || 1) - 1;
                     if (item.cantidad <= 0) {
                         const idx = carrito.findIndex(i => i.slug === slug);
@@ -146,6 +148,7 @@ if (btnAplicarCupon) {
             descuentoAplicado = CUPONES[codigo];
             cuponAplicado = codigo;
             cuponMensaje.textContent = '¡Cupón aplicado! ' + (descuentoAplicado * 100) + '% de descuento';
+
 
             cuponMensaje.className = 'cupon-mensaje exito';
         } else {
@@ -197,8 +200,7 @@ const btnCheckout = document.getElementById('btnCheckout');
 if (btnCheckout) btnCheckout.addEventListener('click', enviarCarritoWhatsApp);
 
 function sincronizarBadges() {
-    const badge1 = document.getElementById('cartB
-adge');
+    const badge1 = document.getElementById('cartBadge');
     const badge2 = document.getElementById('cartBadge2');
     if (badge1 && badge2) {
         badge2.textContent = badge1.textContent;

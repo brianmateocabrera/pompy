@@ -92,7 +92,8 @@ export function mostrarPrevisualizacionArchivos(
                             'p'
                         );
 
-                    label.className =
+     
+               label.className =
                         'imagen-label';
 
                     label.textContent =
@@ -207,7 +208,8 @@ async function guardarOrdenImagenes(
             productoActualizado
         );
 
-        if (typeof alGuardar === 'function') {
+ 
+       if (typeof alGuardar === 'function') {
             await alGuardar();
         }
 
@@ -392,7 +394,8 @@ export function configurarGestionImagenes(
                         imagenes,
                         imagenes[indexImagen].url,
                         'Guardando imagen principal...',
-                        async () => {
+           
+             async () => {
 
                             renderizarTabla(
                                 obtenerProductos(),
@@ -463,7 +466,8 @@ export function configurarGestionImagenes(
 
                     alert(
                         'Error al actualizar las imágenes: ' +
-                        error.message
+                        error.m
+essage
                     );
 
                     await manejarErrorSesion(
@@ -539,7 +543,8 @@ export function configurarGestionImagenes(
 
             if (
                 boton.classList.contains(
-                    'btn-eliminar-imagen'
+                    'btn-eliminar-ima
+gen'
                 )
             ) {
 

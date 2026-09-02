@@ -90,9 +90,8 @@ export function actualizarBadgeFavoritos() {
     const badge = document.getElementById('favBadge');
     const count = obtenerFavoritos().length;
     if (badge) {
- 
 
-       badge.textContent = count > 0 ? String(count) : '';
+        badge.textContent = count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
@@ -135,8 +134,7 @@ export function animarBadgeCarrito() {
     document.querySelectorAll('.badge-contador').forEach(badge => {
         if (badge.id === 'favBadge') return;
         badge.classList.remove('badge-pop');
-        void
- badge.offsetWidth;
+        void badge.offsetWidth;
         badge.classList.add('badge-pop');
     });
 }
@@ -164,9 +162,7 @@ export function actualizarBadgeCarrito() {
     const carrito = obtenerCarrito();
     const count = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
     if (badge) {
-        badge.textContent 
-=
- count > 0 ? String(count) : '';
+        badge.textContent = count > 0 ? String(count) : '';
         badge.style.display = count > 0 ? 'flex' : 'none';
     }
 }
@@ -240,12 +236,10 @@ export function activarCarritoBotones() {
     const contenedor = document.getElementById('cartItems');
     if (!contenedor) return;
     contenedor.querySelectorAll('[data-action]').forEach(btn => {
-        btn.addEventListener('click'
-, () => {
+        btn.addEventListener('click', () => {
             const action = btn.dataset.action;
             const slug = btn.dataset.slug;
-            if (action === 'sumar') cambiarCantidadCarrito(slug, 
-1);
+            if (action === 'sumar') cambiarCantidadCarrito(slug, 1);
             else if (action === 'restar') cambiarCantidadCarrito(slug, -1);
             else if (action === 'eliminar') removeFromCart(slug);
         });
@@ -299,8 +293,7 @@ export function crearTarjeta(producto) {
     return `
         <article class="card" data-slug="${slug}" role="link" tabindex="0">
             <div class="imagen-contenedor">
-                <img src="${imagenPrincipal}" class="card-img" alt
-="${nombre}" loading="lazy"
+                <img src="${imagenPrincipal}" class="card-img" alt="${nombre}" loading="lazy"
                     onerror="this.src='/imagenes/no-image.webp'">
                 <div class="badge-contenedor">${badges}${sinStock}</div>
 
@@ -346,6 +339,7 @@ export function activarTarjetas() {
         card.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
+
    
              abrir();
             }
@@ -353,8 +347,7 @@ export function activarTarjetas() {
     });
 
     document.querySelectorAll('.btn-fav[data-fav-slug]').forEach(btn => {
-        btn.addEventListener('click'
-, event => {
+        btn.addEventListener('click', event => {
             event.stopPropagation();
             const slug = btn.dataset.favSlug;
             if (slug) toggleFav(slug);

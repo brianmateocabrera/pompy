@@ -102,7 +102,8 @@ function renderizarBanners() {
                             banner.titulo ||
                             'Banner'
                         )}"
-                        class="banner-admin-image"
+                        class="banner-admin-
+image"
                         onerror="this.src='/imagenes/no-image.webp'"
                     >
 
@@ -160,6 +161,7 @@ function renderizarBanners() {
 
                         <button
                             type="button"
+
                             class="btn-banner-bajar"
                             data-index="${banner._index}"
                             ${
@@ -233,7 +235,8 @@ function limpiarFormulario() {
 
 
     document.getElementById(
-        'btnBannerCancelar'
+        'btnBannerC
+ancelar'
     ).style.display =
         'none';
 
@@ -360,6 +363,7 @@ async function iniciar() {
         }
 
         lista.innerHTML =
+
             `<p class="error-banners">
                 ${escaparHTML(error.message)}
             </p>`;
@@ -582,7 +586,8 @@ lista.addEventListener(
                 )
             ) {
 
-                const banner =
+      
+          const banner =
                     obtenerBanners()[index];
 
 

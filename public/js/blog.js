@@ -66,7 +66,8 @@ function renderizarLista(articulos) {
                 <i class="fa-solid fa-pen-nib"></i>
                 <h2>Nuestro blog está en preparación</h2>
                 <p>Pronto compartiremos guías, tips y novedades sobre lencería y sex-shop.</p>
-                <a href="/" class="blog-vacio-btn">
+             
+   <a href="/" class="blog-vacio-btn">
                     <i class="fa-solid fa-store"></i> Ver productos
                 </a>
             </section>
@@ -111,7 +112,8 @@ function renderizarLista(articulos) {
     // Activar clicks en tarjetas
     document.querySelectorAll('.blog-card[data-slug]').forEach(card => {
         card.addEventListener('click', () => {
-            const slug = card.dataset.slug;
+    
+        const slug = card.dataset.slug;
             if (slug) {
                 window.location.href = `/blog.html?slug=${encodeURIComponent(slug)}`;
             }
@@ -158,7 +160,8 @@ function renderizarArticulo(articulo, articulos) {
                     onerror="this.src='/imagenes/no-image.webp'">
             </div>
             <div class="blog-articulo-body">
-                ${fecha ? `<span class="blog-articulo-fecha"><i class="fa-regular fa-calendar"></i> ${fecha}</span>` : ''}
+                ${fecha ? `<
+span class="blog-articulo-fecha"><i class="fa-regular fa-calendar"></i> ${fecha}</span>` : ''}
                 <h1>${titulo}</h1>
                 <span class="blog-articulo-autor"><i class="fa-regular fa-user"></i> Por ${autor}</span>
                 <div class="blog-articulo-contenido">${texto}</div>

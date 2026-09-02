@@ -105,7 +105,8 @@ function obtenerDatosFormulario() {
                 'precioCosto'
             ).value,
 
-        precio:
+   
+     precio:
             document.getElementById(
                 'precio'
             ).value,
@@ -211,7 +212,8 @@ function validarDatosFormulario(
         datos.precioCosto !== ''
     ) {
 
-        const precioCosto =
+   
+     const precioCosto =
             Number(datos.precioCosto);
 
         if (
@@ -315,7 +317,8 @@ formulario.addEventListener(
         const autenticado =
             await verificarAutenticacion();
 
-        if (!autenticado) {
+        if (!
+autenticado) {
             return;
         }
 
@@ -419,7 +422,8 @@ formulario.addEventListener(
 
             alert(
                 'Error: ' +
-                error.message
+   
+             error.message
             );
 
             await manejarErrorSesion(

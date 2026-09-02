@@ -117,7 +117,8 @@ function validarProducto(
     ) {
 
         throw new Error(
-            'El nombre del producto debe tener al menos 2 caracteres.'
+            'El nombre del producto debe tener al
+ menos 2 caracteres.'
         );
     }
 
@@ -230,7 +231,8 @@ function validarProducto(
             datos.sku || ''
         )
             .trim()
-            .toLowerCase();
+            .toLowerC
+ase();
 
 
     if (sku) {
@@ -585,7 +587,8 @@ export async function editarProducto(
     const resultado =
         await guardarProductos(
             listaProductos,
-            `Actualizar producto: ${productoActualizado.nombre}`
+            `Actualizar
+ producto: ${productoActualizado.nombre}`
         );
 
 
@@ -711,6 +714,7 @@ export async function eliminarProducto(
     const resultado =
         await guardarProductos(
             listaProductos,
+
             `Eliminar producto: ${producto.nombre}`
         );
 

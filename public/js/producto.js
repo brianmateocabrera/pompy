@@ -69,6 +69,7 @@ function obtenerCategorias(producto) {
 function generarLinkWhatsApp(producto) {
   
 
+
   const nombre = producto.nombre || 'producto';
     const texto = `Hola, quiero consultar por el producto "${nombre}".`;
     return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`;
@@ -113,7 +114,8 @@ function renderizarGaleria(producto) {
             class="miniatura ${imagen.url === principal ? 'activa' : ''}" data-url="${escaparHTML(imagen.url)}">
     `).join('');
 
-  
+ 
+ 
  
  return `
         <div class="imagen-principal-contenedor">
@@ -164,8 +166,7 @@ function renderizarProducto(producto, productos) {
     const nombre = escaparHTML(producto.nombre);
     const descripcion = escaparHTML(producto.descripcion || 'Sin descripción disponible.');
     const stock = Number(producto.stock) || 0;
-    const precio = formatearPrecio(producto
-.precio);
+    const precio = formatearPrecio(producto.precio);
 
     const tienePrecioAnterior =
         producto.precioAnterior !== null &&
@@ -208,7 +209,8 @@ function renderizarProducto(producto, productos) {
                     <a href="${escaparHTML(whatsapp)}" class="boton-whatsapp" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
                     </a>
-                    <button class="btn-fav-producto${esFavorito(producto.slug) ? ' activo' : ''}" data-slug="${escaparHTML(producto.slug)}" aria-label="Favorito">
+                    <button class="btn-fav-pr
+oducto${esFavorito(producto.slug) ? ' activo' : ''}" data-slug="${escaparHTML(producto.slug)}" aria-label="Favorito">
                         <i class="fa${esFavorito(producto.slug) ? '-solid' : '-regular'} fa-heart"></i>
                     </button>
                 </div>
@@ -265,7 +267,8 @@ function activarGaleria() {
     const contenedor = principal.closest('.imagen-principal-contenedor');
     if (!contenedor) return;
 
-    let scale = 1, translateX = 0, translateY = 0;
+    let scale = 1, translateX = 0, t
+ranslateY = 0;
     let startX = 0, startY = 0, startTX = 0, startTY = 0;
     let pinchStartScale = 1, initialDistance = 0;
     let zoomActivo = false;
@@ -311,7 +314,8 @@ function activarGaleria() {
             pinchStartScale = scale;
         } else if (e.touches.length === 1 && zoomActivo) {
             startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-            startTX = translateX; startTY = translateY;
+            startTX =
+ translateX; startTY = translateY;
         }
         principal.style.transition = 'none';
     }, { passive: false });
@@ -371,7 +375,8 @@ document.addEventListener('keydown', event => {
 });
 
 // Re-renderizar carrito al abrir el drawer
-const cartDrawer = document.getElementById('drawer-cart');
+const cartDrawer 
+= document.getElementById('drawer-cart');
 if (cartDrawer) {
     const observer = new MutationObserver(() => {
         if (cartDrawer.classList.contains('abierto')) {
@@ -432,5 +437,6 @@ function renderizarBreadcrumbs(producto) {
     const catLink = cats.length > 0
         ? '<a href="/index.html?categoria=' + encodeURIComponent(cats[0]) + '">' + escaparHTML(cats[0]) + '</a><i class="fa-solid fa-chevron-right"></i>'
         : '';
-    return '<a href="/index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i>' + catLink + '<span>' + escaparHTML(producto.nombre || 'Producto') + '</span>';
+    return '<a href="/index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i>' + catLink + '<span>' + escaparHTML(producto.no
+mbre || 'Producto') + '</span>';
 }
