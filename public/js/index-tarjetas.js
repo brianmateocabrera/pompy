@@ -30,7 +30,7 @@ export function obtenerImagenPrincipal(producto) {
 
 /* ---------- FAVORITOS (localStorage) ---------- */
 
-function obtenerFavoritos() {
+export function obtenerFavoritos() {
     try {
         return JSON.parse(localStorage.getItem('pompy-favoritos') || '[]');
     } catch {
@@ -38,7 +38,7 @@ function obtenerFavoritos() {
     }
 }
 
-function guardarFavoritos(lista) {
+export function guardarFavoritos(lista) {
     localStorage.setItem('pompy-favoritos', JSON.stringify(lista));
 }
 
