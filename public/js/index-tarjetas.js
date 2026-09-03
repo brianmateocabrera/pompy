@@ -80,10 +80,18 @@ export function toggleFav(slug) {
         }
     });
     document.querySelectorAll('.btn-fav-producto').forEach(btn => {
-        if (btn.dataset.slug === slug) {
-            btn.classList.toggle('activo', !eraFav);
+    if (btn.dataset.slug === slug) {
+        const activo = favs.includes(slug);
+        btn.classList.toggle('activo', activo);
+
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = activo
+                ? 'fa-solid fa-heart'
+                : 'fa-regular fa-heart';
         }
-    });
+    }
+});
 }
 
 export function actualizarBadgeFavoritos() {
