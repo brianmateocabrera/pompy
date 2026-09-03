@@ -214,10 +214,11 @@ function renderizarProducto(producto, productos) {
     `;
 
     activarGaleria();
-    activarBotonCarrito();
+activarBotonCarrito();
+activarBotonFav(producto);
 
-    // Actualizar badge al renderizar
-    actualizarBadgeCarrito();
+// Actualizar badge al renderizar
+actualizarBadgeCarrito();
 }
 
 function activarBotonCarrito() {
