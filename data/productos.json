@@ -886,8 +886,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA BLANCANIEVES",
     "descripcion": "Conjunto de 2 (dos) piezas:\n\nVincha con moño rojo central.\nVestido con cuello rígido blanco, mangas abuchonadas con detalles rojos, colaless y tutú doble amarillo.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788073989253-1000551117.webp",
@@ -946,7 +946,7 @@
     "destacado": false,
     "orden": 808,
     "fechaCreacion": "2026-08-30T07:03:40.667Z",
-    "fechaActualizacion": "2026-08-30T07:13:19.206Z"
+    "fechaActualizacion": "2026-09-03T21:28:21.489Z"
   },
   {
     "id": "prod-mtfgtkf4-8a8xni",
