@@ -571,8 +571,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA NOVIA",
     "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones blancos.\nTocado de tul c/detalle de moños.\nVestido tipo corset c/detalle central de moños y volados, colaless y doble tutú blanco.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788070277284-1000551081.webp",
@@ -624,7 +624,7 @@
     "destacado": false,
     "orden": 803,
     "fechaCreacion": "2026-08-30T06:11:26.894Z",
-    "fechaActualizacion": "2026-08-30T06:11:26.894Z"
+    "fechaActualizacion": "2026-09-03T21:16:03.910Z"
   },
   {
     "id": "prod-mtff2jap-mf1qmx",
