@@ -633,8 +633,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA CAPERUCITA",
     "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones cortos rojos con detalle de tull.\nCapa con capucha roja.\nVestido con manguitas combinando blanco con negro, detalle de pasacinta en rojo al frente.\nColaless y doble Tutú rojo\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788070595969-1000551089.webp",
@@ -683,7 +683,7 @@
     "destacado": false,
     "orden": 804,
     "fechaCreacion": "2026-08-30T06:16:43.057Z",
-    "fechaActualizacion": "2026-08-30T06:16:43.057Z"
+    "fechaActualizacion": "2026-09-03T21:25:52.746Z"
   },
   {
     "id": "prod-mtfgfabs-enm6o8",
