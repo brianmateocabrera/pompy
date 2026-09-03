@@ -692,8 +692,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA POLICÍA",
     "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Puños negros.\nGorra en espuma forrada con vicera y estampa plateada.\nVestido con mangas, cuello y corbata negra, con estampa de policía plateada de frente.\nColaless y doble tutú negro.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788072870905-1000551101.webp",
@@ -740,7 +740,7 @@
     "destacado": false,
     "orden": 805,
     "fechaCreacion": "2026-08-30T06:54:37.575Z",
-    "fechaActualizacion": "2026-08-30T06:54:37.575Z"
+    "fechaActualizacion": "2026-09-03T21:26:10.126Z"
   },
   {
     "id": "prod-mtfgkk0s-bwexac",
