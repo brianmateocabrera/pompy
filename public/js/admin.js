@@ -1,4 +1,4 @@
-/*import {
+import {
     cargarProductos,
     obtenerProductos,
     crearProducto,
@@ -586,8 +586,4 @@ alert('PASO 4: cargarInventario() terminó');
 }
 
 
-iniciar();*/
-
-import './productos-imagenes.js';
-
-alert('IMPORT IMAGENES: OK');
+iniciar();
