@@ -42,7 +42,7 @@ function guardarFavoritos(lista) {
     localStorage.setItem('pompy-favoritos', JSON.stringify(lista));
 }
 
-function esFavorito(slug) {
+export function esFavorito(slug) {
     return obtenerFavoritos().includes(slug);
 }
 
