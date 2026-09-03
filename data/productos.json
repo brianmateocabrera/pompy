@@ -823,8 +823,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA SUPERCHICA",
     "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Brazaletes.\nTop con estampa dorada al frente con Capa incluida, con estampado dorado detrás.\nPollerita roja con Tutú.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788073271691-1000551112.webp",
@@ -877,7 +877,7 @@
     "destacado": false,
     "orden": 807,
     "fechaCreacion": "2026-08-30T07:01:20.797Z",
-    "fechaActualizacion": "2026-08-30T07:01:20.797Z"
+    "fechaActualizacion": "2026-09-03T21:28:01.712Z"
   },
   {
     "id": "prod-mtfgqxdn-y4e8wk",
