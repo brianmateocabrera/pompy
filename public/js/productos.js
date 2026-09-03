@@ -108,9 +108,8 @@ function validarProducto(    datos,
     ) {
 
         throw new Error(
-            'El nombre del producto debe tener al
-
- menos 2 caracteres.'        );
+    'El nombre del producto debe tener al menos 2 caracteres.'
+);
     }
 
 
