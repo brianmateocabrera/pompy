@@ -367,8 +367,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA MUCAMITA",
     "descripcion": "Conjunto de 5 (cinco) piezas:\n\n2 Puños negros con detalle de blanco.\nGargantilla de tul blanco con vivo negro.\nCofia de tul blanco con vivo negro.\nVestido negro con mangas y detalles de tul blanco, vivos y delantal blanco, Tutú y colaless blanca.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788069269497-1000551059.webp",
@@ -416,7 +416,7 @@
     "destacado": false,
     "orden": 800,
     "fechaCreacion": "2026-08-30T05:54:35.986Z",
-    "fechaActualizacion": "2026-08-31T21:47:17.400Z"
+    "fechaActualizacion": "2026-09-03T21:14:26.058Z"
   },
   {
     "id": "prod-mtfedqg6-u3h8kf",
