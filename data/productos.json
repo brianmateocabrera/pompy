@@ -2362,8 +2362,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA BEBOTA",
     "descripcion": "Conjunto de 5 (cinco) piezas:\n\n2 Colita para cabello.\nCuello doble blanco.\nChupete con cinta de reaso.\nVestido de cuadrillé rosa con moño blanco al frente y colaless con estampa chupete bebota rosa y Tutú blanco.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788133155392-1027_045_pasionel_bebota_disfraz_2_e738cfd80b8850949b17519154206719_640_0.webp",
@@ -2411,7 +2411,7 @@
     "destacado": false,
     "orden": 811,
     "fechaCreacion": "2026-08-30T23:39:18.416Z",
-    "fechaActualizacion": "2026-08-31T00:52:47.379Z"
+    "fechaActualizacion": "2026-09-03T21:29:30.579Z"
   },
   {
     "id": "prod-mtggd4re-x8xp9f",
