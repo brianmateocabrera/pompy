@@ -1,4 +1,4 @@
-import {
+/*import {
     cargarProductos,
     obtenerProductos,
     crearProducto,
@@ -586,4 +586,6 @@ alert('PASO 4: cargarInventario() terminó');
 }
 
 
-iniciar();
+iniciar();*/
+
+alert('ADMIN.JS CARGÓ CORRECTAMENTE');
