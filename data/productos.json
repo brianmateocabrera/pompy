@@ -1024,8 +1024,8 @@
     "nombre": "PASIONEL FANTASY ENFERMERA QUEEN",
     "descripcion": "Línea Queen para que nadie se quede sin la posibilidad de cumplir su fantasía. Esta línea posee talles especiales tanto en disfraces como en medias. Ahora sólo tenes que elegir el que más te guste y salir a sorprender.\n\nConjunto de 4 piezas:\n\n2 Mitones blancos.\nCofia blanca con vivos rojos y estampa.\nVestido blanco enfermera con estampa enfermera en forma de corazón y vivos rojos.\nColaless incluida.\nTalle único: Multitalle Regulable, hasta 120 de talla de busto.",
     "precioCosto": 0,
-    "precio": 36000,
-    "precioAnterior": null,
+    "precio": 39000,
+    "precioAnterior": 45000,
     "imagenes": [
       {
         "url": "/imagenes/1788073702647-1000551132.webp",
@@ -1075,7 +1075,7 @@
     "destacado": false,
     "orden": 810,
     "fechaCreacion": "2026-08-30T07:08:29.287Z",
-    "fechaActualizacion": "2026-08-30T07:08:29.287Z"
+    "fechaActualizacion": "2026-09-03T21:29:01.144Z"
   },
   {
     "id": "prod-mtg6h379-6a6kb9",
