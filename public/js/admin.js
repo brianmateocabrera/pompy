@@ -588,4 +588,6 @@ alert('PASO 4: cargarInventario() terminó');
 
 iniciar();*/
 
-alert('ADMIN.JS CARGÓ CORRECTAMENTE');
+import './productos.js';
+
+alert('IMPORT PRODUCTOS: OK');
