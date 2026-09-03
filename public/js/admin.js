@@ -588,6 +588,6 @@ alert('PASO 4: cargarInventario() terminó');
 
 iniciar();*/
 
-import './productos.js';
+import './productos-persistencia.js';
 
-alert('IMPORT PRODUCTOS: OK');
+alert('IMPORT PERSISTENCIA: OK');
