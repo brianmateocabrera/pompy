@@ -425,8 +425,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA DIABLITA",
     "descripcion": "Conjunto de 5 (cinco) piezas:\n\n2 Mitones cortos rojos con detalle de tull.\nCuernitos de espuma forrados en rojo con vincha plástica.\nCapa roja.\nVestido rojo con detalle de pasacinta en frente y colita diabla.\nColaless y Tutú rojo.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788069437458-1000551063.webp",
@@ -479,7 +479,7 @@
     "destacado": false,
     "orden": 801,
     "fechaCreacion": "2026-08-30T05:57:25.926Z",
-    "fechaActualizacion": "2026-08-30T05:57:25.926Z"
+    "fechaActualizacion": "2026-09-03T21:14:47.429Z"
   },
   {
     "id": "prod-mtfekt9k-phui0k",
