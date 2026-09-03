@@ -488,8 +488,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA ENFERMERA",
     "descripcion": "Conjunto de 4 (cuatro) piezas:\n\n2 Mitones cortos blancos con detalle de tull y estampa enfermera.\nCofia blanca con vivos rojos y estampa enfermera.\nVestido blanco con estampa enfermera y vivos rojos.\nColales y Tutú rojo.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788069760019-1000551071.webp",
@@ -562,7 +562,7 @@
     "destacado": false,
     "orden": 802,
     "fechaCreacion": "2026-08-30T06:02:56.168Z",
-    "fechaActualizacion": "2026-08-30T06:02:56.168Z"
+    "fechaActualizacion": "2026-09-03T21:15:47.525Z"
   },
   {
     "id": "prod-mtfevrcg-a9ibkd",
