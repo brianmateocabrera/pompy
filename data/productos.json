@@ -749,8 +749,8 @@
     "nombre": "PASIONEL DISFRAZ FANTASÍA REINA DE CORAZONES",
     "descripcion": "Conjunto de 2 (dos) piezas:\n\nCorona rígida con estampa de corazón rojo.\nVestido con cuello rígido en forma de pétalos blanco y combinación de colores negro, rojo y blanco.\nDetalle de estampa en tres corazones de mayor a menor tamaño, colaless y tutú.\nTalle único regulable.\n\nCalidad Certificada. Línea Premium.",
     "precioCosto": 0,
-    "precio": 38000,
-    "precioAnterior": null,
+    "precio": 42000,
+    "precioAnterior": 49000,
     "imagenes": [
       {
         "url": "/imagenes/1788073111381-1000551105.webp",
@@ -814,7 +814,7 @@
     "destacado": false,
     "orden": 806,
     "fechaCreacion": "2026-08-30T06:58:43.420Z",
-    "fechaActualizacion": "2026-08-30T06:58:43.420Z"
+    "fechaActualizacion": "2026-09-03T21:27:44.553Z"
   },
   {
     "id": "prod-mtfgnxgd-3eikt2",
