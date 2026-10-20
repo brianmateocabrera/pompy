@@ -34,9 +34,36 @@
 
     /* Header Logo Container */
     .header-logo {
-      height: 48px;
-      max-height: 48px;
+      height: 44px;
+      max-height: 44px;
       object-fit: contain;
+    }
+
+    /* Offcanvas & Accordion Customization */
+    .offcanvas-dark-header {
+      background-color: var(--dark-header);
+      color: #fff;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: #f1f3f5;
+      color: var(--dark-header);
+      font-weight: 600;
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+      border-color: rgba(0,0,0,0.125);
+    }
+
+    .nested-accordion .accordion-button {
+      font-size: 0.9rem;
+      padding: 0.65rem 1rem;
+      background-color: #fafafa;
+    }
+
+    .nested-accordion .accordion-button:not(.collapsed) {
+      background-color: #e9ecef;
     }
 
     /* Product Card Hover and Transition Effects */
@@ -89,7 +116,7 @@
       color: #fff;
     }
 
-    /* Button Styling to match #111217 aesthetics */
+    /* Button Styling */
     .btn-dark-custom {
       background-color: var(--dark-header);
       color: #ffffff;
@@ -105,37 +132,26 @@
       border-color: #23252d;
       color: #ffffff;
     }
-
-    .btn-outline-dark-custom {
-      border: 1.5px solid var(--dark-header);
-      color: var(--dark-header);
-      font-weight: 500;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .btn-outline-dark-custom:hover {
-      background-color: var(--dark-header);
-      color: #ffffff;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Header (Solid #111217, Centered Logo) -->
+  <!-- Sticky Header (Solid #111217 with Hamburger, Centered Logo, Cart Icon) -->
   <header class="sticky-header py-2 px-3 mb-4">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      <!-- Left spacer for balancing mobile flex header -->
-      <div class="d-none d-sm-block" style="width: 40px;"></div>
       
+      <!-- Hamburger Menu Button -->
+      <button class="btn text-white p-1 border-0 shadow-none d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilterMenu" aria-controls="offcanvasFilterMenu" aria-label="Abrir menú de filtros">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+
       <!-- Centered Logo -->
-      <a href="#" class="mx-auto text-decoration-none">
-        <img src="imagenes/logo.jpeg" alt="Logo Lencería" class="header-logo" onerror="this.onerror=null; this.src='https://placehold.co/200x50/111217/ffffff?text=POMPY';">
+      <a href="#" class="mx-auto text-decoration-none d-flex align-items-center justify-content-center">
+        <img src="imagenes/logo.jpeg" alt="Logo Lencería" class="header-logo" onerror="this.onerror=null; this.src='https://placehold.co/200x50/111217/ffffff?text=LANCERIE';">
       </a>
 
-      <!-- Right Action Icons (Cart & Wishlist) -->
-      <div class="d-flex align-items-center gap-3 text-white ms-auto ms-sm-0">
+      <!-- Right Action Icons (Cart) -->
+      <div class="d-flex align-items-center text-white">
         <a href="#" class="text-white position-relative text-decoration-none" aria-label="Carrito de compras">
           <i class="bi bi-bag fs-4"></i>
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
@@ -145,6 +161,173 @@
       </div>
     </div>
   </header>
+
+  <!-- Offcanvas Sidebar Menu for Filters and Sorting -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilterMenu" aria-labelledby="offcanvasFilterMenuLabel">
+    <div class="offcanvas-header offcanvas-dark-header">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasFilterMenuLabel">
+        <i class="bi bi-sliders me-2"></i>Filtros y Orden
+      </h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    
+    <div class="offcanvas-body p-3">
+      
+      <!-- Main Accordion -->
+      <div class="accordion" id="mainFilterAccordion">
+        
+        <!-- 1. FILTRAR POR -->
+        <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+          <h2 class="accordion-header" id="headingFilterBy">
+            <button class="accordion-button fw-bold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilterBy" aria-expanded="true" aria-controls="collapseFilterBy">
+              <i class="bi bi-funnel me-2"></i>Filtrar por
+            </button>
+          </h2>
+          <div id="collapseFilterBy" class="accordion-collapse collapse show" aria-labelledby="headingFilterBy" data-bs-parent="#mainFilterAccordion">
+            <div class="accordion-body p-2">
+              
+              <!-- Sub-Accordion inside FILTRAR POR -->
+              <div class="accordion nested-accordion" id="subFilterAccordion">
+                
+                <!-- Sub-Acordeón 1: CATEGORÍA -->
+                <div class="accordion-item mb-2 border rounded">
+                  <h3 class="accordion-header" id="headingSubCategory">
+                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubCategory" aria-expanded="false" aria-controls="collapseSubCategory">
+                      CATEGORÍA
+                    </button>
+                  </h3>
+                  <div id="collapseSubCategory" class="accordion-collapse collapse" aria-labelledby="headingSubCategory" data-bs-parent="#subFilterAccordion">
+                    <div class="accordion-body small py-2 px-3">
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="catConjuntos">
+                        <label class="form-check-label" for="catConjuntos">Conjuntos</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="catBodys">
+                        <label class="form-check-label" for="catBodys">Bodys</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="catBralettes">
+                        <label class="form-check-label" for="catBralettes">Bralettes</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="catDormir">
+                        <label class="form-check-label" for="catDormir">Dormir & Robes</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sub-Acordeón 2: MARCA -->
+                <div class="accordion-item mb-2 border rounded">
+                  <h3 class="accordion-header" id="headingSubBrand">
+                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubBrand" aria-expanded="false" aria-controls="collapseSubBrand">
+                      MARCA
+                    </button>
+                  </h3>
+                  <div id="collapseSubBrand" class="accordion-collapse collapse" aria-labelledby="headingSubBrand" data-bs-parent="#subFilterAccordion">
+                    <div class="accordion-body small py-2 px-3">
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="brandSeduction">
+                        <label class="form-check-label" for="brandSeduction">Seduction Line</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="brandIntimate">
+                        <label class="form-check-label" for="brandIntimate">Intimate Silk</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="brandLuxe">
+                        <label class="form-check-label" for="brandLuxe">Luxe Lace</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="brandCotton">
+                        <label class="form-check-label" for="brandCotton">Cotton Dreams</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sub-Acordeón 3: ARTÍCULO -->
+                <div class="accordion-item border rounded">
+                  <h3 class="accordion-header" id="headingSubArticle">
+                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubArticle" aria-expanded="false" aria-controls="collapseSubArticle">
+                      ARTÍCULO
+                    </button>
+                  </h3>
+                  <div id="collapseSubArticle" class="accordion-collapse collapse" aria-labelledby="headingSubArticle" data-bs-parent="#subFilterAccordion">
+                    <div class="accordion-body small py-2 px-3">
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="artTalle85">
+                        <label class="form-check-label" for="artTalle85">Talle 85 / S</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="artTalle90">
+                        <label class="form-check-label" for="artTalle90">Talle 90 / M</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="artTalle95">
+                        <label class="form-check-label" for="artTalle95">Talle 95 / L</label>
+                      </div>
+                      <div class="form-check my-2">
+                        <input class="form-check-input" type="checkbox" id="artTalle100">
+                        <label class="form-check-label" for="artTalle100">Talle 100 / XL</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. ORDENAR POR -->
+        <div class="accordion-item border-0 shadow-sm rounded overflow-hidden">
+          <h2 class="accordion-header" id="headingSortBy">
+            <button class="accordion-button collapsed fw-bold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortBy" aria-expanded="false" aria-controls="collapseSortBy">
+              <i class="bi bi-sort-down me-2"></i>Ordenar por
+            </button>
+          </h2>
+          <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy" data-bs-parent="#mainFilterAccordion">
+            <div class="accordion-body p-3">
+              <div class="form-check my-2">
+                <input class="form-check-input" type="radio" name="sortOptions" id="sortPriceLow" checked>
+                <label class="form-check-label small" for="sortPriceLow">
+                  Menor precio primero
+                </label>
+              </div>
+              <div class="form-check my-2">
+                <input class="form-check-input" type="radio" name="sortOptions" id="sortPriceHigh">
+                <label class="form-check-label small" for="sortPriceHigh">
+                  Mayor precio primero
+                </label>
+              </div>
+              <div class="form-check my-2">
+                <input class="form-check-input" type="radio" name="sortOptions" id="sortNewest">
+                <label class="form-check-label small" for="sortNewest">
+                  Más recientes
+                </label>
+              </div>
+              <div class="form-check my-2">
+                <input class="form-check-input" type="radio" name="sortOptions" id="sortNameAZ">
+                <label class="form-check-label small" for="sortNameAZ">
+                  Nombre A-Z
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action buttons at bottom of menu -->
+      <div class="d-grid gap-2 mt-4">
+        <button type="button" class="btn btn-dark-custom" data-bs-dismiss="offcanvas">Aplicar Filtros</button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Main Container -->
   <main class="container py-2 py-md-4">
