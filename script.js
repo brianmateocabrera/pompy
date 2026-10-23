@@ -1,4 +1,3 @@
-const SPREADSHEET_ID = '1DQeInDc_uG57XwjM_3SU28My1mlM5Qx6KQ5q3cZKJRk';
 const CSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSkSU4sulQVpPVoKbFAq2-UKRYzDUSlWU6pNgxRyFV1XTtJJXUlIXogtao6Q9JIFJtG5i9jqheP6Nao/pub?output=csv`;
 const PAGE_SIZE = 12;
 
@@ -6,6 +5,7 @@ let rawProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
 let wishlist = JSON.parse(localStorage.getItem('pompy_wishlist') || '[]');
+let dynamicFilterKeys = [];
 
 function parseCSV(text) {
   const lines = text.split('\n');
@@ -37,8 +37,9 @@ async function fetchProducts() {
       const imgSrc = imgName ? `imagenes/${imgName}` : 'https://placehold.co/600x800?text=Sin+Imagen';
 
       return {
+        originalIndex: index,
         id: r[0] || `prod-${index}`,
-        category: r[1] || '',
+        category: r[1] || 'General',
         subCategory: r[2] || 'Otros',
         brand: r[3] || 'Sin Marca',
         model: r[4] || '',
@@ -51,7 +52,7 @@ async function fetchProducts() {
       };
     }).filter(p => p.visible && p.name && p.price > 0);
 
-    buildFilterOptions();
+    buildDynamicFilterOptions();
     applyFilters();
     updateWishlistBadge();
   } catch (err) {
@@ -64,41 +65,70 @@ async function fetchProducts() {
   }
 }
 
-function buildFilterOptions() {
-  const categories = [...new Set(rawProducts.map(p => p.subCategory))].sort();
-  const brands = [...new Set(rawProducts.map(p => p.brand))].sort();
+function buildDynamicFilterOptions() {
+  const filterConfigs = [
+    { key: 'category', title: 'Categoría' },
+    { key: 'subCategory', title: 'Sub-Categoría' },
+    { key: 'brand', title: 'Marca' }
+  ];
 
-  const catContainer = document.getElementById('filterCategoryContainer');
-  catContainer.innerHTML = categories.map((cat, idx) => `
-    <div class="form-check my-2">
-      <input class="form-check-input filter-category" type="checkbox" value="${cat}" id="cat-${idx}">
-      <label class="form-check-label" for="cat-${idx}">${cat}</label>
-    </div>
-  `).join('');
+  dynamicFilterKeys = filterConfigs.map(c => c.key);
+  const container = document.getElementById('dynamicFiltersContainer');
+  container.innerHTML = '';
 
-  const brandContainer = document.getElementById('filterBrandContainer');
-  brandContainer.innerHTML = brands.map((b, idx) => `
-    <div class="form-check my-2">
-      <input class="form-check-input filter-brand" type="checkbox" value="${b}" id="brand-${idx}">
-      <label class="form-check-label" for="brand-${idx}">${b}</label>
-    </div>
-  `).join('');
+  filterConfigs.forEach((config, idx) => {
+    const values = [...new Set(rawProducts.map(p => p[config.key]))].filter(Boolean).sort();
+    if (values.length === 0) return;
+
+    const accordionId = `collapseDynFilter-${idx}`;
+
+    const itemHtml = `
+      <div class="accordion-item mb-2 border rounded">
+        <h3 class="accordion-header" id="headingDynFilter-${idx}">
+          <button class="accordion-button collapsed fw-semibold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#${accordionId}" aria-expanded="false" aria-controls="${accordionId}">
+            ${config.title}
+          </button>
+        </h3>
+        <div id="${accordionId}" class="accordion-collapse collapse" aria-labelledby="headingDynFilter-${idx}" data-bs-parent="#dynamicFiltersContainer">
+          <div class="accordion-body small py-2 px-3">
+            ${values.map((val, valIdx) => `
+              <div class="form-check my-2">
+                <input class="form-check-input filter-dynamic-check" type="checkbox" data-filter-key="${config.key}" value="${val}" id="dyn-${idx}-${valIdx}">
+                <label class="form-check-label" for="dyn-${idx}-${valIdx}">${val}</label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', itemHtml);
+  });
 }
 
 function applyFilters() {
-  const selectedCats = Array.from(document.querySelectorAll('.filter-category:checked')).map(cb => cb.value);
-  const selectedBrands = Array.from(document.querySelectorAll('.filter-brand:checked')).map(cb => cb.value);
-  const sortOption = document.querySelector('.sort-radio:checked')?.value || 'priceLow';
+  const activeFilters = {};
+  dynamicFilterKeys.forEach(key => {
+    activeFilters[key] = Array.from(document.querySelectorAll(`.filter-dynamic-check[data-filter-key="${key}"]:checked`)).map(cb => cb.value);
+  });
+
+  const sortOption = document.querySelector('.sort-radio:checked')?.value || 'default';
   const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
 
   filteredProducts = rawProducts.filter(p => {
-    const matchesCat = selectedCats.length === 0 || selectedCats.includes(p.subCategory);
-    const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(p.brand);
-    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.subCategory.toLowerCase().includes(searchQuery);
-    return matchesCat && matchesBrand && matchesSearch;
+    const matchesFilters = dynamicFilterKeys.every(key => {
+      const selected = activeFilters[key];
+      return selected.length === 0 || selected.includes(p[key]);
+    });
+
+    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.subCategory.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery);
+
+    return matchesFilters && matchesSearch;
   });
 
-  if (sortOption === 'priceLow') {
+  if (sortOption === 'default') {
+    filteredProducts.sort((a, b) => a.originalIndex - b.originalIndex);
+  } else if (sortOption === 'priceLow') {
     filteredProducts.sort((a, b) => a.price - b.price);
   } else if (sortOption === 'priceHigh') {
     filteredProducts.sort((a, b) => b.price - a.price);
@@ -256,8 +286,8 @@ function renderWishlistModal() {
 
 document.getElementById('btnApplyFilters').addEventListener('click', applyFilters);
 document.getElementById('btnResetFilters').addEventListener('click', () => {
-  document.querySelectorAll('.filter-category, .filter-brand').forEach(cb => cb.checked = false);
-  document.getElementById('sortPriceLow').checked = true;
+  document.querySelectorAll('.filter-dynamic-check').forEach(cb => cb.checked = false);
+  document.getElementById('sortDefault').checked = true;
   document.getElementById('searchInput').value = '';
   applyFilters();
 });
