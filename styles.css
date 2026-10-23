@@ -1,0 +1,135 @@
+:root {
+  --dark-header: #111217;
+  --accent-color: #d4a373;
+  --accent-hover: #bc8a5f;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: var(--dark-header) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header-logo {
+  height: 44px;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.offcanvas-dark-header {
+  background-color: var(--dark-header);
+  color: #fff;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #f1f3f5;
+  color: var(--dark-header);
+  font-weight: 600;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(0, 0, 0, 0.125);
+}
+
+.nested-accordion .accordion-button {
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem;
+  background-color: #fafafa;
+}
+
+.nested-accordion .accordion-button:not(.collapsed) {
+  background-color: #e9ecef;
+}
+
+.product-card {
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1.618;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.product-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  background-color: #f1f1f1;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+  transform: scale(1.04);
+}
+
+.btn-whatsapp-custom {
+  background-color: #25d366;
+  color: #ffffff;
+  border: 1px solid #25d366;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-whatsapp-custom:hover {
+  background-color: #20ba5a;
+  border-color: #20ba5a;
+  color: #ffffff;
+}
+
+.badge-custom-sale {
+  background-color: #e63946;
+  color: #fff;
+}
+
+.badge-custom-new {
+  background-color: var(--dark-header);
+  color: #fff;
+}
+
+.btn-dark-custom {
+  background-color: var(--dark-header);
+  color: #ffffff;
+  border: 1px solid var(--dark-header);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-dark-custom:hover {
+  background-color: #23252d;
+  border-color: #23252d;
+  color: #ffffff;
+}
+
+@media (min-width: 576px) {
+  .product-img-wrapper {
+    height: 320px;
+  }
+}
