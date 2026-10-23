@@ -48,32 +48,7 @@
           </h2>
           <div id="collapseFilterBy" class="accordion-collapse collapse show" aria-labelledby="headingFilterBy" data-bs-parent="#mainFilterAccordion">
             <div class="accordion-body p-2">
-              <div class="accordion nested-accordion" id="subFilterAccordion">
-
-                <div class="accordion-item mb-2 border rounded">
-                  <h3 class="accordion-header" id="headingSubCategory">
-                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubCategory" aria-expanded="false" aria-controls="collapseSubCategory">
-                      SUB-CATEGORÍA
-                    </button>
-                  </h3>
-                  <div id="collapseSubCategory" class="accordion-collapse collapse" aria-labelledby="headingSubCategory" data-bs-parent="#subFilterAccordion">
-                    <div class="accordion-body small py-2 px-3" id="filterCategoryContainer">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="accordion-item mb-2 border rounded">
-                  <h3 class="accordion-header" id="headingSubBrand">
-                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubBrand" aria-expanded="false" aria-controls="collapseSubBrand">
-                      MARCA
-                    </button>
-                  </h3>
-                  <div id="collapseSubBrand" class="accordion-collapse collapse" aria-labelledby="headingSubBrand" data-bs-parent="#subFilterAccordion">
-                    <div class="accordion-body small py-2 px-3" id="filterBrandContainer">
-                    </div>
-                  </div>
-                </div>
-
+              <div class="accordion nested-accordion" id="dynamicFiltersContainer">
               </div>
             </div>
           </div>
@@ -88,7 +63,11 @@
           <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy" data-bs-parent="#mainFilterAccordion">
             <div class="accordion-body p-3">
               <div class="form-check my-2">
-                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortPriceLow" value="priceLow" checked>
+                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortDefault" value="default" checked>
+                <label class="form-check-label small" for="sortDefault">Orden predeterminado (Sheet)</label>
+              </div>
+              <div class="form-check my-2">
+                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortPriceLow" value="priceLow">
                 <label class="form-check-label small" for="sortPriceLow">Menor precio primero</label>
               </div>
               <div class="form-check my-2">
