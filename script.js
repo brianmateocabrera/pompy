@@ -4,8 +4,8 @@ const PAGE_SIZE = 12;
 let rawProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
-let wishlist = JSON.parse(localStorage.getItem('pompy_wishlist') || '[]');
-let dynamicFilterKeys = [];
+let wishlist = JSON.parse(localStorage.getItem('pompy_boutinela_wishlist') || '[]');
+let filterKeys = ['category', 'subCategory', 'brand'];
 
 function parseCSV(text) {
   const lines = text.split('\n');
@@ -39,9 +39,9 @@ async function fetchProducts() {
       return {
         originalIndex: index,
         id: r[0] || `prod-${index}`,
-        category: r[1] || 'General',
-        subCategory: r[2] || 'Otros',
-        brand: r[3] || 'Sin Marca',
+        category: r[1] || 'GENERAL',
+        subCategory: r[2] || 'OTROS',
+        brand: r[3] || 'SIN MARCA',
         model: r[4] || '',
         name: r[5] || 'Producto sin nombre',
         price: price,
@@ -52,76 +52,73 @@ async function fetchProducts() {
       };
     }).filter(p => p.visible && p.name && p.price > 0);
 
-    buildDynamicFilterOptions();
+    buildDynamicSidebar();
     applyFilters();
     updateWishlistBadge();
   } catch (err) {
     console.error("Error al cargar la base de datos:", err);
     document.getElementById('productsGrid').innerHTML = `
-      <div class="col-12 text-center text-danger py-5">
-        <i class="bi bi-exclamation-triangle fs-1"></i>
-        <p class="mt-2">Ocurrió un error al cargar el catálogo de productos.</p>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #d90429;">
+        Error al cargar los productos desde la base de datos.
       </div>`;
   }
 }
 
-function buildDynamicFilterOptions() {
-  const filterConfigs = [
-    { key: 'category', title: 'Categoría' },
-    { key: 'subCategory', title: 'Sub-Categoría' },
-    { key: 'brand', title: 'Marca' }
-  ];
-
-  dynamicFilterKeys = filterConfigs.map(c => c.key);
-  const container = document.getElementById('dynamicFiltersContainer');
+function buildDynamicSidebar() {
+  const container = document.getElementById('dynamicSidebarNav');
   container.innerHTML = '';
 
-  filterConfigs.forEach((config, idx) => {
-    const values = [...new Set(rawProducts.map(p => p[config.key]))].filter(Boolean).sort();
+  const labels = { category: 'Categorías', subCategory: 'Línea / Subcategoría', brand: 'Marcas' };
+
+  filterKeys.forEach(key => {
+    const values = [...new Set(rawProducts.map(p => p[key]))].filter(Boolean).sort();
     if (values.length === 0) return;
 
-    const accordionId = `collapseDynFilter-${idx}`;
-
-    const itemHtml = `
-      <div class="accordion-item mb-2 border rounded">
-        <h3 class="accordion-header" id="headingDynFilter-${idx}">
-          <button class="accordion-button collapsed fw-semibold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#${accordionId}" aria-expanded="false" aria-controls="${accordionId}">
-            ${config.title}
-          </button>
-        </h3>
-        <div id="${accordionId}" class="accordion-collapse collapse" aria-labelledby="headingDynFilter-${idx}" data-bs-parent="#dynamicFiltersContainer">
-          <div class="accordion-body small py-2 px-3">
-            ${values.map((val, valIdx) => `
-              <div class="form-check my-2">
-                <input class="form-check-input filter-dynamic-check" type="checkbox" data-filter-key="${config.key}" value="${val}" id="dyn-${idx}-${valIdx}">
-                <label class="form-check-label" for="dyn-${idx}-${valIdx}">${val}</label>
-              </div>
-            `).join('')}
-          </div>
+    const navItemHtml = `
+      <div class="nav-acc-item">
+        <button class="nav-acc-btn" onclick="toggleAccordion(this)">
+          ${labels[key]} <span>+</span>
+        </button>
+        <div class="nav-acc-content">
+          ${values.map(val => `
+            <label class="filter-option">
+              <input type="checkbox" class="dyn-filter-check" data-key="${key}" value="${val}" onchange="applyFilters()">
+              ${val}
+            </label>
+          `).join('')}
         </div>
       </div>
     `;
-
-    container.insertAdjacentHTML('beforeend', itemHtml);
+    container.insertAdjacentHTML('beforeend', navItemHtml);
   });
+}
+
+function toggleAccordion(btn) {
+  const content = btn.nextElementSibling;
+  const isExpanded = content.classList.contains('active');
+  content.classList.toggle('active', !isExpanded);
+  btn.querySelector('span').textContent = isExpanded ? '+' : '–';
 }
 
 function applyFilters() {
   const activeFilters = {};
-  dynamicFilterKeys.forEach(key => {
-    activeFilters[key] = Array.from(document.querySelectorAll(`.filter-dynamic-check[data-filter-key="${key}"]:checked`)).map(cb => cb.value);
+  filterKeys.forEach(key => {
+    activeFilters[key] = Array.from(document.querySelectorAll(`.dyn-filter-check[data-key="${key}"]:checked`)).map(cb => cb.value);
   });
 
-  const sortOption = document.querySelector('.sort-radio:checked')?.value || 'default';
+  const sortOption = document.getElementById('sortSelect').value;
   const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
 
   filteredProducts = rawProducts.filter(p => {
-    const matchesFilters = dynamicFilterKeys.every(key => {
+    const matchesFilters = filterKeys.every(key => {
       const selected = activeFilters[key];
       return selected.length === 0 || selected.includes(p[key]);
     });
 
-    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.subCategory.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery);
+    const matchesSearch = !searchQuery || 
+      p.name.toLowerCase().includes(searchQuery) || 
+      p.subCategory.toLowerCase().includes(searchQuery) || 
+      p.category.toLowerCase().includes(searchQuery);
 
     return matchesFilters && matchesSearch;
   });
@@ -142,14 +139,14 @@ function applyFilters() {
 
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
-  document.getElementById('productCountBadge').textContent = `${filteredProducts.length} Productos`;
+  document.getElementById('productCountText').textContent = `${filteredProducts.length} PRODUCTOS DISPONIBLES`;
 
   if (filteredProducts.length === 0) {
     grid.innerHTML = `
-      <div class="col-12 text-center py-5">
-        <p class="text-muted fs-5">No se encontraron productos con los filtros seleccionados.</p>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: #888;">
+        No se encontraron productos coincidentes.
       </div>`;
-    document.getElementById('loadMoreContainer').classList.add('d-none');
+    document.getElementById('loadMoreBtn').classList.add('d-none');
     return;
   }
 
@@ -162,43 +159,39 @@ function renderProducts() {
 
     let badgeHtml = '';
     if (p.badge) {
-      badgeHtml = `<span class="badge badge-custom-sale position-absolute top-0 start-0 m-3 px-2 py-1 rounded-2 shadow-sm">${p.badge}</span>`;
+      badgeHtml = `<span class="badge-tag">${p.badge}</span>`;
     } else if (p.oldPrice > p.price) {
-      badgeHtml = `<span class="badge badge-custom-sale position-absolute top-0 start-0 m-3 px-2 py-1 rounded-2 shadow-sm">Oferta</span>`;
+      badgeHtml = `<span class="badge-tag sale">OFFER</span>`;
     }
 
     const wsNumber = "5493518189444";
     const productUrl = `${window.location.origin}${window.location.pathname}?id=${p.id}`;
-    const wsText = encodeURIComponent(`Hola! Quisiera consultar por el producto: ${p.name} (Ref: ${p.id})\nEnlace: ${productUrl}`);
+    const wsText = encodeURIComponent(`Hola POMPY! Quisiera consultar por el producto: ${p.name} (Ref: ${p.id})\nEnlace: ${productUrl}`);
     const wsUrl = `https://wa.me/${wsNumber}?text=${wsText}`;
 
     return `
-      <div class="col">
-        <div class="card shadow-sm product-card">
-          <div class="product-img-wrapper" onclick="openDetailModal('${p.id}')">
-            ${badgeHtml}
-            <button class="btn-wishlist ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlist('${p.id}')" aria-label="Guardar en favoritos">
-              <i class="bi bi-heart${isFav ? '-fill' : ''}"></i>
-            </button>
-            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Sin+Imagen';">
+      <div class="product-card">
+        <div class="product-media" onclick="openProductModal('${p.id}')">
+          ${badgeHtml}
+          <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlist('${p.id}')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </button>
+          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x800?text=Sin+Imagen';">
+        </div>
+        <div class="product-info">
+          <span class="product-vendor">${p.subCategory}</span>
+          <div class="product-title" onclick="openProductModal('${p.id}')">${p.name}</div>
+          <div class="price-box">
+            ${formattedPrice}
+            ${formattedOldPrice ? `<span class="old-price">${formattedOldPrice}</span>` : ''}
           </div>
-          <div class="card-body d-flex flex-column p-2 p-sm-3">
-            <p class="text-uppercase text-muted small fw-medium mb-1" style="font-size: 0.75rem;">${p.subCategory}</p>
-            <h2 class="h6 card-title fw-bold text-dark mb-2 text-truncate" style="cursor:pointer;" onclick="openDetailModal('${p.id}')">${p.name}</h2>
-            <div class="mb-2 mt-auto">
-              <span class="${p.oldPrice > 0 ? 'text-danger' : 'text-dark'} fw-bold fs-6">${formattedPrice}</span>
-              ${formattedOldPrice ? `<span class="text-muted text-decoration-line-through small ms-1" style="font-size: 0.75rem;">${formattedOldPrice}</span>` : ''}
-            </div>
-            <a href="${wsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-custom w-100 d-flex align-items-center justify-content-center text-nowrap small">
-              <i class="bi bi-whatsapp fs-5 me-2"></i>Consultar
-            </a>
-          </div>
+          <a href="${wsUrl}" target="_blank" class="btn-ws-quick">CONSULTAR</a>
         </div>
       </div>
     `;
   }).join('');
 
-  const loadMoreBtn = document.getElementById('loadMoreContainer');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
   if (paginated.length < filteredProducts.length) {
     loadMoreBtn.classList.remove('d-none');
   } else {
@@ -206,7 +199,7 @@ function renderProducts() {
   }
 }
 
-function openDetailModal(id) {
+function openProductModal(id) {
   const p = rawProducts.find(item => item.id === id);
   if (!p) return;
 
@@ -214,27 +207,22 @@ function openDetailModal(id) {
   const formattedOldPrice = p.oldPrice > 0 ? `$${p.oldPrice.toLocaleString('es-AR')}` : '';
   const wsNumber = "5493518189444";
   const productUrl = `${window.location.origin}${window.location.pathname}?id=${p.id}`;
-  const wsText = encodeURIComponent(`Hola! Quisiera consultar por el producto: ${p.name} (Ref: ${p.id})\nEnlace: ${productUrl}`);
-  const wsUrl = `https://wa.me/${wsNumber}?text=${wsText}`;
+  const wsText = encodeURIComponent(`Hola POMPY! Quisiera consultar por el producto: ${p.name} (Ref: ${p.id})\nEnlace: ${productUrl}`);
 
-  document.getElementById('productDetailContent').innerHTML = `
-    <div class="text-center mb-3">
-      <img src="${p.image}" alt="${p.name}" class="img-fluid rounded" style="max-height: 300px; object-fit: contain;" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Sin+Imagen';">
+  document.getElementById('modalProductDetails').innerHTML = `
+    <div style="text-align: center; margin-bottom: 16px;">
+      <img src="${p.image}" alt="${p.name}" style="width: 100%; max-height: 350px; object-fit: contain;">
     </div>
-    <span class="badge bg-secondary mb-2">${p.subCategory}</span>
-    <h4 class="fw-bold text-dark mb-2">${p.name}</h4>
-    <p class="text-muted small mb-1">Marca: ${p.brand} | Ref: ${p.id}</p>
-    <div class="mb-3">
-      <span class="${p.oldPrice > 0 ? 'text-danger' : 'text-dark'} fw-bold fs-4">${formattedPrice}</span>
-      ${formattedOldPrice ? `<span class="text-muted text-decoration-line-through small ms-2">${formattedOldPrice}</span>` : ''}
+    <span style="font-size: 0.65rem; text-transform: uppercase; color: #888;">${p.subCategory}</span>
+    <h3 style="font-size: 1.1rem; font-weight: 800; margin: 4px 0 8px;">${p.name}</h3>
+    <p style="font-size: 0.75rem; color: #666; margin-bottom: 12px;">Marca: ${p.brand} | Ref: ${p.id}</p>
+    <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">
+      ${formattedPrice} ${formattedOldPrice ? `<span style="font-size: 0.85rem; color: #888; text-decoration: line-through; margin-left: 6px;">${formattedOldPrice}</span>` : ''}
     </div>
-    <a href="${wsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-custom w-100 d-flex align-items-center justify-content-center">
-      <i class="bi bi-whatsapp fs-5 me-2"></i>Consultar por WhatsApp
-    </a>
+    <a href="https://wa.me/${wsNumber}?text=${wsText}" target="_blank" class="btn-ws-checkout" style="display: block; text-align: center; text-decoration: none;">CONSULTAR POR WHATSAPP</a>
   `;
 
-  const modal = new bootstrap.Modal(document.getElementById('productDetailModal'));
-  modal.show();
+  document.getElementById('productModal').classList.add('active');
 }
 
 function toggleWishlist(id) {
@@ -243,60 +231,97 @@ function toggleWishlist(id) {
   } else {
     wishlist.push(id);
   }
-  localStorage.setItem('pompy_wishlist', JSON.stringify(wishlist));
+  localStorage.setItem('pompy_boutinela_wishlist', JSON.stringify(wishlist));
   updateWishlistBadge();
   renderProducts();
 }
 
 function updateWishlistBadge() {
-  document.getElementById('wishlistBadge').textContent = wishlist.length;
+  document.getElementById('wishlistCount').textContent = wishlist.length;
 }
 
 function renderWishlistModal() {
-  const container = document.getElementById('wishlistModalBody');
-  const btnSend = document.getElementById('btnSendWishlistWs');
-
+  const container = document.getElementById('wishlistItemsList');
+  const btnSend = document.getElementById('sendWishlistWsBtn');
   const favProducts = rawProducts.filter(p => wishlist.includes(p.id));
 
   if (favProducts.length === 0) {
-    container.innerHTML = `<p class="text-center text-muted py-4">No tenés productos guardados en tus favoritos.</p>`;
+    container.innerHTML = `<p style="text-align: center; color: #888; padding: 20px 0;">No tenés productos guardados en favoritos.</p>`;
     btnSend.disabled = true;
     return;
   }
 
   btnSend.disabled = false;
   container.innerHTML = favProducts.map(p => `
-    <div class="d-flex align-items-center justify-content-between border-bottom py-2">
-      <div class="d-flex align-items-center gap-2">
-        <img src="${p.image}" alt="${p.name}" style="width: 45px; height: 45px; object-fit: cover;" class="rounded">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="${p.image}" style="width: 40px; height: 50px; object-fit: cover;">
         <div>
-          <h6 class="mb-0 text-truncate" style="max-width: 180px;">${p.name}</h6>
-          <small class="text-muted">$${p.price.toLocaleString('es-AR')}</small>
+          <div style="font-size: 0.8rem; font-weight: 600;">${p.name}</div>
+          <div style="font-size: 0.75rem; color: #666;">$${p.price.toLocaleString('es-AR')}</div>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline-danger border-0" onclick="toggleWishlist('${p.id}'); renderWishlistModal();"><i class="bi bi-trash"></i></button>
+      <button onclick="toggleWishlist('${p.id}'); renderWishlistModal();" style="background: none; border: none; cursor: pointer; color: #d90429; font-size: 1.1rem;">&times;</button>
     </div>
   `).join('');
 
   const wsNumber = "5493518189444";
   const itemsText = favProducts.map(p => `- ${p.name} ($${p.price.toLocaleString('es-AR')})`).join('\n');
-  const wsText = encodeURIComponent(`Hola! Quisiera consultar por la siguiente lista de favoritos:\n${itemsText}`);
+  const wsText = encodeURIComponent(`Hola POMPY! Quisiera consultar por mi lista de favoritos:\n${itemsText}`);
   btnSend.onclick = () => window.open(`https://wa.me/${wsNumber}?text=${wsText}`, '_blank');
 }
 
-document.getElementById('btnApplyFilters').addEventListener('click', applyFilters);
-document.getElementById('btnResetFilters').addEventListener('click', () => {
-  document.querySelectorAll('.filter-dynamic-check').forEach(cb => cb.checked = false);
-  document.getElementById('sortDefault').checked = true;
+document.getElementById('openMenuBtn').onclick = () => {
+  document.getElementById('sidebarDrawer').classList.add('active');
+  document.getElementById('drawerOverlay').classList.add('active');
+};
+
+const closeSidebar = () => {
+  document.getElementById('sidebarDrawer').classList.remove('active');
+  document.getElementById('drawerOverlay').classList.remove('active');
+};
+
+document.getElementById('closeMenuBtn').onclick = closeSidebar;
+document.getElementById('drawerOverlay').onclick = closeSidebar;
+
+document.getElementById('openSearchBtn').onclick = () => {
+  document.getElementById('searchDrawer').classList.toggle('active');
+};
+document.getElementById('closeSearchBtn').onclick = () => {
+  document.getElementById('searchDrawer').classList.remove('active');
+};
+
+document.getElementById('searchInput').oninput = applyFilters;
+document.getElementById('sortSelect').onchange = applyFilters;
+
+document.getElementById('resetFiltersBtn').onclick = () => {
+  document.querySelectorAll('.dyn-filter-check').forEach(cb => cb.checked = false);
+  document.getElementById('sortSelect').value = 'default';
   document.getElementById('searchInput').value = '';
   applyFilters();
-});
+};
 
-document.getElementById('searchInput').addEventListener('input', applyFilters);
-document.getElementById('btnLoadMore').addEventListener('click', () => {
+document.getElementById('loadMoreBtn').onclick = () => {
   currentPage++;
   renderProducts();
-});
+};
 
-document.getElementById('wishlistModal').addEventListener('show.bs.modal', renderWishlistModal);
+document.getElementById('closeProductModal').onclick = () => {
+  document.getElementById('productModal').classList.remove('active');
+};
+document.getElementById('productModalOverlay').onclick = () => {
+  document.getElementById('productModal').classList.remove('active');
+};
+
+document.getElementById('openWishlistBtn').onclick = () => {
+  renderWishlistModal();
+  document.getElementById('wishlistModal').classList.add('active');
+};
+document.getElementById('closeWishlistModal').onclick = () => {
+  document.getElementById('wishlistModal').classList.remove('active');
+};
+document.getElementById('wishlistModalOverlay').onclick = () => {
+  document.getElementById('wishlistModal').classList.remove('active');
+};
+
 document.addEventListener('DOMContentLoaded', fetchProducts);
