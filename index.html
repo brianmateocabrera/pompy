@@ -3,159 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo de Lencería - POMPY SEX-SHOP</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <title>POMPY | E-Commerce Catalog</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="sticky-header py-2 px-3 mb-4">
-    <div class="container-fluid d-flex align-items-center justify-content-between gap-2">
-      <button class="btn text-white p-1 border-0 shadow-none d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilterMenu" aria-controls="offcanvasFilterMenu" aria-label="Abrir menú de filtros">
-        <i class="bi bi-sliders fs-3"></i>
+  <div class="announcement-bar">
+    <span>ENVÍOS A TODO EL PAÍS — CONSULTÁ TUS PRENDAS FAVORITAS POR WHATSAPP</span>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <button class="menu-btn" id="openMenuBtn" aria-label="Abrir menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
 
-      <a href="#" class="mx-auto text-decoration-none d-flex align-items-center justify-content-center">
-        <img src="imagenes/logo.jpeg" alt="Logo Lencería" class="header-logo" onerror="this.onerror=null; this.src='https://placehold.co/200x50/111217/ffffff?text=POMPY';">
-      </a>
+      <a href="#" class="brand-logo">POMPY</a>
 
-      <button class="btn text-white p-1 border-0 shadow-none position-relative" type="button" data-bs-toggle="modal" data-bs-target="#wishlistModal" aria-label="Ver lista de favoritos">
-        <i class="bi bi-heart fs-4"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="wishlistBadge" style="font-size: 0.65rem;">
-          0
-        </span>
-      </button>
+      <div class="nav-actions">
+        <button class="icon-btn" id="openSearchBtn" aria-label="Buscar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="icon-btn" id="openWishlistBtn" aria-label="Favoritos">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-drawer" id="searchDrawer">
+      <div class="search-input-wrapper">
+        <input type="text" id="searchInput" placeholder="Buscar productos por nombre, categoría o marca...">
+        <button id="closeSearchBtn">&times;</button>
+      </div>
     </div>
   </header>
 
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilterMenu" aria-labelledby="offcanvasFilterMenuLabel">
-    <div class="offcanvas-header offcanvas-dark-header">
-      <h5 class="offcanvas-title fw-bold" id="offcanvasFilterMenuLabel">
-        <i class="bi bi-sliders me-2"></i>Filtros y Orden
-      </h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+  <aside class="sidebar-drawer" id="sidebarDrawer">
+    <div class="drawer-header">
+      <span class="drawer-title">MENÚ</span>
+      <button class="close-btn" id="closeMenuBtn">&times;</button>
     </div>
-
-    <div class="offcanvas-body p-3">
-      <div class="accordion" id="mainFilterAccordion">
-        <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
-          <h2 class="accordion-header" id="headingFilterBy">
-            <button class="accordion-button fw-bold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilterBy" aria-expanded="true" aria-controls="collapseFilterBy">
-              <i class="bi bi-funnel me-2"></i>Filtrar por
-            </button>
-          </h2>
-          <div id="collapseFilterBy" class="accordion-collapse collapse show" aria-labelledby="headingFilterBy" data-bs-parent="#mainFilterAccordion">
-            <div class="accordion-body p-2">
-              <div class="accordion nested-accordion" id="dynamicFiltersContainer">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item border-0 shadow-sm rounded overflow-hidden">
-          <h2 class="accordion-header" id="headingSortBy">
-            <button class="accordion-button collapsed fw-bold text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortBy" aria-expanded="false" aria-controls="collapseSortBy">
-              <i class="bi bi-sort-down me-2"></i>Ordenar por
-            </button>
-          </h2>
-          <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy" data-bs-parent="#mainFilterAccordion">
-            <div class="accordion-body p-3">
-              <div class="form-check my-2">
-                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortDefault" value="default" checked>
-                <label class="form-check-label small" for="sortDefault">Orden predeterminado (Sheet)</label>
-              </div>
-              <div class="form-check my-2">
-                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortPriceLow" value="priceLow">
-                <label class="form-check-label small" for="sortPriceLow">Menor precio primero</label>
-              </div>
-              <div class="form-check my-2">
-                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortPriceHigh" value="priceHigh">
-                <label class="form-check-label small" for="sortPriceHigh">Mayor precio primero</label>
-              </div>
-              <div class="form-check my-2">
-                <input class="form-check-input sort-radio" type="radio" name="sortOptions" id="sortNameAZ" value="nameAZ">
-                <label class="form-check-label small" for="sortNameAZ">Nombre A-Z</label>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="drawer-body">
+      <div class="nav-categories" id="dynamicSidebarNav">
       </div>
 
-      <div class="d-grid gap-2 mt-4">
-        <button type="button" class="btn btn-dark-custom" id="btnApplyFilters" data-bs-dismiss="offcanvas">Aplicar Filtros</button>
-        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnResetFilters">Limpiar Filtros</button>
+      <div class="sort-section">
+        <label class="sort-label">ORDENAR POR</label>
+        <select id="sortSelect" class="sort-select">
+          <option value="default">Orden predeterminado (Sheet)</option>
+          <option value="priceLow">Menor precio primero</option>
+          <option value="priceHigh">Mayor precio primero</option>
+          <option value="nameAZ">Nombre A-Z</option>
+        </select>
+      </div>
+
+      <div class="drawer-actions">
+        <button class="btn-reset" id="resetFiltersBtn">LIMPIAR FILTROS</button>
       </div>
     </div>
-  </div>
+  </aside>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
 
-  <main class="container py-2 py-md-4">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3">
-      <div>
-        <h1 class="h3 fw-bold text-dark mb-1">Catálogo de POMPY SEX-SHOP</h1>
-        <p class="text-muted small mb-0">Consultá tus productos favoritos directamente a nuestro WhatsApp.</p>
-      </div>
-      <div class="d-flex align-items-center gap-2">
-        <div class="input-group input-group-sm search-box">
-          <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-          <input type="search" class="form-control border-start-0 ps-0" id="searchInput" placeholder="Buscar producto...">
-        </div>
-        <span class="badge bg-white text-dark border px-3 py-2 rounded-pill shadow-sm text-nowrap" id="productCountBadge">
-          Cargando...
-        </span>
-      </div>
+  <main class="main-content">
+    <div class="catalog-header">
+      <h1 class="catalog-title">CATÁLOGO EXCLUSIVO</h1>
+      <p class="catalog-subtitle" id="productCountText">Cargando colección...</p>
     </div>
 
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4 g-3 g-md-4" id="productsGrid">
-      <div class="col"><div class="skeleton-card"></div></div>
-      <div class="col"><div class="skeleton-card"></div></div>
-      <div class="col"><div class="skeleton-card"></div></div>
-      <div class="col"><div class="skeleton-card"></div></div>
+    <div class="product-grid" id="productsGrid">
+      <div class="skeleton-item"></div>
+      <div class="skeleton-item"></div>
+      <div class="skeleton-item"></div>
+      <div class="skeleton-item"></div>
     </div>
 
-    <div class="text-center mt-4 d-none" id="loadMoreContainer">
-      <button class="btn btn-outline-dark px-4 py-2" id="btnLoadMore">Cargar más productos</button>
+    <div class="load-more-wrapper">
+      <button class="btn-load-more d-none" id="loadMoreBtn">CARGAR MÁS</button>
     </div>
   </main>
 
-  <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header border-0 pb-0">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body p-4 pt-0" id="productDetailContent">
-        </div>
+  <div class="modal" id="productModal">
+    <div class="modal-overlay" id="productModalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="closeProductModal">&times;</button>
+      <div class="modal-body" id="modalProductDetails"></div>
+    </div>
+  </div>
+
+  <div class="modal" id="wishlistModal">
+    <div class="modal-overlay" id="wishlistModalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="closeWishlistModal">&times;</button>
+      <div class="modal-header-text">MIS FAVORITOS</div>
+      <div class="modal-body" id="wishlistItemsList"></div>
+      <div class="modal-footer">
+        <button class="btn-ws-checkout" id="sendWishlistWsBtn" disabled>CONSULTAR FAVORITOS POR WHATSAPP</button>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="wishlistModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header offcanvas-dark-header">
-          <h5 class="modal-title fw-bold"><i class="bi bi-heart me-2"></i>Mis Favoritos</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body p-3" id="wishlistModalBody">
-        </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-whatsapp-custom w-100" id="btnSendWishlistWs" disabled>
-            <i class="bi bi-whatsapp me-2"></i>Consultar Lista por WhatsApp
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="mt-5 py-4 text-center text-white-50" style="background-color: #111217;">
-    <div class="container">
-      <p class="small mb-0">&copy; 2026 Catálogo de Lencería. Todos los derechos reservados.</p>
-    </div>
+  <footer class="footer">
+    <p>&copy; 2026 POMPY. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
