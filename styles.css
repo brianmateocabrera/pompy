@@ -530,3 +530,42 @@ body {
   color: #666;
   margin-top: 30px;
 }
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.menu-btn, .icon-btn {
+  z-index: 2;
+}
+
+.brand-logo-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 38px;
+  max-height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-logo-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #000000;
+  text-transform: uppercase;
+}
