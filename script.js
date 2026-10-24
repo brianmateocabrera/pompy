@@ -174,9 +174,9 @@ function renderProducts() {
         <div class="product-media" onclick="openProductModal('${p.id}')">
           ${badgeHtml}
           <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlist('${p.id}')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
           </button>
-          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x800?text=Sin+Imagen';">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Sin+Imagen';">
         </div>
         <div class="product-info">
           <span class="product-vendor">${p.subCategory}</span>
@@ -210,14 +210,14 @@ function openProductModal(id) {
   const wsText = encodeURIComponent(`Hola POMPY! Quisiera consultar por el producto: ${p.name} (Ref: ${p.id})\nEnlace: ${productUrl}`);
 
   document.getElementById('modalProductDetails').innerHTML = `
-    <div style="text-align: center; margin-bottom: 16px;">
-      <img src="${p.image}" alt="${p.name}" style="width: 100%; max-height: 350px; object-fit: contain;">
+    <div style="text-align: center; margin-bottom: 14px; background: #f7f7f7; padding: 10px;">
+      <img src="${p.image}" alt="${p.name}" style="width: 100%; max-height: 280px; object-fit: contain;">
     </div>
-    <span style="font-size: 0.65rem; text-transform: uppercase; color: #888;">${p.subCategory}</span>
-    <h3 style="font-size: 1.1rem; font-weight: 800; margin: 4px 0 8px;">${p.name}</h3>
-    <p style="font-size: 0.75rem; color: #666; margin-bottom: 12px;">Marca: ${p.brand} | Ref: ${p.id}</p>
-    <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">
-      ${formattedPrice} ${formattedOldPrice ? `<span style="font-size: 0.85rem; color: #888; text-decoration: line-through; margin-left: 6px;">${formattedOldPrice}</span>` : ''}
+    <span style="font-size: 0.6rem; text-transform: uppercase; color: #888;">${p.subCategory}</span>
+    <h3 style="font-size: 1rem; font-weight: 800; margin: 4px 0 6px;">${p.name}</h3>
+    <p style="font-size: 0.7rem; color: #666; margin-bottom: 10px;">Marca: ${p.brand} | Ref: ${p.id}</p>
+    <div style="font-size: 1rem; font-weight: 700; margin-bottom: 14px;">
+      ${formattedPrice} ${formattedOldPrice ? `<span style="font-size: 0.8rem; color: #888; text-decoration: line-through; margin-left: 6px;">${formattedOldPrice}</span>` : ''}
     </div>
     <a href="https://wa.me/${wsNumber}?text=${wsText}" target="_blank" class="btn-ws-checkout" style="display: block; text-align: center; text-decoration: none;">CONSULTAR POR WHATSAPP</a>
   `;
@@ -234,6 +234,11 @@ function toggleWishlist(id) {
   localStorage.setItem('pompy_boutinela_wishlist', JSON.stringify(wishlist));
   updateWishlistBadge();
   renderProducts();
+  
+  const wishlistModal = document.getElementById('wishlistModal');
+  if (wishlistModal.classList.contains('active')) {
+    renderWishlistModal();
+  }
 }
 
 function updateWishlistBadge() {
@@ -246,7 +251,7 @@ function renderWishlistModal() {
   const favProducts = rawProducts.filter(p => wishlist.includes(p.id));
 
   if (favProducts.length === 0) {
-    container.innerHTML = `<p style="text-align: center; color: #888; padding: 20px 0;">No tenés productos guardados en favoritos.</p>`;
+    container.innerHTML = `<p style="text-align: center; color: #888; padding: 20px 0; font-size: 0.8rem;">No tenés productos guardados en favoritos.</p>`;
     btnSend.disabled = true;
     return;
   }
@@ -255,13 +260,13 @@ function renderWishlistModal() {
   container.innerHTML = favProducts.map(p => `
     <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
       <div style="display: flex; align-items: center; gap: 10px;">
-        <img src="${p.image}" style="width: 40px; height: 50px; object-fit: cover;">
+        <img src="${p.image}" style="width: 35px; height: 35px; object-fit: contain; background: #f7f7f7;">
         <div>
-          <div style="font-size: 0.8rem; font-weight: 600;">${p.name}</div>
-          <div style="font-size: 0.75rem; color: #666;">$${p.price.toLocaleString('es-AR')}</div>
+          <div style="font-size: 0.75rem; font-weight: 600; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</div>
+          <div style="font-size: 0.7rem; color: #666;">$${p.price.toLocaleString('es-AR')}</div>
         </div>
       </div>
-      <button onclick="toggleWishlist('${p.id}'); renderWishlistModal();" style="background: none; border: none; cursor: pointer; color: #d90429; font-size: 1.1rem;">&times;</button>
+      <button onclick="toggleWishlist('${p.id}')" style="background: none; border: none; cursor: pointer; color: #d90429; font-size: 1.1rem; padding: 4px;">&times;</button>
     </div>
   `).join('');
 
