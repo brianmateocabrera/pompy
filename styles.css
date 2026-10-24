@@ -246,64 +246,71 @@ body {
 .main-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px 16px;
 }
 
 .catalog-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .catalog-title {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .catalog-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #666;
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 @media (min-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 20px;
   }
 }
 
 @media (min-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
 }
 
 .product-card {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  background: #fff;
 }
 
 .product-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   background-color: #f7f7f7;
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #f7f7f7;
   transition: transform 0.4s ease;
 }
 
@@ -313,15 +320,16 @@ body {
 
 .badge-tag {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   background-color: #000000;
   color: #ffffff;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  padding: 4px 8px;
+  padding: 3px 6px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  z-index: 2;
 }
 
 .badge-tag.sale {
@@ -330,18 +338,19 @@ body {
 
 .fav-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   background: #ffffff;
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 2;
 }
 
 .fav-btn.active svg {
@@ -350,56 +359,59 @@ body {
 }
 
 .product-info {
-  padding: 12px 0;
+  padding: 10px 4px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .product-vendor {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
   color: #888;
   letter-spacing: 0.08em;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .product-title {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: #111;
   text-decoration: none;
-  margin-bottom: 6px;
-  white-space: nowrap;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
   cursor: pointer;
+  line-height: 1.2;
+  height: 2.4em;
 }
 
 .price-box {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .price-box .old-price {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #888;
   text-decoration: line-through;
-  margin-left: 6px;
+  margin-left: 4px;
   font-weight: 400;
 }
 
 .btn-ws-quick {
   margin-top: auto;
   width: 100%;
-  padding: 8px;
+  padding: 7px 4px;
   background: #000000;
   color: #ffffff;
   border: none;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
@@ -413,21 +425,21 @@ body {
 
 .load-more-wrapper {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .btn-load-more {
-  padding: 12px 32px;
+  padding: 10px 24px;
   background: #ffffff;
   border: 1px solid #000000;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   cursor: pointer;
 }
 
 .skeleton-item {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1.3;
   background: #eee;
   animation: pulse 1.5s infinite;
 }
@@ -467,35 +479,35 @@ body {
   position: relative;
   background: #fff;
   width: 90%;
-  max-width: 500px;
+  max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
-  padding: 24px;
+  padding: 20px;
   z-index: 310;
 }
 
 .modal-header-text {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   text-align: center;
 }
 
 .modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 1.5rem;
+  top: 10px;
+  right: 10px;
+  font-size: 1.4rem;
 }
 
 .btn-ws-checkout {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: #25d366;
   color: #fff;
   border: none;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   cursor: pointer;
@@ -513,8 +525,8 @@ body {
 .footer {
   border-top: 1px solid #e5e5e5;
   text-align: center;
-  padding: 24px;
-  font-size: 0.75rem;
+  padding: 20px;
+  font-size: 0.7rem;
   color: #666;
-  margin-top: 40px;
+  margin-top: 30px;
 }
